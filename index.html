@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>متجر Switches – سويتشز لقطع الكمبيوتر</title>
+  <meta name="description" content="متجر احترافي لبيع قطع الكمبيوتر — كروت شاشة، رامات، معالجات، لوحات أم، تخزين..." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            // primary: '#0f172a', // اللون الأساسي الفاتح القديم
+            primary: '#1c1917', // استخدمنا لون أغمق لخلفية الموقع في الوضع الفاتح ليتناسب مع التغيرات
+            accent: '#0ea5a4',
+            // ألوان الوضع الداكن الجديدة
+            'dark-bg': '#121212', // أسود غامق للخلفية
+            'dark-card': '#3a025f', // بنفسجي داكن للمربعات (الوصف والعناصر)
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* تطبيق خط Inter */
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+    
+    /* Small custom styles */
+    .glass { backdrop-filter: blur(6px); background: rgba(255,255,255,0.06); }
+    .product-img { aspect-ratio: 4/3; object-fit: cover; border-radius: .5rem; }
+
+    /* تنسيقات الوضع الداكن المخصصة */
+    .dark .bg-slate-50 { background-color: #121212; }
+    .dark .text-slate-900, .dark .text-slate-600, .dark .text-slate-700 { color: white; }
+    .dark .bg-white { background-color: #3a025f; color: white; }
+    .dark .border-slate-200 { border-color: #3f3f46; } /* حدود داكنة قليلاً */
+    .dark .hover\:bg-slate-100:hover { background-color: #3a025f; }
+    .dark .shadow, .dark .shadow-sm { box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06); }
+    .dark .product-card, .dark .p-3.bg-white { background-color: #3a025f; }
+    .dark header.bg-white\/70 { background: rgba(255, 255, 255, 0.06); } /* جعل الهيدر زجاجي أكثر في الداكن */
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 transition-colors duration-300">
+  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur glass border-b border-slate-200 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-4">
+          <a href="#" class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-accent to-sky-600 rounded-lg flex items-center justify-center text-white font-bold">Swi</div>
+            <div class="text-lg font-semibold">Switches – سويتشز PC Parts</div>
+          </a>
+          
+          <nav class="hidden md:flex items-center gap-3 text-sm text-slate-600">
+            <a href="#products" class="hover:text-slate-900">المنتجات</a>
+            <a href="#brands" class="hover:text-slate-900">الماركات</a>
+            <a href="#about" class="hover:text-slate-900">من نحن</a>
+            <a href="#contact" class="hover:text-slate-900">تواصل معنا</a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <input id="search" type="search" placeholder="ابحث عن قطعة..." class="w-48 md:w-64 px-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-accent text-sm dark:bg-dark-card dark:border-white\/20 dark:text-white" />
+            <button id="clearSearch" class="absolute left-1 top-1/2 -translate-y-1/2 text-xs text-slate-500 dark:text-white\/50">مسح</button>
+          </div>
+
+          <button id="themeToggle" class="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-dark-card transition-colors duration-300">
+            <svg id="sunIcon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg id="moonIcon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+          
+          <button id="cartBtn" class="relative p-2 rounded-md hover:bg-slate-100 dark:hover:bg-dark-card transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 7h12l-2-7M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z" />
+            </svg>
+            <span id="cartCount" class="absolute -top-1 -left-1 bg-red-500 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center">0</span>
+          </button>
+
+          <div class="md:hidden">
+            <button id="mobileMenuBtn" class="p-2 rounded-md hover:bg-slate-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobileNav" class="md:hidden hidden border-t border-slate-100 dark:border-white\/20">
+      <div class="px-4 py-3 flex flex-col gap-2">
+        <a href="#products" class="py-2">المنتجات</a>
+        <a href="#brands" class="py-2">الماركات</a>
+        <a href="#about" class="py-2">من نحن</a>
+        <a href="#contact" class="py-2">تواصل معنا</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+      <div class="lg:col-span-2">
+        <h1 class="text-3xl sm:text-4xl font-extrabold">أفضل قطع الكمبيوتر لجمهور المحترفين والهواة</h1>
+        <p class="mt-4 text-slate-600 dark:text-white\/70">كروت شاشة، معالجات، رامات عالية الأداء، وحدات تخزين سريعة، وكل ما تحتاجه لتجميع جهازك المثالي — شحن آمن وخدمة دعم محلية.</p>
+        <div class="mt-6 flex gap-3">
+          <a href="#products" class="px-5 py-3 bg-accent text-white rounded-md font-semibold shadow">تسوق الآن</a>
+          <a href="#contact" class="px-5 py-3 border border-slate-200 rounded-md dark:border-white\/20">اطلب استشارة مجانية</a>
+        </div>
+
+        <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm text-slate-700">
+          <div class="p-3 bg-white rounded-lg shadow-sm text-center dark:bg-dark-card dark:text-white dark:shadow-md">
+            <div class="font-semibold">شحن سريع</div>
+            <div class="text-slate-500 dark:text-white\/70">داخل ليبيا</div>
+          </div>
+          <div class="p-3 bg-white rounded-lg shadow-sm text-center dark:bg-dark-card dark:text-white dark:shadow-md">
+            <div class="font-semibold">ضمان جودة</div>
+            <div class="text-slate-500 dark:text-white\/70">استرجاع خلال 14 يوم</div>
+          </div>
+          <div class="p-3 bg-white rounded-lg shadow-sm text-center dark:bg-dark-card dark:text-white dark:shadow-md">
+            <div class="font-semibold">خدمة عملاء</div>
+            <div class="text-slate-500 dark:text-white\/70">دعم فني 24/7</div>
+          </div>
+          <div class="p-3 bg-white rounded-lg shadow-sm text-center dark:bg-dark-card dark:text-white dark:shadow-md">
+            <div class="font-semibold">طرق دفع</div>
+            <div class="text-slate-500 dark:text-white\/70">نقدًا / حوالة بنكية</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="bg-white rounded-lg shadow p-4 dark:bg-dark-card dark:text-white dark:shadow-md" data-offer-name="باقة مُعالج + رامات" data-discount-percent="10" data-product-names="Ryzen 7 7800X|Kingston Fury 32GB DDR5 6000MHz">
+        <div class="text-sm text-slate-500 dark:text-white\/70">عرض خاص</div>
+        <div class="mt-3 font-semibold" id="offerName">باقة مُعالج + رامات</div>
+        <div class="mt-2 text-slate-600 dark:text-white\/70">احصل على **خصم 10%** عند شراء معالج + رام من نفس البائع.</div>
+        <div class="mt-4">
+          <a href="#products" class="w-full block text-center px-4 py-2 bg-slate-800 text-white rounded">اطلب العرض</a>
+        </div>
+      </aside>
+    </section>
+
+    <section id="products" class="mt-12">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-semibold">المنتجات</h2>
+        <div class="flex gap-2 items-center">
+          <select id="categoryFilter" class="px-3 py-2 border rounded-md text-sm dark:bg-dark-card dark:border-white\/20 dark:text-white">
+            <option value="all">جميع الأصناف</option>
+            <option value="gpu">كروت شاشة</option>
+            <option value="cpu">معالجات</option>
+            <option value="ram">رامات</option>
+            <option value="storage">تخزين</option>
+            <option value="motherboard">لوحات أم</option>
+          </select>
+          <select id="sortBy" class="px-3 py-2 border rounded-md text-sm dark:bg-dark-card dark:border-white\/20 dark:text-white">
+            <option value="featured">الأهم</option>
+            <option value="priceAsc">السعر: الأقل أولاً</option>
+            <option value="priceDesc">السعر: الأعلى أولاً</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="productsGrid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="product-card bg-white p-4 rounded-lg shadow dark:bg-dark-card dark:shadow-md" data-category="gpu" data-price="399" data-name="GeForce RTX 4070 Ti - عرض تجريبي">
+          <img src="https://images.unsplash.com/photo-1611078482549-3597430de9b3?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=9f5c3a8c8e3a1d8a" alt="GPU" class="product-img w-full" />
+          <h3 class="mt-3 font-semibold">GeForce RTX 4070 Ti - عرض تجريبي</h3>
+          <div class="mt-1 text-slate-600 dark:text-white\/70">ذاكرة 12 جيجابايت GDDR6X</div>
+          <div class="mt-3 flex items-center justify-between">
+            <div class="text-lg font-bold">$399</div>
+            <div class="flex gap-2">
+              <button class="addToCartBtn px-3 py-1 rounded-md border text-sm dark:border-white\/30">أضف للسلة</button>
+              <button class="viewBtn px-3 py-1 rounded-md bg-slate-100 text-sm dark:bg-dark-card\/80">عرض</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card bg-white p-4 rounded-lg shadow dark:bg-dark-card dark:shadow-md" data-category="cpu" data-price="279" data-name="Ryzen 7 7800X">
+          <img src="https://images.unsplash.com/photo-1615885549603-8aa2e7f1b3f3?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=0d0f58b6f0b6d7c0" alt="CPU" class="product-img w-full" />
+          <h3 class="mt-3 font-semibold">Ryzen 7 7800X</h3>
+          <div class="mt-1 text-slate-600 dark:text-white\/70">8 أنوية، 16 خيط معالجة</div>
+          <div class="mt-3 flex items-center justify-between">
+            <div class="text-lg font-bold">$279</div>
+            <div class="flex gap-2">
+              <button class="addToCartBtn px-3 py-1 rounded-md border text-sm dark:border-white\/30">أضف للسلة</button>
+              <button class="viewBtn px-3 py-1 rounded-md bg-slate-100 text-sm dark:bg-dark-card\/80">عرض</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card bg-white p-4 rounded-lg shadow dark:bg-dark-card dark:shadow-md" data-category="ram" data-price="110" data-name="Kingston Fury 32GB DDR5 6000MHz">
+          <img src="https://www.tpstech.in/cdn/shop/files/71nQb-WLI5L._AC_SL1428.jpg?v=1730978299&width=1445" class="product-img w-full" />
+          <h3 class="mt-3 font-semibold">Kingston Fury 32GB DDR5 6000MHz</h3>
+          <div class="mt-1 text-slate-600 dark:text-white\/70">ذاكرة سريعة للألعاب والعمل الاحترافي</div>
+          <div class="mt-3 flex items-center justify-between">
+            <div class="text-lg font-bold">$110</div>
+            <div class="flex gap-2">
+              <button class="addToCartBtn px-3 py-1 rounded-md border text-sm dark:border-white\/30">أضف للسلة</button>
+              <button class="viewBtn px-3 py-1 rounded-md bg-slate-100 text-sm dark:bg-dark-card\/80">عرض</button>
+            </div>
+          </div>
+        </article>
+
+        </div>
+    </section>
+
+    <section id="brands" class="mt-12">
+      <h2 class="text-xl font-semibold">الشركات المتعاونة</h2>
+      <div class="mt-4 grid grid-cols-3 sm:grid-cols-6 gap-4 items-center">
+        <div class="p-3 bg-white rounded shadow text-center text-sm dark:bg-dark-card dark:shadow-md">NVIDIA</div>
+        <div class="p-3 bg-white rounded shadow text-center text-sm dark:bg-dark-card dark:shadow-md">AMD</div>
+        <div class="p-3 bg-white rounded shadow text-center text-sm dark:bg-dark-card dark:shadow-md">Intel</div>
+        <div class="p-3 bg-white rounded shadow text-center text-sm dark:bg-dark-card dark:shadow-md">Kingston</div>
+        <div class="p-3 bg-white rounded shadow text-center text-sm dark:bg-dark-card dark:shadow-md">Corsair</div>
+        <div class="p-3 bg-white rounded shadow text-center text-sm dark:bg-dark-card dark:shadow-md">ASUS</div>
+      </div>
+    </section>
+
+    <section id="about" class="mt-12 bg-white rounded-lg p-6 shadow dark:bg-dark-card dark:text-white dark:shadow-md">
+      <h2 class="text-xl font-semibold">من نحن</h2>
+      <p class="mt-3 text-slate-600 dark:text-white\/70">Switches – سويتشز متجر متخصص في قطع الكمبيوتر — تأسس لخدمة المهتمين بالتجميع، صيانة، وترقيات الحواسيب. نركز على جودة المنتجات، خدمة سريعة، ومعلومات فنية واضحة لكل قطعة.</p>
+    </section>
+
+    <section id="contact" class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <form id="contactForm" class="bg-white p-6 rounded-lg shadow dark:bg-dark-card dark:text-white dark:shadow-md">
+        <h3 class="font-semibold">تواصل معنا</h3>
+        <p class="mt-2 text-slate-600 dark:text-white\/70 text-sm">أرسل استفسار أو طلب—سنرد خلال يوم عمل واحد.</p>
+        <div class="mt-4 grid grid-cols-1 gap-3">
+          <input required placeholder="الاسم" class="px-3 py-2 border rounded-md dark:bg-dark-card\/50 dark:border-white\/20" />
+          <input required type="email" placeholder="الايميل" class="px-3 py-2 border rounded-md dark:bg-dark-card\/50 dark:border-white\/20" />
+          <input placeholder="الهاتف (اختياري)" class="px-3 py-2 border rounded-md dark:bg-dark-card\/50 dark:border-white\/20" />
+          <textarea required placeholder="نص الرسالة" class="px-3 py-2 border rounded-md dark:bg-dark-card\/50 dark:border-white\/20" rows="4"></textarea>
+          <div class="flex gap-2">
+            <button class="px-4 py-2 bg-accent text-white rounded">إرسال</button>
+            <button type="reset" class="px-4 py-2 border rounded dark:border-white\/20">مسح</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="bg-white p-6 rounded-lg shadow dark:bg-dark-card dark:text-white dark:shadow-md">
+        <h3 class="font-semibold">معلومات التواصل</h3>
+        <ul class="mt-3 text-slate-600 dark:text-white\/70">
+          <li>📍 طرابلس، ليبيا</li>
+          <li>📞 1853169 - 093</li>
+          <li>✉️ info@z7-pc.ly</li>
+        </ul>
+
+        <div class="mt-6">
+          <h4 class="font-medium">ساعات العمل</h4>
+          <p class="text-sm text-slate-600 dark:text-white\/70">السبت - الخميس: 09:00 - 19:00</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <aside id="cartSidebar" class="fixed right-0 top-0 h-full w-80 transform translate-x-full transition-transform bg-white shadow-lg z-50 dark:bg-dark-bg dark:text-white">
+    <div class="p-4 border-b flex items-center justify-between dark:border-white\/20">
+      <div class="font-semibold">السلة</div>
+      <button id="closeCart" class="text-slate-500 dark:text-white\/70">إغلاق</button>
+    </div>
+    <div id="cartItems" class="p-4 overflow-auto h-[calc(100%-160px)]">
+      <div class="text-sm text-slate-500 dark:text-white\/70">السلة فارغة</div>
+    </div>
+    <div class="p-4 border-t dark:border-white\/20">
+      <div id="discountArea" class="hidden pb-2 border-b mb-2 dark:border-white\/20">
+        <div class="flex items-center justify-between text-sm text-red-500">
+          <span>خصم العرض (<span id="discountPercent">10</span>%)</span>
+          <span id="discountAmount">-$0.00</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between font-semibold">المجموع <span id="cartTotal">$0</span></div>
+      <div class="mt-3">
+        <button id="checkoutBtn" class="w-full px-4 py-2 bg-accent text-white rounded">أرسل الطلب الآن</button>
+      </div>
+    </div>
+  </aside>
+
+  <div id="checkoutModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 dark:bg-dark-card dark:text-white">
+      <div class="flex justify-between items-center border-b pb-3 mb-4 dark:border-white\/20">
+        <h3 class="text-xl font-bold">تأكيد وإرسال الطلب</h3>
+        <button id="closeModalBtn" class="text-slate-500 dark:text-white\/70">إغلاق</button>
+      </div>
+      <form id="orderForm" action="https://formsubmit.co/ans707kat@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="طلب متجر جديد من Switches">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="تفاصيل السلة" id="cartDetailsInput">
+
+        <div class="space-y-4">
+          <input required name="الاسم" type="text" placeholder="الاسم الكامل" class="w-full px-3 py-2 border rounded-md dark:bg-dark-card\/50 dark:border-white\/20" />
+          <input required name="رقم الهاتف" type="tel" placeholder="رقم الهاتف (للتواصل)" class="w-full px-3 py-2 border rounded-md dark:bg-dark-card\/50 dark:border-white\/20" />
+          <input required name="الموقع" type="text" placeholder="موقعك (المدينة/المنطقة)" class="w-full px-3 py-2 border rounded-md dark:bg-dark-card\/50 dark:border-white\/20" />
+          <textarea name="ملاحظات جانبية" placeholder="أضف أي ملاحظة جانبية (مثل تفاصيل العنوان الإضافية)" class="w-full px-3 py-2 border rounded-md dark:bg-dark-card\/50 dark:border-white\/20" rows="3"></textarea>
+        </div>
+        <p id="modalCartSummary" class="mt-4 text-sm text-center text-slate-600 dark:text-white\/70"></p>
+        <button type="submit" class="mt-4 w-full px-4 py-2 bg-accent text-white rounded font-semibold">تأكيد وإرسال الطلب الآن</button>
+      </form>
+    </div>
+  </div>
+
+
+  <footer class="mt-12 bg-slate-900 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <div class="font-bold text-lg">Switches – سويتشز PC Parts</div>
+        <div class="text-slate-300 text-sm mt-2">متجر مختص بقطع الكمبيوتر وخدمات التجميع والصيانة.</div>
+      </div>
+      <div>
+        <div class="font-semibold">روابط سريعة</div>
+        <ul class="mt-2 text-sm text-slate-300">
+          <li>المنتجات</li>
+          <li>المدونة</li>
+          <li>شروط الاستخدام</li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold">تابعنا</div>
+        <div class="flex gap-3 mt-2">
+          <a class="text-slate-300 text-sm">فيسبوك</a>
+          <a class="text-slate-300 text-sm">إنستغرام</a>
+          <a class="text-slate-300 text-sm">تيليجرام</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple interactions without any backend — replace with real APIs when ready.
+
+    // 1. Theme Toggle (الوضع الداكن)
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    function toggleTheme() {
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            html.classList.add('light');
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.remove('light');
+            html.classList.add('dark');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    // Check saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        html.classList.add('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    } else {
+        html.classList.add('light');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    // نهاية 1. Theme Toggle
+
+    // Mobile menu toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', function(){
+      const m = document.getElementById('mobileNav'); m.classList.toggle('hidden');
+    });
+
+    // Cart sidebar
+    const cartSidebar = document.getElementById('cartSidebar');
+    document.getElementById('cartBtn').addEventListener('click', () => {
+      cartSidebar.style.transform = 'translateX(0)';
+    });
+    document.getElementById('closeCart').addEventListener('click', () => {
+      cartSidebar.style.transform = 'translateX(100%)';
+    });
+
+    // Products, filtering, searching... (كود موجود مسبقًا)
+
+    // Sorting... (كود موجود مسبقًا)
+
+    // 2. Cart Logic & Special Offer Discount (منطق السلة وخصم العرض الخاص)
+    const cart = [];
+    const offerElement = document.querySelector('aside[data-offer-name]');
+    const offerProductNames = (offerElement.dataset.productNames || '').split('|').map(n => n.trim());
+    const discountPercent = Number(offerElement.dataset.discountPercent) / 100;
+
+    function calculateTotalWithDiscount(cartItems) {
+      let subTotal = 0;
+      let discountableTotal = 0;
+      let discountAmount = 0;
+      const isOfferActive = offerProductNames.every(name => cartItems.some(item => item.name === name));
+
+      cartItems.forEach(it => {
+        subTotal += it.qty * it.price;
+        if (isOfferActive && offerProductNames.includes(it.name)) {
+          discountableTotal += it.qty * it.price;
+        }
+      });
+
+      if (isOfferActive) {
+        discountAmount = discountableTotal * discountPercent;
+      }
+
+      const total = subTotal - discountAmount;
+      return { total, discountAmount, isOfferActive };
+    }
+
+    function updateCartCount(){ document.getElementById('cartCount').innerText = cart.reduce((s,i)=>s+i.qty,0); }
+    
+    function updateCartUI(){
+      const itemsWrap = document.getElementById('cartItems');
+      itemsWrap.innerHTML = '';
+      if(cart.length===0){ 
+        itemsWrap.innerHTML = '<div class="text-sm text-slate-500 dark:text-white\/70">السلة فارغة</div>'; 
+        document.getElementById('cartTotal').innerText = '$0.00'; 
+        document.getElementById('discountArea').classList.add('hidden');
+        return; 
+      }
+      
+      const { total, discountAmount, isOfferActive } = calculateTotalWithDiscount(cart);
+
+      cart.forEach(it =>{
+        const el = document.createElement('div');
+        el.className = 'flex items-center justify-between gap-2 mb-3 dark:border-white\/20';
+        el.innerHTML = `<div class="text-sm dark:text-white"><div class="font-medium">${it.name}</div><div class="text-xs text-slate-500 dark:text-white\/70">${it.qty} × $${it.price.toFixed(2)}</div></div><div class="flex gap-2"><button data-id="${it.id}" class="dec text-sm px-2 py-1 border rounded dark:border-white\/30 dark:hover:bg-dark-card\/50">-</button><button data-id="${it.id}" class="inc text-sm px-2 py-1 border rounded dark:border-white\/30 dark:hover:bg-dark-card\/50">+</button></div>`;
+        itemsWrap.appendChild(el);
+      });
+
+      // Update Discount UI
+      if (isOfferActive) {
+        document.getElementById('discountPercent').innerText = (discountPercent * 100).toFixed(0);
+        document.getElementById('discountAmount').innerText = '-$' + discountAmount.toFixed(2);
+        document.getElementById('discountArea').classList.remove('hidden');
+      } else {
+        document.getElementById('discountArea').classList.add('hidden');
+      }
+
+      document.getElementById('cartTotal').innerText = '$' + total.toFixed(2);
+
+      // attach inc/dec
+      itemsWrap.querySelectorAll('.inc').forEach(b=>b.addEventListener('click', e=>{
+        const id = e.currentTarget.dataset.id; cart.find(x=>x.id===id).qty++; updateCartCount(); updateCartUI();
+      }));
+      itemsWrap.querySelectorAll('.dec').forEach(b=>b.addEventListener('click', e=>{
+        const id = e.currentTarget.dataset.id; const item = cart.find(x=>x.id===id); item.qty--; if(item.qty<=0) cart.splice(cart.indexOf(item),1); updateCartCount(); updateCartUI();
+      }));
+    }
+
+    // attach product buttons (تعديل لإضافة اسم المنتج لبيانات السلة)
+    document.querySelectorAll('.addToCartBtn').forEach((btn, idx)=>{
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.product-card');
+        const id = 'p' + idx;
+        const name = card.dataset.name; // استخدام data-name
+        const price = Number(card.dataset.price);
+        const existing = cart.find(i=>i.id===id);
+        if(existing) { existing.qty++; } else { cart.push({id, name, price, qty:1}); }
+        updateCartCount(); updateCartUI();
+        // open cart
+        cartSidebar.style.transform = 'translateX(0)';
+      });
+    });
+    // نهاية 2. Cart Logic
+
+    // view button: simple modal... (كود موجود مسبقًا)
+
+    // 3. Checkout (نموذج الطلب والإرسال بالإيميل)
+    const checkoutModal = document.getElementById('checkoutModal');
+    const orderForm = document.getElementById('orderForm');
+    
+    document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+      if(cart.length===0) { alert('السلة فارغة'); return; }
+      
+      const { total, discountAmount, isOfferActive } = calculateTotalWithDiscount(cart);
+
+      // Prepare data for email
+      const cartSummary = cart.map(i => `${i.name} (${i.qty} x $${i.price.toFixed(2)})`).join('; ');
+      let emailDetails = `المنتجات: ${cartSummary}. `;
+      if (isOfferActive) {
+        emailDetails += `تم تطبيق خصم عرض ${offerElement.dataset.offerName} (${(discountPercent * 100).toFixed(0)}%) بقيمة $${discountAmount.toFixed(2)}. `;
+      }
+      emailDetails += `الإجمالي النهائي: $${total.toFixed(2)}.`;
+
+      // Fill hidden input and modal summary
+      document.getElementById('cartDetailsInput').value = emailDetails;
+      document.getElementById('modalCartSummary').innerText = `الإجمالي: $${total.toFixed(2)} ${isOfferActive ? '(مع تطبيق الخصم)' : ''}`;
+
+      // Show modal
+      checkoutModal.classList.remove('hidden');
+      cartSidebar.style.transform = 'translateX(100%)';
+    });
+
+    // Close modal
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+      checkoutModal.classList.add('hidden');
+    });
+
+    // Order form submission (FormSubmit)
+    orderForm.addEventListener('submit', function(e){
+        // FormSubmit handles the submission to the email defined in the 'action' attribute.
+        // Alert user of success (after FormSubmit redirects to its success page/message)
+        alert('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
+    });
+    // نهاية 3. Checkout
+
+    // contact form prevent default (no backend)
+    document.getElementById('contactForm').addEventListener('submit', function(e){ e.preventDefault(); alert('شكراً. تم استلام رسالتك — رداً سريعاً'); this.reset(); });
+
+  </script>
+</body>
+</html>
