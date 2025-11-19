@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Switches - Premium Computer Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --text: #212529;
+      --card: #ffffff;
+      --primary: #0d6efd;
+      --border: #dee2e6;
+      --logo-color: #3f0f4e;
+      --logo-size: 2rem;
+      --logo-font: 'Segoe UI', sans-serif;
+      --logo-weight: bold;
+      --logo-style: normal;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #e0e0e0;
+      --logo-color: #a29fc9;
+      --card: #1e1e1e;
+      --primary: #0d6efd;
+      --border: #333;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      background: var(--card);
+      padding: 1rem 5%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-image {
+      height: 40px;
+      width: auto;
+    }
+    .logo { 
+      font-size: var(--logo-size); 
+      font-family: var(--logo-font);
+      font-weight: var(--logo-weight);
+      font-style: var(--logo-style);
+      color: var(--logo-color); 
+    }
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem 5%; }
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .search-container {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .search-container input {
+      flex: 1;
+    }
+    select, input, textarea { padding: 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text); }
+    
+    /* Features Section */
+    .features-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .feature-box {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .feature-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .feature-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .feature-desc {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .product-card {
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+    .product-card img { width: 100%; height: 200px; object-fit: cover; }
+    .product-info { padding: 1rem; }
+    .price { font-size: 1.4rem; font-weight: bold; color: var(--primary); }
+    .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; }
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #28a745;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.8rem;
+      transition: transform 0.3s;
+    }
+    .cart-icon:hover {
+      transform: scale(1.1);
+    }
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #dc3545;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .support-section {
+      margin: 4rem 0;
+      background: var(--card);
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #0b5cd7; transform: translateY(-2px); }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-content {
+      background: var(--card);
+      max-width: 90%;
+      max-height: 90vh;
+      border-radius: 16px;
+      overflow: auto;
+      position: relative;
+      padding: 2rem;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    .modal.active .modal-content {
+      transform: translateY(0);
+    }
+    .cart-modal .modal-content {
+      max-width: 95%;
+      width: 1200px;
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #aaa;
+      transition: color 0.3s;
+    }
+    .close:hover { color: #000; }
+    .gallery {
+      display: flex;
+      gap: 10px;
+      margin: 1rem 0;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+    .gallery img {
+      height: 100px;
+      width: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .gallery img.active {
+      border: 2px solid var(--primary);
+    }
+    .main-image {
+      width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+    .reviews {
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+    .review {
+      background: var(--bg);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    
+    /* Image Carousel */
+    .carousel-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--card);
+      padding: 15px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      z-index: 999;
+      transform: translateY(100%);
+      transition: transform 0.5s ease;
+    }
+    .carousel-container.visible {
+      transform: translateY(0);
+    }
+    .carousel {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-track {
+      display: flex;
+      animation: scroll 40s linear infinite;
+    }
+    .carousel-track:hover {
+      animation-play-state: paused;
+    }
+    .carousel-item {
+      flex: 0 0 auto;
+      margin: 0 50px; /* Increased spacing between images */
+    }
+    .carousel-item img {
+      height: 80px;
+      width: auto;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      pointer-events: none;
+    }
+    .carousel-btn {
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: all;
+      transition: background 0.3s;
+    }
+    .carousel-btn:hover {
+      background: rgba(0,0,0,0.7);
+    }
+    
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    
+    footer {
+      text-align: center;
+      padding: 3rem;
+      background: var(--card);
+      margin-top: 4rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    /* Enhanced Cart Styles */
+    .cart-items-container {
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .cart-item:hover {
+      background: rgba(0,0,0,0.03);
+    }
+    .cart-item-image {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .cart-item-details {
+      flex: 1;
+    }
+    .cart-item-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .cart-item-price {
+      font-size: 1.1rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .qty-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .qty-btn:hover {
+      background: #0b5cd7;
+    }
+    .qty-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      min-width: 30px;
+      text-align: center;
+    }
+    .cart-item-remove {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .cart-item-remove:hover {
+      background: #c82333;
+    }
+    .cart-summary {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--border);
+    }
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .cart-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .empty-cart {
+      text-align: center;
+      padding: 3rem;
+      color: #888;
+    }
+    .empty-cart i {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    
+    /* Add to cart animation */
+    .add-to-cart-animation {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-container">
+    <!-- Replace the src with your logo image URL -->
+    <img src="https://qwertyqop.com/cdn/shop/files/individualswitch.png?v=1698726047" alt="Switches Logo" class="logo-image">
+    <div class="logo">Switches</div>
+  </div>
+  <div style="display:flex; align-items:center; gap:2rem;">
+    <div class="cart-icon" id="cartIcon">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="feature-box">
+      <div class="feature-icon">
+        <i class="fas fa-shipping-fast"></i>
+      </div>
+      <div class="feature-title">Fast Delivery</div>
+      <div class="feature-desc">Within 1-3 days to your doorstep</div>
+    </div>
+    <div class="feature-box">
+      <div class="feature-icon">
+        <i class="fas fa-map-marker-alt"></i>
+      </div>
+      <div class="feature-title">Nationwide Coverage</div>
+      <div class="feature-desc">Delivery to all cities across the country</div>
+    </div>
+    <div class="feature-box">
+      <div class="feature-icon">
+        <i class="fas fa-headset"></i>
+      </div>
+      <div class="feature-title">Technical Support</div>
+      <div class="feature-desc">Continuous and free technical assistance</div>
+    </div>
+    <div class="feature-box">
+      <div class="feature-icon">
+        <i class="fas fa-award"></i>
+      </div>
+      <div class="feature-title">Quality Guarantee</div>
+      <div class="feature-desc">60-day return policy for all products</div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search products, categories, brands...">
+      <button class="btn" id="searchBtn"><i class="fas fa-search"></i></button>
+    </div>
+    <select id="categoryFilter">
+      <option value="">All Categories</option>
+      <option>CPU</option>
+      <option>GPU</option>
+      <option>Motherboard</option>
+      <option>RAM</option>
+      <option>Storage</option>
+      <option>PSU</option>
+      <option>Case</option>
+      <option>Global Cards</option>
+    </select>
+    <select id="brandFilter">
+      <option value="">All Brands</option>
+      <option>Intel</option>
+      <option>AMD</option>
+      <option>NVIDIA</option>
+      <option>Corsair</option>
+      <option>Samsung</option>
+      <option>ASUS</option>
+    </select>
+    <select id="conditionFilter">
+      <option value="">All Conditions</option>
+      <option>New</option>
+      <option>Used</option>
+      <option>Open Box</option>
+    </select>
+    <select id="priceFilter">
+      <option value="">Price</option>
+      <option value="low">Low to High</option>
+      <option value="high">High to Low</option>
+    </select>
+  </div>
+
+  <!-- Products -->
+  <div class="products-grid" id="productsGrid"></div>
+
+  <!-- Support Section -->
+  <section class="support-section">
+    <h2 style="text-align:center; margin-bottom:2rem;">Technical Support</h2>
+    <form id="supportForm" style="max-width:600px; margin:0 auto; display:grid; gap:1rem;">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <textarea name="issue" placeholder="Describe your issue..." rows="5" required></textarea>
+      <button type="submit" class="btn">Send Request</button>
+    </form>
+  </section>
+</div>
+
+<!-- Image Carousel -->
+<div class="carousel-container" id="carouselContainer">
+  <div class="carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <!-- Images will be added by JavaScript -->
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="carouselPrev">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="carousel-btn" id="carouselNext">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal" id="productModal">
+  <div class="modal-content" style="max-width:900px;">
+    <span class="close" id="closeProduct">&times;</span>
+    <div id="productDetail"></div>
+  </div>
+</div>
+
+<!-- Cart Modal -->
+<div class="modal cart-modal" id="cartModal">
+  <div class="modal-content">
+    <span class="close" id="closeCart">&times;</span>
+    <h2 style="margin-bottom: 1.5rem;">Shopping Cart</h2>
+    <div class="cart-items-container" id="cartItems"></div>
+    <div class="cart-summary">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <div class="cart-actions">
+        <button class="btn" id="continueShoppingBtn">Continue Shopping</button>
+        <button class="btn" id="checkoutBtn">Order Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Order Modal -->
+<div class="modal" id="orderModal">
+  <div class="modal-content" style="max-width:500px;">
+    <span class="close" id="closeOrder">&times;</span>
+    <h2>Place Your Order</h2>
+    <form id="orderForm" style="display:grid; gap:1rem; margin-top:1rem;">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <input type="text" name="location" placeholder="Location/Address" required />
+      <textarea name="notes" placeholder="Additional Notes" rows="3"></textarea>
+      <button type="submit" class="btn">Place Order</button>
+    </form>
+  </div>
+</div>
+
+<!-- Gift Card Payment Modal -->
+<div class="modal" id="giftPayModal">
+  <div class="modal-content" style="max-width:500px; text-align:center;">
+    <span class="close" id="closeGiftPay">&times;</span>
+    <h2>Select Payment Method</h2>
+    <div style="margin:2rem 0; display:grid; gap:1rem;">
+      <button class="btn" style="background:#28a745;"><i class="fab fa-cc-mastercard"></i> MasterCard</button>
+      <button class="btn" style="background:#0d6efd;"><i class="fab fa-cc-visa"></i> Visa</button>
+      <button class="btn" style="background:#ff9900;"><i class="fas fa-mobile-alt"></i> Mobile Payment (Libyana/Madar)</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 TechZone Pro - All Rights Reserved</p>
+</footer>
+
+<script>
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+themeToggle.addEventListener('click', () => {
+  if (body.getAttribute('data-theme') === 'dark') {
+    body.removeAttribute('data-theme');
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    localStorage.setItem('theme', 'light');
+  } else {
+    body.setAttribute('data-theme', 'dark');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    localStorage.setItem('theme', 'dark');
+  }
+});
+if (localStorage.getItem('theme') === 'dark') {
+  body.setAttribute('data-theme', 'dark');
+  themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+}
+
+// Sample Products
+const products = [
+  {id:1, name:"RTX 4090 Ti", category:"GPU", brand:"NVIDIA", price:1599, oldPrice:1899, condition:"New", rating:4.9, 
+  images:[
+                'https://i.ytimg.com/vi/_W3FQjFg7DY/maxresdefault.jpg', 
+                'https://techguided.com/wp-content/uploads/2023/04/4070-ti-vs-4090-1024x593.jpg', 
+                'https://pic.clubic.com/v1/images/2129950/raw'
+  ], 
+  desc:"The most powerful consumer GPU ever made."},
+  
+  {id:2, name:"Ryzen 9 7950X", category:"CPU", brand:"AMD", price:579, oldPrice:699, condition:"New", rating:5.0, 
+  images:[
+    'https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x-og.jpg',
+    'https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg',
+    'https://cdn.mos.cms.futurecdn.net/AAUPmkWs8yCsVwguyRjWK.png'
+  ],  desc:"The most powerful consumer GPU ever made."},
+
+  {id:3, name:"corsair vengeance 32GB DDR5 6000MHz ", category:"RAM", brand:"Corsair", price:189, oldPrice:249, condition:"Open Box", rating:4.8, 
+  images:[
+    'https://gamers.ge/wp-content/uploads/2023/08/Corsair-VENGEANCE-RGB-DDR5-16x2-6000MHz-white.jpg',
+    'https://static.tweaktown.com/content/1/0/10340_888_corsair-vengeance-rgb-ddr5-6000-32gb-dual-channel-memory-kit-review_full.jpg',
+    'https://preview.redd.it/new-vengeance-ddr5-light-enhancement-kit-very-dim-compared-v0-krkjbij6av6e1.jpeg?width=1080&format=pjpg&auto=webp&s=b3294e7b792260f854e1931e3b708ed8e28137a6'
+  ],  desc:"The most powerful consumer GPU ever made."},
+  
+  {id:4, name:"crucial t705 2tb gen5 nvme ssd", category:"Storage", brand:"Samsung", price:299, oldPrice:399, condition:"New", rating:4.9, 
+  images:[
+    'https://cdn.mos.cms.futurecdn.net/iZEGMzkmaX8o87Apg5HsZV.jpg',
+    'https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg',
+    'https://assets.micron.com/adobe/assets/urn:aaid:aem:69bd2902-dd78-4fbe-bcaa-04f36735093d/original/as/crucial-t705LE-ssd-gallery-image-6-compatibility-hs.png'
+  ],  desc:"The most powerful consumer GPU ever made."},
+
+  {id:5, name:"ROG Strix Z790-E", category:"Motherboard", brand:"ASUS", price:479, oldPrice:549, condition:"Used", rating:4.7, 
+  images:[
+    'https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg',
+    'https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg',
+    'https://microless.com/cdn/products/a4d11f7efc7aac6d6829b1bf5b4fe22f-hi.jpg'
+  ],  desc:"The most powerful consumer GPU ever made."},
+  
+  {id:6, name:"asus rog strix 1000w 80+ platinum full modüler psu", category:"PSU", brand:"Corsair", price:219, oldPrice:269, condition:"New", rating:4.8, 
+  images:[
+    'https://rog.asus.com/media/1723518683990.jpg',
+    'https://dlcdnwebimgs.asus.com/files/media/0003A3D7-4037-4F8D-BC15-38902D1057ED/v1/img/engineering/80_plusgold_2.jpg',
+    'https://cdn.mwave.com.au/images/400/asus_rog_strix_1000w_80_platinum_fully_modular_power_supply_white_ac82582_9537.jpg'
+  ],   desc:"The most powerful consumer GPU ever made."},
+];
+
+// Gift Cards
+const giftCards = [
+  {id: 7, name:"Amazon Gift Card", category:"Global Cards", brand:"Amazon", price:10, oldPrice:null, condition:"Digital", rating:4.9, 
+   images:["https://newworld-guides.com/wp-content/uploads/2021/08/Amazon-Win-100-Euro.jpg"], 
+   desc:"Redeemable on Amazon.com for millions of items."},
+
+  {id: 8, name:"Newegg Gift Card", category:"Global Cards", brand:"Newegg", price:25, oldPrice:null, condition:"Digital", rating:4.8, 
+   images:["https://c1.neweggimages.com/productimage/nb640/GC-000-001-08.jpg"], 
+   desc:"Perfect for tech enthusiasts shopping on Newegg."},
+
+  {id: 9, name:"Steam Wallet", category:"Global Cards", brand:"Steam", price:20, oldPrice:null, condition:"Digital", rating:4.9, 
+   images:["https://cdn.akamai.steamstatic.com/store/home/store_home_share.jpg"], 
+   desc:"Add funds to your Steam Wallet for games, software, and more."},
+
+  {id: 10, name:"PlayStation Store", category:"Global Cards", brand:"Sony", price:50, oldPrice:null, condition:"Digital", rating:4.7, 
+   images:["https://cdn.mos.cms.futurecdn.net/9dqnuaQtjHF7GfmwqjfMoJ-1200-80.jpg"], 
+   desc:"Purchase games, add-ons, subscriptions and more from PlayStation Store."},
+
+  {id: 11, name:"Libyana Balance", category:"Global Cards", brand:"Libyana", price:5, oldPrice:null, condition:"Digital", rating:4.5, 
+   images:["https://cdn.aptoide.com/imgs/9/e/d/9edcf6b5b70aa66783b28091cee31ac7_fgraphic.png"], 
+   desc:"Top up your Libyana mobile balance instantly."},
+
+  {id: 12, name:"Madar Balance", category:"Global Cards", brand:"Madar", price:5, oldPrice:null, condition:"Digital", rating:4.5, 
+   images:["https://customercare.almadar.ly/hc/theming_assets/01HZM4P8H5NW4FF24DETSYBSEE"], 
+   desc:"Top up your Madar mobile balance instantly."},
+];
+
+// Combine products and gift cards
+const allItems = [...products, ...giftCards];
+
+// Carousel Images - Exactly 10 images
+const carouselImages = [
+  'https://images.squarespace-cdn.com/content/v1/605bb963c5e59c377260dbe0/50344fc1-a4ea-488a-8e54-782028e97310/AT%20USED%20MSI%20GeForce%20RTX%202080%20TI%2011gb%20Gaming%20X%20Trio%20Boost%20Graphics%20Card%20GPU.jpeg?format=1500w',
+  'https://sc01.alicdn.com/kf/H10b8c756d3ce496db99160bab7603e76A.jpg',
+  'https://macsources.com/wp-content/uploads/2025/04/001-GameSir-SuperNova-Controller-Apr25.jpg',
+  'https://images.offerup.com/PS_XUKVJs8HdhJttHKZj-5DVtA0=/1440x1920/9ab2/9ab285012719448393c6554a534bd117.jpg',
+  'https://preview.redd.it/asus-z790-e-wifi-00-code-no-post-or-boot-v0-3uhauvcpft1f1.jpeg?width=1080&crop=smart&auto=webp&s=e1af665cd36fbeb6d29785603e5fb9ed6b504de3',
+  'https://i.ytimg.com/vi/ybAoXVchwXw/sddefault.jpg',
+  'https://cdn.wccftech.com/wp-content/uploads/2024/11/RTX-4090-Ti-1.webp',
+  'https://www.wikihow.com/images/5/59/Redeem-a-Steam-Wallet-Code-Step-28-Version-3.jpg',
+  'https://deskr.co/cdn/shop/articles/1.webp?v=1686326073',
+  'https://i.ebayimg.com/images/g/UGcAAOSwSdVk0rvV/s-l400.jpg',
+];
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let currentProductImage = {}; // Track current image for each product
+
+// Initialize Carousel
+function initCarousel() {
+  const carouselTrack = document.getElementById('carouselTrack');
+  
+  // Use exactly 10 images
+  const images = carouselImages.slice(0, 10);
+  
+  // Duplicate images to create seamless loop
+  const duplicatedImages = [...images, ...images];
+  
+  carouselTrack.innerHTML = duplicatedImages.map((src, index) => `
+    <div class="carousel-item">
+      <img src="${src}" alt="Carousel Image ${index + 1}">
+    </div>
+  `).join('');
+  
+  // Carousel controls
+  document.getElementById('carouselPrev').addEventListener('click', () => {
+    const track = document.querySelector('.carousel-track');
+    track.style.animationPlayState = 'paused';
+    track.style.transform = `translateX(${parseInt(track.style.transform?.replace('translateX(', '') || 0) + 100}px)`;
+    setTimeout(() => {
+      track.style.animationPlayState = 'running';
+    }, 100);
+  });
+  
+  document.getElementById('carouselNext').addEventListener('click', () => {
+    const track = document.querySelector('.carousel-track');
+    track.style.animationPlayState = 'paused';
+    track.style.transform = `translateX(${parseInt(track.style.transform?.replace('translateX(', '') || 0) - 100}px)`;
+    setTimeout(() => {
+      track.style.animationPlayState = 'running';
+    }, 100);
+  });
+}
+
+// Show/hide carousel based on scroll position
+function handleScroll() {
+  const carouselContainer = document.getElementById('carouselContainer');
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const pageHeight = document.documentElement.scrollHeight;
+  
+  // Show carousel when user is near the bottom of the page
+  if (scrollPosition >= pageHeight - 100) {
+    carouselContainer.classList.add('visible');
+  } else {
+    carouselContainer.classList.remove('visible');
+  }
+}
+
+// Render Products
+function renderProducts(filter = {}) {
+  let filtered = allItems;
+
+  // Apply category filter
+  if (filter.category) {
+    if (filter.category === "Global Cards") {
+      filtered = filtered.filter(p => p.category === "Global Cards");
+    } else {
+      filtered = filtered.filter(p => p.category === filter.category);
+    }
+  }
+  
+  // Apply brand filter
+  if (filter.brand) filtered = filtered.filter(p => p.brand === filter.brand);
+  
+  // Apply condition filter
+  if (filter.condition) filtered = filtered.filter(p => p.condition === filter.condition);
+  
+  // Apply price filter
+  if (filter.price === 'low') filtered.sort((a,b) => a.price - b.price);
+  if (filter.price === 'high') filtered.sort((a,b) => b.price - a.price);
+  
+  // Apply search filter
+  if (filter.search) {
+    const searchTerm = filter.search.toLowerCase();
+    filtered = filtered.filter(p => 
+      p.name.toLowerCase().includes(searchTerm) ||
+      p.category.toLowerCase().includes(searchTerm) ||
+      p.brand.toLowerCase().includes(searchTerm) ||
+      p.desc.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" data-id="${p.id}">
+      ${p.oldPrice ? `<span class="badge">-${Math.round((1 - p.price/p.oldPrice)*100)}%</span>` : ''}
+      <img src="${p.images[0]}" alt="${p.name}" loading="lazy"/>
+      <div class="product-info">
+        <h3>${p.name}</h3>
+        <p>${p.brand} • ${p.condition}</p>
+        <div style="margin:1rem 0;">
+          ${Array(Math.floor(p.rating)).fill('★').join('')} ${p.rating}
+        </div>
+        <div>
+          <span class="price">$${p.price}</span>
+          ${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ''}
+        </div>
+        <button class="btn add-to-cart" style="margin-top:1rem; width:100%;" data-id="${p.id}">Add to Cart</button>
+      </div>
+    </div>
+  `).join('');
+
+  // Add to cart buttons
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = parseInt(e.target.dataset.id);
+      addToCart(id, e.target);
+    });
+  });
+
+  // Open product modal
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('add-to-cart')) return;
+      const id = parseInt(card.dataset.id);
+      showProductDetail(id);
+    });
+  });
+}
+
+// Add to cart with animation
+function addToCart(id, button) {
+  const product = allItems.find(p => p.id === id);
+  
+  // Use current image if available, otherwise use first image
+  const currentImage = currentProductImage[id] || product.images[0];
+  
+  const existing = cart.find(item => item.id === id);
+  if (existing) {
+    existing.qty++;
+    // Update image if it has changed
+    if (currentImage !== existing.images[0]) {
+      existing.images[0] = currentImage;
+    }
+  } else {
+    cart.push({
+      ...product, 
+      qty: 1,
+      images: [currentImage] // Store only the current image
+    });
+  }
+  
+  // Create animation element
+  const animation = document.createElement('div');
+  animation.className = 'add-to-cart-animation';
+  
+  // Get button position
+  const rect = button.getBoundingClientRect();
+  const startX = rect.left + rect.width / 2;
+  const startY = rect.top + rect.height / 2;
+  
+  // Get cart icon position
+  const cartRect = document.getElementById('cartIcon').getBoundingClientRect();
+  const endX = cartRect.left + cartRect.width / 2;
+  const endY = cartRect.top + cartRect.height / 2;
+  
+  // Create product image for animation
+  const img = document.createElement('img');
+  img.src = currentImage;
+  img.style.width = '40px';
+  img.style.height = '40px';
+  img.style.borderRadius = '50%';
+  img.style.objectFit = 'cover';
+  animation.appendChild(img);
+  
+  // Set initial position
+  animation.style.left = startX + 'px';
+  animation.style.top = startY + 'px';
+  
+  document.body.appendChild(animation);
+  
+  // Animate to cart
+  setTimeout(() => {
+    animation.style.left = endX + 'px';
+    animation.style.top = endY + 'px';
+    animation.style.transform = 'scale(0.5)';
+    animation.style.opacity = '0.5';
+  }, 10);
+  
+  // Remove animation and update cart
+  setTimeout(() => {
+    document.body.removeChild(animation);
+    updateCart();
+    
+    // Show success notification
+    showNotification(`${product.name} added to cart!`);
+  }, 800);
+}
+
+// Show notification
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.textContent = message;
+  notification.style.position = 'fixed';
+  notification.style.top = '20px';
+  notification.style.right = '20px';
+  notification.style.background = '#28a745';
+  notification.style.color = 'white';
+  notification.style.padding = '10px 20px';
+  notification.style.borderRadius = '5px';
+  notification.style.zIndex = '10000';
+  notification.style.boxShadow = '0 3px 10px rgba(0,0,0,0.2)';
+  notification.style.transition = 'all 0.3s';
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 300);
+  }, 2000);
+}
+
+// Filters
+document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+document.getElementById('brandFilter').addEventListener('change', applyFilters);
+document.getElementById('conditionFilter').addEventListener('change', applyFilters);
+document.getElementById('priceFilter').addEventListener('change', applyFilters);
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+document.getElementById('searchBtn').addEventListener('click', applyFilters);
+
+function applyFilters() {
+  const filter = {
+    category: document.getElementById('categoryFilter').value,
+    brand: document.getElementById('brandFilter').value,
+    condition: document.getElementById('conditionFilter').value,
+    price: document.getElementById('priceFilter').value,
+    search: document.getElementById('searchInput').value
+  };
+  renderProducts(filter);
+}
+
+// Cart Functions
+function updateCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  document.getElementById('cartCount').textContent = cart.reduce((sum, i) => sum + i.qty, 0);
+  renderCartItems();
+}
+
+function renderCartItems() {
+  const container = document.getElementById('cartItems');
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="empty-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <h3>Your cart is empty</h3>
+        <p>Add some products to your cart to see them here</p>
+      </div>
+    `;
+    document.getElementById('cartTotal').textContent = '$0.00';
+    return;
+  }
+
+  container.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img src="${item.images[0]}" class="cart-item-image" alt="${item.name}">
+      <div class="cart-item-details">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">$${item.price}</div>
+        <div class="cart-item-controls">
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+            <span class="qty-value">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart(${item.id})">Remove</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+  document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (item) {
+    item.qty += delta;
+    if (item.qty <= 0) removeFromCart(id);
+    else updateCart();
+  }
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  updateCart();
+}
+
+// Modal Functions
+const productModal = document.getElementById('productModal');
+const cartModal = document.getElementById('cartModal');
+const orderModal = document.getElementById('orderModal');
+const giftPayModal = document.getElementById('giftPayModal');
+
+function showModal(modal) {
+  modal.classList.add('active');
+}
+
+function hideModal(modal) {
+  modal.classList.remove('active');
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 300);
+}
+
+document.getElementById('cartIcon').onclick = () => { 
+  renderCartItems(); 
+  cartModal.style.display = 'flex';
+  setTimeout(() => showModal(cartModal), 10);
+};
+
+document.getElementById('closeCart').onclick = () => hideModal(cartModal);
+document.getElementById('closeOrder').onclick = () => hideModal(orderModal);
+document.getElementById('closeGiftPay').onclick = () => hideModal(giftPayModal);
+document.getElementById('closeProduct').onclick = () => hideModal(productModal);
+
+document.getElementById('continueShoppingBtn').onclick = () => hideModal(cartModal);
+
+window.onclick = (e) => {
+  if (e.target.classList.contains('modal')) hideModal(e.target);
+};
+
+// Checkout
+document.getElementById('checkoutBtn').onclick = () => {
+  hideModal(cartModal);
+  setTimeout(() => {
+    orderModal.style.display = 'flex';
+    setTimeout(() => showModal(orderModal), 10);
+  }, 300);
+};
+
+// Order Form Submission
+document.getElementById('orderForm').onsubmit = (e) => {
+  e.preventDefault();
+  
+  // Get form data
+  const formData = new FormData(e.target);
+  const orderData = {
+    name: formData.get('name'),
+    phone: formData.get('phone'),
+    location: formData.get('location'),
+    notes: formData.get('notes'),
+    cart: cart,
+    total: cart.reduce((sum, i) => sum + i.price * i.qty, 0)
+  };
+  
+  // Send email using EmailJS
+  sendOrderEmail(orderData);
+  
+  // Reset cart and close modal
+  cart = [];
+  updateCart();
+  hideModal(orderModal);
+  e.target.reset();
+};
+
+// Support Form
+document.getElementById('supportForm').onsubmit = (e) => {
+  e.preventDefault();
+  
+  // Get form data
+  const formData = new FormData(e.target);
+  const supportData = {
+    name: formData.get('name'),
+    phone: formData.get('phone'),
+    issue: formData.get('issue')
+  };
+  
+  // Send email using EmailJS
+  sendSupportEmail(supportData);
+  
+  // Reset form
+  e.target.reset();
+};
+
+// Product Detail Modal
+function showProductDetail(id) {
+  const p = allItems.find(x => x.id === id);
+  
+  // Initialize current image for this product if not set
+  if (!currentProductImage[id]) {
+    currentProductImage[id] = p.images[0];
+  }
+  
+  document.getElementById('productDetail').innerHTML = `
+    <h2>${p.name}</h2>
+    <p style="color:#888;">${p.brand} • ${p.condition}</p>
+    
+    <!-- Main product image that fills the pop-up width -->
+    <img class="main-image" src="${currentProductImage[id]}" id="mainProductImage" alt="${p.name}">
+    
+    <!-- Gallery of thumbnails -->
+    <div class="gallery">
+      ${p.images.map((src, index) => 
+        `<img src="${src}" class="${src === currentProductImage[id] ? 'active' : ''}" onclick="changeMainImage(${id}, '${src}', this)">`
+      ).join('')}
+    </div>
+    
+    <h2 style="color:var(--primary); margin:1.5rem 0;">$${p.price}</h2>
+    ${p.oldPrice ? `<p><s>$${p.oldPrice}</s> Save ${Math.round((1 - p.price/p.oldPrice)*100)}%</p>` : ''}
+    <p><strong>Description:</strong> ${p.desc || 'High-performance component with latest technology.'}</p>
+    <button class="btn add-to-cart" data-id="${p.id}" style="width:100%; padding:1rem; font-size:1.2rem;">Add to Cart</button>
+    <div class="reviews">
+      <h3>Customer Reviews (${p.rating} ★)</h3>
+      <div class="review">
+        <strong>Ahmed K.</strong> ★★★★★<br>
+        Amazing performance! Best purchase of 2025.
+      </div>
+      <div class="review">
+        <strong>Sara M.</strong> ★★★★☆<br>
+        Very good, minor coil whine on GPU but acceptable.
+      </div>
+    </div>
+  `;
+  productModal.style.display = 'flex';
+  setTimeout(() => showModal(productModal), 10);
+
+  // Re-bind add to cart inside modal
+  document.querySelector('#productDetail .add-to-cart').addEventListener('click', (e) => {
+    addToCart(id, e.target);
+  });
+}
+
+// Function to change the main image when clicking on thumbnails
+function changeMainImage(productId, src, element) {
+  document.getElementById('mainProductImage').src = src;
+  currentProductImage[productId] = src;
+  
+  // Remove active class from all thumbnails
+  document.querySelectorAll('.gallery img').forEach(img => {
+    img.classList.remove('active');
+  });
+  
+  // Add active class to the clicked thumbnail
+  element.classList.add('active');
+}
+
+// Email sending functions
+function sendOrderEmail(orderData) {
+  // In a real implementation, you would use a service like EmailJS, Formspree, or your own backend
+  // For demonstration, we'll simulate the email sending
+  
+  const emailBody = `
+    New Order Received!
+    
+    Customer Details:
+    Name: ${orderData.name}
+    Phone: ${orderData.phone}
+    Location: ${orderData.location}
+    Notes: ${orderData.notes || 'None'}
+    
+    Order Items:
+    ${orderData.cart.map(item => `- ${item.name} (Qty: ${item.qty}) - $${item.price * item.qty}`).join('\n')}
+    
+    Total: $${orderData.total.toFixed(2)}
+  `;
+  
+  // In a real implementation, you would send this to your email
+  console.log("Order email would be sent to: anassalmozjee@gmail.com");
+  console.log("Email content:", emailBody);
+  
+  // Show success message
+  alert('Order placed successfully! We will contact you soon.');
+}
+
+function sendSupportEmail(supportData) {
+  // In a real implementation, you would use a service like EmailJS, Formspree, or your own backend
+  
+  const emailBody = `
+    New Support Request!
+    
+    Customer Details:
+    Name: ${supportData.name}
+    Phone: ${supportData.phone}
+    
+    Issue Description:
+    ${supportData.issue}
+  `;
+  
+  // In a real implementation, you would send this to your email
+  console.log("Support email would be sent to: anassalmozjee@gmail.com");
+  console.log("Email content:", emailBody);
+  
+  // Show success message
+  alert('Support request sent! We will contact you soon.');
+}
+
+// Initialize the page
+function init() {
+  renderProducts();
+  initCarousel();
+  updateCart();
+  
+  // Add scroll event listener
+  window.addEventListener('scroll', handleScroll);
+}
+
+// Initial cart count
+init();
+</script>
+</body>
+</html>
