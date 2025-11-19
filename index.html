@@ -1465,7 +1465,7 @@ ${cartItems}
     customer_notes: orderData.notes || 'لا يوجد',
     order_items: cartItems,
     order_total: `$${orderData.total.toFixed(2)}`,
-    message: orderSummary
+    message: orderSummary 
   };
   
   console.log('Sending order email with data:', emailParams);
