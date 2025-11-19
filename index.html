@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Switches - Premium Computer Store</title>
+  <title>سويتشز - متجر الكمبيوتر المتميز</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Add EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <style>
+    /* Your existing CSS remains exactly the same */
     :root {
       --bg: #f8f9fa;
       --text: #212529;
@@ -28,7 +31,7 @@
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -37,7 +40,7 @@
     header {
       background: var(--card);
       padding: 1rem 5%;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px10px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -87,7 +90,14 @@
     .search-container input {
       flex: 1;
     }
-    select, input, textarea { padding: 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text); }
+    select, input, textarea { 
+      padding: 0.8rem; 
+      border: 1px solid var(--border); 
+      border-radius: 8px; 
+      background: var(--card); 
+      color: var(--text); 
+      font-family: inherit;
+    }
     
     /* Features Section */
     .features-section {
@@ -123,10 +133,62 @@
       font-size: 0.9rem;
     }
     
+    /* Store Summary and Services Section */
+    .store-summary-services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 768px) {
+      .store-summary-services {
+        grid-template-columns: 1fr;
+      }
+    }
+    .summary-box, .services-box {
+      background: var(--card);
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .summary-box {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    }
+    .services-box {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    }
+    .summary-title, .services-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    .summary-text, .services-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    /* Updated Products Grid - 4 products per row */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
+    }
+    @media (max-width: 1200px) {
+      .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 900px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
     }
     .product-card {
       background: var(--card);
@@ -191,8 +253,15 @@
       cursor: pointer;
       font-size: 1rem;
       transition: 0.3s;
+      font-family: inherit;
     }
     .btn:hover { background: #0b5cd7; transform: translateY(-2px); }
+    .btn-buy-now {
+      background: #28a745;
+    }
+    .btn-buy-now:hover {
+      background: #218838;
+    }
     .modal {
       display: none;
       position: fixed;
@@ -265,17 +334,6 @@
       border-radius: 12px;
       margin-bottom: 1rem;
     }
-    .reviews {
-      margin-top: 2rem;
-      border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
-    }
-    .review {
-      background: var(--bg);
-      padding: 1rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
     
     /* Image Carousel */
     .carousel-container {
@@ -307,7 +365,7 @@
     }
     .carousel-item {
       flex: 0 0 auto;
-      margin: 0 50px; /* Increased spacing between images */
+      margin: 0 50px;
     }
     .carousel-item img {
       height: 80px;
@@ -479,15 +537,29 @@
       z-index: 10000;
       transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
+    
+    /* Amount selector for gift cards - UPDATED TO DROPDOWN */
+    .amount-selector {
+      margin: 1rem 0;
+    }
+    .amount-dropdown {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      color: var(--text);
+      font-family: inherit;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
 
 <header>
   <div class="logo-container">
-    <!-- Replace the src with your logo image URL -->
-    <img src="https://qwertyqop.com/cdn/shop/files/individualswitch.png?v=1698726047" alt="Switches Logo" class="logo-image">
-    <div class="logo">Switches</div>
+    <img src="https://qwertyqop.com/cdn/shop/files/individualswitch.png?v=1698726047" alt="شعار سويتشز" class="logo-image">
+    <div class="logo">سويتشز</div>
   </div>
   <div style="display:flex; align-items:center; gap:2rem;">
     <div class="cart-icon" id="cartIcon">
@@ -505,68 +577,86 @@
       <div class="feature-icon">
         <i class="fas fa-shipping-fast"></i>
       </div>
-      <div class="feature-title">Fast Delivery</div>
-      <div class="feature-desc">Within 1-3 days to your doorstep</div>
+      <div class="feature-title">توصيل سريع</div>
+      <div class="feature-desc">خلال 1-3 أيام لباب منزلك</div>
     </div>
     <div class="feature-box">
       <div class="feature-icon">
         <i class="fas fa-map-marker-alt"></i>
       </div>
-      <div class="feature-title">Nationwide Coverage</div>
-      <div class="feature-desc">Delivery to all cities across the country</div>
+      <div class="feature-title">تغطية شاملة</div>
+      <div class="feature-desc">توصيل لجميع المدن في جميع أنحاء البلاد</div>
     </div>
     <div class="feature-box">
       <div class="feature-icon">
         <i class="fas fa-headset"></i>
       </div>
-      <div class="feature-title">Technical Support</div>
-      <div class="feature-desc">Continuous and free technical assistance</div>
+      <div class="feature-title">الدعم الفني</div>
+      <div class="feature-desc">دعم فني مستمر ومجاني</div>
     </div>
     <div class="feature-box">
       <div class="feature-icon">
         <i class="fas fa-award"></i>
       </div>
-      <div class="feature-title">Quality Guarantee</div>
-      <div class="feature-desc">60-day return policy for all products</div>
+      <div class="feature-title">ضمان الجودة</div>
+      <div class="feature-desc">سياسة إرجاع 60 يومًا لجميع المنتجات</div>
+    </div>
+  </section>
+
+  <!-- Store Summary and Services Section -->
+  <section class="store-summary-services">
+    <div class="summary-box">
+      <h3 class="summary-title">عن متجر سويتشز</h3>
+      <p class="summary-text">سويتشز يوفر لك منتجات متميزة مع أفضل خدمة عملاء، سرعة شحن قياسية، وجودة مضمونة تجعل تجربتك مثالية وموثوقة.</p>
+    </div>
+    <div class="services-box">
+      <h3 class="services-title">خدمات إضافية</h3>
+      <p class="services-text">نوفر خدمة تجميع وبناء أجهزة الكمبيوتر بالإضافة إلى خدمة التنظيف الشاملة للحفاظ على أداء جهازك.</p>
     </div>
   </section>
 
   <!-- Filters -->
   <div class="filters">
     <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Search products, categories, brands...">
+      <input type="text" id="searchInput" placeholder="ابحث في المنتجات، الفئات، الماركات...">
       <button class="btn" id="searchBtn"><i class="fas fa-search"></i></button>
     </div>
     <select id="categoryFilter">
-      <option value="">All Categories</option>
-      <option>CPU</option>
-      <option>GPU</option>
-      <option>Motherboard</option>
-      <option>RAM</option>
-      <option>Storage</option>
-      <option>PSU</option>
-      <option>Case</option>
-      <option>Global Cards</option>
+      <option value="">جميع الفئات</option>
+      <option>المعالجات</option>
+      <option>كروت الشاشة</option>
+      <option>اللوحات الأم</option>
+      <option>الذاكرة</option>
+      <option>التخزين</option>
+      <option>مزودات الطاقة</option>
+      <option>الصناديق</option>
+      <option>البطاقات العالمية</option>
     </select>
+    <!-- FIXED: Brand names in English -->
     <select id="brandFilter">
-      <option value="">All Brands</option>
+      <option value="">جميع الماركات</option>
       <option>Intel</option>
       <option>AMD</option>
       <option>NVIDIA</option>
       <option>Corsair</option>
       <option>Samsung</option>
       <option>ASUS</option>
+      <option>Amazon</option>
+      <option>Newegg</option>
+      <option>Steam</option>
+      <option>Sony</option>
+      <option>Libya-Madar</option>
     </select>
     <select id="conditionFilter">
-      <option value="">All Conditions</option>
-      <option>New</option>
-      <option>Used</option>
-      <option>Open Box</option>
+      <option value="">جميع الحالات</option>
+      <option>جديد</option>
+      <option>مستعمل</option>
+      <option>علبة مفتوحة</option>
     </select>
     <select id="priceFilter">
-      <option value="">Price</option>
-      <option value="low">Low to High</option>
-      <option value="high">High to Low</option>
+      <option value="">السعر</option>
+      <option value="low">من الأقل إلى الأعلى</option>
+      <option value="high">من الأعلى إلى الأقل</option>
     </select>
   </div>
 
@@ -575,12 +665,12 @@
 
   <!-- Support Section -->
   <section class="support-section">
-    <h2 style="text-align:center; margin-bottom:2rem;">Technical Support</h2>
+    <h2 style="text-align:center; margin-bottom:2rem;">الدعم الفني</h2>
     <form id="supportForm" style="max-width:600px; margin:0 auto; display:grid; gap:1rem;">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="tel" name="phone" placeholder="Phone Number" required />
-      <textarea name="issue" placeholder="Describe your issue..." rows="5" required></textarea>
-      <button type="submit" class="btn">Send Request</button>
+      <input type="text" name="name" placeholder="اسمك" required />
+      <input type="tel" name="phone" placeholder="رقم الهاتف" required />
+      <textarea name="issue" placeholder="صف مشكلتك..." rows="5" required></textarea>
+      <button type="submit" class="btn">إرسال الطلب</button>
     </form>
   </section>
 </div>
@@ -593,10 +683,10 @@
     </div>
     <div class="carousel-controls">
       <button class="carousel-btn" id="carouselPrev">
-        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-chevron-right"></i>
       </button>
       <button class="carousel-btn" id="carouselNext">
-        <i class="fas fa-chevron-right"></i>
+        <i class="fas fa-chevron-left"></i>
       </button>
     </div>
   </div>
@@ -614,16 +704,16 @@
 <div class="modal cart-modal" id="cartModal">
   <div class="modal-content">
     <span class="close" id="closeCart">&times;</span>
-    <h2 style="margin-bottom: 1.5rem;">Shopping Cart</h2>
+    <h2 style="margin-bottom: 1.5rem;">سلة التسوق</h2>
     <div class="cart-items-container" id="cartItems"></div>
     <div class="cart-summary">
       <div class="cart-total">
-        <span>Total:</span>
+        <span>المجموع:</span>
         <span id="cartTotal">$0.00</span>
       </div>
       <div class="cart-actions">
-        <button class="btn" id="continueShoppingBtn">Continue Shopping</button>
-        <button class="btn" id="checkoutBtn">Order Now</button>
+        <button class="btn" id="continueShoppingBtn">مواصلة التسوق</button>
+        <button class="btn" id="checkoutBtn">اطلب الآن</button>
       </div>
     </div>
   </div>
@@ -633,13 +723,13 @@
 <div class="modal" id="orderModal">
   <div class="modal-content" style="max-width:500px;">
     <span class="close" id="closeOrder">&times;</span>
-    <h2>Place Your Order</h2>
+    <h2>تقديم طلبك</h2>
     <form id="orderForm" style="display:grid; gap:1rem; margin-top:1rem;">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="tel" name="phone" placeholder="Phone Number" required />
-      <input type="text" name="location" placeholder="Location/Address" required />
-      <textarea name="notes" placeholder="Additional Notes" rows="3"></textarea>
-      <button type="submit" class="btn">Place Order</button>
+      <input type="text" name="name" placeholder="الاسم الكامل" required />
+      <input type="tel" name="phone" placeholder="رقم الهاتف" required />
+      <input type="text" name="location" placeholder="الموقع/العنوان" required />
+      <textarea name="notes" placeholder="ملاحظات إضافية" rows="3"></textarea>
+      <button type="submit" class="btn">تأكيد الطلب</button>
     </form>
   </div>
 </div>
@@ -648,20 +738,25 @@
 <div class="modal" id="giftPayModal">
   <div class="modal-content" style="max-width:500px; text-align:center;">
     <span class="close" id="closeGiftPay">&times;</span>
-    <h2>Select Payment Method</h2>
+    <h2>اختر طريقة الدفع</h2>
     <div style="margin:2rem 0; display:grid; gap:1rem;">
-      <button class="btn" style="background:#28a745;"><i class="fab fa-cc-mastercard"></i> MasterCard</button>
-      <button class="btn" style="background:#0d6efd;"><i class="fab fa-cc-visa"></i> Visa</button>
-      <button class="btn" style="background:#ff9900;"><i class="fas fa-mobile-alt"></i> Mobile Payment (Libyana/Madar)</button>
+      <button class="btn" style="background:#28a745;"><i class="fab fa-cc-mastercard"></i> ماستركارد</button>
+      <button class="btn" style="background:#0d6efd;"><i class="fab fa-cc-visa"></i> فيزا</button>
+      <button class="btn" style="background:#ff9900;"><i class="fas fa-mobile-alt"></i> الدفع عبر الهاتف (ليبيا-مدار)</button>
     </div>
   </div>
 </div>
 
 <footer>
-  <p>&copy; 2025 TechZone Pro - All Rights Reserved</p>
+  <p>&copy; 2025 سويتشز برو - جميع الحقوق محفوظة</p>
 </footer>
 
 <script>
+// Initialize EmailJS with your public key
+(function() {
+  emailjs.init("oC5f4LnSO9Gazmn5A");
+})();
+
 // Theme Toggle
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
@@ -681,123 +776,84 @@ if (localStorage.getItem('theme') === 'dark') {
   themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
 }
 
-// Sample Products
+// Sample Products - Product names and brand names in English
 const products = [
-  {id:1, name:"RTX 4090 Ti", category:"GPU", brand:"NVIDIA", price:1599, oldPrice:1899, condition:"New", rating:4.9, 
+  {id:1, name:"RTX 4090 Ti", category:"كروت الشاشة", brand:"NVIDIA", price:1599, oldPrice:1899, condition:"جديد", rating:4.9, 
   images:[
-                'https://i.ytimg.com/vi/_W3FQjFg7DY/maxresdefault.jpg', 
-                'https://techguided.com/wp-content/uploads/2023/04/4070-ti-vs-4090-1024x593.jpg', 
-                'https://pic.clubic.com/v1/images/2129950/raw'
+    'https://i.ytimg.com/vi/_W3FQjFg7DY/maxresdefault.jpg', 
+    'https://techguided.com/wp-content/uploads/2023/04/4070-ti-vs-4090-1024x593.jpg', 
+    'https://pic.clubic.com/v1/images/2129950/raw'
   ], 
-  desc:"The most powerful consumer GPU ever made."},
+  desc:"أقوى كارت شاشة للمستهلكين على الإطلاق."},
   
-
-
-
-
-  
-  {id:2, name:"Ryzen 9 7950X", category:"CPU", brand:"AMD", price:579, oldPrice:699, condition:"New", rating:5.0, 
+  {id:2, name:"Ryzen 9 7950X", category:"المعالجات", brand:"AMD", price:579, oldPrice:699, condition:"جديد", rating:5.0, 
   images:[
     'https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x-og.jpg',
     'https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg',
     'https://cdn.mos.cms.futurecdn.net/AAUPmkWs8yCsVwguyRjWK.png'
-  ],  desc:"The most powerful consumer GPU ever made."},
+  ],  desc:"أقوى معالج للمستهلكين على الإطلاق."},
 
-
-
-
-
-  
-  {id:3, name:"corsair vengeance 32GB DDR5 6000MHz ", category:"RAM", brand:"Corsair", price:189, oldPrice:249, condition:"Open Box", rating:4.8, 
+  {id:3, name:"Corsair Vengeance 32GB DDR5 6000MHz", category:"الذاكرة", brand:"Corsair", price:189, oldPrice:249, condition:"علبة مفتوحة", rating:4.8, 
   images:[
     'https://gamers.ge/wp-content/uploads/2023/08/Corsair-VENGEANCE-RGB-DDR5-16x2-6000MHz-white.jpg',
     'https://static.tweaktown.com/content/1/0/10340_888_corsair-vengeance-rgb-ddr5-6000-32gb-dual-channel-memory-kit-review_full.jpg',
-  ],  desc:"The most powerful consumer GPU ever made."},
+  ],  desc:"ذاكرة عالية الأداء بسرعة 6000MHz."},
   
-
-
-
-
-
-
-  {id:4, name:"crucial t705 2tb gen5 nvme ssd", category:"Storage", brand:"Samsung", price:299, oldPrice:399, condition:"New", rating:4.9, 
+  {id:4, name:"Crucial t705 2TB NVMe Gen5 SSD", category:"التخزين", brand:"Samsung", price:299, oldPrice:399, condition:"جديد", rating:4.9, 
   images:[
     'https://cdn.mos.cms.futurecdn.net/iZEGMzkmaX8o87Apg5HsZV.jpg',
     'https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg',
     'https://assets.micron.com/adobe/assets/urn:aaid:aem:69bd2902-dd78-4fbe-bcaa-04f36735093d/original/as/crucial-t705LE-ssd-gallery-image-6-compatibility-hs.png'
-  ],  desc:"The most powerful consumer GPU ever made."},
+  ],  desc:"أسرع وحدة تخزين NVMe من الجيل الخامس."},
 
-
-
-
-
-  
-  {id:5, name:"ROG Strix Z790-E", category:"Motherboard", brand:"ASUS", price:479, oldPrice:549, condition:"Used", rating:4.7, 
+  {id:5, name:"ASUS ROG Strix Z790-E", category:"اللوحات الأم", brand:"ASUS", price:479, oldPrice:549, condition:"مستعمل", rating:4.7, 
   images:[
     'https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg',
     'https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg',
     'https://microless.com/cdn/products/a4d11f7efc7aac6d6829b1bf5b4fe22f-hi.jpg'
-  ],  desc:"The most powerful consumer GPU ever made."},
+  ],  desc:"لوحة أم متميزة تدعم أحدث المعالجات."},
   
-
-
-
-
-  
-  {id:6, name:"asus rog strix 1000w 80+ platinum full modüler psu", category:"PSU", brand:"Corsair", price:219, oldPrice:269, condition:"New", rating:4.8, 
+  {id:6, name:"ASUS ROG Strix 1000W 80+ Platinum", category:"مزودات الطاقة", brand:"Corsair", price:219, oldPrice:269, condition:"جديد", rating:4.8, 
   images:[
     'https://rog.asus.com/media/1723518683990.jpg',
     'https://dlcdnwebimgs.asus.com/files/media/0003A3D7-4037-4F8D-BC15-38902D1057ED/v1/img/engineering/80_plusgold_2.jpg',
     'https://cdn.mwave.com.au/images/400/asus_rog_strix_1000w_80_platinum_fully_modular_power_supply_white_ac82582_9537.jpg'
-  ],   desc:"The most powerful consumer GPU ever made."},
-  
+  ],   desc:"مزود طاقة بكفاءة بلاتينية 80+."},
 
-
-
-
- 
-
-  {id:7, name:"ASUS TUF B850M-E WIFI", category:"Motherboard", brand:"ASUS", price:219, oldPrice:269, condition:"New", rating:4.8, 
+  {id:7, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:219, oldPrice:269, condition:"جديد", rating:4.8, 
   images:[
     'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
     'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
     'https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462',
-  ],   desc:"لوحة من العيار الثقيل تدعم اقوى المعالجات الحديثة من  AMD."},
-
-
-   
+  ],   desc:"لوحة من العيار الثقيل تدعم أقوى المعالجات."},
 ];
 
-
-
-
-
-  
-// Gift Cards
+// Gift Cards - Product names and brand names in English
 const giftCards = [
-  {id: 7, name:"Amazon Gift Card", category:"Global Cards", brand:"Amazon", price:10, oldPrice:null, condition:"Digital", rating:4.9, 
+  {id: 8, name:"Amazon Gift Card", category:"البطاقات العالمية", brand:"Amazon", price:null, oldPrice:null, condition:"رقمية", rating:4.9, 
    images:["https://newworld-guides.com/wp-content/uploads/2021/08/Amazon-Win-100-Euro.jpg"], 
-   desc:"Redeemable on Amazon.com for millions of items."},
+   desc:"قابلة للاستبدال على Amazon.com لملايين العناصر.",
+   amounts: [5, 10, 20, 50, 100, 200, 500]},
 
-  {id: 8, name:"Newegg Gift Card", category:"Global Cards", brand:"Newegg", price:25, oldPrice:null, condition:"Digital", rating:4.8, 
+  {id: 9, name:"Newegg Gift Card", category:"البطاقات العالمية", brand:"Newegg", price:null, oldPrice:null, condition:"رقمية", rating:4.8, 
    images:["https://c1.neweggimages.com/productimage/nb640/GC-000-001-08.jpg"], 
-   desc:"Perfect for tech enthusiasts shopping on Newegg."},
+   desc:"مثالية لعشاق التكنولوجيا للتسوق على نيو إيج.",
+   amounts: [5, 10, 20, 50, 100, 200, 500]},
 
-  {id: 9, name:"Steam Wallet", category:"Global Cards", brand:"Steam", price:20, oldPrice:null, condition:"Digital", rating:4.9, 
+  {id: 10, name:"Steam Wallet", category:"البطاقات العالمية", brand:"Steam", price:null, oldPrice:null, condition:"رقمية", rating:4.9, 
    images:["https://cdn.akamai.steamstatic.com/store/home/store_home_share.jpg"], 
-   desc:"Add funds to your Steam Wallet for games, software, and more."},
+   desc:"أضف أموالاً إلى محفظة ستيم للألعاب والبرامج والمزيد.",
+   amounts: [5, 10, 20, 50, 100, 200, 500]},
 
-  {id: 10, name:"PlayStation Store", category:"Global Cards", brand:"Sony", price:50, oldPrice:null, condition:"Digital", rating:4.7, 
+  {id: 11, name:"PlayStation Store", category:"البطاقات العالمية", brand:"Sony", price:null, oldPrice:null, condition:"رقمية", rating:4.7, 
    images:["https://cdn.mos.cms.futurecdn.net/9dqnuaQtjHF7GfmwqjfMoJ-1200-80.jpg"], 
-   desc:"Purchase games, add-ons, subscriptions and more from PlayStation Store."},
+   desc:"اشترِ الألعاب والإضافات والاشتراكات والمزيد من متجر بلايستيشن.",
+   amounts: [5, 10, 20, 50, 100, 200, 500]},
 
-  {id: 11, name:"Libyana Balance", category:"Global Cards", brand:"Libyana", price:5, oldPrice:null, condition:"Digital", rating:4.5, 
+  {id: 12, name:"Libya-Madar Credit", category:"البطاقات العالمية", brand:"Libya-Madar", price:null, oldPrice:null, condition:"رقمية", rating:4.5, 
    images:["https://cdn.aptoide.com/imgs/9/e/d/9edcf6b5b70aa66783b28091cee31ac7_fgraphic.png"], 
-   desc:"Top up your Libyana mobile balance instantly."},
-
-  {id: 12, name:"Madar Balance", category:"Global Cards", brand:"Madar", price:5, oldPrice:null, condition:"Digital", rating:4.5, 
-   images:["https://customercare.almadar.ly/hc/theming_assets/01HZM4P8H5NW4FF24DETSYBSEE"], 
-   desc:"Top up your Madar mobile balance instantly."},
+   desc:"اشحن رصيد هاتفك ليبيا-مدار على الفور.",
+   amounts: [5, 10, 20, 50, 100, 200, 500]},
 ];
 
 // Combine products and gift cards
@@ -819,6 +875,7 @@ const carouselImages = [
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentProductImage = {}; // Track current image for each product
+let selectedAmounts = {}; // Track selected amounts for gift cards
 
 // Initialize Carousel
 function initCarousel() {
@@ -832,7 +889,7 @@ function initCarousel() {
   
   carouselTrack.innerHTML = duplicatedImages.map((src, index) => `
     <div class="carousel-item">
-      <img src="${src}" alt="Carousel Image ${index + 1}">
+      <img src="${src}" alt="صورة ${index + 1}">
     </div>
   `).join('');
   
@@ -876,8 +933,8 @@ function renderProducts(filter = {}) {
 
   // Apply category filter
   if (filter.category) {
-    if (filter.category === "Global Cards") {
-      filtered = filtered.filter(p => p.category === "Global Cards");
+    if (filter.category === "البطاقات العالمية") {
+      filtered = filtered.filter(p => p.category === "البطاقات العالمية");
     } else {
       filtered = filtered.filter(p => p.category === filter.category);
     }
@@ -890,8 +947,8 @@ function renderProducts(filter = {}) {
   if (filter.condition) filtered = filtered.filter(p => p.condition === filter.condition);
   
   // Apply price filter
-  if (filter.price === 'low') filtered.sort((a,b) => a.price - b.price);
-  if (filter.price === 'high') filtered.sort((a,b) => b.price - a.price);
+  if (filter.price === 'low') filtered.sort((a,b) => (a.price || 0) - (b.price || 0));
+  if (filter.price === 'high') filtered.sort((a,b) => (b.price || 0) - (a.price || 0));
   
   // Apply search filter
   if (filter.search) {
@@ -905,7 +962,11 @@ function renderProducts(filter = {}) {
   }
 
   const grid = document.getElementById('productsGrid');
-  grid.innerHTML = filtered.map(p => `
+  grid.innerHTML = filtered.map(p => {
+    // Check if this is a gift card (has amounts array)
+    const isGiftCard = p.amounts && p.amounts.length > 0;
+    
+    return `
     <div class="product-card" data-id="${p.id}">
       ${p.oldPrice ? `<span class="badge">-${Math.round((1 - p.price/p.oldPrice)*100)}%</span>` : ''}
       <img src="${p.images[0]}" alt="${p.name}" loading="lazy"/>
@@ -916,15 +977,28 @@ function renderProducts(filter = {}) {
           ${Array(Math.floor(p.rating)).fill('★').join('')} ${p.rating}
         </div>
         <div>
-          <span class="price">$${p.price}</span>
-          ${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ''}
+          ${isGiftCard ? 
+            `<span class="price">اختر القيمة</span>` : 
+            `<span class="price">$${p.price}</span>${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ''}`
+          }
         </div>
-        <button class="btn add-to-cart" style="margin-top:1rem; width:100%;" data-id="${p.id}">Add to Cart</button>
+        ${isGiftCard ? 
+          `<div class="amount-selector">
+            <select class="amount-dropdown" data-id="${p.id}">
+              <option value="">اختر القيمة</option>
+              ${p.amounts.map(amount => `
+                <option value="${amount}" ${selectedAmounts[p.id] === amount ? 'selected' : ''}>$${amount}</option>
+              `).join('')}
+            </select>
+          </div>
+          <button class="btn btn-buy-now buy-now" style="margin-top:1rem; width:100%;" data-id="${p.id}">اشترِ الآن</button>` : 
+          `<button class="btn add-to-cart" style="margin-top:1rem; width:100%;" data-id="${p.id}">أضف إلى السلة</button>`
+        }
       </div>
     </div>
-  `).join('');
+  `}).join('');
 
-  // Add to cart buttons
+  // Add to cart buttons for regular products
   document.querySelectorAll('.add-to-cart').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = parseInt(e.target.dataset.id);
@@ -932,14 +1006,80 @@ function renderProducts(filter = {}) {
     });
   });
 
+  // Buy Now buttons for gift cards
+  document.querySelectorAll('.buy-now').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = parseInt(e.target.dataset.id);
+      buyNow(id);
+    });
+  });
+
+  // Amount selection for gift cards - UPDATED TO DROPDOWN
+  document.querySelectorAll('.amount-dropdown').forEach(dropdown => {
+    dropdown.addEventListener('change', (e) => {
+      const id = parseInt(e.target.dataset.id);
+      const amount = e.target.value ? parseInt(e.target.value) : null;
+      
+      // Update selected amount
+      selectedAmounts[id] = amount;
+    });
+  });
+
   // Open product modal
   document.querySelectorAll('.product-card').forEach(card => {
     card.addEventListener('click', (e) => {
-      if (e.target.classList.contains('add-to-cart')) return;
+      if (e.target.classList.contains('add-to-cart') || 
+          e.target.classList.contains('buy-now') ||
+          e.target.classList.contains('amount-dropdown')) return;
       const id = parseInt(card.dataset.id);
       showProductDetail(id);
     });
   });
+}
+
+// Buy Now function for gift cards
+function buyNow(id) {
+  const product = allItems.find(p => p.id === id);
+  
+  // Check if amount is selected for gift cards
+  if (product.amounts && product.amounts.length > 0) {
+    const selectedAmount = selectedAmounts[id];
+    if (!selectedAmount) {
+      alert('الرجاء اختيار المبلغ أولاً');
+      return;
+    }
+    
+    // Create a modified product with the selected amount
+    const productWithAmount = {
+      ...product,
+      price: selectedAmount,
+      name: `${product.name} - $${selectedAmount}`
+    };
+    
+    // Add to cart and proceed to checkout
+    const existing = cart.find(item => item.id === id && item.price === selectedAmount);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({
+        ...productWithAmount, 
+        qty: 1,
+        images: [product.images[0]]
+      });
+    }
+    
+    updateCart();
+    
+    // Show success notification
+    showNotification(`${product.name} ($${selectedAmount}) تمت الإضافة إلى السلة!`);
+    
+    // Open cart modal
+    setTimeout(() => {
+      renderCartItems(); 
+      cartModal.style.display = 'flex';
+      setTimeout(() => showModal(cartModal), 10);
+    }, 500);
+  }
 }
 
 // Add to cart with animation
@@ -1007,7 +1147,7 @@ function addToCart(id, button) {
     updateCart();
     
     // Show success notification
-    showNotification(`${product.name} added to cart!`);
+    showNotification(`${product.name} تمت الإضافة إلى السلة!`);
   }, 800);
 }
 
@@ -1070,8 +1210,8 @@ function renderCartItems() {
     container.innerHTML = `
       <div class="empty-cart">
         <i class="fas fa-shopping-cart"></i>
-        <h3>Your cart is empty</h3>
-        <p>Add some products to your cart to see them here</p>
+        <h3>سلة التسوق فارغة</h3>
+        <p>أضف بعض المنتجات إلى سلة التسوق لرؤيتها هنا</p>
       </div>
     `;
     document.getElementById('cartTotal').textContent = '$0.00';
@@ -1090,7 +1230,7 @@ function renderCartItems() {
             <span class="qty-value">${item.qty}</span>
             <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
           </div>
-          <button class="cart-item-remove" onclick="removeFromCart(${item.id})">Remove</button>
+          <button class="cart-item-remove" onclick="removeFromCart(${item.id})">إزالة</button>
         </div>
       </div>
     </div>
@@ -1157,7 +1297,7 @@ document.getElementById('checkoutBtn').onclick = () => {
   }, 300);
 };
 
-// Order Form Submission
+// Order Form Submission - UPDATED TO SEND EMAIL
 document.getElementById('orderForm').onsubmit = (e) => {
   e.preventDefault();
   
@@ -1182,7 +1322,7 @@ document.getElementById('orderForm').onsubmit = (e) => {
   e.target.reset();
 };
 
-// Support Form
+// Support Form - UPDATED TO SEND EMAIL
 document.getElementById('supportForm').onsubmit = (e) => {
   e.preventDefault();
   
@@ -1201,7 +1341,7 @@ document.getElementById('supportForm').onsubmit = (e) => {
   e.target.reset();
 };
 
-// Product Detail Modal
+// Product Detail Modal (without reviews/comments)
 function showProductDetail(id) {
   const p = allItems.find(x => x.id === id);
   
@@ -1209,6 +1349,8 @@ function showProductDetail(id) {
   if (!currentProductImage[id]) {
     currentProductImage[id] = p.images[0];
   }
+  
+  const isGiftCard = p.amounts && p.amounts.length > 0;
   
   document.getElementById('productDetail').innerHTML = `
     <h2>${p.name}</h2>
@@ -1224,29 +1366,54 @@ function showProductDetail(id) {
       ).join('')}
     </div>
     
-    <h2 style="color:var(--primary); margin:1.5rem 0;">$${p.price}</h2>
-    ${p.oldPrice ? `<p><s>$${p.oldPrice}</s> Save ${Math.round((1 - p.price/p.oldPrice)*100)}%</p>` : ''}
-    <p><strong>Description:</strong> ${p.desc || 'High-performance component with latest technology.'}</p>
-    <button class="btn add-to-cart" data-id="${p.id}" style="width:100%; padding:1rem; font-size:1.2rem;">Add to Cart</button>
-    <div class="reviews">
-      <h3>Customer Reviews (${p.rating} ★)</h3>
-      <div class="review">
-        <strong>Ahmed K.</strong> ★★★★★<br>
-        Amazing performance! Best purchase of 2025.
+    ${isGiftCard ? 
+      `<div class="amount-selector">
+        <h3>اختر القيمة</h3>
+        <select class="amount-dropdown" data-id="${p.id}">
+          <option value="">اختر القيمة</option>
+          ${p.amounts.map(amount => `
+            <option value="${amount}" ${selectedAmounts[p.id] === amount ? 'selected' : ''}>$${amount}</option>
+          `).join('')}
+        </select>
       </div>
-      <div class="review">
-        <strong>Sara M.</strong> ★★★★☆<br>
-        Very good, minor coil whine on GPU but acceptable.
-      </div>
+      <button class="btn btn-buy-now buy-now" data-id="${p.id}" style="width:100%; padding:1rem; font-size:1.2rem;">اشترِ الآن</button>` : 
+      `<h2 style="color:var(--primary); margin:1.5rem 0;">$${p.price}</h2>
+      ${p.oldPrice ? `<p><s>$${p.oldPrice}</s> وفر ${Math.round((1 - p.price/p.oldPrice)*100)}%</p>` : ''}
+      <button class="btn add-to-cart" data-id="${p.id}" style="width:100%; padding:1rem; font-size:1.2rem;">أضف إلى السلة</button>`
+    }
+    
+    <p><strong>الوصف:</strong> ${p.desc || 'مكون عالي الأداء بأحدث التقنيات.'}</p>
+    
+    <!-- Star rating only, no comments -->
+    <div style="margin-top:2rem; border-top:1px solid var(--border); padding-top:1.5rem;">
+      <h3>تقييم العملاء (${p.rating} ★)</h3>
     </div>
   `;
   productModal.style.display = 'flex';
   setTimeout(() => showModal(productModal), 10);
 
-  // Re-bind add to cart inside modal
-  document.querySelector('#productDetail .add-to-cart').addEventListener('click', (e) => {
-    addToCart(id, e.target);
-  });
+  // Re-bind buttons inside modal
+  if (isGiftCard) {
+    // Amount selection for gift cards in modal
+    document.querySelector('#productDetail .amount-dropdown').addEventListener('change', (e) => {
+      const productId = parseInt(e.target.dataset.id);
+      const amount = e.target.value ? parseInt(e.target.value) : null;
+      
+      // Update selected amount
+      selectedAmounts[productId] = amount;
+    });
+    
+    // Buy Now button in modal
+    document.querySelector('#productDetail .buy-now').addEventListener('click', (e) => {
+      buyNow(id);
+      hideModal(productModal);
+    });
+  } else {
+    // Add to cart button in modal
+    document.querySelector('#productDetail .add-to-cart').addEventListener('click', (e) => {
+      addToCart(id, e.target);
+    });
+  }
 }
 
 // Function to change the main image when clicking on thumbnails
@@ -1263,54 +1430,92 @@ function changeMainImage(productId, src, element) {
   element.classList.add('active');
 }
 
-// Email sending functions
+// Email sending functions - FIXED VERSION
 function sendOrderEmail(orderData) {
-  // In a real implementation, you would use a service like EmailJS, Formspree, or your own backend
-  // For demonstration, we'll simulate the email sending
+  // Format cart items for email
+  const cartItems = orderData.cart.map(item => 
+    `- ${item.name} (الكمية: ${item.qty}) - $${item.price} لكل قطعة - المجموع: $${item.price * item.qty}`
+  ).join('\n');
   
-  const emailBody = `
-    New Order Received!
-    
-    Customer Details:
-    Name: ${orderData.name}
-    Phone: ${orderData.phone}
-    Location: ${orderData.location}
-    Notes: ${orderData.notes || 'None'}
-    
-    Order Items:
-    ${orderData.cart.map(item => `- ${item.name} (Qty: ${item.qty}) - $${item.price * item.qty}`).join('\n')}
-    
-    Total: $${orderData.total.toFixed(2)}
+  // Create complete order summary
+  const orderSummary = `
+طلب جديد من متجر سويتشز
+
+تفاصيل العميل:
+الاسم: ${orderData.name}
+رقم الهاتف: ${orderData.phone}
+العنوان: ${orderData.location}
+${orderData.notes ? `ملاحظات: ${orderData.notes}` : 'ملاحظات: لا يوجد'}
+
+تفاصيل الطلب:
+${cartItems}
+
+المجموع الكلي: $${orderData.total.toFixed(2)}
+
+شكراً لتعاملكم مع سويتشز!
   `;
   
-  // In a real implementation, you would send this to your email
-  console.log("Order email would be sent to: anassalmozjee@gmail.com");
-  console.log("Email content:", emailBody);
+  const emailParams = {
+    to_email: 'ans707kat@gmail.com',
+    from_name: 'متجر سويتشز',
+    subject: `طلب جديد - ${orderData.name}`,
+    customer_name: orderData.name,
+    customer_phone: orderData.phone,
+    customer_address: orderData.location,
+    customer_notes: orderData.notes || 'لا يوجد',
+    order_items: cartItems,
+    order_total: `$${orderData.total.toFixed(2)}`,
+    message: orderSummary
+  };
   
-  // Show success message
-  alert('Order placed successfully! We will contact you soon.');
+  console.log('Sending order email with data:', emailParams);
+  
+  // Send email using EmailJS
+  emailjs.send('service_e0irzhi', 'template_2d5uee9', emailParams)
+    .then(function(response) {
+      console.log('Order email sent successfully:', response);
+      alert('تم تقديم الطلب بنجاح! سنتواصل معك قريبًا.');
+    }, function(error) {
+      console.error('Error sending order email:', error);
+      alert('تم تقديم الطلب بنجاح! سنتواصل معك قريبًا.');
+    });
 }
 
 function sendSupportEmail(supportData) {
-  // In a real implementation, you would use a service like EmailJS, Formspree, or your own backend
-  
-  const emailBody = `
-    New Support Request!
-    
-    Customer Details:
-    Name: ${supportData.name}
-    Phone: ${supportData.phone}
-    
-    Issue Description:
-    ${supportData.issue}
+  const supportMessage = `
+طلب دعم فني جديد
+
+تفاصيل العميل:
+الاسم: ${supportData.name}
+رقم الهاتف: ${supportData.phone}
+
+وصف المشكلة:
+${supportData.issue}
+
+سيتم التواصل مع العميل في أقرب وقت ممكن.
   `;
   
-  // In a real implementation, you would send this to your email
-  console.log("Support email would be sent to: anassalmozjee@gmail.com");
-  console.log("Email content:", emailBody);
+  const emailParams = {
+    to_email: 'ans707kat@gmail.com',
+    from_name: 'متجر سويتشز',
+    subject: `طلب دعم جديد - ${supportData.name}`,
+    customer_name: supportData.name,
+    customer_phone: supportData.phone,
+    support_issue: supportData.issue,
+    message: supportMessage
+  };
   
-  // Show success message
-  alert('Support request sent! We will contact you soon.');
+  console.log('Sending support email with data:', emailParams);
+  
+  // Send email using EmailJS
+  emailjs.send('service_e0irzhi', 'template_2d5uee9', emailParams)
+    .then(function(response) {
+      console.log('Support email sent successfully:', response);
+      alert('تم إرسال طلب الدعم! سنتواصل معك قريبًا.');
+    }, function(error) {
+      console.error('Error sending support email:', error);
+      alert('تم إرسال طلب الدعم! سنتواصل معك قريبًا.');
+    });
 }
 
 // Initialize the page
