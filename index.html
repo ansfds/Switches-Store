@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <!-- SEO الأساسي -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>switches-stor | متجر قطع الكمبيوتر</title>
+<meta name="description" content="أفضل متجر لبيع قطع الكمبيوتر، الإكسسوارات، لوحات المفاتيح، الفأرات، ومستزمات تجميع الكمبيوتر.">
+
+<!-- الكلمات المفتاحية -->
+<meta name="keywords" content="قطع كمبيوتر, متجر كمبيوتر, كيبورد, فأرة, تجميع PC, إكسسوارات كمبيوتر, Computer parts">
+
   <!-- Favicon -->
-<link rel="icon" type="image/png" href="https://web.whatsapp.com/96ab0259-d5ed-4e36-b649-2b63115c1cd3">
+<link rel="icon" type="image/png" href="https://web.whatsapp.com/ea260071-51d7-4c25-8ea8-7ac04e0c8d59">
 
 <!-- Open Graph -->
 <meta property="og:title" content="switches-stor">
 <meta property="og:description" content="أفضل متجر لبيع قطع الكمبيوتر، الإكسسوارات، لوحات المفاتيح، الفأرات، والقطع الإضافية لتجميع جهازك المثالي.">
-<meta property="og:image" content="https://web.whatsapp.com/96ab0259-d5ed-4e36-b649-2b63115c1cd3">
+<meta property="og:image" content="https://web.whatsapp.com/ea260071-51d7-4c25-8ea8-7ac04e0c8d59">
 <meta property="og:url" content="https://switches-stor.netlify.app">
 <meta property="og:type" content="website">
 
@@ -15,7 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="switches-stor">
 <meta name="twitter:description" content="أفضل متجر لبيع قطع الكمبيوتر، الإكسسوارات، لوحات المفاتيح، الفأرات، والقطع الإضافية لتجميع جهازك المثالي.">
-<meta name="twitter:image" content="https://web.whatsapp.com/96ab0259-d5ed-4e36-b649-2b63115c1cd3">
+<meta name="twitter:image" content="https://web.whatsapp.com/ea260071-51d7-4c25-8ea8-7ac04e0c8d59">
 
   <link rel="icon" type="image/png" href="images/favicon.png">
   <meta charset="UTF-8" />
@@ -150,7 +159,7 @@
       font-size: 0.9rem;
     }
     
-    /* Store Summary and Services Section */
+    /* Store Summary and Services Section - FIXED FOR DARK MODE */
     .store-summary-services {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -170,10 +179,10 @@
       text-align: center;
     }
     .summary-box {
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      background: linear-gradient(135deg, var(--card), var(--bg));
     }
     .services-box {
-      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      background: linear-gradient(135deg, var(--card), var(--bg));
     }
     .summary-title, .services-title {
       font-size: 1.5rem;
@@ -184,6 +193,7 @@
     .summary-text, .services-text {
       font-size: 1.1rem;
       line-height: 1.8;
+      color: var(--text);
     }
     
     /* Updated Products Grid - 4 products per row */
@@ -352,7 +362,7 @@
       margin-bottom: 1rem;
     }
     
-    /* Image Carousel */
+    /* Image Carousel - FIXED FOR SMOOTH LOOPING */
     .carousel-container {
       position: fixed;
       bottom: 0;
@@ -894,7 +904,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentProductImage = {}; // Track current image for each product
 let selectedAmounts = {}; // Track selected amounts for gift cards
 
-// Initialize Carousel
+// Initialize Carousel - FIXED FOR SMOOTH LOOPING
 function initCarousel() {
   const carouselTrack = document.getElementById('carouselTrack');
   
@@ -909,6 +919,15 @@ function initCarousel() {
       <img src="${src}" alt="صورة ${index + 1}">
     </div>
   `).join('');
+  
+  // Reset animation when it completes to create seamless loop
+  const track = document.querySelector('.carousel-track');
+  track.addEventListener('animationiteration', () => {
+    // Reset the animation to create seamless loop
+    track.style.animation = 'none';
+    void track.offsetWidth; // Trigger reflow
+    track.style.animation = 'scroll 40s linear infinite';
+  });
   
   // Carousel controls
   document.getElementById('carouselPrev').addEventListener('click', () => {
