@@ -2,29 +2,32 @@
 <html lang="ar" dir="rtl">
 <head>
   <!-- SEO الأساسي -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>switches-stor | متجر قطع الكمبيوتر</title>
-<meta name="description" content="أفضل متجر لبيع قطع الكمبيوتر، الإكسسوارات، لوحات المفاتيح، الفأرات، ومستزمات تجميع الكمبيوتر.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Switches - سويتشز | متجر قطع الكمبيوتر</title>
+  <meta name="description" content="متجر سويتشز هو متجر إلكتروني لبيع قطع الكمبيوتر، الإلكترونيات، والإكسسوارات.">
 
-<!-- الكلمات المفتاحية -->
-<meta name="keywords" content="قطع كمبيوتر, متجر كمبيوتر, كيبورد, فأرة, تجميع PC, إكسسوارات كمبيوتر, Computer parts">
+  <!-- الكلمات المفتاحية -->
+  <meta name="keywords" content="قطع كمبيوتر, متجر كمبيوتر, كيبورد, فأرة, تجميع PC, إكسسوارات كمبيوتر, Computer parts">
 
   <!-- Favicon -->
-<link rel="icon" type="image/png" href="https://web.whatsapp.com/ea260071-51d7-4c25-8ea8-7ac04e0c8d59">
+  <link rel="icon" type="image/png" href="https://web.whatsapp.com/ea260071-51d7-4c25-8ea8-7ac04e0c8d59">
 
-<!-- Open Graph -->
-<meta property="og:title" content="switches-stor">
-<meta property="og:description" content="أفضل متجر لبيع قطع الكمبيوتر، الإكسسوارات، لوحات المفاتيح، الفأرات، والقطع الإضافية لتجميع جهازك المثالي.">
-<meta property="og:image" content="https://web.whatsapp.com/ea260071-51d7-4c25-8ea8-7ac04e0c8d59">
-<meta property="og:url" content="https://switches-stor.netlify.app">
-<meta property="og:type" content="website">
+  <!-- Open Graph Meta Tags for Social Media Sharing -->
+  <meta property="og:title" content="Switches - سويتشز">
+  <meta property="og:description" content="متجر سويتشز هو متجر إلكتروني لبيع قطع الكمبيوتر، الإلكترونيات، والإكسسوارات.">
+  <meta property="og:image" content="https://i.imgur.com/VSRAicN.jpeg">
+  <meta property="og:url" content="https://switches-stor.netlify.app">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Switches - سويتشز">
+  <meta property="og:locale" content="ar_AR">
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="switches-stor">
-<meta name="twitter:description" content="أفضل متجر لبيع قطع الكمبيوتر، الإكسسوارات، لوحات المفاتيح، الفأرات، والقطع الإضافية لتجميع جهازك المثالي.">
-<meta name="twitter:image" content="https://web.whatsapp.com/ea260071-51d7-4c25-8ea8-7ac04e0c8d59">
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Switches - سويتشز">
+  <meta name="twitter:description" content="متجر سويتشز هو متجر إلكتروني لبيع قطع الكمبيوتر، الإلكترونيات، والإكسسوارات.">
+  <meta name="twitter:image" content="https://i.imgur.com/VSRAicN.jpeg">
+  <meta name="twitter:site" content="@switches">
 
   <link rel="icon" type="image/png" href="images/favicon.png">
   <meta charset="UTF-8" />
@@ -579,6 +582,65 @@
       font-family: inherit;
       margin-top: 0.5rem;
     }
+    
+    /* New styles for condition colors */
+    .condition-new {
+      color: green;
+      font-weight: bold;
+    }
+    .condition-used {
+      color: red;
+      font-weight: bold;
+    }
+    .condition-open-box {
+      color: blue;
+      font-weight: bold;
+    }
+    
+    /* Style for unavailable products */
+    .unavailable-product {
+      opacity: 0.7;
+      position: relative;
+    }
+    .unavailable-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(220, 53, 69, 0.9);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      z-index: 10;
+    }
+    
+    /* NEW: Product specifications styles */
+    .specs-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .spec-item {
+      background: rgba(13, 110, 253, 0.1);
+      border-radius: 6px;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .spec-value {
+      font-weight: bold;
+      color: var(--primary);
+      margin-top: 0.2rem;
+    }
+    .spec-label {
+      font-size: 0.7rem;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -625,8 +687,8 @@
       <div class="feature-icon">
         <i class="fas fa-award"></i>
       </div>
-      <div class="feature-title">ضمان الجودة</div>
-      <div class="feature-desc">سياسة إرجاع 60 يومًا لجميع المنتجات</div>
+      <div class="feature-title">ضمان على بعض القطع</div>
+      <div class="feature-desc">سياسة إرجاع 3 أيام لجميع المنتجات</div>
     </div>
   </section>
 
@@ -657,7 +719,7 @@
       <option>التخزين</option>
       <option>مزودات الطاقة</option>
       <option>الصناديق</option>
-      <option>البطاقات العالمية</option>
+      <option>شاشات</option>
     </select>
     <!-- FIXED: Brand names in English -->
     <select id="brandFilter">
@@ -668,11 +730,12 @@
       <option>Corsair</option>
       <option>Samsung</option>
       <option>ASUS</option>
-      <option>Amazon</option>
-      <option>Newegg</option>
-      <option>Steam</option>
-      <option>Sony</option>
-      <option>Libya-Madar</option>
+      <option>HP</option>
+      <option>Acer</option>
+      <option>Lenovo</option>
+      <option>LG</option>
+      <option>MSI</option>
+      <option>Gigabyte</option>
     </select>
     <select id="conditionFilter">
       <option value="">جميع الحالات</option>
@@ -736,7 +799,7 @@
     <div class="cart-summary">
       <div class="cart-total">
         <span>المجموع:</span>
-        <span id="cartTotal">$0.00</span>
+        <span id="cartTotal">0.00 (د.ل)</span>
       </div>
       <div class="cart-actions">
         <button class="btn" id="continueShoppingBtn">مواصلة التسوق</button>
@@ -758,19 +821,6 @@
       <textarea name="notes" placeholder="ملاحظات إضافية" rows="3"></textarea>
       <button type="submit" class="btn">تأكيد الطلب</button>
     </form>
-  </div>
-</div>
-
-<!-- Gift Card Payment Modal -->
-<div class="modal" id="giftPayModal">
-  <div class="modal-content" style="max-width:500px; text-align:center;">
-    <span class="close" id="closeGiftPay">&times;</span>
-    <h2>اختر طريقة الدفع</h2>
-    <div style="margin:2rem 0; display:grid; gap:1rem;">
-      <button class="btn" style="background:#28a745;"><i class="fab fa-cc-mastercard"></i> ماستركارد</button>
-      <button class="btn" style="background:#0d6efd;"><i class="fab fa-cc-visa"></i> فيزا</button>
-      <button class="btn" style="background:#ff9900;"><i class="fas fa-mobile-alt"></i> الدفع عبر الهاتف (ليبيا-مدار)</button>
-    </div>
   </div>
 </div>
 
@@ -803,88 +853,251 @@ if (localStorage.getItem('theme') === 'dark') {
   themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
 }
 
+// List of unavailable products
+const unavailableProducts = [
+  "RTX 3070 Ti",
+  "Ryzen 9 7950X", 
+  "Corsair Vengeance 32GB DDR5 6000MHz",
+  "Crucial T705 2TB NVMe Gen5 SSD",
+  "ASUS ROG Strix Z790-E",
+  "ASUS ROG Strix 1000W 80+ Platinum",
+  "ASUS TUF B850M-E WIFI"
+];
+
 // Sample Products - Product names and brand names in English
+// UPDATED: Added specifications for ALL products
 const products = [
-  {id:1, name:"RTX 4090 Ti", category:"كروت الشاشة", brand:"NVIDIA", price:1599, oldPrice:1899, condition:"جديد", rating:4.9, 
+  {id:1, name:"RTX 3070 Ti", category:"كروت الشاشة", brand:"NVIDIA", price:2300, oldPrice:2500, condition:"جديد", rating:4.9, 
   images:[
-    'https://i.ytimg.com/vi/_W3FQjFg7DY/maxresdefault.jpg', 
-    'https://techguided.com/wp-content/uploads/2023/04/4070-ti-vs-4090-1024x593.jpg', 
-    'https://pic.clubic.com/v1/images/2129950/raw'
+    'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/ZOTAC_Gaming_GeForce_RTX_3080_Ti_cards_unveiled_early_June_2021.jpg', 
+    'https://www.gpuheaven.com/wp-content/uploads/2025/10/Zotac-Gaming-Geforce-Rtx-3070-Ti-Amp-Holo-2.jpg', 
   ], 
-  desc:"أقوى كارت شاشة للمستهلكين على الإطلاق."},
+  desc:"كرت الفئة المتوسطة يعطيك أفضل أداء في الالعاب الحديثة.",
+  specs: {
+    spec1: "8GB GDDR6X",
+    spec2: "5888 نواة",
+    spec3: "1770 MHz",
+    spec4: "PCIe 4.0"
+  }},
   
   {id:2, name:"Ryzen 9 7950X", category:"المعالجات", brand:"AMD", price:579, oldPrice:699, condition:"جديد", rating:5.0, 
   images:[
     'https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x-og.jpg',
     'https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg',
     'https://cdn.mos.cms.futurecdn.net/AAUPmkWs8yCsVwguyRjWK.png'
-  ],  desc:"أقوى معالج للمستهلكين على الإطلاق."},
+  ],  
+  desc:"أقوى معالج للمستهلكين على الإطلاق.",
+  specs: {
+    spec1: "16 نواة",
+    spec2: "32 مسار",
+    spec3: "4.5 GHz",
+    spec4: "170W TDP"
+  }},
 
   {id:3, name:"Corsair Vengeance 32GB DDR5 6000MHz", category:"الذاكرة", brand:"Corsair", price:189, oldPrice:249, condition:"علبة مفتوحة", rating:4.8, 
   images:[
     'https://gamers.ge/wp-content/uploads/2023/08/Corsair-VENGEANCE-RGB-DDR5-16x2-6000MHz-white.jpg',
     'https://static.tweaktown.com/content/1/0/10340_888_corsair-vengeance-rgb-ddr5-6000-32gb-dual-channel-memory-kit-review_full.jpg',
-  ],  desc:"ذاكرة عالية الأداء بسرعة 6000MHz."},
+  ],  
+  desc:"ذاكرة عالية الأداء بسرعة 6000MHz.",
+  specs: {
+    spec1: "32GB",
+    spec2: "DDR5",
+    spec3: "6000MHz",
+    spec4: "CL36"
+  }},
   
   {id:4, name:"Crucial t705 2TB NVMe Gen5 SSD", category:"التخزين", brand:"Samsung", price:299, oldPrice:399, condition:"جديد", rating:4.9, 
   images:[
     'https://cdn.mos.cms.futurecdn.net/iZEGMzkmaX8o87Apg5HsZV.jpg',
     'https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg',
     'https://assets.micron.com/adobe/assets/urn:aaid:aem:69bd2902-dd78-4fbe-bcaa-04f36735093d/original/as/crucial-t705LE-ssd-gallery-image-6-compatibility-hs.png'
-  ],  desc:"أسرع وحدة تخزين NVMe من الجيل الخامس."},
+  ],  
+  desc:"أسرع وحدة تخزين NVMe من الجيل الخامس.",
+  specs: {
+    spec1: "2TB",
+    spec2: "PCIe 5.0",
+    spec3: "14,500 MB/s",
+    spec4: "12,700 MB/s"
+  }},
 
   {id:5, name:"ASUS ROG Strix Z790-E", category:"اللوحات الأم", brand:"ASUS", price:479, oldPrice:549, condition:"مستعمل", rating:4.7, 
   images:[
     'https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg',
     'https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg',
     'https://microless.com/cdn/products/a4d11f7efc7aac6d6829b1bf5b4fe22f-hi.jpg'
-  ],  desc:"لوحة أم متميزة تدعم أحدث المعالجات."},
+  ],  
+  desc:"لوحة أم متميزة تدعم أحدث المعالجات.",
+  specs: {
+    spec1: "LGA 1700",
+    spec2: "DDR5",
+    spec3: "PCIe 5.0",
+    spec4: "Wi-Fi 6E"
+  }},
   
   {id:6, name:"ASUS ROG Strix 1000W 80+ Platinum", category:"مزودات الطاقة", brand:"Corsair", price:219, oldPrice:269, condition:"جديد", rating:4.8, 
   images:[
     'https://rog.asus.com/media/1723518683990.jpg',
     'https://dlcdnwebimgs.asus.com/files/media/0003A3D7-4037-4F8D-BC15-38902D1057ED/v1/img/engineering/80_plusgold_2.jpg',
     'https://cdn.mwave.com.au/images/400/asus_rog_strix_1000w_80_platinum_fully_modular_power_supply_white_ac82582_9537.jpg'
-  ],   desc:"مزود طاقة بكفاءة بلاتينية 80+."},
+  ],   
+  desc:"مزود طاقة بكفاءة بلاتينية 80+.",
+  specs: {
+    spec1: "1000W",
+    spec2: "80+ Platinum",
+    spec3: "موديولار",
+    spec4: "10 سنوات ضمان"
+  }},
 
   {id:7, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:219, oldPrice:269, condition:"جديد", rating:4.8, 
   images:[
     'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
     'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
     'https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462',
-  ],   desc:"لوحة من العيار الثقيل تدعم أقوى المعالجات."},
+  ],   
+  desc:"لوحة من العيار الثقيل تدعم أقوى المعالجات.",
+  specs: {
+    spec1: "AM5",
+    spec2: "DDR5",
+    spec3: "PCIe 4.0",
+    spec4: "Wi-Fi 6"
+  }},
+
+  {id:8, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:219, oldPrice:269, condition:"جديد", rating:4.8, 
+  images:[
+    'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
+    'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
+    'https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462',
+  ],   
+  desc:"لوحة من العيار الثقيل تدعم أقوى المعالجات.",
+  specs: {
+    spec1: "AM5",
+    spec2: "DDR5",
+    spec3: "PCIe 4.0",
+    spec4: "Wi-Fi 6"
+  }},
+
+  // Monitors Section - Added as requested with specifications
+  {id:13, name:"HP OMEN 24", category:"شاشات", brand:"HP", price:1050, oldPrice:null, condition:"علبة مفتوحة", rating:4.7, 
+  images:[
+    'https://memoryzone.aecomapp.com/storage/files/1718186722man-hinh-hp-omen-24-gaming-24-inch-ips-fhd-165hz-780f0aa-06.jpg.webp',
+    'https://i.ytimg.com/vi/syjqja0Cnhk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB6ZTUW5s4D_H0PEXgmSqO5g9fGmw'
+  ], 
+  desc:"شاشة HP OMEN 24 تقدم أداءً ممتازًا في الألعاب مع ألوان دقيقة وزوايا مشاهدة واسعة. معدل التحديث العالي ووقت الاستجابة السريع يجعلانها مثالية للألعاب التنافسية، مع دعم FreeSync Premium لصور أكثر سلاسة. تصميم أنيق وعملي للجلسات الطويلة.",
+  specs: {
+    spec1: "24 بوصة",
+    spec2: "FHD 1920x1080",
+    spec3: "165 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:14, name:"ACER Nitro VGO 27", category:"شاشات", brand:"Acer", price:1000, oldPrice:null, condition:"علبة مفتوحة", rating:4.5, 
+  images:[
+    'https://m.media-amazon.com/images/S/aplus-media-library-service-media/3e89ed3b-87b4-4826-910a-603daaf5d4da.__CR0,0,1464,600_PT0_SX1464_V1___.jpg',
+    'https://i.rtings.com/assets/products/GBZurEGf/acer-nitro-vg271up-pbmiipx/design-medium.jpg?format=auto'
+  ], 
+  desc:"شاشة Acer Nitro 27 تجمع بين الأداء الجيد والسعر المعقول. تصميمها العصري والأنيق يعزز تجربة الألعاب والاستخدام اليومي. خيار متوازن بين الجودة والميزانية.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "QHD 2560x1440",
+    spec3: "170 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:15, name:"ASUS ROG Strix XG27ACS", category:"شاشات", brand:"ASUS", price:1750, oldPrice:null, condition:"علبة مفتوحة", rating:4.9, 
+  images:[
+    'https://pcx.com.ph/cdn/shop/files/ASUS_XG27ACS.jpg?v=1733306817&width=1090',
+    'https://cdn.mos.cms.futurecdn.net/bU4uGHVYCXERRCzVkB5X5e.jpg'
+  ], 
+  desc:"شاشة ألعاب احترافية تقدم ألوانًا دقيقة وحركة فائقة السلاسة، مع دعم HDR وتقنيات المزامنة المتقدمة. تصميم عصير براحة طويلة الأمد.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "WQHD 2560x1440",
+    spec3: "240 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:16, name:"Lenovo Legion R271", category:"شاشات", brand:"Lenovo", price:1025, oldPrice:null, condition:"علبة مفتوحة", rating:4.4, 
+  images:[
+    'https://m.media-amazon.com/images/I/71yPdMKhFTL._AC_UF1000,1000_QL80_.jpg',
+    'https://p2-ofp.static.pub/ShareResource/ww/visuals/Legion-R27i-30/lenovo-legion-r27i-30-feature04-1.png'
+  ], 
+  desc:"مثالية للاستخدام اليومي والألعاب الخفيفة. أداء موثوق وتصميم عملي بسعر اقتصادي.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "FHD 1920x1080",
+    spec3: "144 هرتز",
+    spec4: "4ms"
+  }},
+
+  {id:17, name:"ASUS ROG Strix XG27UCS", category:"شاشات", brand:"ASUS", price:2250, oldPrice:null, condition:"علبة مفتوحة", rating:4.9, 
+  images:[
+    'https://rog.asus.com/media/1719980534198.jpg',
+    'https://www.techspot.com/images/products/2024/monitors/org/2025-05-13-product-5.jpg'
+  ], 
+  desc:"شاشة متميزة بدقة 4K وأداء فائق السرعة، تقدم ألوانًا نابضة بالحياة وتباينًا عاليًا. مثالية للاعبين المحترفين والمصممين.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "4K 3840x2160",
+    spec3: "160 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:18, name:"LG 27″ UltraGear 27GS75Q-B", category:"شاشات", brand:"LG", price:1950, oldPrice:null, condition:"علبة مفتوحة", rating:4.8, 
+  images:[
+    'https://img.lazcdn.com/g/p/0abdf2cc9f0c74ffa3d7fe5bdb4a01cf.jpg_720x720q80.jpg',
+    'https://i.ytimg.com/vi/TkWilXnaUd8/maxresdefault.jpg'
+  ], 
+  desc:"شاشة ألعاب تنافسية بألوان نابضة بالحياة وأداء سلس. تصميم بلا إطار من ثلاث جهات يضفي مظهرًا احترافيًا.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "QHD 2560x1440",
+    spec3: "180 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:19, name:"MSI MAG 32C6X", category:"شاشات", brand:"MSI", price:1425, oldPrice:null, condition:"علبة مفتوحة", rating:4.6, 
+  images:[
+    'https://m.media-amazon.com/images/S/aplus-media-library-service-media/3688790a-2d35-4ddb-9ae3-1f025cd260e6.__CR0,0,600,450_PT0_SX600_V1___.jpg',
+    'https://www.gdm.or.jp/wp-content/uploads/2024/08/19/msi_mag_32c6x_62-620x466.jpg'
+  ], 
+  desc:"شاشة منحنية كبيرة لتجربة غامرة، معدل تحديث عالي وألوان غنية للألعاب التنافسية.",
+  specs: {
+    spec1: "32 بوصة",
+    spec2: "QHD 2560x1440",
+    spec3: "165 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:20, name:"MSI G255F", category:"شاشات", brand:"MSI", price:1075, oldPrice:null, condition:"علبة مفتوحة", rating:4.5, 
+  images:[
+    'https://www.texonware.com/wp-content/uploads/2024/03/G255F.png',
+    'https://informatics-dz.com/wp-content/uploads/2024/09/Ecran-MSI-G255F-25-Fast-IPS-180Hz-1ms-gaming-box.jpg'
+  ], 
+  desc:"شاشة ألعاب سريعة ومضغوطة تقدم أداءً سلسًا مع استجابة فورية. مثالية للمساحات الصغيرة.",
+  specs: {
+    spec1: "25 بوصة",
+    spec2: "FHD 1920x1080",
+    spec3: "180 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:21, name:"Gigabyte M27Q EK", category:"شاشات", brand:"Gigabyte", price:1800, oldPrice:null, condition:"علبة مفتوحة", rating:4.7, 
+  images:[
+    'https://s3.chip7.pt/20VM0-M27QBA-2EKR_site.jpg',
+    'https://i.rtings.com/assets/products/mwTbpPbi/gigabyte-m27q-rev-2-0/design-small.jpg?format=auto'
+  ], 
+  desc:"توفر أداءً ممتازًا في الألعاب مع حركة سلسة وألوان نابضة بالحياة. مناسبة للاعبين المحترفين والعمل الإبداعي.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "QHD 2560x1440",
+    spec3: "170 هرتز",
+    spec4: "0.5ms"
+  }},
 ];
 
-// Gift Cards - Product names and brand names in English
-const giftCards = [
-  {id: 8, name:"Amazon Gift Card", category:"البطاقات العالمية", brand:"Amazon", price:null, oldPrice:null, condition:"رقمية", rating:4.9, 
-   images:["https://newworld-guides.com/wp-content/uploads/2021/08/Amazon-Win-100-Euro.jpg"], 
-   desc:"قابلة للاستبدال على Amazon.com لملايين العناصر.",
-   amounts: [5, 10, 20, 50, 100, 200, 500]},
-
-  {id: 9, name:"Newegg Gift Card", category:"البطاقات العالمية", brand:"Newegg", price:null, oldPrice:null, condition:"رقمية", rating:4.8, 
-   images:["https://c1.neweggimages.com/productimage/nb640/GC-000-001-08.jpg"], 
-   desc:"مثالية لعشاق التكنولوجيا للتسوق على نيو إيج.",
-   amounts: [5, 10, 20, 50, 100, 200, 500]},
-
-  {id: 10, name:"Steam Wallet", category:"البطاقات العالمية", brand:"Steam", price:null, oldPrice:null, condition:"رقمية", rating:4.9, 
-   images:["https://cdn.akamai.steamstatic.com/store/home/store_home_share.jpg"], 
-   desc:"أضف أموالاً إلى محفظة ستيم للألعاب والبرامج والمزيد.",
-   amounts: [5, 10, 20, 50, 100, 200, 500]},
-
-  {id: 11, name:"PlayStation Store", category:"البطاقات العالمية", brand:"Sony", price:null, oldPrice:null, condition:"رقمية", rating:4.7, 
-   images:["https://cdn.mos.cms.futurecdn.net/9dqnuaQtjHF7GfmwqjfMoJ-1200-80.jpg"], 
-   desc:"اشترِ الألعاب والإضافات والاشتراكات والمزيد من متجر بلايستيشن.",
-   amounts: [5, 10, 20, 50, 100, 200, 500]},
-
-  {id: 12, name:"Libya-Madar Credit", category:"البطاقات العالمية", brand:"Libya-Madar", price:null, oldPrice:null, condition:"رقمية", rating:4.5, 
-   images:["https://cdn.aptoide.com/imgs/9/e/d/9edcf6b5b70aa66783b28091cee31ac7_fgraphic.png"], 
-   desc:"اشحن رصيد هاتفك ليبيا-مدار على الفور.",
-   amounts: [5, 10, 20, 50, 100, 200, 500]},
-];
-
-// Combine products and gift cards
-const allItems = [...products, ...giftCards];
+// All items (products only, no gift cards)
+const allItems = [...products];
 
 // Carousel Images - Exactly 10 images
 const carouselImages = [
@@ -902,7 +1115,6 @@ const carouselImages = [
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentProductImage = {}; // Track current image for each product
-let selectedAmounts = {}; // Track selected amounts for gift cards
 
 // Initialize Carousel - FIXED FOR SMOOTH LOOPING
 function initCarousel() {
@@ -963,17 +1175,74 @@ function handleScroll() {
   }
 }
 
-// Render Products
+// Function to get condition class based on condition text
+function getConditionClass(condition) {
+  switch(condition) {
+    case 'جديد': return 'condition-new';
+    case 'مستعمل': return 'condition-used';
+    case 'علبة مفتوحة': return 'condition-open-box';
+    default: return '';
+  }
+}
+
+// Function to format price with (د.ل) instead of $
+function formatPrice(price) {
+  return price + ' (د.ل)';
+}
+
+// NEW: Function to render product specifications
+function renderSpecs(specs) {
+  if (!specs) return '';
+  
+  return `
+    <div class="specs-container">
+      <div class="spec-item">
+        <span class="spec-label">${getSpecLabel(specs.spec1)}</span>
+        <span class="spec-value">${specs.spec1}</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">${getSpecLabel(specs.spec2)}</span>
+        <span class="spec-value">${specs.spec2}</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">${getSpecLabel(specs.spec3)}</span>
+        <span class="spec-value">${specs.spec3}</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">${getSpecLabel(specs.spec4)}</span>
+        <span class="spec-value">${specs.spec4}</span>
+      </div>
+    </div>
+  `;
+}
+
+// NEW: Function to get appropriate labels for specifications based on content
+function getSpecLabel(specValue) {
+  if (specValue.includes("بوصة") || specValue.includes("إنش")) return "الحجم";
+  if (specValue.includes("هرتز") || specValue.includes("Hz")) return "معدل التحديث";
+  if (specValue.includes("ms")) return "وقت الاستجابة";
+  if (specValue.includes("GB") || specValue.includes("MB")) return "السعة";
+  if (specValue.includes("MHz") || specValue.includes("GHz")) return "السرعة";
+  if (specValue.includes("نواة") || specValue.includes("Core")) return "النوى";
+  if (specValue.includes("مسار") || specValue.includes("Thread")) return "المسارات";
+  if (specValue.includes("W") || specValue.includes("واط")) return "الطاقة";
+  if (specValue.includes("PCIe")) return "الواجهة";
+  if (specValue.includes("DDR")) return "النوع";
+  if (specValue.includes("FHD") || specValue.includes("QHD") || specValue.includes("4K")) return "الدقة";
+  if (specValue.includes("موديولار")) return "النظام";
+  if (specValue.includes("ضمان")) return "الضمان";
+  if (specValue.includes("Wi-Fi")) return "الشبكة";
+  
+  return "المواصفات";
+}
+
+// Render Products - MODIFIED TO SORT BY AVAILABILITY
 function renderProducts(filter = {}) {
   let filtered = allItems;
 
   // Apply category filter
   if (filter.category) {
-    if (filter.category === "البطاقات العالمية") {
-      filtered = filtered.filter(p => p.category === "البطاقات العالمية");
-    } else {
-      filtered = filtered.filter(p => p.category === filter.category);
-    }
+    filtered = filtered.filter(p => p.category === filter.category);
   }
   
   // Apply brand filter
@@ -997,39 +1266,40 @@ function renderProducts(filter = {}) {
     );
   }
 
+  // MODIFIED: Sort products by availability - available first, then unavailable
+  filtered.sort((a, b) => {
+    const aUnavailable = unavailableProducts.includes(a.name);
+    const bUnavailable = unavailableProducts.includes(b.name);
+    
+    if (aUnavailable && !bUnavailable) return 1; // b comes first (available)
+    if (!aUnavailable && bUnavailable) return -1; // a comes first (available)
+    return 0; // keep original order for same availability status
+  });
+
   const grid = document.getElementById('productsGrid');
   grid.innerHTML = filtered.map(p => {
-    // Check if this is a gift card (has amounts array)
-    const isGiftCard = p.amounts && p.amounts.length > 0;
+    const isUnavailable = unavailableProducts.includes(p.name);
+    const conditionClass = getConditionClass(p.condition);
     
     return `
-    <div class="product-card" data-id="${p.id}">
+    <div class="product-card ${isUnavailable ? 'unavailable-product' : ''}" data-id="${p.id}">
+      ${isUnavailable ? '<div class="unavailable-label">(غير متوفر)</div>' : ''}
       ${p.oldPrice ? `<span class="badge">-${Math.round((1 - p.price/p.oldPrice)*100)}%</span>` : ''}
       <img src="${p.images[0]}" alt="${p.name}" loading="lazy"/>
       <div class="product-info">
         <h3>${p.name}</h3>
-        <p>${p.brand} • ${p.condition}</p>
+        <p>${p.brand} • <span class="${conditionClass}">${p.condition}</span></p>
         <div style="margin:1rem 0;">
           ${Array(Math.floor(p.rating)).fill('★').join('')} ${p.rating}
         </div>
+        
+        <!-- NEW: Display specifications for ALL products -->
+        ${p.specs ? renderSpecs(p.specs) : ''}
+        
         <div>
-          ${isGiftCard ? 
-            `<span class="price">اختر القيمة</span>` : 
-            `<span class="price">$${p.price}</span>${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ''}`
-          }
+          <span class="price">${formatPrice(p.price)}</span>${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''}
         </div>
-        ${isGiftCard ? 
-          `<div class="amount-selector">
-            <select class="amount-dropdown" data-id="${p.id}">
-              <option value="">اختر القيمة</option>
-              ${p.amounts.map(amount => `
-                <option value="${amount}" ${selectedAmounts[p.id] === amount ? 'selected' : ''}>$${amount}</option>
-              `).join('')}
-            </select>
-          </div>
-          <button class="btn btn-buy-now buy-now" style="margin-top:1rem; width:100%;" data-id="${p.id}">اشترِ الآن</button>` : 
-          `<button class="btn add-to-cart" style="margin-top:1rem; width:100%;" data-id="${p.id}">أضف إلى السلة</button>`
-        }
+        <button class="btn add-to-cart" style="margin-top:1rem; width:100%;" data-id="${p.id}" ${isUnavailable ? 'disabled' : ''}>${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}</button>
       </div>
     </div>
   `}).join('');
@@ -1042,85 +1312,25 @@ function renderProducts(filter = {}) {
     });
   });
 
-  // Buy Now buttons for gift cards
-  document.querySelectorAll('.buy-now').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const id = parseInt(e.target.dataset.id);
-      buyNow(id);
-    });
-  });
-
-  // Amount selection for gift cards - UPDATED TO DROPDOWN
-  document.querySelectorAll('.amount-dropdown').forEach(dropdown => {
-    dropdown.addEventListener('change', (e) => {
-      const id = parseInt(e.target.dataset.id);
-      const amount = e.target.value ? parseInt(e.target.value) : null;
-      
-      // Update selected amount
-      selectedAmounts[id] = amount;
-    });
-  });
-
   // Open product modal
   document.querySelectorAll('.product-card').forEach(card => {
     card.addEventListener('click', (e) => {
-      if (e.target.classList.contains('add-to-cart') || 
-          e.target.classList.contains('buy-now') ||
-          e.target.classList.contains('amount-dropdown')) return;
+      if (e.target.classList.contains('add-to-cart') || e.target.classList.contains('unavailable-label')) return;
       const id = parseInt(card.dataset.id);
       showProductDetail(id);
     });
   });
 }
 
-// Buy Now function for gift cards
-function buyNow(id) {
-  const product = allItems.find(p => p.id === id);
-  
-  // Check if amount is selected for gift cards
-  if (product.amounts && product.amounts.length > 0) {
-    const selectedAmount = selectedAmounts[id];
-    if (!selectedAmount) {
-      alert('الرجاء اختيار المبلغ أولاً');
-      return;
-    }
-    
-    // Create a modified product with the selected amount
-    const productWithAmount = {
-      ...product,
-      price: selectedAmount,
-      name: `${product.name} - $${selectedAmount}`
-    };
-    
-    // Add to cart and proceed to checkout
-    const existing = cart.find(item => item.id === id && item.price === selectedAmount);
-    if (existing) {
-      existing.qty++;
-    } else {
-      cart.push({
-        ...productWithAmount, 
-        qty: 1,
-        images: [product.images[0]]
-      });
-    }
-    
-    updateCart();
-    
-    // Show success notification
-    showNotification(`${product.name} ($${selectedAmount}) تمت الإضافة إلى السلة!`);
-    
-    // Open cart modal
-    setTimeout(() => {
-      renderCartItems(); 
-      cartModal.style.display = 'flex';
-      setTimeout(() => showModal(cartModal), 10);
-    }, 500);
-  }
-}
-
 // Add to cart with animation
 function addToCart(id, button) {
   const product = allItems.find(p => p.id === id);
+  
+  // Check if product is unavailable
+  if (unavailableProducts.includes(product.name)) {
+    showNotification('هذا المنتج غير متوفر حالياً');
+    return;
+  }
   
   // Use current image if available, otherwise use first image
   const currentImage = currentProductImage[id] || product.images[0];
@@ -1250,7 +1460,7 @@ function renderCartItems() {
         <p>أضف بعض المنتجات إلى سلة التسوق لرؤيتها هنا</p>
       </div>
     `;
-    document.getElementById('cartTotal').textContent = '$0.00';
+    document.getElementById('cartTotal').textContent = '0.00 (د.ل)';
     return;
   }
 
@@ -1259,7 +1469,7 @@ function renderCartItems() {
       <img src="${item.images[0]}" class="cart-item-image" alt="${item.name}">
       <div class="cart-item-details">
         <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-price">$${item.price}</div>
+        <div class="cart-item-price">${formatPrice(item.price)}</div>
         <div class="cart-item-controls">
           <div class="cart-item-qty">
             <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
@@ -1273,7 +1483,7 @@ function renderCartItems() {
   `).join('');
 
   const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-  document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+  document.getElementById('cartTotal').textContent = formatPrice(total.toFixed(2));
 }
 
 function changeQty(id, delta) {
@@ -1294,7 +1504,6 @@ function removeFromCart(id) {
 const productModal = document.getElementById('productModal');
 const cartModal = document.getElementById('cartModal');
 const orderModal = document.getElementById('orderModal');
-const giftPayModal = document.getElementById('giftPayModal');
 
 function showModal(modal) {
   modal.classList.add('active');
@@ -1315,7 +1524,6 @@ document.getElementById('cartIcon').onclick = () => {
 
 document.getElementById('closeCart').onclick = () => hideModal(cartModal);
 document.getElementById('closeOrder').onclick = () => hideModal(orderModal);
-document.getElementById('closeGiftPay').onclick = () => hideModal(giftPayModal);
 document.getElementById('closeProduct').onclick = () => hideModal(productModal);
 
 document.getElementById('continueShoppingBtn').onclick = () => hideModal(cartModal);
@@ -1380,17 +1588,17 @@ document.getElementById('supportForm').onsubmit = (e) => {
 // Product Detail Modal (without reviews/comments)
 function showProductDetail(id) {
   const p = allItems.find(x => x.id === id);
+  const isUnavailable = unavailableProducts.includes(p.name);
+  const conditionClass = getConditionClass(p.condition);
   
   // Initialize current image for this product if not set
   if (!currentProductImage[id]) {
     currentProductImage[id] = p.images[0];
   }
   
-  const isGiftCard = p.amounts && p.amounts.length > 0;
-  
   document.getElementById('productDetail').innerHTML = `
-    <h2>${p.name}</h2>
-    <p style="color:#888;">${p.brand} • ${p.condition}</p>
+    <h2>${p.name} ${isUnavailable ? '<span style="color:red;">(غير متوفر)</span>' : ''}</h2>
+    <p style="color:#888;">${p.brand} • <span class="${conditionClass}">${p.condition}</span></p>
     
     <!-- Main product image that fills the pop-up width -->
     <img class="main-image" src="${currentProductImage[id]}" id="mainProductImage" alt="${p.name}">
@@ -1402,21 +1610,22 @@ function showProductDetail(id) {
       ).join('')}
     </div>
     
-    ${isGiftCard ? 
-      `<div class="amount-selector">
-        <h3>اختر القيمة</h3>
-        <select class="amount-dropdown" data-id="${p.id}">
-          <option value="">اختر القيمة</option>
-          ${p.amounts.map(amount => `
-            <option value="${amount}" ${selectedAmounts[p.id] === amount ? 'selected' : ''}>$${amount}</option>
-          `).join('')}
-        </select>
+    <!-- NEW: Display specifications in modal for ALL products -->
+    ${p.specs ? `
+      <div style="margin: 1.5rem 0; padding: 1rem; background: rgba(13, 110, 253, 0.05); border-radius: 8px;">
+        <h3 style="margin-bottom: 1rem;">المواصفات الفنية</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+          <div><strong>${getSpecLabel(p.specs.spec1)}:</strong> ${p.specs.spec1}</div>
+          <div><strong>${getSpecLabel(p.specs.spec2)}:</strong> ${p.specs.spec2}</div>
+          <div><strong>${getSpecLabel(p.specs.spec3)}:</strong> ${p.specs.spec3}</div>
+          <div><strong>${getSpecLabel(p.specs.spec4)}:</strong> ${p.specs.spec4}</div>
+        </div>
       </div>
-      <button class="btn btn-buy-now buy-now" data-id="${p.id}" style="width:100%; padding:1rem; font-size:1.2rem;">اشترِ الآن</button>` : 
-      `<h2 style="color:var(--primary); margin:1.5rem 0;">$${p.price}</h2>
-      ${p.oldPrice ? `<p><s>$${p.oldPrice}</s> وفر ${Math.round((1 - p.price/p.oldPrice)*100)}%</p>` : ''}
-      <button class="btn add-to-cart" data-id="${p.id}" style="width:100%; padding:1rem; font-size:1.2rem;">أضف إلى السلة</button>`
-    }
+    ` : ''}
+    
+    <h2 style="color:var(--primary); margin:1.5rem 0;">${formatPrice(p.price)}</h2>
+    ${p.oldPrice ? `<p><s>${formatPrice(p.oldPrice)}</s> وفر ${Math.round((1 - p.price/p.oldPrice)*100)}%</p>` : ''}
+    <button class="btn add-to-cart" data-id="${p.id}" style="width:100%; padding:1rem; font-size:1.2rem;" ${isUnavailable ? 'disabled' : ''}>${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}</button>
     
     <p><strong>الوصف:</strong> ${p.desc || 'مكون عالي الأداء بأحدث التقنيات.'}</p>
     
@@ -1429,27 +1638,10 @@ function showProductDetail(id) {
   setTimeout(() => showModal(productModal), 10);
 
   // Re-bind buttons inside modal
-  if (isGiftCard) {
-    // Amount selection for gift cards in modal
-    document.querySelector('#productDetail .amount-dropdown').addEventListener('change', (e) => {
-      const productId = parseInt(e.target.dataset.id);
-      const amount = e.target.value ? parseInt(e.target.value) : null;
-      
-      // Update selected amount
-      selectedAmounts[productId] = amount;
-    });
-    
-    // Buy Now button in modal
-    document.querySelector('#productDetail .buy-now').addEventListener('click', (e) => {
-      buyNow(id);
-      hideModal(productModal);
-    });
-  } else {
-    // Add to cart button in modal
-    document.querySelector('#productDetail .add-to-cart').addEventListener('click', (e) => {
-      addToCart(id, e.target);
-    });
-  }
+  // Add to cart button in modal
+  document.querySelector('#productDetail .add-to-cart').addEventListener('click', (e) => {
+    addToCart(id, e.target);
+  });
 }
 
 // Function to change the main image when clicking on thumbnails
@@ -1470,7 +1662,7 @@ function changeMainImage(productId, src, element) {
 function sendOrderEmail(orderData) {
   // Format cart items for email
   const cartItems = orderData.cart.map(item => 
-    `- ${item.name} (الكمية: ${item.qty}) - $${item.price} لكل قطعة - المجموع: $${item.price * item.qty}`
+    `- ${item.name} (الكمية: ${item.qty}) - ${formatPrice(item.price)} لكل قطعة - المجموع: ${formatPrice(item.price * item.qty)}`
   ).join('\n');
   
   // Create complete order summary
@@ -1486,7 +1678,7 @@ ${orderData.notes ? `ملاحظات: ${orderData.notes}` : 'ملاحظات: لا
 تفاصيل الطلب:
 ${cartItems}
 
-المجموع الكلي: $${orderData.total.toFixed(2)}
+المجموع الكلي: ${formatPrice(orderData.total.toFixed(2))}
 
 شكراً لتعاملكم مع سويتشز!
   `;
@@ -1500,7 +1692,7 @@ ${cartItems}
     customer_address: orderData.location,
     customer_notes: orderData.notes || 'لا يوجد',
     order_items: cartItems,
-    order_total: `$${orderData.total.toFixed(2)}`,
+    order_total: formatPrice(orderData.total.toFixed(2)),
     message: orderSummary 
   };
   
