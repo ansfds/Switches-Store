@@ -49,6 +49,12 @@
       --logo-font: 'Segoe UI', sans-serif;
       --logo-weight: bold;
       --logo-style: normal;
+      --background-image: url('https://img.freepik.com/premium-photo/top-view-computer-parts_160097-856.jpg');
+      --background-opacity: 0.15;
+      --background-blur: 0px;
+      --background-scale: 1;
+      --background-brightness: 1;
+      --rgb-intensity: 0.7; /* التحكم في قوة إضاءة RGB */
     }
     [data-theme="dark"] {
       --bg: #121212;
@@ -57,7 +63,30 @@
       --card: #1e1e1e;
       --primary: #0d6efd;
       --border: #333;
+      --background-opacity: 0.25;
+      --background-brightness: 0.8;
+      --rgb-intensity: 0.8; /* إضاءة أقوى في الوضع المظلم */
     }
+    
+    /* إضافة الخلفية المخصصة */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: var(--background-image);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: var(--background-opacity);
+      filter: blur(var(--background-blur)) brightness(var(--background-brightness));
+      transform: scale(var(--background-scale));
+      z-index: -1;
+      pointer-events: none;
+    }
+    
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -65,6 +94,7 @@
       color: var(--text);
       line-height: 1.6;
       transition: background 0.3s, color 0.3s;
+      position: relative;
     }
     header {
       background: var(--card);
@@ -110,6 +140,7 @@
       padding: 1.5rem;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      position: relative;
     }
     .search-container {
       grid-column: 1 / -1;
@@ -142,6 +173,8 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.08);
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
     }
     .feature-box:hover {
       transform: translateY(-5px);
@@ -180,6 +213,8 @@
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.08);
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
     .summary-box {
       background: linear-gradient(135deg, var(--card), var(--bg));
@@ -212,12 +247,18 @@
     }
     @media (max-width: 900px) {
       .products-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
     }
     @media (max-width: 600px) {
       .products-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
       }
     }
     .product-card {
@@ -273,6 +314,8 @@
       padding: 3rem;
       border-radius: 16px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
     }
     .btn {
       background: var(--primary);
@@ -641,10 +684,98 @@
       font-size: 0.7rem;
       color: #666;
     }
+    
+    /* إعدادات الخلفية */
+    .background-settings {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: var(--card);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      max-width: 300px;
+      display: none;
+    }
+    
+    .background-settings.active {
+      display: block;
+    }
+    
+    .background-settings h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    
+    .background-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .background-control {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .background-control label {
+      font-size: 0.9rem;
+    }
+    
+    .background-control input {
+      padding: 5px;
+    }
+    
+    .settings-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
 
+<!-- إعدادات الخلفية -->
+<div class="background-settings" id="backgroundSettings">
+  <h3>إعدادات الخلفية</h3>
+  <div class="background-controls">
+    <div class="background-control">
+      <label for="bgImageUrl">رابط الصورة:</label>
+      <input type="text" id="bgImageUrl" placeholder="أدخل رابط الصورة">
+    </div>
+    <div class="background-control">
+      <label for="bgOpacity">الشفافية: <span id="opacityValue">15%</span></label>
+      <input type="range" id="bgOpacity" min="0" max="100" value="15">
+    </div>
+    <div class="background-control">
+      <label for="bgBlur">التشويش: <span id="blurValue">0px</span></label>
+      <input type="range" id="bgBlur" min="0" max="20" value="0">
+    </div>
+    <div class="background-control">
+      <label for="bgScale">الحجم: <span id="scaleValue">100%</span></label>
+      <input type="range" id="bgScale" min="50" max="150" value="100">
+    </div>
+    <div class="background-control">
+      <label for="bgBrightness">السطوع: <span id="brightnessValue">100%</span></label>
+      <input type="range" id="bgBrightness" min="20" max="180" value="100">
+    </div>
+    <button class="btn" id="applyBgSettings">تطبيق الإعدادات</button>
+  </div>
+</div>
 <header>
   <div class="logo-container">
     <img src="https://qwertyqop.com/cdn/shop/files/individualswitch.png?v=1698726047" alt="شعار سويتشز" class="logo-image">
@@ -663,6 +794,9 @@
   <!-- Features Section -->
   <section class="features-section">
     <div class="feature-box">
+      <div class="rgb-border-wrapper">
+        <div class="rgb-border"></div>
+      </div>
       <div class="feature-icon">
         <i class="fas fa-shipping-fast"></i>
       </div>
@@ -670,6 +804,9 @@
       <div class="feature-desc">خلال 1-3 أيام لباب منزلك</div>
     </div>
     <div class="feature-box">
+      <div class="rgb-border-wrapper">
+        <div class="rgb-border"></div>
+      </div>
       <div class="feature-icon">
         <i class="fas fa-map-marker-alt"></i>
       </div>
@@ -677,6 +814,9 @@
       <div class="feature-desc">توصيل لجميع المدن في جميع أنحاء البلاد</div>
     </div>
     <div class="feature-box">
+      <div class="rgb-border-wrapper">
+        <div class="rgb-border"></div>
+      </div>
       <div class="feature-icon">
         <i class="fas fa-headset"></i>
       </div>
@@ -684,6 +824,9 @@
       <div class="feature-desc">دعم فني مستمر ومجاني</div>
     </div>
     <div class="feature-box">
+      <div class="rgb-border-wrapper">
+        <div class="rgb-border"></div>
+      </div>
       <div class="feature-icon">
         <i class="fas fa-award"></i>
       </div>
@@ -695,10 +838,16 @@
   <!-- Store Summary and Services Section -->
   <section class="store-summary-services">
     <div class="summary-box">
+      <div class="rgb-border-wrapper">
+        <div class="rgb-border"></div>
+      </div>
       <h3 class="summary-title">عن متجر سويتشز</h3>
       <p class="summary-text">سويتشز يوفر لك منتجات متميزة مع أفضل خدمة عملاء، سرعة شحن قياسية، وجودة مضمونة تجعل تجربتك مثالية وموثوقة.</p>
     </div>
     <div class="services-box">
+      <div class="rgb-border-wrapper">
+        <div class="rgb-border"></div>
+      </div>
       <h3 class="services-title">خدمات إضافية</h3>
       <p class="services-text">نوفر خدمة تجميع وبناء أجهزة الكمبيوتر بالإضافة إلى خدمة التنظيف الشاملة للحفاظ على أداء جهازك.</p>
     </div>
@@ -706,6 +855,9 @@
 
   <!-- Filters -->
   <div class="filters">
+    <div class="rgb-border-wrapper">
+      <div class="rgb-border"></div>
+    </div>
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="ابحث في المنتجات، الفئات، الماركات...">
       <button class="btn" id="searchBtn"><i class="fas fa-search"></i></button>
@@ -722,7 +874,6 @@
       <option>الصناديق</option>
       <option>شاشات</option>
       <option>إكسسوارات</option>
-
     </select>
     <!-- FIXED: Brand names in English -->
     <select id="brandFilter">
@@ -739,6 +890,8 @@
       <option>LG</option>
       <option>MSI</option>
       <option>Gigabyte</option>
+     <option>Apple</option>
+     <option>LDON</option>
     </select>
     <select id="conditionFilter">
       <option value="">جميع الحالات</option>
@@ -758,6 +911,9 @@
 
   <!-- Support Section -->
   <section class="support-section">
+    <div class="rgb-border-wrapper">
+      <div class="rgb-border"></div>
+    </div>
     <h2 style="text-align:center; margin-bottom:2rem;">الدعم الفني</h2>
     <form id="supportForm" style="max-width:600px; margin:0 auto; display:grid; gap:1rem;">
       <input type="text" name="name" placeholder="اسمك" required />
@@ -845,15 +1001,30 @@ themeToggle.addEventListener('click', () => {
     body.removeAttribute('data-theme');
     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     localStorage.setItem('theme', 'light');
+    
+    // تحديث إعدادات الخلفية للوضع المضيء
+    document.documentElement.style.setProperty('--background-opacity', '0.15');
+    document.documentElement.style.setProperty('--background-brightness', '1');
+    document.documentElement.style.setProperty('--rgb-intensity', '0.7');
   } else {
     body.setAttribute('data-theme', 'dark');
     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
     localStorage.setItem('theme', 'dark');
+    
+    // تحديث إعدادات الخلفية للوضع المظلم
+    document.documentElement.style.setProperty('--background-opacity', '0.25');
+    document.documentElement.style.setProperty('--background-brightness', '0.8');
+    document.documentElement.style.setProperty('--rgb-intensity', '0.8');
   }
 });
 if (localStorage.getItem('theme') === 'dark') {
   body.setAttribute('data-theme', 'dark');
   themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  
+  // تحديث إعدادات الخلفية للوضع المظلم
+  document.documentElement.style.setProperty('--background-opacity', '0.25');
+  document.documentElement.style.setProperty('--background-brightness', '0.8');
+  document.documentElement.style.setProperty('--rgb-intensity', '0.8');
 }
 
 // List of unavailable products
@@ -925,7 +1096,7 @@ const products = [
     spec4: "12,700 MB/s"
   }},
 
-  {id:5, name:"ASUS ROG Strix Z790-E", category:"اللوحات الأم", brand:"ASUS", price:2000, oldPrice:2400, condition:"مستعمل", rating:4.7, 
+  {id:5, name:"ASUS ROG Strix Z790-E", category:"اللوحات الأم", brand:"ASUS", price:2000, oldPrice:2400, condition:"جديد", rating:4.7, 
   images:[
     'https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg',
     'https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg',
@@ -1099,7 +1270,7 @@ const products = [
     spec4: "0.5ms"
   }},
 
-    {id:22, name:"LDON Mide 68", category:"إكسسوارات", price:299, oldPrice:399, condition:"جديد", rating:4.9, 
+    {id:22, name:"LDON Mide 68", category:"إكسسوارات", brand:"LDON", price:299, oldPrice:399, condition:"جديد", rating:4.9, 
   images:[
     'https://sc04.alicdn.com/kf/Hacb935a777eb4a7b8f1217f2645b7a26j.jpg',
     'https://ae01.alicdn.com/kf/S1d39d71de2de42809a1433ec5b8b8398W.jpg',
@@ -1111,19 +1282,6 @@ const products = [
     spec2: "0.125ms",
     spec3: "Sky Blue PRO Switches",
     spec4: "68% حجم"
-  }},
-      {id:23, name:"mac book pro 2015", category:"لابتوبات", price:2200, oldPrice:2400, condition:"مستعمل", rating:4.9, 
-  images:[
-    'https://sc04.alicdn.com/kf/Hacb935a777eb4a7b8f1217f2645b7a26j.jpg',
-    'https://ae01.alicdn.com/kf/S1d39d71de2de42809a1433ec5b8b8398W.jpg',
-    'https://m.media-amazon.com/images/I/71hl1rmRU9L._AC_UF350,350_QL80_.jpg'
-  ],  
-  desc:"كيبورد مغناطيسي مميز للألعاب مع إضاءة RGB قابلة للتخصيص.",
-  specs: {
-    spec1: "3k (2880 x 1800 pixels)",
-    spec2: "16GB RAM",
-    spec3: "256gb SSD",
-    spec4: "15-inch"
   }},
 
 ];
@@ -1315,6 +1473,9 @@ function renderProducts(filter = {}) {
     
     return `
     <div class="product-card ${isUnavailable ? 'unavailable-product' : ''}" data-id="${p.id}">
+      <div class="rgb-border-wrapper">
+        <div class="rgb-border"></div>
+      </div>
       ${isUnavailable ? '<div class="unavailable-label">(غير متوفر)</div>' : ''}
       ${p.oldPrice ? `<span class="badge">-${Math.round((1 - p.price/p.oldPrice)*100)}%</span>` : ''}
       <img src="${p.images[0]}" alt="${p.name}" loading="lazy"/>
@@ -1352,6 +1513,21 @@ function renderProducts(filter = {}) {
       showProductDetail(id);
     });
   });
+  
+  // إضافة مستمعات الأحداث لتأثير RGB على الهواتف
+  if ('ontouchstart' in window) {
+    document.querySelectorAll('.product-card, .feature-box, .summary-box, .services-box, .filters, .support-section').forEach(element => {
+      element.addEventListener('touchstart', function() {
+        this.classList.add('active');
+      });
+      
+      element.addEventListener('touchend', function() {
+        setTimeout(() => {
+          this.classList.remove('active');
+        }, 1000);
+      });
+    });
+  }
 }
 
 // Add to cart with animation
@@ -1778,11 +1954,196 @@ ${supportData.issue}
     });
 }
 
+// Background Settings Functions
+function initBackgroundSettings() {
+  const settingsToggle = document.getElementById('settingsToggle');
+  const backgroundSettings = document.getElementById('backgroundSettings');
+  const bgImageUrl = document.getElementById('bgImageUrl');
+  const bgOpacity = document.getElementById('bgOpacity');
+  const bgBlur = document.getElementById('bgBlur');
+  const bgScale = document.getElementById('bgScale');
+  const bgBrightness = document.getElementById('bgBrightness');
+  const applyBtn = document.getElementById('applyBgSettings');
+  
+  // Load saved settings
+  const savedBgImage = localStorage.getItem('backgroundImage');
+  const savedBgOpacity = localStorage.getItem('backgroundOpacity');
+  const savedBgBlur = localStorage.getItem('backgroundBlur');
+  const savedBgScale = localStorage.getItem('backgroundScale');
+  const savedBgBrightness = localStorage.getItem('backgroundBrightness');
+  
+  if (savedBgImage) {
+    bgImageUrl.value = savedBgImage;
+    document.documentElement.style.setProperty('--background-image', `url('${savedBgImage}')`);
+  }
+  
+  if (savedBgOpacity) {
+    bgOpacity.value = savedBgOpacity;
+    document.documentElement.style.setProperty('--background-opacity', savedBgOpacity / 100);
+    document.getElementById('opacityValue').textContent = savedBgOpacity + '%';
+  }
+  
+  if (savedBgBlur) {
+    bgBlur.value = savedBgBlur;
+    document.documentElement.style.setProperty('--background-blur', savedBgBlur + 'px');
+    document.getElementById('blurValue').textContent = savedBgBlur + 'px';
+  }
+  
+  if (savedBgScale) {
+    bgScale.value = savedBgScale;
+    document.documentElement.style.setProperty('--background-scale', savedBgScale / 100);
+    document.getElementById('scaleValue').textContent = savedBgScale + '%';
+  }
+  
+  if (savedBgBrightness) {
+    bgBrightness.value = savedBgBrightness;
+    document.documentElement.style.setProperty('--background-brightness', savedBgBrightness / 100);
+    document.getElementById('brightnessValue').textContent = savedBgBrightness + '%';
+  }
+  
+  // Toggle settings panel
+  settingsToggle.addEventListener('click', () => {
+    backgroundSettings.classList.toggle('active');
+  });
+  
+  // Update opacity value display
+  bgOpacity.addEventListener('input', () => {
+    document.getElementById('opacityValue').textContent = bgOpacity.value + '%';
+  });
+  
+  // Update blur value display
+  bgBlur.addEventListener('input', () => {
+    document.getElementById('blurValue').textContent = bgBlur.value + 'px';
+  });
+  
+  // Update scale value display
+  bgScale.addEventListener('input', () => {
+    document.getElementById('scaleValue').textContent = bgScale.value + '%';
+  });
+  
+  // Update brightness value display
+  bgBrightness.addEventListener('input', () => {
+    document.getElementById('brightnessValue').textContent = bgBrightness.value + '%';
+  });
+  
+  // Apply settings
+  applyBtn.addEventListener('click', () => {
+    const imageUrl = bgImageUrl.value || 'https://img.freepik.com/premium-photo/top-view-computer-parts_160097-856.jpg';
+    
+    // Update CSS variables
+    document.documentElement.style.setProperty('--background-image', `url('${imageUrl}')`);
+    document.documentElement.style.setProperty('--background-opacity', bgOpacity.value / 100);
+    document.documentElement.style.setProperty('--background-blur', bgBlur.value + 'px');
+    document.documentElement.style.setProperty('--background-scale', bgScale.value / 100);
+    document.documentElement.style.setProperty('--background-brightness', bgBrightness.value / 100);
+    
+    // Save settings
+    localStorage.setItem('backgroundImage', imageUrl);
+    localStorage.setItem('backgroundOpacity', bgOpacity.value);
+    localStorage.setItem('backgroundBlur', bgBlur.value);
+    localStorage.setItem('backgroundScale', bgScale.value);
+    localStorage.setItem('backgroundBrightness', bgBrightness.value);
+    
+    // Close settings panel
+    backgroundSettings.classList.remove('active');
+    
+    // Show confirmation
+    showNotification('تم تطبيق إعدادات الخلفية بنجاح!');
+  });
+}
+
+// RGB Settings Functions
+function initRgbSettings() {
+  const rgbToggle = document.getElementById('rgbToggle');
+  const rgbSettings = document.getElementById('rgbSettings');
+  const rgbIntensity = document.getElementById('rgbIntensity');
+  const rgbSpeed = document.getElementById('rgbSpeed');
+  const applyRgbBtn = document.getElementById('applyRgbSettings');
+  
+  // Load saved settings
+  const savedRgbIntensity = localStorage.getItem('rgbIntensity');
+  const savedRgbSpeed = localStorage.getItem('rgbSpeed');
+  
+  if (savedRgbIntensity) {
+    rgbIntensity.value = savedRgbIntensity;
+    document.documentElement.style.setProperty('--rgb-intensity', savedRgbIntensity / 100);
+    document.getElementById('intensityValue').textContent = savedRgbIntensity + '%';
+  }
+  
+  if (savedRgbSpeed) {
+    rgbSpeed.value = savedRgbSpeed;
+    updateSpeedValue(savedRgbSpeed);
+    updateRgbAnimationSpeed(savedRgbSpeed);
+  }
+  
+  // Toggle settings panel
+  rgbToggle.addEventListener('click', () => {
+    rgbSettings.classList.toggle('active');
+  });
+  
+  // Update intensity value display
+  rgbIntensity.addEventListener('input', () => {
+    document.getElementById('intensityValue').textContent = rgbIntensity.value + '%';
+  });
+  
+  // Update speed value display
+  rgbSpeed.addEventListener('input', () => {
+    updateSpeedValue(rgbSpeed.value);
+  });
+  
+  // Apply settings
+  applyRgbBtn.addEventListener('click', () => {
+    // Update CSS variables
+    document.documentElement.style.setProperty('--rgb-intensity', rgbIntensity.value / 100);
+    updateRgbAnimationSpeed(rgbSpeed.value);
+    
+    // Save settings
+    localStorage.setItem('rgbIntensity', rgbIntensity.value);
+    localStorage.setItem('rgbSpeed', rgbSpeed.value);
+    
+    // Close settings panel
+    rgbSettings.classList.remove('active');
+    
+    // Show confirmation
+    showNotification('تم تطبيق إعدادات RGB بنجاح!');
+  });
+}
+
+// Update speed value display
+function updateSpeedValue(speed) {
+  let speedText = 'بطيئة';
+  if (speed > 12) speedText = 'سريعة';
+  else if (speed > 8) speedText = 'متوسطة';
+  
+  document.getElementById('speedValue').textContent = speedText;
+}
+
+// Update RGB animation speed
+function updateRgbAnimationSpeed(speed) {
+  const duration = 20 - speed; // Inverse relationship (higher speed = shorter duration)
+  const style = document.createElement('style');
+  style.id = 'rgb-animation-speed';
+  style.textContent = `
+    .rgb-border {
+      animation-duration: ${duration}s !important;
+    }
+  `;
+  
+  const existingStyle = document.getElementById('rgb-animation-speed');
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+  
+  document.head.appendChild(style);
+}
+
 // Initialize the page
 function init() {
   renderProducts();
   initCarousel();
   updateCart();
+  initBackgroundSettings();
+  initRgbSettings();
   
   // Add scroll event listener
   window.addEventListener('scroll', handleScroll);
