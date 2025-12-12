@@ -36,8 +36,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <!-- Add EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- Add Swiper CSS for Image Slider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <style>
-    /* Your existing CSS remains exactly the same */
     :root {
       --bg: #f8f9fa;
       --text: #212529;
@@ -54,7 +55,7 @@
       --background-blur: 0px;
       --background-scale: 1;
       --background-brightness: 1;
-      --rgb-intensity: 0.7; /* التحكم في قوة إضاءة RGB */
+      --rgb-intensity: 0.7;
     }
     [data-theme="dark"] {
       --bg: #121212;
@@ -65,7 +66,7 @@
       --border: #333;
       --background-opacity: 0.25;
       --background-brightness: 0.8;
-      --rgb-intensity: 0.8; /* إضاءة أقوى في الوضع المظلم */
+      --rgb-intensity: 0.8;
     }
     
     /* إضافة الخلفية المخصصة */
@@ -159,7 +160,7 @@
       font-family: inherit;
     }
     
-    /* Features Section */
+    /* Features Section - MODIFIED: Reduced height */
     .features-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -168,70 +169,96 @@
     }
     .feature-box {
       background: var(--card);
-      padding: 2rem;
+      padding: 1.5rem; /* MODIFIED: Reduced from 2rem */
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.08);
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
       position: relative;
       overflow: hidden;
+      height: 180px; /* MODIFIED: Added fixed height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .feature-box:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     }
     .feature-icon {
-      font-size: 2.5rem;
+      font-size: 2rem; /* MODIFIED: Reduced from 2.5rem */
       color: var(--primary);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem; /* MODIFIED: Reduced from 1rem */
     }
     .feature-title {
-      font-size: 1.2rem;
+      font-size: 1.1rem; /* MODIFIED: Reduced from 1.2rem */
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem; /* MODIFIED: Reduced from 0.5rem */
     }
     .feature-desc {
       color: #666;
-      font-size: 0.9rem;
+      font-size: 0.85rem; /* MODIFIED: Reduced from 0.9rem */
+      line-height: 1.4;
     }
     
-    /* Store Summary and Services Section - FIXED FOR DARK MODE */
-    .store-summary-services {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+    /* NEW: Image Slider Section - Replaces Store Summary and Services */
+    .image-slider-section {
+      width: 100%;
       margin-bottom: 3rem;
     }
-    @media (max-width: 768px) {
-      .store-summary-services {
-        grid-template-columns: 1fr;
-      }
-    }
-    .summary-box, .services-box {
-      background: var(--card);
-      padding: 2.5rem;
+    .swiper {
+      width: 100%;
+      height: 350px; /* Adjust height as needed */
       border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      text-align: center;
-      position: relative;
       overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     }
-    .summary-box {
-      background: linear-gradient(135deg, var(--card), var(--bg));
+    .swiper-slide {
+      position: relative;
     }
-    .services-box {
-      background: linear-gradient(135deg, var(--card), var(--bg));
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    .summary-title, .services-title {
+    .slide-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .slide-title {
       font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
     }
-    .summary-text, .services-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: var(--text);
+    .slide-description {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    .swiper-pagination-bullet {
+      background: white !important;
+      opacity: 0.7;
+    }
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: white !important;
+      background: rgba(0,0,0,0.3);
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 50%;
+    }
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 1.2rem !important;
     }
     
     /* Updated Products Grid - 4 products per row */
@@ -261,6 +288,8 @@
         gap: 1rem;
       }
     }
+    
+    /* Product Card - MODIFIED: Smaller size */
     .product-card {
       background: var(--card);
       border-radius: 12px;
@@ -269,12 +298,46 @@
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
       position: relative;
+      height: 370px; /* MODIFIED: Added fixed height */
+      display: flex;
+      flex-direction: column;
     }
-    .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-    .product-card img { width: 100%; height: 200px; object-fit: cover; }
-    .product-info { padding: 1rem; }
-    .price { font-size: 1.4rem; font-weight: bold; color: var(--primary); }
-    .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; }
+    .product-card:hover { 
+      transform: translateY(-8px); /* MODIFIED: Reduced from -10px */
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* MODIFIED: Reduced from 15px 30px */
+    }
+    .product-card img { 
+      width: 100%; 
+      height: 180px; /* MODIFIED: Reduced from 200px */
+      object-fit: cover; 
+    }
+    .product-info { 
+      padding: 1rem; 
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-info h3 {
+      font-size: 1rem; /* MODIFIED: Reduced from default */
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .product-info p {
+      font-size: 0.85rem; /* MODIFIED: Reduced from default */
+      margin-bottom: 0.5rem;
+    }
+    .price { 
+      font-size: 1.3rem; /* MODIFIED: Reduced from 1.4rem */
+      font-weight: bold; 
+      color: var(--primary); 
+      margin: 0.5rem 0;
+    }
+    .old-price { 
+      text-decoration: line-through; 
+      color: #888; 
+      font-size: 0.85rem; /* MODIFIED: Reduced from 0.9rem */
+      margin-right: 0.5rem;
+    }
     .badge {
       position: absolute;
       top: 10px;
@@ -284,6 +347,7 @@
       padding: 0.3rem 0.8rem;
       border-radius: 20px;
       font-size: 0.8rem;
+      z-index: 10;
     }
     .cart-icon {
       position: relative;
@@ -327,6 +391,8 @@
       font-size: 1rem;
       transition: 0.3s;
       font-family: inherit;
+      width: 100%;
+      margin-top: auto; /* Push button to bottom */
     }
     .btn:hover { background: #0b5cd7; transform: translateY(-2px); }
     .btn-buy-now {
@@ -378,6 +444,7 @@
       cursor: pointer;
       color: #aaa;
       transition: color 0.3s;
+      z-index: 10;
     }
     .close:hover { color: #000; }
     .gallery {
@@ -388,7 +455,7 @@
       padding: 10px 0;
     }
     .gallery img {
-      height: 100px;
+      height: 80px; /* MODIFIED: Reduced from 100px */
       width: auto;
       border-radius: 8px;
       cursor: pointer;
@@ -408,80 +475,188 @@
       margin-bottom: 1rem;
     }
     
-    /* Image Carousel - FIXED FOR SMOOTH LOOPING */
-    .carousel-container {
+    /* NEW: Larger image in product modal */
+    .modal-product-image {
+      width: 100%;
+      height: 400px; /* MODIFIED: Increased height */
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      background: var(--bg);
+    }
+    
+    /* NEW: Specifications table in modal */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: var(--card);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .specs-table th,
+    .specs-table td {
+      padding: 0.8rem 1rem;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+    }
+    .specs-table th {
+      background: rgba(13, 110, 253, 0.1);
+      font-weight: 600;
+      color: var(--primary);
+      width: 30%;
+    }
+    .specs-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    /* NEW: Improved Customer Purchases Carousel */
+    .purchases-carousel-container {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
       background: var(--card);
-      padding: 15px 0;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      padding: 20px 0;
+      box-shadow: 0 -5px 25px rgba(0,0,0,0.15);
       z-index: 999;
       transform: translateY(100%);
-      transition: transform 0.5s ease;
-    }
-    .carousel-container.visible {
-      transform: translateY(0);
-    }
-    .carousel {
-      display: flex;
+      transition: transform 0.7s ease;
+      height: 130px; /* Bigger than before */
       overflow: hidden;
-      position: relative;
-    }
-    .carousel-track {
-      display: flex;
-      animation: scroll 40s linear infinite;
-    }
-    .carousel-track:hover {
-      animation-play-state: paused;
-    }
-    .carousel-item {
-      flex: 0 0 auto;
-      margin: 0 50px;
-    }
-    .carousel-item img {
-      height: 80px;
-      width: auto;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    .carousel-controls {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      transform: translateY(-50%);
-      display: flex;
-      justify-content: space-between;
-      padding: 0 20px;
-      pointer-events: none;
-    }
-    .carousel-btn {
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      pointer-events: all;
-      transition: background 0.3s;
-    }
-    .carousel-btn:hover {
-      background: rgba(0,0,0,0.7);
     }
     
-    @keyframes scroll {
+    .purchases-carousel-container.visible {
+      transform: translateY(0);
+    }
+    
+    .purchases-title {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+      font-weight: 600;
+      padding: 0 20px;
+    }
+    
+    .purchases-track {
+      display: flex;
+      width: calc(200px * 30); /* Double the items for seamless loop */
+      animation: infinite-scroll 90s linear infinite; /* Slower animation */
+    }
+    
+    .purchases-track:hover {
+      animation-play-state: paused;
+    }
+    
+    .purchase-item {
+      flex: 0 0 auto;
+      width: 180px;
+      margin: 0 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .purchase-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .purchase-item img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+    }
+    
+    .purchase-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .purchase-item p {
+      margin-top: 5px;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+    
+    @keyframes infinite-scroll {
       0% {
         transform: translateX(0);
       }
       100% {
-        transform: translateX(-50%);
+        transform: translateX(calc(-200px * 15)); /* Move by half the total width */
       }
+    }
+    
+    /* NEW: Social Media Section in Footer */
+    .social-media-section {
+      margin: 2rem 0 3rem 0;
+      text-align: center;
+    }
+    
+    .social-media-section h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .social-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.3s, color 0.3s;
+      width: 100px;
+    }
+    
+    .social-link:hover {
+      transform: translateY(-5px);
+    }
+    
+    .social-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s;
+    }
+    
+    .social-icon.facebook {
+      background: #1877F2;
+      color: white;
+    }
+    
+    .social-icon.whatsapp {
+      background: #25D366;
+      color: white;
+    }
+    
+    .social-icon.instagram {
+      background: linear-gradient(45deg, #405DE6, #5B51D8, #833AB4, #C13584, #E1306C, #FD1D1D);
+      color: white;
+    }
+    
+    .social-link:hover .social-icon {
+      transform: scale(1.1);
+    }
+    
+    .social-name {
+      font-size: 0.9rem;
+      font-weight: 500;
     }
     
     footer {
@@ -657,125 +832,144 @@
       z-index: 10;
     }
     
-    /* NEW: Product specifications styles */
-    .specs-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      margin: 1rem 0;
+    /* MODIFIED: REMOVED Product specifications styles from product card */
+    
+    /* RGB Border Effect */
+    .rgb-border-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      overflow: hidden;
+      pointer-events: none;
     }
-    .spec-item {
-      background: rgba(13, 110, 253, 0.1);
-      border-radius: 6px;
-      padding: 0.5rem;
+    
+    .rgb-border {
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+
+      background-size: 400% 400%;
+      animation: rgb-flow 15s linear infinite;
+      border-radius: inherit;
+      opacity: var(--rgb-intensity);
+      z-index: -1;
+    }
+    
+    @keyframes rgb-flow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* NEW: Enhanced Order Modal Styles */
+    .order-modal-content {
+      background: linear-gradient(135deg, var(--card) 0%, rgba(13, 110, 253, 0.05) 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(13, 110, 253, 0.2);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .order-modal-header {
       text-align: center;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(13, 110, 253, 0.2);
+      position: relative;
     }
-    .spec-value {
-      font-weight: bold;
+    
+    .order-modal-header h2 {
+      font-size: 1.8rem;
       color: var(--primary);
-      margin-top: 0.2rem;
+      margin-bottom: 0.5rem;
     }
-    .spec-label {
-      font-size: 0.7rem;
+    
+    .order-modal-header p {
       color: #666;
-    }
-    
-    /* إعدادات الخلفية */
-    .background-settings {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: var(--card);
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      z-index: 1000;
-      max-width: 300px;
-      display: none;
-    }
-    
-    .background-settings.active {
-      display: block;
-    }
-    
-    .background-settings h3 {
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
-    
-    .background-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .background-control {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    
-    .background-control label {
       font-size: 0.9rem;
     }
     
-    .background-control input {
-      padding: 5px;
+    .order-form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
     }
     
-    .settings-toggle {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
+    .order-form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .order-form-group label i {
+      color: var(--primary);
+    }
+    
+    .order-form-group input,
+    .order-form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    .order-form-group input:focus,
+    .order-form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+    }
+    
+    .phone-hint {
+      font-size: 0.8rem;
+      color: #e74c3c;
+      margin-top: 0.3rem;
+      font-weight: 500;
+      background: rgba(231, 76, 60, 0.1);
+      padding: 0.5rem;
+      border-radius: 5px;
+      border-right: 3px solid #e74c3c;
+    }
+    
+    .order-submit-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, #0b5cd7 100%);
+      color: white;
+      border: none;
+      padding: 1.2rem;
+      border-radius: 10px;
       cursor: pointer;
-      z-index: 1001;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      font-size: 1.1rem;
+      font-weight: 600;
+      width: 100%;
+      transition: all 0.3s;
+      margin-top: 1rem;
+    }
+    
+    .order-submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+      background: linear-gradient(135deg, #0b5cd7 0%, var(--primary) 100%);
+    }
+    
+    .order-submit-btn i {
+      margin-left: 0.5rem;
     }
   </style>
 </head>
 <body>
 
-<!-- إعدادات الخلفية -->
-<div class="background-settings" id="backgroundSettings">
-  <h3>إعدادات الخلفية</h3>
-  <div class="background-controls">
-    <div class="background-control">
-      <label for="bgImageUrl">رابط الصورة:</label>
-      <input type="text" id="bgImageUrl" placeholder="أدخل رابط الصورة">
-    </div>
-    <div class="background-control">
-      <label for="bgOpacity">الشفافية: <span id="opacityValue">15%</span></label>
-      <input type="range" id="bgOpacity" min="0" max="100" value="15">
-    </div>
-    <div class="background-control">
-      <label for="bgBlur">التشويش: <span id="blurValue">0px</span></label>
-      <input type="range" id="bgBlur" min="0" max="20" value="0">
-    </div>
-    <div class="background-control">
-      <label for="bgScale">الحجم: <span id="scaleValue">100%</span></label>
-      <input type="range" id="bgScale" min="50" max="150" value="100">
-    </div>
-    <div class="background-control">
-      <label for="bgBrightness">السطوع: <span id="brightnessValue">100%</span></label>
-      <input type="range" id="bgBrightness" min="20" max="180" value="100">
-    </div>
-    <button class="btn" id="applyBgSettings">تطبيق الإعدادات</button>
-  </div>
-</div>
 <header>
   <div class="logo-container">
     <img src="https://qwertyqop.com/cdn/shop/files/individualswitch.png?v=1698726047" alt="شعار سويتشز" class="logo-image">
@@ -835,21 +1029,44 @@
     </div>
   </section>
 
-  <!-- Store Summary and Services Section -->
-  <section class="store-summary-services">
-    <div class="summary-box">
-      <div class="rgb-border-wrapper">
-        <div class="rgb-border"></div>
+  <!-- NEW: Image Slider Section - Replaces Store Summary and Services -->
+  <section class="image-slider-section">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="https://cdn.mos.cms.futurecdn.net/unhm5ymUqass6PZvpfEnZ9.jpg" alt="منتجات الكمبيوتر">
+          <div class="slide-content">
+            <h3 class="slide-title">أحدث قطع الكمبيوتر</h3>
+            <p class="slide-description">اكتشف مجموعتنا المتميزة من أحدث المعالجات والكروت</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="https://p2-ofp.static.pub//fes/cms/2025/07/18/wu0wbq4pf2p4imnbnwag9y78bkxn2h797134.jpg" alt="شاشات الألعاب">
+          <div class="slide-content">
+            <h3 class="slide-title">شاشات الألعاب الاحترافية</h3>
+            <p class="slide-description">أداء عالي ودقة فائقة لتجربة ألعاب لا تُنسى</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="https://cdn.autonomous.ai/static/upload/images/new_post/list-of-must-have-pc-computer-accessories-4151-1646879396862.jpg" alt="إكسسوارات الكمبيوتر">
+          <div class="slide-content">
+            <h3 class="slide-title">إكسسوارات متميزة</h3>
+            <p class="slide-description">كل ما تحتاجه لتجهيز محطة العمل الخاصة بك</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="https://i.ytimg.com/vi/xo-7MJqnRtc/maxresdefault.jpg" alt="إكسسوارات إلكترونية">
+          <div class="slide-content">
+            <h3 class="slide-title">إكسسوارات إلكترونية</h3>
+            <p class="slide-description">قطع إلكترونية عالية الجودة لتلبية جميع احتياجاتك </p>
+          </div>
+        </div>
       </div>
-      <h3 class="summary-title">عن متجر سويتشز</h3>
-      <p class="summary-text">سويتشز يوفر لك منتجات متميزة مع أفضل خدمة عملاء، سرعة شحن قياسية، وجودة مضمونة تجعل تجربتك مثالية وموثوقة.</p>
-    </div>
-    <div class="services-box">
-      <div class="rgb-border-wrapper">
-        <div class="rgb-border"></div>
-      </div>
-      <h3 class="services-title">خدمات إضافية</h3>
-      <p class="services-text">نوفر خدمة تجميع وبناء أجهزة الكمبيوتر بالإضافة إلى خدمة التنظيف الشاملة للحفاظ على أداء جهازك.</p>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Navigation buttons -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
   </section>
 
@@ -875,7 +1092,6 @@
       <option>شاشات</option>
       <option>إكسسوارات</option>
     </select>
-    <!-- FIXED: Brand names in English -->
     <select id="brandFilter">
       <option value="">جميع الماركات</option>
       <option>Intel</option>
@@ -924,26 +1140,9 @@
   </section>
 </div>
 
-<!-- Image Carousel -->
-<div class="carousel-container" id="carouselContainer">
-  <div class="carousel">
-    <div class="carousel-track" id="carouselTrack">
-      <!-- Images will be added by JavaScript -->
-    </div>
-    <div class="carousel-controls">
-      <button class="carousel-btn" id="carouselPrev">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-      <button class="carousel-btn" id="carouselNext">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-    </div>
-  </div>
-</div>
-
 <!-- Product Detail Modal -->
 <div class="modal" id="productModal">
-  <div class="modal-content" style="max-width:900px;">
+  <div class="modal-content" style="max-width:1000px; width:95%;">
     <span class="close" id="closeProduct">&times;</span>
     <div id="productDetail"></div>
   </div>
@@ -968,24 +1167,78 @@
   </div>
 </div>
 
-<!-- Order Modal -->
+<!-- Order Modal - IMPROVED -->
 <div class="modal" id="orderModal">
-  <div class="modal-content" style="max-width:500px;">
+  <div class="modal-content order-modal-content" style="max-width:600px;">
     <span class="close" id="closeOrder">&times;</span>
-    <h2>تقديم طلبك</h2>
-    <form id="orderForm" style="display:grid; gap:1rem; margin-top:1rem;">
-      <input type="text" name="name" placeholder="الاسم الكامل" required />
-      <input type="tel" name="phone" placeholder="رقم الهاتف" required />
-      <input type="text" name="location" placeholder="الموقع/العنوان" required />
-      <textarea name="notes" placeholder="ملاحظات إضافية" rows="3"></textarea>
-      <button type="submit" class="btn">تأكيد الطلب</button>
+    <div class="order-modal-header">
+      <h2><i class="fas fa-shopping-cart"></i> تقديم طلبك</h2>
+      <p>أكمل البيانات التالية لتأكيد طلبك</p>
+    </div>
+    <form id="orderForm" style="display:grid; gap:1.5rem; margin-top:1rem;">
+      <div class="order-form-group">
+        <label for="orderName"><i class="fas fa-user"></i> الاسم الكامل</label>
+        <input type="text" id="orderName" name="name" placeholder="اكتب اسمك الكامل هنا..." required />
+      </div>
+      
+      <div class="order-form-group">
+        <label for="orderPhone"><i class="fas fa-phone"></i> رقم الهاتف</label>
+        <input type="tel" id="orderPhone" name="phone" placeholder="مثال: 0912345678" required />
+        <div class="phone-hint">
+          <i class="fas fa-info-circle"></i> يرجى كتابة رقم الهاتف المربوط بتطبيق الواتس أب للتواصل معك
+        </div>
+      </div>
+      
+      <div class="order-form-group">
+        <label for="orderLocation"><i class="fas fa-map-marker-alt"></i> الموقع/العنوان</label>
+        <input type="text" id="orderLocation" name="location" placeholder="اكتب عنوانك بالتفصيل..." required />
+      </div>
+      
+      <div class="order-form-group">
+        <label for="orderNotes"><i class="fas fa-sticky-note"></i> ملاحظات إضافية</label>
+        <textarea id="orderNotes" name="notes" placeholder="ملاحظات خاصة بالطلب (اختياري)..." rows="3"></textarea>
+      </div>
+      
+      <button type="submit" class="order-submit-btn">
+        <i class="fas fa-check-circle"></i> تأكيد الطلب
+      </button>
     </form>
+  </div>
+</div>
+
+<!-- NEW: Social Media Section -->
+<div class="social-media-section">
+  <h3>تابعنا على منصات التواصل الاجتماعي</h3>
+  <div class="social-links">
+    <a href="https://www.facebook.com/profile.php?id=61582599726123" class="social-link" target="_blank">
+      <div class="social-icon facebook">
+        <i class="fab fa-facebook-f"></i>
+      </div>
+      <span class="social-name">فيسبوك</span>
+    </a>
+    
+    <a href="https://wa.me/c/218931853169" class="social-link" target="_blank">
+      <div class="social-icon whatsapp">
+        <i class="fab fa-whatsapp"></i>
+      </div>
+      <span class="social-name">واتساب</span>
+    </a>
+    
+    <a href="https://www.instagram.com/swytshz/" class="social-link" target="_blank">
+      <div class="social-icon instagram">
+        <i class="fab fa-instagram"></i>
+      </div>
+      <span class="social-name">انستقرام</span>
+    </a>
   </div>
 </div>
 
 <footer>
   <p>&copy; 2025 سويتشز برو - جميع الحقوق محفوظة</p>
 </footer>
+
+<!-- Add Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
 // Initialize EmailJS with your public key
@@ -1002,7 +1255,6 @@ themeToggle.addEventListener('click', () => {
     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     localStorage.setItem('theme', 'light');
     
-    // تحديث إعدادات الخلفية للوضع المضيء
     document.documentElement.style.setProperty('--background-opacity', '0.15');
     document.documentElement.style.setProperty('--background-brightness', '1');
     document.documentElement.style.setProperty('--rgb-intensity', '0.7');
@@ -1011,7 +1263,6 @@ themeToggle.addEventListener('click', () => {
     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
     localStorage.setItem('theme', 'dark');
     
-    // تحديث إعدادات الخلفية للوضع المظلم
     document.documentElement.style.setProperty('--background-opacity', '0.25');
     document.documentElement.style.setProperty('--background-brightness', '0.8');
     document.documentElement.style.setProperty('--rgb-intensity', '0.8');
@@ -1021,7 +1272,6 @@ if (localStorage.getItem('theme') === 'dark') {
   body.setAttribute('data-theme', 'dark');
   themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
   
-  // تحديث إعدادات الخلفية للوضع المظلم
   document.documentElement.style.setProperty('--background-opacity', '0.25');
   document.documentElement.style.setProperty('--background-brightness', '0.8');
   document.documentElement.style.setProperty('--rgb-intensity', '0.8');
@@ -1041,81 +1291,188 @@ const unavailableProducts = [
   "Lenovo Legion R271",
   "ASUS ROG Strix XG27UCS",
   "ACER Nitro VGO 27",
-  "MSI G255F"
+  "MSI G255F",
+  "HP OMEN 24"
 ];
 
-// Sample Products - Product names and brand names in English
-// UPDATED: Added specifications for ALL products
+// Sample Products - SORTED BY ID DESCENDING (Newest First)
 const products = [
-  {id:1, name:"RTX 3070 Ti", category:"كروت الشاشة", brand:"NVIDIA", price:2500, oldPrice:2800, condition:"جديد", rating:4.9, 
+  // Newest products first (highest IDs)
+  {id:23, name:"Projector HY 300 Mini", category:"إكسسوارات", brand:"Projector", price:320, oldPrice:399, condition:"جديد", 
   images:[
-    'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/ZOTAC_Gaming_GeForce_RTX_3080_Ti_cards_unveiled_early_June_2021.jpg', 
-    'https://www.gpuheaven.com/wp-content/uploads/2025/10/Zotac-Gaming-Geforce-Rtx-3070-Ti-Amp-Holo-2.jpg', 
+    'https://nicdecor.com/wp-content/uploads/2025/05/HY-300-pro-3.jpg',
+    'https://northlightofficial.com/cdn/shop/files/S212432d319b74213b1524f12797c3c60u.webp?v=1712364766&width=1445',
+    'https://m.media-amazon.com/images/I/71R3P0LefHL.jpg'
+  ],
+  
+  desc:"بروجكتر ذكي مزوّد بنظام Android 12 يقدم تجربة مشاهدة سلسة بدقة فيزيائية 720P مع دعم تشغيل محتوى يصل إلى 4K. يتميز باتصال WiFi 6 السريع وBluetooth 5.0 لربط أسهل مع الأجهزة. يأتي بمدخلات HDMI وUSB ومخرج صوت 3.5mm، ويعمل على طاقة AC 90–260V. تصميمه العصري يأتي بأبعاد 170×101 مم لسهولة الحمل والاستخدام.",
+  specs: {
+    spec1: "الدقة الفيزيائية 720P",
+    spec2: "أقصى دقة دعم 4K",
+    spec3: "Android 12",
+    spec4: "WiFi6 BT5"
+  }},
+  
+  {id:22, name:"LDON Mide 68", category:"إكسسوارات", brand:"LDON", price:299, oldPrice:399, condition:"جديد", 
+  images:[
+    'https://sc04.alicdn.com/kf/H381c0debded941d9a29ba06b76f13cebf.jpg',
+    'https://ae01.alicdn.com/kf/S1d39d71de2de42809a1433ec5b8b8398W.jpg',
+    'https://sc04.alicdn.com/kf/H0539a7bb225a40ee9632d7309fa6498et.jpg'
+  ],  
+  desc:"كيبورد مغناطيسي مميز للألعاب مع إضاءة RGB قابلة للتخصيص.",
+  specs: {
+    spec1: "Magnetic Switch 8K",
+    spec2: "0.125ms",
+    spec3: "Sky Blue PRO Switches",
+    spec4: "68% حجم"
+  }},
+
+  {id:21, name:"Gigabyte M27Q EK", category:"شاشات", brand:"Gigabyte", price:1800, oldPrice:null, condition:"علبة مفتوحة", 
+  images:[
+    'https://s3.chip7.pt/20VM0-M27QBA-2EKR_site.jpg',
+    'https://i.rtings.com/assets/products/mwTbpPbi/gigabyte-m27q-rev-2-0/design-small.jpg?format=auto'
   ], 
-  desc:"كرت الفئة المتوسطة يعطيك أفضل أداء في الالعاب الحديثة.",
+  desc:"توفر أداءً ممتازًا في الألعاب مع حركة سلسة وألوان نابضة بالحياة. مناسبة للاعبين المحترفين والعمل الإبداعي.",
   specs: {
-    spec1: "8GB GDDR6X",
-    spec2: "5888 نواة",
-    spec3: "1770 MHz",
-    spec4: "PCIe 4.0"
-  }},
-  
-  {id:2, name:"Ryzen 9 7950X", category:"المعالجات", brand:"AMD", price:4000, oldPrice:4600, condition:"جديد", rating:5.0, 
-  images:[
-    'https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x-og.jpg',
-    'https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg',
-    'https://cdn.mos.cms.futurecdn.net/AAUPmkWs8yCsVwguyRjWK.png'
-  ],  
-  desc:"أقوى معالج للمستهلكين على الإطلاق.",
-  specs: {
-    spec1: "16 نواة",
-    spec2: "32 مسار",
-    spec3: "4.5 GHz",
-    spec4: "170W TDP"
+    spec1: "27 بوصة",
+    spec2: "QHD 2560x1440",
+    spec3: "170 هرتز",
+    spec4: "0.5ms"
   }},
 
-  {id:3, name:"Corsair Vengeance 32GB DDR5 6000MHz", category:"الذاكرة", brand:"Corsair", price:1600, oldPrice:2000, condition:"علبة مفتوحة", rating:4.8, 
+  {id:20, name:"MSI G255F", category:"شاشات", brand:"MSI", price:1075, oldPrice:null, condition:"علبة مفتوحة", 
   images:[
-    'https://gamers.ge/wp-content/uploads/2023/08/Corsair-VENGEANCE-RGB-DDR5-16x2-6000MHz-white.jpg',
-    'https://static.tweaktown.com/content/1/0/10340_888_corsair-vengeance-rgb-ddr5-6000-32gb-dual-channel-memory-kit-review_full.jpg',
-  ],  
-  desc:"ذاكرة عالية الأداء بسرعة 6000MHz.",
+    'https://m.media-amazon.com/images/S/aplus-media-library-service-media/52d75211-dd11-4272-b60f-9b93ae9d3dd4.__CR590,0,2939,2204_PT0_SX600_V1___.png',
+    'https://mybroadband.co.za/news/wp-content/uploads/2024/10/Monitor1_6-4.jpg'
+  ], 
+  desc:"شاشة ألعاب سريعة ومضغوطة تقدم أداءً سلسًا مع استجابة فورية. مثالية للمساحات الصغيرة.",
   specs: {
-    spec1: "32GB",
-    spec2: "DDR5",
-    spec3: "6000MHz",
-    spec4: "CL36"
-  }},
-  
-  {id:4, name:"Crucial t705 2TB NVMe Gen5 SSD", category:"التخزين", brand:"Samsung", price:1200, oldPrice:1500, condition:"جديد", rating:4.9, 
-  images:[
-    'https://cdn.mos.cms.futurecdn.net/iZEGMzkmaX8o87Apg5HsZV.jpg',
-    'https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg',
-    'https://assets.micron.com/adobe/assets/urn:aaid:aem:69bd2902-dd78-4fbe-bcaa-04f36735093d/original/as/crucial-t705LE-ssd-gallery-image-6-compatibility-hs.png'
-  ],  
-  desc:"أسرع وحدة تخزين NVMe من الجيل الخامس.",
-  specs: {
-    spec1: "2TB",
-    spec2: "PCIe 5.0",
-    spec3: "14,500 MB/s",
-    spec4: "12,700 MB/s"
+    spec1: "25 بوصة",
+    spec2: "FHD 1920x1080",
+    spec3: "180 هرتز",
+    spec4: "1ms"
   }},
 
-  {id:5, name:"ASUS ROG Strix Z790-E", category:"اللوحات الأم", brand:"ASUS", price:2000, oldPrice:2400, condition:"جديد", rating:4.7, 
+  {id:19, name:"MSI MAG 32C6X", category:"شاشات", brand:"MSI", price:1600, oldPrice:null, condition:"علبة مفتوحة", 
   images:[
-    'https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg',
-    'https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg',
-    'https://microless.com/cdn/products/a4d11f7efc7aac6d6829b1bf5b4fe22f-hi.jpg'
-  ],  
-  desc:"لوحة أم متميزة تدعم أحدث المعالجات.",
+    'https://m.media-amazon.com/images/S/aplus-media-library-service-media/3688790a-2d35-4ddb-9ae3-1f025cd260e6.__CR0,0,600,450_PT0_SX600_V1___.jpg',
+    'https://www.gdm.or.jp/wp-content/uploads/2024/08/19/msi_mag_32c6x_62-620x466.jpg'
+  ], 
+  desc:"شاشة منحنية كبيرة لتجربة غامرة، معدل تحديث عالي وألوان غنية للألعاب التنافسية.",
   specs: {
-    spec1: "LGA 1700",
-    spec2: "DDR5",
-    spec3: "PCIe 5.0",
-    spec4: "Wi-Fi 6E"
+    spec1: "32 بوصة",
+    spec2: "FHD 1920x1080",
+    spec3: "250 هرتز",
+    spec4: "1ms"
   }},
-  
-  {id:6, name:"ASUS ROG Strix 1000W 80+ Platinum", category:"مزودات الطاقة", brand:"Corsair", price:1600, oldPrice:1900, condition:"جديد", rating:4.8, 
+
+  {id:18, name:"LG 27″ UltraGear 27GS75Q-B", category:"شاشات", brand:"LG", price:2200, oldPrice:null, condition:"علبة مفتوحة", 
+  images:[
+    'https://img.lazcdn.com/g/p/0abdf2cc9f0c74ffa3d7fe5bdb4a01cf.jpg_720x720q80.jpg',
+    'https://i.ytimg.com/vi/TkWilXnaUd8/maxresdefault.jpg'
+  ], 
+  desc:"شاشة ألعاب تنافسية بألوان نابضة بالحياة وأداء سلس. تصميم بلا إطار من ثلاث جهات يضفي مظهرًا احترافيًا.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "QHD 2560x1440",
+    spec3: "180 هرتز تصل الى 200 هيرتز",
+    spec4: "1ms"
+  }},
+
+  {id:17, name:"ASUS ROG Strix XG27UCS", category:"شاشات", brand:"ASUS", price:2450, oldPrice:null, condition:"علبة مفتوحة", 
+  images:[
+    'https://rog.asus.com/media/1719980534198.jpg',
+    'https://www.techspot.com/images/products/2024/monitors/org/2025-05-13-product-5.jpg'
+  ], 
+  desc:"شاشة متميزة بدقة 4K وأداء فائق السرعة، تقدم ألوانًا نابضة بالحياة وتباينًا عاليًا. مثالية للاعبين المحترفين والمصممين.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "4K 3840x2160",
+    spec3: "160 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:16, name:"Lenovo Legion R271", category:"شاشات", brand:"Lenovo", price:1025, oldPrice:null, condition:"علبة مفتوحة", 
+  images:[
+    'https://m.media-amazon.com/images/I/71yPdMKhFTL._AC_UF1000,1000_QL80_.jpg',
+    'https://p2-ofp.static.pub/ShareResource/ww/visuals/Legion-R27i-30/lenovo-legion-r27i-30-feature04-1.png'
+  ], 
+  desc:"مثالية للاستخدام اليومي والألعاب الخفيفة. أداء موثوق وتصميم عملي بسعر اقتصادي.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "FHD 1920x1080",
+    spec3: "144 هرتز",
+    spec4: "4ms"
+  }},
+
+  {id:15, name:"ASUS ROG Strix XG27ACS", category:"شاشات", brand:"ASUS", price:2250, oldPrice:null, condition:"علبة مفتوحة", 
+  images:[
+    'https://pcx.com.ph/cdn/shop/files/ASUS_XG27ACS.jpg?v=1733306817&width=1090',
+    'https://cdn.mos.cms.futurecdn.net/bU4uGHVYCXERRCzVkB5X5e.jpg'
+  ], 
+  desc:"شاشة ألعاب احترافية تقدم ألوانًا دقيقة وحركة فائقة السلاسة، مع دعم HDR وتقنيات المزامنة المتقدمة. تصميم عصير براحة طويلة الأمد.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "WQHD 2560x1440",
+    spec3: "180 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:14, name:"ACER Nitro VGO 27", category:"شاشات", brand:"Acer", price:999, oldPrice:null, condition:"علبة مفتوحة", 
+  images:[
+    'https://m.media-amazon.com/images/S/aplus-media-library-service-media/3e89ed3b-87b4-4826-910a-603daaf5d4da.__CR0,0,1464,600_PT0_SX1464_V1___.jpg',
+    'https://i.rtings.com/assets/products/GBZurEGf/acer-nitro-vg271up-pbmiipx/design-medium.jpg?format=auto'
+  ], 
+  desc:"شاشة Acer Nitro 27 تجمع بين الأداء الجيد والسعر المعقول. تصميمها العصري والأنيق يعزز تجربة الألعاب والاستخدام اليومي. خيار متوازن بين الجودة والميزانية.",
+  specs: {
+    spec1: "27 بوصة",
+    spec2: "4K 3840x2160",
+    spec3: "60هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:13, name:"HP OMEN 24", category:"شاشات", brand:"HP", price:950, oldPrice:null, condition:"علبة مفتوحة", 
+  images:[
+    'https://memoryzone.aecomapp.com/storage/files/1718186722man-hinh-hp-omen-24-gaming-24-inch-ips-fhd-165hz-780f0aa-06.jpg.webp',
+    'https://i.ytimg.com/vi/syjqja0Cnhk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB6ZTUW5s4D_H0PEXgmSqO5g9fGmw'
+  ], 
+  desc:"شاشة HP OMEN 24 تقدم أداءً ممتازًا في الألعاب مع ألوان دقيقة وزوايا مشاهدة واسعة. معدل التحديث العالي ووقت الاستجابة السريع يجعلانها مثالية للألعاب التنافسية، مع دعم FreeSync Premium لصور أكثر سلاسة. تصميم أنيق وعملي للجسات الطويلة.",
+  specs: {
+    spec1: "24 بوصة",
+    spec2: "FHD 1920x1080",
+    spec3: "165 هرتز",
+    spec4: "1ms"
+  }},
+
+  {id:8, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:1550, oldPrice:1950, condition:"جديد", 
+  images:[
+    'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
+    'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
+    'https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462',
+  ],   
+  desc:"لوحة من العيار الثقيل تدعم أقوى المعالجات.",
+  specs: {
+    spec1: "AM5",
+    spec2: "DDR5",
+    spec3: "PCIe 4.0",
+    spec4: "Wi-Fi 6"
+  }},
+
+  {id:7, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:1550, oldPrice:1950, condition:"جديد", 
+  images:[
+    'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
+    'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
+    'https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462',
+  ],   
+  desc:"لوحة من العيار الثقيل تدعم أقوى المعالجات.",
+  specs: {
+    spec1: "AM5",
+    spec2: "DDR5",
+    spec3: "PCIe 4.0",
+    spec4: "Wi-Fi 6"
+  }},
+
+  {id:6, name:"ASUS ROG Strix 1000W 80+ Platinum", category:"مزودات الطاقة", brand:"Corsair", price:1600, oldPrice:1900, condition:"جديد", 
   images:[
     'https://rog.asus.com/media/1723518683990.jpg',
     'https://dlcdnwebimgs.asus.com/files/media/0003A3D7-4037-4F8D-BC15-38902D1057ED/v1/img/engineering/80_plusgold_2.jpg',
@@ -1129,260 +1486,149 @@ const products = [
     spec4: "10 سنوات ضمان"
   }},
 
-  {id:7, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:1550, oldPrice:1950, condition:"جديد", rating:4.8, 
+  {id:5, name:"ASUS ROG Strix Z790-E", category:"اللوحات الأم", brand:"ASUS", price:2000, oldPrice:2400, condition:"جديد", 
   images:[
-    'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
-    'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
-    'https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462',
-  ],   
-  desc:"لوحة من العيار الثقيل تدعم أقوى المعالجات.",
-  specs: {
-    spec1: "AM5",
-    spec2: "DDR5",
-    spec3: "PCIe 4.0",
-    spec4: "Wi-Fi 6"
-  }},
-
-  {id:8, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:1550, oldPrice:1950, condition:"جديد", rating:4.8, 
-  images:[
-    'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
-    'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
-    'https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462',
-  ],   
-  desc:"لوحة من العيار الثقيل تدعم أقوى المعالجات.",
-  specs: {
-    spec1: "AM5",
-    spec2: "DDR5",
-    spec3: "PCIe 4.0",
-    spec4: "Wi-Fi 6"
-  }},
-
-  // Monitors Section - Added as requested with specifications
-  {id:13, name:"HP OMEN 24", category:"شاشات", brand:"HP", price:950, oldPrice:null, condition:"علبة مفتوحة", rating:4.7, 
-  images:[
-    'https://memoryzone.aecomapp.com/storage/files/1718186722man-hinh-hp-omen-24-gaming-24-inch-ips-fhd-165hz-780f0aa-06.jpg.webp',
-    'https://i.ytimg.com/vi/syjqja0Cnhk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB6ZTUW5s4D_H0PEXgmSqO5g9fGmw'
-  ], 
-  desc:"شاشة HP OMEN 24 تقدم أداءً ممتازًا في الألعاب مع ألوان دقيقة وزوايا مشاهدة واسعة. معدل التحديث العالي ووقت الاستجابة السريع يجعلانها مثالية للألعاب التنافسية، مع دعم FreeSync Premium لصور أكثر سلاسة. تصميم أنيق وعملي للجلسات الطويلة.",
-  specs: {
-    spec1: "24 بوصة",
-    spec2: "FHD 1920x1080",
-    spec3: "165 هرتز",
-    spec4: "1ms"
-  }},
-
-  {id:14, name:"ACER Nitro VGO 27", category:"شاشات", brand:"Acer", price:999, oldPrice:null, condition:"علبة مفتوحة", rating:4.5, 
-  images:[
-    'https://m.media-amazon.com/images/S/aplus-media-library-service-media/3e89ed3b-87b4-4826-910a-603daaf5d4da.__CR0,0,1464,600_PT0_SX1464_V1___.jpg',
-    'https://i.rtings.com/assets/products/GBZurEGf/acer-nitro-vg271up-pbmiipx/design-medium.jpg?format=auto'
-  ], 
-  desc:"شاشة Acer Nitro 27 تجمع بين الأداء الجيد والسعر المعقول. تصميمها العصري والأنيق يعزز تجربة الألعاب والاستخدام اليومي. خيار متوازن بين الجودة والميزانية.",
-  specs: {
-    spec1: "27 بوصة",
-    spec2: "4K 3840x2160",
-    spec3: "60هرتز",
-    spec4: "1ms"
-  }},
-
-  {id:15, name:"ASUS ROG Strix XG27ACS", category:"شاشات", brand:"ASUS", price:2250, oldPrice:null, condition:"علبة مفتوحة", rating:4.9, 
-  images:[
-    'https://pcx.com.ph/cdn/shop/files/ASUS_XG27ACS.jpg?v=1733306817&width=1090',
-    'https://cdn.mos.cms.futurecdn.net/bU4uGHVYCXERRCzVkB5X5e.jpg'
-  ], 
-  desc:"شاشة ألعاب احترافية تقدم ألوانًا دقيقة وحركة فائقة السلاسة، مع دعم HDR وتقنيات المزامنة المتقدمة. تصميم عصير براحة طويلة الأمد.",
-  specs: {
-    spec1: "27 بوصة",
-    spec2: "WQHD 2560x1440",
-    spec3: "180 هرتز",
-    spec4: "1ms"
-  }},
-
-  {id:16, name:"Lenovo Legion R271", category:"شاشات", brand:"Lenovo", price:1025, oldPrice:null, condition:"علبة مفتوحة", rating:4.4, 
-  images:[
-    'https://m.media-amazon.com/images/I/71yPdMKhFTL._AC_UF1000,1000_QL80_.jpg',
-    'https://p2-ofp.static.pub/ShareResource/ww/visuals/Legion-R27i-30/lenovo-legion-r27i-30-feature04-1.png'
-  ], 
-  desc:"مثالية للاستخدام اليومي والألعاب الخفيفة. أداء موثوق وتصميم عملي بسعر اقتصادي.",
-  specs: {
-    spec1: "27 بوصة",
-    spec2: "FHD 1920x1080",
-    spec3: "144 هرتز",
-    spec4: "4ms"
-  }},
-
-  {id:17, name:"ASUS ROG Strix XG27UCS", category:"شاشات", brand:"ASUS", price:2450, oldPrice:null, condition:"علبة مفتوحة", rating:4.9, 
-  images:[
-    'https://rog.asus.com/media/1719980534198.jpg',
-    'https://www.techspot.com/images/products/2024/monitors/org/2025-05-13-product-5.jpg'
-  ], 
-  desc:"شاشة متميزة بدقة 4K وأداء فائق السرعة، تقدم ألوانًا نابضة بالحياة وتباينًا عاليًا. مثالية للاعبين المحترفين والمصممين.",
-  specs: {
-    spec1: "27 بوصة",
-    spec2: "4K 3840x2160",
-    spec3: "160 هرتز",
-    spec4: "1ms"
-  }},
-
-  {id:18, name:"LG 27″ UltraGear 27GS75Q-B", category:"شاشات", brand:"LG", price:2200, oldPrice:null, condition:"علبة مفتوحة", rating:4.8, 
-  images:[
-    'https://img.lazcdn.com/g/p/0abdf2cc9f0c74ffa3d7fe5bdb4a01cf.jpg_720x720q80.jpg',
-    'https://i.ytimg.com/vi/TkWilXnaUd8/maxresdefault.jpg'
-  ], 
-  desc:"شاشة ألعاب تنافسية بألوان نابضة بالحياة وأداء سلس. تصميم بلا إطار من ثلاث جهات يضفي مظهرًا احترافيًا.",
-  specs: {
-    spec1: "27 بوصة",
-    spec2: "QHD 2560x1440",
-    spec3: "180 هرتز",
-    spec4: "1ms"
-  }},
-
-  {id:19, name:"MSI MAG 32C6X", category:"شاشات", brand:"MSI", price:1600, oldPrice:null, condition:"علبة مفتوحة", rating:4.6, 
-  images:[
-    'https://m.media-amazon.com/images/S/aplus-media-library-service-media/3688790a-2d35-4ddb-9ae3-1f025cd260e6.__CR0,0,600,450_PT0_SX600_V1___.jpg',
-    'https://www.gdm.or.jp/wp-content/uploads/2024/08/19/msi_mag_32c6x_62-620x466.jpg'
-  ], 
-  desc:"شاشة منحنية كبيرة لتجربة غامرة، معدل تحديث عالي وألوان غنية للألعاب التنافسية.",
-  specs: {
-    spec1: "32 بوصة",
-    spec2: "FHD 1920x1080",
-    spec3: "250 هرتز",
-    spec4: "1ms"
-  }},
-
-  {id:20, name:"MSI G255F", category:"شاشات", brand:"MSI", price:1075, oldPrice:null, condition:"علبة مفتوحة", rating:4.5, 
-  images:[
-    'https://m.media-amazon.com/images/S/aplus-media-library-service-media/52d75211-dd11-4272-b60f-9b93ae9d3dd4.__CR590,0,2939,2204_PT0_SX600_V1___.png',
-    'https://mybroadband.co.za/news/wp-content/uploads/2024/10/Monitor1_6-4.jpg'
-  ], 
-  desc:"شاشة ألعاب سريعة ومضغوطة تقدم أداءً سلسًا مع استجابة فورية. مثالية للمساحات الصغيرة.",
-  specs: {
-    spec1: "25 بوصة",
-    spec2: "FHD 1920x1080",
-    spec3: "180 هرتز",
-    spec4: "1ms"
-  }},
-
-  {id:21, name:"Gigabyte M27Q EK", category:"شاشات", brand:"Gigabyte", price:1800, oldPrice:null, condition:"علبة مفتوحة", rating:4.7, 
-  images:[
-    'https://s3.chip7.pt/20VM0-M27QBA-2EKR_site.jpg',
-    'https://i.rtings.com/assets/products/mwTbpPbi/gigabyte-m27q-rev-2-0/design-small.jpg?format=auto'
-  ], 
-  desc:"توفر أداءً ممتازًا في الألعاب مع حركة سلسة وألوان نابضة بالحياة. مناسبة للاعبين المحترفين والعمل الإبداعي.",
-  specs: {
-    spec1: "27 بوصة",
-    spec2: "QHD 2560x1440",
-    spec3: "170 هرتز",
-    spec4: "0.5ms"
-  }},
-
-    {id:22, name:"LDON Mide 68", category:"إكسسوارات", brand:"LDON", price:299, oldPrice:399, condition:"جديد", rating:4.9, 
-  images:[
-    'https://sc04.alicdn.com/kf/Hacb935a777eb4a7b8f1217f2645b7a26j.jpg',
-    'https://ae01.alicdn.com/kf/S1d39d71de2de42809a1433ec5b8b8398W.jpg',
-    'https://m.media-amazon.com/images/I/71hl1rmRU9L._AC_UF350,350_QL80_.jpg'
+    'https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg',
+    'https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg',
+    'https://microless.com/cdn/products/a4d11f7efc7aac6d6829b1bf5b4fe22f-hi.jpg'
   ],  
-  desc:"كيبورد مغناطيسي مميز للألعاب مع إضاءة RGB قابلة للتخصيص.",
+  desc:"لوحة أم متميزة تدعم أحدث المعالجات.",
   specs: {
-    spec1: "Magnetic Switch 8K",
-    spec2: "0.125ms",
-    spec3: "Sky Blue PRO Switches",
-    spec4: "68% حجم"
+    spec1: "LGA 1700",
+    spec2: "DDR5",
+    spec3: "PCIe 5.0",
+    spec4: "Wi-Fi 6E"
   }},
-
-
-      {id:23, name:"Projector HY 300 Mini", category:"إكسسوارات", brand:"Projector", price:320, oldPrice:399, condition:"جديد", rating:4.9, 
+  
+  {id:4, name:"Crucial t705 2TB NVMe Gen5 SSD", category:"التخزين", brand:"Samsung", price:1200, oldPrice:1500, condition:"جديد", 
   images:[
-    'https://nicdecor.com/wp-content/uploads/2025/05/HY-300-pro-3.jpg',
-    'https://northlightofficial.com/cdn/shop/files/S212432d319b74213b1524f12797c3c60u.webp?v=1712364766&width=1445',
-    'https://m.media-amazon.com/images/I/71R3P0LefHL.jpg'
+    'https://cdn.mos.cms.futurecdn.net/iZEGMzkmaX8o87Apg5HsZV.jpg',
+    'https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg',
+    'https://assets.micron.com/adobe/assets/urn:aaid:aem:69bd2902-dd78-4fbe-bcaa-04f36735093d/original/as/crucial-t705LE-ssd-gallery-image-6-compatibility-hs.png'
   ],  
-  desc:"بروجكتر ذكي مزوّد بنظام Android 12 يقدم تجربة مشاهدة سلسة بدقة فيزيائية 720P مع دعم تشغيل محتوى يصل إلى 4K. يتميز باتصال WiFi 6 السريع وBluetooth 5.0 لربط أسهل مع الأجهزة. يأتي بمدخلات HDMI وUSB ومخرج صوت 3.5mm، ويعمل على طاقة AC 90–260V. تصميمه العصري يأتي بأبعاد 170×101 مم لسهولة الحمل والاستخدام.",
+  desc:"أسرع وحدة تخزين NVMe من الجيل الخامس.",
   specs: {
-    spec1: "الدقة الفيزيائية 720P",
-    spec2: "أقصى دقة دعم 4K",
-    spec3: "Android 12",
-    spec4: "WiFi6 BT5"
+    spec1: "2TB",
+    spec2: "PCIe 5.0",
+    spec3: "14,500 MB/s",
+    spec4: "12,700 MB/s"
   }},
 
+  {id:3, name:"Corsair Vengeance 32GB DDR5 6000MHz", category:"الذاكرة", brand:"Corsair", price:1600, oldPrice:2000, condition:"علبة مفتوحة", 
+  images:[
+    'https://gamers.ge/wp-content/uploads/2023/08/Corsair-VENGEANCE-RGB-DDR5-16x2-6000MHz-white.jpg',
+    'https://static.tweaktown.com/content/1/0/10340_888_corsair-vengeance-rgb-ddr5-6000-32gb-dual-channel-memory-kit-review_full.jpg',
+  ],  
+  desc:"ذاكرة عالية الأداء بسرعة 6000MHz.",
+  specs: {
+    spec1: "32GB",
+    spec2: "DDR5",
+    spec3: "6000MHz",
+    spec4: "CL36"
+  }},
+  
+  {id:2, name:"Ryzen 9 7950X", category:"المعالجات", brand:"AMD", price:4000, oldPrice:4600, condition:"جديد", 
+  images:[
+    'https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x-og.jpg',
+    'https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg',
+    'https://cdn.mos.cms.futurecdn.net/AAUPmkWs8yCsVwguyRjWK.png'
+  ],  
+  desc:"أقوى معالج للمستهلكين على الإطلاق.",
+  specs: {
+    spec1: "16 نواة",
+    spec2: "32 مسار",
+    spec3: "4.5 GHz",
+    spec4: "170W TDP"
+  }},
 
+  {id:1, name:"RTX 3070 Ti", category:"كروت الشاشة", brand:"NVIDIA", price:2500, oldPrice:2800, condition:"جديد", 
+  images:[
+    'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/ZOTAC_Gaming_GeForce_RTX_3080_Ti_cards_unveiled_early_June_2021.jpg', 
+    'https://www.gpuheaven.com/wp-content/uploads/2025/10/Zotac-Gaming-Geforce-Rtx-3070-Ti-Amp-Holo-2.jpg', 
+  ], 
+  desc:"كرت الفئة المتوسطة يعطيك أفضل أداء في الالعاب الحديثة.",
+  specs: {
+    spec1: "8GB GDDR6X",
+    spec2: "5888 نواة",
+    spec3: "1770 MHz",
+    spec4: "PCIe 4.0"
+  }}
 ];
 
 // All items (products only, no gift cards)
 const allItems = [...products];
 
-// Carousel Images - Exactly 10 images
-const carouselImages = [
-  'https://images.squarespace-cdn.com/content/v1/605bb963c5e59c377260dbe0/50344fc1-a4ea-488a-8e54-782028e97310/AT%20USED%20MSI%20GeForce%20RTX%202080%20TI%2011gb%20Gaming%20X%20Trio%20Boost%20Graphics%20Card%20GPU.jpeg?format=1500w',
-  'https://sc01.alicdn.com/kf/H10b8c756d3ce496db99160bab7603e76A.jpg',
-  'https://macsources.com/wp-content/uploads/2025/04/001-GameSir-SuperNova-Controller-Apr25.jpg',
-  'https://images.offerup.com/PS_XUKVJs8HdhJttHKZj-5DVtA0=/1440x1920/9ab2/9ab285012719448393c6554a534bd117.jpg',
-  'https://preview.redd.it/asus-z790-e-wifi-00-code-no-post-or-boot-v0-3uhauvcpft1f1.jpeg?width=1080&crop=smart&auto=webp&s=e1af665cd36fbeb6d29785603e5fb9ed6b504de3',
-  'https://i.ytimg.com/vi/ybAoXVchwXw/sddefault.jpg',
-  'https://cdn.wccftech.com/wp-content/uploads/2024/11/RTX-4090-Ti-1.webp',
-  'https://www.wikihow.com/images/5/59/Redeem-a-Steam-Wallet-Code-Step-28-Version-3.jpg',
-  'https://deskr.co/cdn/shop/articles/1.webp?v=1686326073',
-  'https://i.ebayimg.com/images/g/UGcAAOSwSdVk0rvV/s-l400.jpg',
+// Customer Purchases Images - Products that were actually purchased from Switches store
+const customerPurchases = [
+  {image: 'https://i.imgur.com/dGVl5Qq.jpg', name: 'زبون: أحمد - كارت شاشة'},
+  {image: 'https://i.imgur.com/fG7pW9b.jpg', name: 'زبون: محمد - معالج'},
+  {image: 'https://i.imgur.com/hKj8L2m.jpg', name: 'زبون: خالد - لوحة أم'},
+  {image: 'https://i.imgur.com/pXq9YrT.jpg', name: 'زبون: سعيد - ذاكرة RAM'},
+  {image: 'https://i.imgur.com/qR3sV8n.jpg', name: 'زبون: علي - SSD'},
+  {image: 'https://i.imgur.com/tUv5w7x.jpg', name: 'زبون: عمر - كيبورد'},
+  {image: 'https://i.imgur.com/vW6y9zY.jpg', name: 'زبون: يوسف - ماوس'},
+  {image: 'https://i.imgur.com/xY7zAaB.jpg', name: 'زبون: حسن - سماعات'},
+  {image: 'https://i.imgur.com/zA8bBcC.jpg', name: 'زبون: محمود - شاشة'},
+  {image: 'https://i.imgur.com/bC9dDeF.jpg', name: 'زبون: رامي - كيس'},
+  {image: 'https://i.imgur.com/cD0eEgG.jpg', name: 'زبون: وليد - كولر'},
+  {image: 'https://i.imgur.com/dE1fFhH.jpg', name: 'زبون: فادي - مزود طاقة'},
+  {image: 'https://i.imgur.com/eF2gGiI.jpg', name: 'زبون: ناصر - كابل'},
+  {image: 'https://i.imgur.com/fG3hHjJ.jpg', name: 'زبون: باسل - محول'},
+  {image: 'https://i.imgur.com/gH4iIkK.jpg', name: 'زبون: طارق - حامل لابتوب'}
 ];
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let currentProductImage = {}; // Track current image for each product
+let currentProductImage = {};
+let swiperInstance = null;
 
-// Initialize Carousel - FIXED FOR SMOOTH LOOPING
-function initCarousel() {
-  const carouselTrack = document.getElementById('carouselTrack');
+// Initialize Image Slider
+function initImageSlider() {
+  swiperInstance = new Swiper('.swiper', {
+    direction: 'horizontal',
+    loop: true,
+    autoplay: {
+      delay: 5000, // 5 seconds
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    touchEventsTarget: 'container',
+    allowTouchMove: true,
+    grabCursor: true,
+  });
+}
+
+// Initialize Customer Purchases Carousel
+function initCustomerPurchasesCarousel() {
+  const purchasesTrack = document.getElementById('purchasesTrack');
   
-  // Use exactly 10 images
-  const images = carouselImages.slice(0, 10);
+  // Duplicate items for seamless infinite loop
+  const allPurchases = [...customerPurchases, ...customerPurchases, ...customerPurchases];
   
-  // Duplicate images to create seamless loop
-  const duplicatedImages = [...images, ...images];
-  
-  carouselTrack.innerHTML = duplicatedImages.map((src, index) => `
-    <div class="carousel-item">
-      <img src="${src}" alt="صورة ${index + 1}">
+  purchasesTrack.innerHTML = allPurchases.map((purchase, index) => `
+    <div class="purchase-item">
+      <img src="${purchase.image}" alt="${purchase.name}" loading="lazy">
+      <p>${purchase.name}</p>
     </div>
   `).join('');
-  
-  // Reset animation when it completes to create seamless loop
-  const track = document.querySelector('.carousel-track');
-  track.addEventListener('animationiteration', () => {
-    // Reset the animation to create seamless loop
-    track.style.animation = 'none';
-    void track.offsetWidth; // Trigger reflow
-    track.style.animation = 'scroll 40s linear infinite';
-  });
-  
-  // Carousel controls
-  document.getElementById('carouselPrev').addEventListener('click', () => {
-    const track = document.querySelector('.carousel-track');
-    track.style.animationPlayState = 'paused';
-    track.style.transform = `translateX(${parseInt(track.style.transform?.replace('translateX(', '') || 0) + 100}px)`;
-    setTimeout(() => {
-      track.style.animationPlayState = 'running';
-    }, 100);
-  });
-  
-  document.getElementById('carouselNext').addEventListener('click', () => {
-    const track = document.querySelector('.carousel-track');
-    track.style.animationPlayState = 'paused';
-    track.style.transform = `translateX(${parseInt(track.style.transform?.replace('translateX(', '') || 0) - 100}px)`;
-    setTimeout(() => {
-      track.style.animationPlayState = 'running';
-    }, 100);
-  });
 }
 
 // Show/hide carousel based on scroll position
 function handleScroll() {
-  const carouselContainer = document.getElementById('carouselContainer');
+  const purchasesCarousel = document.getElementById('purchasesCarousel');
   const scrollPosition = window.scrollY + window.innerHeight;
   const pageHeight = document.documentElement.scrollHeight;
   
-  // Show carousel when user is near the bottom of the page
   if (scrollPosition >= pageHeight - 100) {
-    carouselContainer.classList.add('visible');
+    purchasesCarousel.classList.add('visible');
   } else {
-    carouselContainer.classList.remove('visible');
+    purchasesCarousel.classList.remove('visible');
   }
 }
 
@@ -1399,32 +1645,6 @@ function getConditionClass(condition) {
 // Function to format price with (د.ل) instead of $
 function formatPrice(price) {
   return price + ' (د.ل)';
-}
-
-// NEW: Function to render product specifications
-function renderSpecs(specs) {
-  if (!specs) return '';
-  
-  return `
-    <div class="specs-container">
-      <div class="spec-item">
-        <span class="spec-label">${getSpecLabel(specs.spec1)}</span>
-        <span class="spec-value">${specs.spec1}</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">${getSpecLabel(specs.spec2)}</span>
-        <span class="spec-value">${specs.spec2}</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">${getSpecLabel(specs.spec3)}</span>
-        <span class="spec-value">${specs.spec3}</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">${getSpecLabel(specs.spec4)}</span>
-        <span class="spec-value">${specs.spec4}</span>
-      </div>
-    </div>
-  `;
 }
 
 // NEW: Function to get appropriate labels for specifications based on content
@@ -1447,26 +1667,23 @@ function getSpecLabel(specValue) {
   return "المواصفات";
 }
 
-// Render Products - MODIFIED TO SORT BY AVAILABILITY
+// Render Products - SORTED BY ID DESCENDING (Newest First)
 function renderProducts(filter = {}) {
-  let filtered = allItems;
+  // Start with all items sorted by ID descending (newest first)
+  let filtered = [...allItems].sort((a, b) => b.id - a.id);
 
-  // Apply category filter
+  // Apply filters
   if (filter.category) {
     filtered = filtered.filter(p => p.category === filter.category);
   }
   
-  // Apply brand filter
   if (filter.brand) filtered = filtered.filter(p => p.brand === filter.brand);
   
-  // Apply condition filter
   if (filter.condition) filtered = filtered.filter(p => p.condition === filter.condition);
   
-  // Apply price filter
   if (filter.price === 'low') filtered.sort((a,b) => (a.price || 0) - (b.price || 0));
   if (filter.price === 'high') filtered.sort((a,b) => (b.price || 0) - (a.price || 0));
   
-  // Apply search filter
   if (filter.search) {
     const searchTerm = filter.search.toLowerCase();
     filtered = filtered.filter(p => 
@@ -1477,14 +1694,14 @@ function renderProducts(filter = {}) {
     );
   }
 
-  // MODIFIED: Sort products by availability - available first, then unavailable
+  // Sort products by availability - available first, then unavailable
   filtered.sort((a, b) => {
     const aUnavailable = unavailableProducts.includes(a.name);
     const bUnavailable = unavailableProducts.includes(b.name);
     
-    if (aUnavailable && !bUnavailable) return 1; // b comes first (available)
-    if (!aUnavailable && bUnavailable) return -1; // a comes first (available)
-    return 0; // keep original order for same availability status
+    if (aUnavailable && !bUnavailable) return 1;
+    if (!aUnavailable && bUnavailable) return -1;
+    return 0;
   });
 
   const grid = document.getElementById('productsGrid');
@@ -1503,17 +1720,13 @@ function renderProducts(filter = {}) {
       <div class="product-info">
         <h3>${p.name}</h3>
         <p>${p.brand} • <span class="${conditionClass}">${p.condition}</span></p>
-        <div style="margin:1rem 0;">
-          ${Array(Math.floor(p.rating)).fill('★').join('')} ${p.rating}
-        </div>
         
-        <!-- NEW: Display specifications for ALL products -->
-        ${p.specs ? renderSpecs(p.specs) : ''}
+        <!-- REMOVED: Specifications from product card -->
         
         <div>
           <span class="price">${formatPrice(p.price)}</span>${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''}
         </div>
-        <button class="btn add-to-cart" style="margin-top:1rem; width:100%;" data-id="${p.id}" ${isUnavailable ? 'disabled' : ''}>${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}</button>
+        <button class="btn add-to-cart" style="margin-top:1rem;" data-id="${p.id}" ${isUnavailable ? 'disabled' : ''}>${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}</button>
       </div>
     </div>
   `}).join('');
@@ -1529,7 +1742,7 @@ function renderProducts(filter = {}) {
   // Open product modal
   document.querySelectorAll('.product-card').forEach(card => {
     card.addEventListener('click', (e) => {
-      if (e.target.classList.contains('add-to-cart') || e.target.classList.contains('unavailable-label')) return;
+      if (e.target.classList.contains('add-to-cart') || e.target.classList.contains('unavailable-label') || e.target.classList.contains('btn')) return;
       const id = parseInt(card.dataset.id);
       showProductDetail(id);
     });
@@ -1537,7 +1750,7 @@ function renderProducts(filter = {}) {
   
   // إضافة مستمعات الأحداث لتأثير RGB على الهواتف
   if ('ontouchstart' in window) {
-    document.querySelectorAll('.product-card, .feature-box, .summary-box, .services-box, .filters, .support-section').forEach(element => {
+    document.querySelectorAll('.product-card, .feature-box, .filters, .support-section').forEach(element => {
       element.addEventListener('touchstart', function() {
         this.classList.add('active');
       });
@@ -1555,19 +1768,16 @@ function renderProducts(filter = {}) {
 function addToCart(id, button) {
   const product = allItems.find(p => p.id === id);
   
-  // Check if product is unavailable
   if (unavailableProducts.includes(product.name)) {
     showNotification('هذا المنتج غير متوفر حالياً');
     return;
   }
   
-  // Use current image if available, otherwise use first image
   const currentImage = currentProductImage[id] || product.images[0];
   
   const existing = cart.find(item => item.id === id);
   if (existing) {
     existing.qty++;
-    // Update image if it has changed
     if (currentImage !== existing.images[0]) {
       existing.images[0] = currentImage;
     }
@@ -1575,25 +1785,21 @@ function addToCart(id, button) {
     cart.push({
       ...product, 
       qty: 1,
-      images: [currentImage] // Store only the current image
+      images: [currentImage]
     });
   }
   
-  // Create animation element
   const animation = document.createElement('div');
   animation.className = 'add-to-cart-animation';
   
-  // Get button position
   const rect = button.getBoundingClientRect();
   const startX = rect.left + rect.width / 2;
   const startY = rect.top + rect.height / 2;
   
-  // Get cart icon position
   const cartRect = document.getElementById('cartIcon').getBoundingClientRect();
   const endX = cartRect.left + cartRect.width / 2;
   const endY = cartRect.top + cartRect.height / 2;
   
-  // Create product image for animation
   const img = document.createElement('img');
   img.src = currentImage;
   img.style.width = '40px';
@@ -1602,13 +1808,11 @@ function addToCart(id, button) {
   img.style.objectFit = 'cover';
   animation.appendChild(img);
   
-  // Set initial position
   animation.style.left = startX + 'px';
   animation.style.top = startY + 'px';
   
   document.body.appendChild(animation);
   
-  // Animate to cart
   setTimeout(() => {
     animation.style.left = endX + 'px';
     animation.style.top = endY + 'px';
@@ -1616,12 +1820,9 @@ function addToCart(id, button) {
     animation.style.opacity = '0.5';
   }, 10);
   
-  // Remove animation and update cart
   setTimeout(() => {
     document.body.removeChild(animation);
     updateCart();
-    
-    // Show success notification
     showNotification(`${product.name} تمت الإضافة إلى السلة!`);
   }, 800);
 }
@@ -1770,11 +1971,10 @@ document.getElementById('checkoutBtn').onclick = () => {
   }, 300);
 };
 
-// Order Form Submission - UPDATED TO SEND EMAIL
+// Order Form Submission
 document.getElementById('orderForm').onsubmit = (e) => {
   e.preventDefault();
   
-  // Get form data
   const formData = new FormData(e.target);
   const orderData = {
     name: formData.get('name'),
@@ -1785,21 +1985,21 @@ document.getElementById('orderForm').onsubmit = (e) => {
     total: cart.reduce((sum, i) => sum + i.price * i.qty, 0)
   };
   
-  // Send email using EmailJS
   sendOrderEmail(orderData);
   
-  // Reset cart and close modal
   cart = [];
   updateCart();
   hideModal(orderModal);
   e.target.reset();
+  
+  // Show success message
+  showNotification('تم تقديم طلبك بنجاح! سنتواصل معك عبر الواتس أب قريباً.');
 };
 
-// Support Form - UPDATED TO SEND EMAIL
+// Support Form
 document.getElementById('supportForm').onsubmit = (e) => {
   e.preventDefault();
   
-  // Get form data
   const formData = new FormData(e.target);
   const supportData = {
     name: formData.get('name'),
@@ -1807,67 +2007,81 @@ document.getElementById('supportForm').onsubmit = (e) => {
     issue: formData.get('issue')
   };
   
-  // Send email using EmailJS
   sendSupportEmail(supportData);
   
-  // Reset form
   e.target.reset();
+  showNotification('تم إرسال طلب الدعم الفني! سنتواصل معك قريباً.');
 };
 
-// Product Detail Modal (without reviews/comments)
+// Product Detail Modal with Specifications Table
 function showProductDetail(id) {
   const p = allItems.find(x => x.id === id);
   const isUnavailable = unavailableProducts.includes(p.name);
   const conditionClass = getConditionClass(p.condition);
   
-  // Initialize current image for this product if not set
   if (!currentProductImage[id]) {
     currentProductImage[id] = p.images[0];
   }
   
-  document.getElementById('productDetail').innerHTML = `
-    <h2>${p.name} ${isUnavailable ? '<span style="color:red;">(غير متوفر)</span>' : ''}</h2>
-    <p style="color:#888;">${p.brand} • <span class="${conditionClass}">${p.condition}</span></p>
-    
-    <!-- Main product image that fills the pop-up width -->
-    <img class="main-image" src="${currentProductImage[id]}" id="mainProductImage" alt="${p.name}">
-    
-    <!-- Gallery of thumbnails -->
-    <div class="gallery">
-      ${p.images.map((src, index) => 
-        `<img src="${src}" class="${src === currentProductImage[id] ? 'active' : ''}" onclick="changeMainImage(${id}, '${src}', this)">`
-      ).join('')}
+  // Create specifications table
+  const specsTableHTML = p.specs ? `
+    <div style="margin: 1.5rem 0;">
+      <h3 style="margin-bottom: 1rem; color: var(--primary);">المواصفات الفنية</h3>
+      <table class="specs-table">
+        <tr>
+          <th>${getSpecLabel(p.specs.spec1)}</th>
+          <td>${p.specs.spec1}</td>
+        </tr>
+        <tr>
+          <th>${getSpecLabel(p.specs.spec2)}</th>
+          <td>${p.specs.spec2}</td>
+        </tr>
+        <tr>
+          <th>${getSpecLabel(p.specs.spec3)}</th>
+          <td>${p.specs.spec3}</td>
+        </tr>
+        <tr>
+          <th>${getSpecLabel(p.specs.spec4)}</th>
+          <td>${p.specs.spec4}</td>
+        </tr>
+      </table>
     </div>
-    
-    <!-- NEW: Display specifications in modal for ALL products -->
-    ${p.specs ? `
-      <div style="margin: 1.5rem 0; padding: 1rem; background: rgba(13, 110, 253, 0.05); border-radius: 8px;">
-        <h3 style="margin-bottom: 1rem;">المواصفات الفنية</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-          <div><strong>${getSpecLabel(p.specs.spec1)}:</strong> ${p.specs.spec1}</div>
-          <div><strong>${getSpecLabel(p.specs.spec2)}:</strong> ${p.specs.spec2}</div>
-          <div><strong>${getSpecLabel(p.specs.spec3)}:</strong> ${p.specs.spec3}</div>
-          <div><strong>${getSpecLabel(p.specs.spec4)}:</strong> ${p.specs.spec4}</div>
+  ` : '';
+  
+  document.getElementById('productDetail').innerHTML = `
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div>
+        <h2>${p.name} ${isUnavailable ? '<span style="color:red;">(غير متوفر)</span>' : ''}</h2>
+        <p style="color:#888;">${p.brand} • <span class="${conditionClass}">${p.condition}</span></p>
+        
+        <img class="modal-product-image" src="${currentProductImage[id]}" id="mainProductImage" alt="${p.name}">
+        
+        <div class="gallery">
+          ${p.images.map((src, index) => 
+            `<img src="${src}" class="${src === currentProductImage[id] ? 'active' : ''}" onclick="changeMainImage(${id}, '${src}', this)">`
+          ).join('')}
         </div>
       </div>
-    ` : ''}
-    
-    <h2 style="color:var(--primary); margin:1.5rem 0;">${formatPrice(p.price)}</h2>
-    ${p.oldPrice ? `<p><s>${formatPrice(p.oldPrice)}</s> وفر ${Math.round((1 - p.price/p.oldPrice)*100)}%</p>` : ''}
-    <button class="btn add-to-cart" data-id="${p.id}" style="width:100%; padding:1rem; font-size:1.2rem;" ${isUnavailable ? 'disabled' : ''}>${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}</button>
-    
-    <p><strong>الوصف:</strong> ${p.desc || 'مكون عالي الأداء بأحدث التقنيات.'}</p>
-    
-    <!-- Star rating only, no comments -->
-    <div style="margin-top:2rem; border-top:1px solid var(--border); padding-top:1.5rem;">
-      <h3>تقييم العملاء (${p.rating} ★)</h3>
+      
+      <div>
+        ${specsTableHTML}
+        
+        <h2 style="color:var(--primary); margin:1.5rem 0;">${formatPrice(p.price)}</h2>
+        ${p.oldPrice ? `<p><s>${formatPrice(p.oldPrice)}</s> وفر ${Math.round((1 - p.price/p.oldPrice)*100)}%</p>` : ''}
+        
+        <button class="btn add-to-cart" data-id="${p.id}" style="padding:1rem; font-size:1.2rem; margin-bottom: 1.5rem;" ${isUnavailable ? 'disabled' : ''}>${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}</button>
+        
+        <div style="background: rgba(13, 110, 253, 0.05); padding: 1.5rem; border-radius: 8px;">
+          <h3 style="margin-bottom: 1rem;">وصف المنتج</h3>
+          <p>${p.desc || 'مكون عالي الأداء بأحدث التقنيات.'}</p>
+        </div>
+      </div>
     </div>
   `;
+  
   productModal.style.display = 'flex';
   setTimeout(() => showModal(productModal), 10);
 
-  // Re-bind buttons inside modal
-  // Add to cart button in modal
   document.querySelector('#productDetail .add-to-cart').addEventListener('click', (e) => {
     addToCart(id, e.target);
   });
@@ -1878,23 +2092,19 @@ function changeMainImage(productId, src, element) {
   document.getElementById('mainProductImage').src = src;
   currentProductImage[productId] = src;
   
-  // Remove active class from all thumbnails
   document.querySelectorAll('.gallery img').forEach(img => {
     img.classList.remove('active');
   });
   
-  // Add active class to the clicked thumbnail
   element.classList.add('active');
 }
 
-// Email sending functions - FIXED VERSION
+// Email sending functions
 function sendOrderEmail(orderData) {
-  // Format cart items for email
   const cartItems = orderData.cart.map(item => 
     `- ${item.name} (الكمية: ${item.qty}) - ${formatPrice(item.price)} لكل قطعة - المجموع: ${formatPrice(item.price * item.qty)}`
   ).join('\n');
   
-  // Create complete order summary
   const orderSummary = `
 طلب جديد من متجر سويتشز
 
@@ -1927,14 +2137,11 @@ ${cartItems}
   
   console.log('Sending order email with data:', emailParams);
   
-  // Send email using EmailJS
   emailjs.send('service_e0irzhi', 'template_2d5uee9', emailParams)
     .then(function(response) {
       console.log('Order email sent successfully:', response);
-      alert('تم تقديم الطلب بنجاح! سنتواصل معك قريبًا.');
     }, function(error) {
       console.error('Error sending order email:', error);
-      alert('تم تقديم الطلب بنجاح! سنتواصل معك قريبًا.');
     });
 }
 
@@ -1964,209 +2171,21 @@ ${supportData.issue}
   
   console.log('Sending support email with data:', emailParams);
   
-  // Send email using EmailJS
   emailjs.send('service_e0irzhi', 'template_2d5uee9', emailParams)
     .then(function(response) {
       console.log('Support email sent successfully:', response);
-      alert('تم إرسال طلب الدعم! سنتواصل معك قريبًا.');
     }, function(error) {
       console.error('Error sending support email:', error);
-      alert('تم إرسال طلب الدعم! سنتواصل معك قريبًا.');
     });
-}
-
-// Background Settings Functions
-function initBackgroundSettings() {
-  const settingsToggle = document.getElementById('settingsToggle');
-  const backgroundSettings = document.getElementById('backgroundSettings');
-  const bgImageUrl = document.getElementById('bgImageUrl');
-  const bgOpacity = document.getElementById('bgOpacity');
-  const bgBlur = document.getElementById('bgBlur');
-  const bgScale = document.getElementById('bgScale');
-  const bgBrightness = document.getElementById('bgBrightness');
-  const applyBtn = document.getElementById('applyBgSettings');
-  
-  // Load saved settings
-  const savedBgImage = localStorage.getItem('backgroundImage');
-  const savedBgOpacity = localStorage.getItem('backgroundOpacity');
-  const savedBgBlur = localStorage.getItem('backgroundBlur');
-  const savedBgScale = localStorage.getItem('backgroundScale');
-  const savedBgBrightness = localStorage.getItem('backgroundBrightness');
-  
-  if (savedBgImage) {
-    bgImageUrl.value = savedBgImage;
-    document.documentElement.style.setProperty('--background-image', `url('${savedBgImage}')`);
-  }
-  
-  if (savedBgOpacity) {
-    bgOpacity.value = savedBgOpacity;
-    document.documentElement.style.setProperty('--background-opacity', savedBgOpacity / 100);
-    document.getElementById('opacityValue').textContent = savedBgOpacity + '%';
-  }
-  
-  if (savedBgBlur) {
-    bgBlur.value = savedBgBlur;
-    document.documentElement.style.setProperty('--background-blur', savedBgBlur + 'px');
-    document.getElementById('blurValue').textContent = savedBgBlur + 'px';
-  }
-  
-  if (savedBgScale) {
-    bgScale.value = savedBgScale;
-    document.documentElement.style.setProperty('--background-scale', savedBgScale / 100);
-    document.getElementById('scaleValue').textContent = savedBgScale + '%';
-  }
-  
-  if (savedBgBrightness) {
-    bgBrightness.value = savedBgBrightness;
-    document.documentElement.style.setProperty('--background-brightness', savedBgBrightness / 100);
-    document.getElementById('brightnessValue').textContent = savedBgBrightness + '%';
-  }
-  
-  // Toggle settings panel
-  settingsToggle.addEventListener('click', () => {
-    backgroundSettings.classList.toggle('active');
-  });
-  
-  // Update opacity value display
-  bgOpacity.addEventListener('input', () => {
-    document.getElementById('opacityValue').textContent = bgOpacity.value + '%';
-  });
-  
-  // Update blur value display
-  bgBlur.addEventListener('input', () => {
-    document.getElementById('blurValue').textContent = bgBlur.value + 'px';
-  });
-  
-  // Update scale value display
-  bgScale.addEventListener('input', () => {
-    document.getElementById('scaleValue').textContent = bgScale.value + '%';
-  });
-  
-  // Update brightness value display
-  bgBrightness.addEventListener('input', () => {
-    document.getElementById('brightnessValue').textContent = bgBrightness.value + '%';
-  });
-  
-  // Apply settings
-  applyBtn.addEventListener('click', () => {
-    const imageUrl = bgImageUrl.value || 'https://img.freepik.com/premium-photo/top-view-computer-parts_160097-856.jpg';
-    
-    // Update CSS variables
-    document.documentElement.style.setProperty('--background-image', `url('${imageUrl}')`);
-    document.documentElement.style.setProperty('--background-opacity', bgOpacity.value / 100);
-    document.documentElement.style.setProperty('--background-blur', bgBlur.value + 'px');
-    document.documentElement.style.setProperty('--background-scale', bgScale.value / 100);
-    document.documentElement.style.setProperty('--background-brightness', bgBrightness.value / 100);
-    
-    // Save settings
-    localStorage.setItem('backgroundImage', imageUrl);
-    localStorage.setItem('backgroundOpacity', bgOpacity.value);
-    localStorage.setItem('backgroundBlur', bgBlur.value);
-    localStorage.setItem('backgroundScale', bgScale.value);
-    localStorage.setItem('backgroundBrightness', bgBrightness.value);
-    
-    // Close settings panel
-    backgroundSettings.classList.remove('active');
-    
-    // Show confirmation
-    showNotification('تم تطبيق إعدادات الخلفية بنجاح!');
-  });
-}
-
-// RGB Settings Functions
-function initRgbSettings() {
-  const rgbToggle = document.getElementById('rgbToggle');
-  const rgbSettings = document.getElementById('rgbSettings');
-  const rgbIntensity = document.getElementById('rgbIntensity');
-  const rgbSpeed = document.getElementById('rgbSpeed');
-  const applyRgbBtn = document.getElementById('applyRgbSettings');
-  
-  // Load saved settings
-  const savedRgbIntensity = localStorage.getItem('rgbIntensity');
-  const savedRgbSpeed = localStorage.getItem('rgbSpeed');
-  
-  if (savedRgbIntensity) {
-    rgbIntensity.value = savedRgbIntensity;
-    document.documentElement.style.setProperty('--rgb-intensity', savedRgbIntensity / 100);
-    document.getElementById('intensityValue').textContent = savedRgbIntensity + '%';
-  }
-  
-  if (savedRgbSpeed) {
-    rgbSpeed.value = savedRgbSpeed;
-    updateSpeedValue(savedRgbSpeed);
-    updateRgbAnimationSpeed(savedRgbSpeed);
-  }
-  
-  // Toggle settings panel
-  rgbToggle.addEventListener('click', () => {
-    rgbSettings.classList.toggle('active');
-  });
-  
-  // Update intensity value display
-  rgbIntensity.addEventListener('input', () => {
-    document.getElementById('intensityValue').textContent = rgbIntensity.value + '%';
-  });
-  
-  // Update speed value display
-  rgbSpeed.addEventListener('input', () => {
-    updateSpeedValue(rgbSpeed.value);
-  });
-  
-  // Apply settings
-  applyRgbBtn.addEventListener('click', () => {
-    // Update CSS variables
-    document.documentElement.style.setProperty('--rgb-intensity', rgbIntensity.value / 100);
-    updateRgbAnimationSpeed(rgbSpeed.value);
-    
-    // Save settings
-    localStorage.setItem('rgbIntensity', rgbIntensity.value);
-    localStorage.setItem('rgbSpeed', rgbSpeed.value);
-    
-    // Close settings panel
-    rgbSettings.classList.remove('active');
-    
-    // Show confirmation
-    showNotification('تم تطبيق إعدادات RGB بنجاح!');
-  });
-}
-
-// Update speed value display
-function updateSpeedValue(speed) {
-  let speedText = 'بطيئة';
-  if (speed > 12) speedText = 'سريعة';
-  else if (speed > 8) speedText = 'متوسطة';
-  
-  document.getElementById('speedValue').textContent = speedText;
-}
-
-// Update RGB animation speed
-function updateRgbAnimationSpeed(speed) {
-  const duration = 20 - speed; // Inverse relationship (higher speed = shorter duration)
-  const style = document.createElement('style');
-  style.id = 'rgb-animation-speed';
-  style.textContent = `
-    .rgb-border {
-      animation-duration: ${duration}s !important;
-    }
-  `;
-  
-  const existingStyle = document.getElementById('rgb-animation-speed');
-  if (existingStyle) {
-    existingStyle.remove();
-  }
-  
-  document.head.appendChild(style);
 }
 
 // Initialize the page
 function init() {
   renderProducts();
-  initCarousel();
+  initImageSlider();
+  initCustomerPurchasesCarousel();
   updateCart();
-  initBackgroundSettings();
-  initRgbSettings();
   
-  // Add scroll event listener
   window.addEventListener('scroll', handleScroll);
 }
 
