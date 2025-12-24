@@ -39,6 +39,73 @@
   <!-- Add Swiper CSS for Image Slider -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <style>
+    /* إطار صور حقيقي */
+.bottom-image-item {
+  flex: 0 0 auto;
+  width: 180px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  
+  /* خلفية بيضاء مع ملمس */
+  background: 
+    linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%),
+    repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 4px);
+  
+  /* ظل ثلاثي الأبعاد */
+  box-shadow: 
+    0 5px 15px rgba(0,0,0,0.08),
+    0 0 0 1px rgba(0,0,0,0.05),
+    inset 0 0 20px rgba(0,0,0,0.02);
+  
+  transition: all 0.3s ease;
+  padding: 12px;
+}
+
+/* إطار داخلي أبيض سميك */
+.bottom-image-item::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bottom-image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+  position: relative;
+  z-index: 2;
+  
+  /* تأثير صورة ورقية */
+  box-shadow: 
+    inset 0 0 10px rgba(0,0,0,0.1),
+    0 1px 3px rgba(0,0,0,0.1);
+  
+  /* تدرج لطيف */
+  background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0.1) 100%);
+}
+
+.bottom-image-item:hover {
+  transform: translateY(-5px) rotate(1deg);
+  box-shadow: 
+    0 10px 25px rgba(0,0,0,0.15),
+    0 0 0 1px rgba(0,0,0,0.08),
+    inset 0 0 25px rgba(0,0,0,0.03);
+}
+
+.bottom-image-item:hover::before {
+  background: rgba(255, 255, 255, 0.9);
+}
     :root {
       --bg: #f8f9fa;
       --text: #212529;
@@ -56,6 +123,7 @@
       --background-scale: 1;
       --background-brightness: 1;
       --rgb-intensity: 0.7;
+      --banner-image: url('https://m.media-amazon.com/images/I/81Smi3twk5L.jpg'); /* إضافة صورة البانر */
     }
     [data-theme="dark"] {
       --bg: #121212;
@@ -86,6 +154,28 @@
       transform: scale(var(--background-scale));
       z-index: -1;
       pointer-events: none;
+    }
+    
+    /* إضافة صورة البانر العريضة أعلى الموقع */
+    .top-banner {
+      width: 100%;
+      height: 300px;
+      background-image: var(--banner-image);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    
+    .top-banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
     }
     
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -132,6 +222,423 @@
       padding: 0.5rem;
     }
     .container { max-width: 1400px; margin: 0 auto; padding: 2rem 5%; }
+    
+    /* NEW: Improved Horizontal Products Bars with arrows */
+    .horizontal-section {
+      margin: 3rem 0;
+      position: relative;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .section-title .fire-icon {
+      color: #ff9900;
+    }
+    
+    .section-title .discount-icon {
+      color: #28a745;
+    }
+    
+    .section-title .clock-icon {
+      color: #17a2b8;
+    }
+    
+    /* زر عرض جميع العروض المحسن */
+    .view-all-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, #0b5cd7 100%);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(13, 110, 253, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .view-all-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .view-all-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(13, 110, 253, 0.35);
+      background: linear-gradient(135deg, #0b5cd7 0%, var(--primary) 100%);
+    }
+    
+    .view-all-btn:hover::before {
+      left: 100%;
+    }
+    
+    .view-all-btn i {
+      transition: transform 0.3s ease;
+    }
+    
+    .view-all-btn:hover i {
+      transform: translateX(-5px);
+    }
+    
+    /* NEW: Horizontal products container with arrows */
+    .horizontal-products-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    
+    .horizontal-products-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .horizontal-products-track {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding: 1rem 0;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Hide scrollbar for Firefox */
+      -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+      transition: transform 0.3s ease;
+    }
+    
+    .horizontal-products-track::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for Chrome/Safari/Opera */
+    }
+    
+    /* NEW: Navigation arrows */
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .horizontal-products-wrapper:hover .nav-arrow {
+      opacity: 1;
+    }
+    
+    .nav-arrow:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .nav-arrow.left {
+      right: 10px;
+    }
+    
+    .nav-arrow.right {
+      left: 10px;
+    }
+    
+    /* NEW: Product card design - taller version */
+    .horizontal-product-card {
+      flex: 0 0 auto;
+      width: 250px;
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+      height: 420px; /* Increased height */
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .horizontal-product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    .horizontal-product-card img {
+      width: 100%;
+      height: 220px; /* Increased image height */
+      object-fit: cover; /* Changed to cover for full image display */
+    }
+    
+    .horizontal-product-info {
+      padding: 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .horizontal-product-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+      height: 2.5rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    
+    .horizontal-product-price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 0.5rem 0;
+    }
+    
+    .horizontal-product-old-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 0.9rem;
+      margin-right: 0.5rem;
+    }
+    
+    .horizontal-product-condition {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+    
+    .horizontal-product-condition.new {
+      color: green;
+      font-weight: bold;
+    }
+    
+    .horizontal-product-condition.used {
+      color: red;
+      font-weight: bold;
+    }
+    
+    .horizontal-product-condition.open-box {
+      color: blue;
+      font-weight: bold;
+    }
+    
+    /* Badges for discounted and coming soon products */
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #28a745;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      z-index: 10;
+    }
+    
+    .coming-soon-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #17a2b8;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      z-index: 10;
+    }
+    
+    /* Style for unavailable products - less opacity */
+    .unavailable-product {
+      opacity: 0.6;
+      position: relative;
+    }
+    
+    .unavailable-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(220, 53, 69, 0.9);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      z-index: 10;
+    }
+    
+    /* NEW: Bottom transparent image bar */
+    .bottom-image-bar {
+      margin: 4rem 0 2rem 0;
+      padding: 1.5rem 0;
+      background: transparent;
+      position: relative;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .bottom-bar-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    
+    .bottom-bar-track {
+      display: flex;
+      gap: 3rem;
+      overflow-x: auto;
+      padding: 0.5rem 0;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .bottom-bar-track::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .bottom-image-item {
+      flex: 0 0 auto;
+      width: 180px;
+      height: 120px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .bottom-image-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    .bottom-image-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .bottom-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .bottom-bar-wrapper:hover .bottom-nav-arrow {
+      opacity: 1;
+    }
+    
+    .bottom-nav-arrow:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .bottom-nav-arrow.left {
+      right: 10px;
+    }
+    
+    .bottom-nav-arrow.right {
+      left: 10px;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .horizontal-product-card {
+        width: 220px;
+        height: 400px;
+      }
+      
+      .horizontal-product-card img {
+        height: 200px;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+      }
+      
+      .top-banner {
+        height: 200px;
+      }
+      
+      .view-all-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .nav-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+      
+      .bottom-image-item {
+        width: 150px;
+        height: 100px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .horizontal-product-card {
+        width: 200px;
+        height: 380px;
+      }
+      
+      .horizontal-product-card img {
+        height: 180px;
+      }
+      
+      .bottom-image-item {
+        width: 130px;
+        height: 90px;
+      }
+      
+      .nav-arrow {
+        display: none; /* Hide arrows on very small screens */
+      }
+    }
+    
+    /* باقي الأنماط تبقى كما هي */
+    /* Filters - keep as is */
     .filters {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -160,7 +667,7 @@
       font-family: inherit;
     }
     
-    /* Features Section - MODIFIED: Reduced height */
+    /* Features Section */
     .features-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -169,14 +676,14 @@
     }
     .feature-box {
       background: var(--card);
-      padding: 1.5rem; /* MODIFIED: Reduced from 2rem */
+      padding: 1.5rem;
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.08);
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
       position: relative;
       overflow: hidden;
-      height: 180px; /* MODIFIED: Added fixed height */
+      height: 110px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -187,29 +694,30 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     }
     .feature-icon {
-      font-size: 2rem; /* MODIFIED: Reduced from 2.5rem */
+      font-size: 2rem;
       color: var(--primary);
-      margin-bottom: 0.8rem; /* MODIFIED: Reduced from 1rem */
+      margin-bottom: 0.8rem;
     }
     .feature-title {
-      font-size: 1.1rem; /* MODIFIED: Reduced from 1.2rem */
+      font-size: 1.1rem;
       font-weight: 600;
-      margin-bottom: 0.4rem; /* MODIFIED: Reduced from 0.5rem */
+      margin-bottom: 0.4rem;
     }
     .feature-desc {
       color: #666;
-      font-size: 0.85rem; /* MODIFIED: Reduced from 0.9rem */
+      font-size: 0.85rem;
       line-height: 1.4;
     }
     
-    /* NEW: Image Slider Section - Replaces Store Summary and Services */
+    /* باقي الأنماط تبقى كما هي */
+    /* Image Slider Section */
     .image-slider-section {
       width: 100%;
       margin-bottom: 3rem;
     }
     .swiper {
       width: 100%;
-      height: 350px; /* Adjust height as needed */
+      height: 350px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 5px 20px rgba(0,0,0,0.1);
@@ -261,11 +769,13 @@
       font-size: 1.2rem !important;
     }
     
-    /* Updated Products Grid - 4 products per row */
+    /* باقي الأنماط تبقى كما هي */
+    /* Products Grid - for all products page */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
+      gap: 1.5rem;
+      margin-top: 2rem;
     }
     @media (max-width: 1200px) {
       .products-grid {
@@ -289,7 +799,7 @@
       }
     }
     
-    /* Product Card - MODIFIED: Smaller size */
+    /* Product Card - for all products page */
     .product-card {
       background: var(--card);
       border-radius: 12px;
@@ -298,44 +808,44 @@
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
       position: relative;
-      height: 370px; /* MODIFIED: Added fixed height */
+      height: 400px; /* Increased height */
       display: flex;
       flex-direction: column;
     }
-    .product-card:hover { 
-      transform: translateY(-8px); /* MODIFIED: Reduced from -10px */
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* MODIFIED: Reduced from 15px 30px */
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
-    .product-card img { 
-      width: 100%; 
-      height: 180px; /* MODIFIED: Reduced from 200px */
-      object-fit: cover; 
+    .product-card img {
+      width: 100%;
+      height: 200px; /* Increased image height */
+      object-fit: cover; /* Changed to cover */
     }
-    .product-info { 
-      padding: 1rem; 
+    .product-info {
+      padding: 1rem;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
     .product-info h3 {
-      font-size: 1rem; /* MODIFIED: Reduced from default */
+      font-size: 1rem;
       margin-bottom: 0.5rem;
       line-height: 1.3;
     }
     .product-info p {
-      font-size: 0.85rem; /* MODIFIED: Reduced from default */
+      font-size: 0.85rem;
       margin-bottom: 0.5rem;
     }
-    .price { 
-      font-size: 1.3rem; /* MODIFIED: Reduced from 1.4rem */
-      font-weight: bold; 
-      color: var(--primary); 
+    .price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--primary);
       margin: 0.5rem 0;
     }
-    .old-price { 
-      text-decoration: line-through; 
-      color: #888; 
-      font-size: 0.85rem; /* MODIFIED: Reduced from 0.9rem */
+    .old-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 0.85rem;
       margin-right: 0.5rem;
     }
     .badge {
@@ -372,15 +882,59 @@
       align-items: center;
       justify-content: center;
     }
+    
+    /* باقي الأنماط تبقى كما هي */
+    /* NEW: All Products Page */
+    .all-products-page {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .all-products-page.active {
+      display: block;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .back-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .back-btn:hover {
+      background: #0b5cd7;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Support Section */
     .support-section {
       margin: 4rem 0;
       background: var(--card);
-      padding: 3rem;
+      padding: 1rem;
       border-radius: 16px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.1);
       position: relative;
       overflow: hidden;
     }
+    
     .btn {
       background: var(--primary);
       color: white;
@@ -392,7 +946,7 @@
       transition: 0.3s;
       font-family: inherit;
       width: 100%;
-      margin-top: auto; /* Push button to bottom */
+      margin-top: auto;
     }
     .btn:hover { background: #0b5cd7; transform: translateY(-2px); }
     .btn-buy-now {
@@ -401,6 +955,9 @@
     .btn-buy-now:hover {
       background: #218838;
     }
+    
+    /* باقي الأنماط تبقى كما هي */
+    /* Modal styles */
     .modal {
       display: none;
       position: fixed;
@@ -455,7 +1012,7 @@
       padding: 10px 0;
     }
     .gallery img {
-      height: 80px; /* MODIFIED: Reduced from 100px */
+      height: 80px;
       width: auto;
       border-radius: 8px;
       cursor: pointer;
@@ -467,25 +1024,18 @@
     .gallery img.active {
       border: 2px solid var(--primary);
     }
-    .main-image {
-      width: 100%;
-      max-height: 60vh;
-      object-fit: contain;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-    }
     
-    /* NEW: Larger image in product modal */
+    /* Product modal image */
     .modal-product-image {
       width: 100%;
-      height: 400px; /* MODIFIED: Increased height */
+      height: 400px;
       object-fit: contain;
       border-radius: 12px;
       margin-bottom: 1.5rem;
       background: var(--bg);
     }
     
-    /* NEW: Specifications table in modal */
+    /* Specifications table */
     .specs-table {
       width: 100%;
       border-collapse: collapse;
@@ -511,7 +1061,7 @@
       border-bottom: none;
     }
     
-    /* NEW: Improved Customer Purchases Carousel */
+    /* Customer Purchases Carousel */
     .purchases-carousel-container {
       position: fixed;
       bottom: 0;
@@ -523,7 +1073,7 @@
       z-index: 999;
       transform: translateY(100%);
       transition: transform 0.7s ease;
-      height: 130px; /* Bigger than before */
+      height: 130px;
       overflow: hidden;
     }
     
@@ -542,8 +1092,8 @@
     
     .purchases-track {
       display: flex;
-      width: calc(200px * 30); /* Double the items for seamless loop */
-      animation: infinite-scroll 90s linear infinite; /* Slower animation */
+      width: calc(200px * 30);
+      animation: infinite-scroll 90s linear infinite;
     }
     
     .purchases-track:hover {
@@ -586,11 +1136,11 @@
         transform: translateX(0);
       }
       100% {
-        transform: translateX(calc(-200px * 15)); /* Move by half the total width */
+        transform: translateX(calc(-200px * 15));
       }
     }
     
-    /* NEW: Social Media Section in Footer */
+    /* Social Media Section */
     .social-media-section {
       margin: 2rem 0 3rem 0;
       text-align: center;
@@ -667,7 +1217,7 @@
       border-top: 1px solid var(--border);
     }
     
-    /* Enhanced Cart Styles */
+    /* Cart styles */
     .cart-items-container {
       max-height: 500px;
       overflow-y: auto;
@@ -786,21 +1336,6 @@
       transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
     
-    /* Amount selector for gift cards - UPDATED TO DROPDOWN */
-    .amount-selector {
-      margin: 1rem 0;
-    }
-    .amount-dropdown {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--card);
-      color: var(--text);
-      font-family: inherit;
-      margin-top: 0.5rem;
-    }
-    
     /* New styles for condition colors */
     .condition-new {
       color: green;
@@ -814,25 +1349,6 @@
       color: blue;
       font-weight: bold;
     }
-    
-    /* Style for unavailable products */
-    .unavailable-product {
-      opacity: 0.7;
-      position: relative;
-    }
-    .unavailable-label {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(220, 53, 69, 0.9);
-      color: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      z-index: 10;
-    }
-    
-    /* MODIFIED: REMOVED Product specifications styles from product card */
     
     /* RGB Border Effect */
     .rgb-border-wrapper {
@@ -852,7 +1368,6 @@
       left: -2px;
       right: -2px;
       bottom: -2px;
-
       background-size: 400% 400%;
       animation: rgb-flow 15s linear infinite;
       border-radius: inherit;
@@ -866,7 +1381,7 @@
       100% { background-position: 0% 50%; }
     }
     
-    /* NEW: Enhanced Order Modal Styles */
+    /* Order Modal */
     .order-modal-content {
       background: linear-gradient(135deg, var(--card) 0%, rgba(13, 110, 253, 0.05) 100%);
       border-radius: 20px;
@@ -984,7 +1499,11 @@
   </div>
 </header>
 
-<div class="container">
+<!-- صورة البانر العريضة أعلى الموقع -->
+<div class="top-banner"></div>
+
+<!-- Main Page -->
+<div class="container main-page" id="mainPage">
   <!-- Features Section -->
   <section class="features-section">
     <div class="feature-box">
@@ -994,8 +1513,7 @@
       <div class="feature-icon">
         <i class="fas fa-shipping-fast"></i>
       </div>
-      <div class="feature-title">توصيل سريع</div>
-      <div class="feature-desc">خلال 1-3 أيام لباب منزلك</div>
+      <div class="feature-title">توصيل سريع لجميع المدن</div>
     </div>
     <div class="feature-box">
       <div class="rgb-border-wrapper">
@@ -1005,7 +1523,6 @@
         <i class="fas fa-map-marker-alt"></i>
       </div>
       <div class="feature-title">تغطية شاملة</div>
-      <div class="feature-desc">توصيل لجميع المدن في جميع أنحاء البلاد</div>
     </div>
     <div class="feature-box">
       <div class="rgb-border-wrapper">
@@ -1014,8 +1531,7 @@
       <div class="feature-icon">
         <i class="fas fa-headset"></i>
       </div>
-      <div class="feature-title">الدعم الفني</div>
-      <div class="feature-desc">دعم فني مستمر ومجاني</div>
+      <div class="feature-title">دعم فني مجاني</div>
     </div>
     <div class="feature-box">
       <div class="rgb-border-wrapper">
@@ -1024,38 +1540,37 @@
       <div class="feature-icon">
         <i class="fas fa-award"></i>
       </div>
-      <div class="feature-title">ضمان على بعض القطع</div>
-      <div class="feature-desc">سياسة إرجاع 3 أيام لجميع المنتجات</div>
+      <div class="feature-title">ضمان على القطع</div>
     </div>
   </section>
 
-  <!-- NEW: Image Slider Section - Replaces Store Summary and Services -->
+  <!-- Image Slider Section -->
   <section class="image-slider-section">
     <div class="swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="https://cdn.mos.cms.futurecdn.net/unhm5ymUqass6PZvpfEnZ9.jpg" alt="منتجات الكمبيوتر">
+          <img src="https://pcandparts.com/wp-content/uploads/asus_rog.jpg" alt="منتجات الكمبيوتر">
           <div class="slide-content">
             <h3 class="slide-title">أحدث قطع الكمبيوتر</h3>
             <p class="slide-description">اكتشف مجموعتنا المتميزة من أحدث المعالجات والكروت</p>
           </div>
         </div>
         <div class="swiper-slide">
-          <img src="https://p2-ofp.static.pub//fes/cms/2025/07/18/wu0wbq4pf2p4imnbnwag9y78bkxn2h797134.jpg" alt="شاشات الألعاب">
+          <img src="https://dlcdnwebimgs.asus.com/gain/DBBA29D7-A5AF-4074-ABC8-795718A78EC0/fwebp" alt="شاشات الألعاب">
           <div class="slide-content">
             <h3 class="slide-title">شاشات الألعاب الاحترافية</h3>
             <p class="slide-description">أداء عالي ودقة فائقة لتجربة ألعاب لا تُنسى</p>
           </div>
         </div>
         <div class="swiper-slide">
-          <img src="https://cdn.autonomous.ai/static/upload/images/new_post/list-of-must-have-pc-computer-accessories-4151-1646879396862.jpg" alt="إكسسوارات الكمبيوتر">
+          <img src="https://currysprod.a.bigcontent.io/v1/static/razer-gaming-peripherals-header-img" alt="إكسسوارات الكمبيوتر">
           <div class="slide-content">
             <h3 class="slide-title">إكسسوارات متميزة</h3>
             <p class="slide-description">كل ما تحتاجه لتجهيز محطة العمل الخاصة بك</p>
           </div>
         </div>
         <div class="swiper-slide">
-          <img src="https://i.ytimg.com/vi/xo-7MJqnRtc/maxresdefault.jpg" alt="إكسسوارات إلكترونية">
+          <img src="https://m.media-amazon.com/images/I/71Tx4Y0oldL.jpg_BO30,255,255,255_UF900,850_SR1910,1000,0,C_PIRIOFOUR-medium,BottomLeft,30,-20_ZJPHNwYW4gZm9yZWdyb3VuZD0iIzU2NTk1OSIgZm9udD0iQW1hem9uRW1iZXIgNTAiID41Mzwvc3Bhbj4=,500,900,420,420,0,0_QL100_.jpg" alt="إكسسوارات إلكترونية">
           <div class="slide-content">
             <h3 class="slide-title">إكسسوارات إلكترونية</h3>
             <p class="slide-description">قطع إلكترونية عالية الجودة لتلبية جميع احتياجاتك </p>
@@ -1122,8 +1637,93 @@
     </select>
   </div>
 
-  <!-- Products -->
-  <div class="products-grid" id="productsGrid"></div>
+  <!-- Horizontal Products Bars -->
+  
+  <!-- 1. Most Selling Products -->
+  <section class="horizontal-section">
+    <div class="section-header">
+      <h3 class="section-title"><i class="fas fa-fire fire-icon"></i> المنتجات الأكثر مبيعاً</h3>
+      <button class="view-all-btn" onclick="showAllProducts('all')">
+        <i class="fas fa-arrow-left"></i> عرض جميع العروض
+      </button>
+    </div>
+    
+    <div class="horizontal-products-wrapper">
+      <button class="nav-arrow left" onclick="scrollHorizontal('mostSellingProductsTrack', 'left')">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="horizontal-products-container">
+        <div class="horizontal-products-track" id="mostSellingProductsTrack">
+          <!-- Most selling products will be loaded here by JavaScript -->
+        </div>
+      </div>
+      <button class="nav-arrow right" onclick="scrollHorizontal('mostSellingProductsTrack', 'right')">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- 2. Discounted Products -->
+  <section class="horizontal-section">
+    <div class="section-header">
+      <h3 class="section-title"><i class="fas fa-tag discount-icon"></i> العروض المخفضة حالياً</h3>
+      <!-- تم إزالة زر "عرض جميع العروض" من هذا القسم -->
+    </div>
+    
+    <div class="horizontal-products-wrapper">
+      <button class="nav-arrow left" onclick="scrollHorizontal('discountedProductsTrack', 'left')">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="horizontal-products-container">
+        <div class="horizontal-products-track" id="discountedProductsTrack">
+          <!-- Discounted products will be loaded here by JavaScript -->
+        </div>
+      </div>
+      <button class="nav-arrow right" onclick="scrollHorizontal('discountedProductsTrack', 'right')">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- 3. Coming Soon Products -->
+  <section class="horizontal-section">
+    <div class="section-header">
+      <h3 class="section-title"><i class="fas fa-clock clock-icon"></i> المنتجات التي ستتوفر قريباً</h3>
+      <!-- تم إزالة زر "عرض جميع العروض" من هذا القسم -->
+    </div>
+    
+    <div class="horizontal-products-wrapper">
+      <button class="nav-arrow left" onclick="scrollHorizontal('comingSoonProductsTrack', 'left')">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="horizontal-products-container">
+        <div class="horizontal-products-track" id="comingSoonProductsTrack">
+          <!-- Coming soon products will be loaded here by JavaScript -->
+        </div>
+      </div>
+      <button class="nav-arrow right" onclick="scrollHorizontal('comingSoonProductsTrack', 'right')">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
+  </section>
+
+  
+<!-- Bottom Image Bar (New Section) - MOVED ABOVE SUPPORT SECTION -->
+<div class="container">
+  <div class="bottom-image-bar">
+    <div class="bottom-bar-wrapper">
+      <button class="bottom-nav-arrow left" onclick="scrollBottomBar('left')">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="bottom-bar-track" id="bottomImageBar">
+        <!-- Images will be loaded by JavaScript -->
+      </div>
+      <button class="bottom-nav-arrow right" onclick="scrollBottomBar('right')">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
+  </div>
+</div>
 
   <!-- Support Section -->
   <section class="support-section">
@@ -1138,6 +1738,72 @@
       <button type="submit" class="btn">إرسال الطلب</button>
     </form>
   </section>
+</div>
+
+<!-- All Products Page -->
+<div class="container all-products-page" id="allProductsPage">
+  <div class="page-header">
+    <h2 id="allProductsTitle">جميع المنتجات</h2>
+    <button class="back-btn" onclick="showMainPage()"><i class="fas fa-arrow-right"></i> العودة للصفحة الرئيسية</button>
+  </div>
+  
+  <!-- Filters (same as main page) -->
+  <div class="filters">
+    <div class="rgb-border-wrapper">
+      <div class="rgb-border"></div>
+    </div>
+    <div class="search-container">
+      <input type="text" id="allProductsSearchInput" placeholder="ابحث في المنتجات، الفئات، الماركات...">
+      <button class="btn" id="allProductsSearchBtn"><i class="fas fa-search"></i></button>
+    </div>
+    <select id="allProductsCategoryFilter">
+      <option value="">جميع الفئات</option>
+      <option>المعالجات</option>
+      <option>كروت الشاشة</option>
+      <option>اللوحات الأم</option>
+      <option>الذاكرة</option>
+      <option>التخزين</option>
+      <option>مزودات الطاقة</option>
+      <option>لابتوبات</option>
+      <option>الصناديق</option>
+      <option>شاشات</option>
+      <option>إكسسوارات</option>
+      <option>بلايستيشن</option>
+      <option>مراوح</option>
+
+    </select>
+    <select id="allProductsBrandFilter">
+      <option value="">جميع الماركات</option>
+      <option>Intel</option>
+      <option>AMD</option>
+      <option>NVIDIA</option>
+      <option>Corsair</option>
+      <option>Samsung</option>
+      <option>ASUS</option>
+      <option>HP</option>
+      <option>Acer</option>
+      <option>Lenovo</option>
+      <option>LG</option>
+      <option>MSI</option>
+      <option>Gigabyte</option>
+     <option>Apple</option>
+     <option>LDON</option>
+    </select>
+    <select id="allProductsConditionFilter">
+      <option value="">جميع الحالات</option>
+      <option>جديد</option>
+      <option>مستعمل</option>
+      <option>علبة مفتوحة</option>
+    </select>
+    <select id="allProductsPriceFilter">
+      <option value="">السعر</option>
+      <option value="low">من الأقل إلى الأعلى</option>
+      <option value="high">من الأعلى إلى الأقل</option>
+    </select>
+  </div>
+  
+  <!-- All Products Grid -->
+  <div class="products-grid" id="allProductsGrid"></div>
 </div>
 
 <!-- Product Detail Modal -->
@@ -1167,7 +1833,7 @@
   </div>
 </div>
 
-<!-- Order Modal - IMPROVED -->
+<!-- Order Modal -->
 <div class="modal" id="orderModal">
   <div class="modal-content order-modal-content" style="max-width:600px;">
     <span class="close" id="closeOrder">&times;</span>
@@ -1206,7 +1872,7 @@
   </div>
 </div>
 
-<!-- NEW: Social Media Section -->
+<!-- Social Media Section -->
 <div class="social-media-section">
   <h3>تابعنا على منصات التواصل الاجتماعي</h3>
   <div class="social-links">
@@ -1234,7 +1900,7 @@
 </div>
 
 <footer>
-  <p>&copy; 2025 سويتشز برو - جميع الحقوق محفوظة</p>
+  <p>&copy; 2025 سويتشز - جميع الحقوق محفوظة</p>
 </footer>
 
 <!-- Add Swiper JS -->
@@ -1277,7 +1943,46 @@ if (localStorage.getItem('theme') === 'dark') {
   document.documentElement.style.setProperty('--rgb-intensity', '0.8');
 }
 
-// List of unavailable products
+// =========== القوائم المخصصة - قم بتعديلها يدوياً ===========
+// 1. قائمة المنتجات الأكثر مبيعاً (حددها يدوياً)
+const mostSellingProductNames = [
+  "Projector HY 300 Mini",
+  "Mouse Pad KATANA BLACK",
+  "Mouse Pad Miyamoto Musashi from Vagabond",
+  "LDON Mide 68", 
+  "LG 27″ UltraGear 27GS75Q-B",
+  "MSI MAG 32C6X",
+  "ACER Nitro VGO 27",
+  "MSI G255F",
+  "HP OMEN 24",
+  "ASUS ROG Strix XG27ACS",
+  "ASUS ROG Strix XG27UCS"
+];
+
+// 2. قائمة المنتجات المخفضة (حددها يدوياً)
+const discountedProductNames = [
+  "Projector HY 300 Pro",
+  "Projector HY 300 Mini", 
+  "LDON Mide 68",
+  "LG 27″ UltraGear 27GS75Q-B",
+  "FZ - 200 NZXT",
+  "Corsair Vengeance 32GB DDR5 6000MHz",
+  "Crucial T705 2TB NVMe Gen5 SSD",
+  "ASUS ROG Strix Z790-E",
+  "ASUS ROG Strix 1000W 80+ Platinum",
+  "ASUS TUF B850M-E WIFI"
+];
+
+// 3. قائمة المنتجات التي ستتوفر قريباً (حددها يدوياً)
+const comingSoonProductNames = [
+  "AJAZZ NACODEX NK68",
+  "PlayStation 5 Slim",
+  "Mouse Pad Ghost Operator",
+  "Mouse Pad Urban Combat Force",
+  "PlayStation 5 Standard Edition (Disc Version)"
+];
+
+// 4. قائمة المنتجات غير المتوفرة حالياً
 const unavailableProducts = [
   "RTX 3070 Ti",
   "Ryzen 9 7950X", 
@@ -1292,19 +1997,157 @@ const unavailableProducts = [
   "ASUS ROG Strix XG27UCS",
   "ACER Nitro VGO 27",
   "MSI G255F",
-  "HP OMEN 24"
+  "HP OMEN 24",
+  "ASUS ROG Strix XG27ACS"
 ];
 
+// 5. قائمة الصور للشريط السفلي (20 صورة)
+const bottomBarImages = [
+  "https://m.media-amazon.com/images/I/71JsBdZyphL._AC_UF1000,1000_QL80_.jpg",
+  "https://sc01.alicdn.com/kf/H10b8c756d3ce496db99160bab7603e76A.jpg",
+  "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/06/the-melgeek-made68-next-to-usb-c-cable-box-and-spare-keycaps.jpg",
+  "https://m.media-amazon.com/images/I/714OqczlCgL.jpg?aicid=community-reviews.desktop.in-app-desktop-community-reviews.image.1cf63f2b-6d3e-4f5e-8f6e-3f3f6e1e1e1e._QL100_.jpg",
+  "https://ugc-user-content.pccomponentes.com/IMG_6488a1c0438a2_20230613170504276640.jpeg",
+  "https://images.everyeye.it/img-articoli/rog-strix-xg27ucs-recensione-gaming-4k-160-hz-giusto-prezzo-v7-63846.jpg",
+  "https://mybroadband.co.za/news/wp-content/uploads/2024/10/Monitor1_6-4.jpg",
+  "https://www.gdm.or.jp/wp-content/uploads/2024/08/19/msi_mag_32c6x_62-620x466.jpg",
+  "https://i.ytimg.com/vi/TkWilXnaUd8/maxresdefault.jpg",
+  "https://www.techspot.com/images/products/2024/monitors/org/2025-05-13-product-5.jpg",
+  "https://p2-ofp.static.pub/ShareResource/ww/visuals/Legion-R27i-30/lenovo-legion-r27i-30-feature04-1.png",
+  "https://cdn.mos.cms.futurecdn.net/bU4uGHVYCXERRCzVkB5X5e.jpg",
+  "https://i.rtings.com/assets/products/GBZurEGf/acer-nitro-vg271up-pbmiipx/design-medium.jpg?format=auto",
+  "https://i.ytimg.com/vi/syjqja0Cnhk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB6ZTUW5s4D_H0PEXgmSqO5g9fGmw",
+  "https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462",
+  "https://cdn.mwave.com.au/images/400/asus_rog_strix_1000w_80_platinum_fully_modular_power_supply_white_ac82582_9537.jpg",
+  "https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg",
+  "https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg",
+  "https://static.tweaktown.com/content/1/0/10340_888_corsair-vengeance-rgb-ddr5-6000-32gb-dual-channel-memory-kit-review_full.jpg",
+  "https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg"
+];
+// =========== نهاية القوائم المخصصة ===========
+
 // Sample Products - SORTED BY ID DESCENDING (Newest First)
+
 const products = [
-  // Newest products first (highest IDs)
-  {id:23, name:"Projector HY 300 Mini", category:"إكسسوارات", brand:"Projector", price:320, oldPrice:399, condition:"جديد", 
+        {id:33, name:"Mouse Pad Ghost Operator", category:"إكسسوارات", brand:"Mouse Pad", price:65, oldPrice:null, condition:"جديد", 
   images:[
-    'https://nicdecor.com/wp-content/uploads/2025/05/HY-300-pro-3.jpg',
-    'https://northlightofficial.com/cdn/shop/files/S212432d319b74213b1524f12797c3c60u.webp?v=1712364766&width=1445',
+    'https://ae01.alicdn.com/kf/S75a159b4e30d4de7acea94cfdabed03e1.jpg',
+  ],
+  desc:"ماوس باد بتصميم قتالي عصري باللونين الأسود والأبيض، يُظهر جندي قوات خاصة بأسلوب ديناميكي وسط تأثيرات بصرية قوية تعكس أجواء الحرب الحديثة. التصميم يمنح إحساسًا بالقوة والتركيز، ومثالي لعشّاق الألعاب الحربية والطابع العسكري.",
+  specs: {
+    spec1: "تصميم فني جريء",
+    spec2: "سطح ناعم ودقة عالية",
+    spec3: "مقاوم للانزلاق",
+    spec4: "حجم كبير 900x400mm"
+  }},
+
+        {id:32, name:"Mouse Pad Urban Combat Force", category:"إكسسوارات", brand:"Mouse Pad", price:65, oldPrice:null, condition:"جديد", 
+  images:[
+    'https://img.lazcdn.com/g/ff/kf/Saf66470bc4d64284b54023aba5b3170ck.jpg_960x960q80.jpg_.webp',
+  ],
+  desc:"ماوس باد بتصميم قتالي عصري باللونين الأسود والأبيض، يُظهر جندي قوات خاصة بأسلوب ديناميكي وسط تأثيرات بصرية قوية تعكس أجواء الحرب الحديثة. التصميم يمنح إحساسًا بالقوة والتركيز، ومثالي لعشّاق الألعاب الحربية والطابع العسكري.",
+  specs: {
+    spec1: "تصميم فني جريء",
+    spec2: "سطح ناعم ودقة عالية",
+    spec3: "مقاوم للانزلاق",
+    spec4: "حجم كبير 900x400mm"
+  }},
+
+        {id:31, name:"Mouse Pad Miyamoto Musashi from Vagabond", category:"إكسسوارات", brand:"Mouse Pad", price:65, oldPrice:null, condition:"جديد", 
+  images:[
+    'https://ae01.alicdn.com/kf/Sf54f2b9dc59f4774ad62167adb90a37cb.jpg',
+  ],
+  desc:"ماوس باد بتصميم أنيق باللون البنفسجي، يُظهر محارب ساموراي في لقطة حركية قوية وهو يقفز ممسكًا بسيفه. التصميم يمنح إحساسًا بالقوة والحرية، ويضيف لمسة فنية مميزة لأي مكتب.",
+  specs: {
+    spec1: "تصميم فني جريء",
+    spec2: "سطح ناعم ودقة عالية",
+    spec3: "مقاوم للانزلاق",
+    spec4: "حجم كبير 900x400mm"
+  }},
+
+
+        {id:30, name:"Mouse Pad KATANA BLACK", category:"إكسسوارات", brand:"Mouse Pad", price:65, oldPrice:null, condition:"جديد", 
+  images:[
+    'https://ae01.alicdn.com/kf/Se52fcff2070e4f098f7d1e8b00df2258i.jpg',
+  ],
+  desc:"ماوس باد بتصميم فني جريء باللونين الأسود والأبيض، يتميز برسمة يدوية أنيقة ليدين تمسكان بسيفين بأسلوب كلاسيكي. يمنح مكتبك لمسة عصرية وقوية، مع سطح ناعم ودقة عالية لراحة الاستخدام.",
+  specs: {
+    spec1: "تصميم فني جريء",
+    spec2: "سطح ناعم ودقة عالية",
+    spec3: "مقاوم للانزلاق",
+    spec4: "حجم كبير 900x400mm"
+  }},
+
+      {id:29, name:"PlayStation 5 Standard Edition (Disc Version)", category:"بلايستيشن", brand:"PlayStation", price:3000, oldPrice:null, condition:"مستعمل", 
+  images:[
+    'https://assets2.cbsnewsstatic.com/hub/i/r/2020/06/11/ea2b6ee5-6955-42a5-bb76-bb775df093f1/thumbnail/1200x630/11b096d4ab612a908a4e054454eae910/playstation5-a.png',
+    'https://i.ytimg.com/vi/_-avpk2tS-w/oardefault.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLD0wybMTtJ9_2Dgz4ucFTYqJC2T-g.jpg',
+    'https://imgur.com/RNPvebh.jpg',
+    'https://imgur.com/CguDQ6z.jpg'
+  ],
+  desc:"جهاز PlayStation 5 Standard Edition (Disc Version) يوفر تجربة لعب استثنائية بدقة 4K و120 إطارًا في الثانية. يأتي بدعم الأقراص البصرية، ويتميز بأداء فائق السرعة بفضل معالج AMD Zen 2 وذاكرة SSD فائقة السرعة. يدعم Ray Tracing وتقنية 3D Audio لصوت غامر. الخيار الأمثل للاعبين الذين يفضلون شراء الألعاب على أقراص.",
+  specs: {
+    spec1: "AMD Zen 2 معالج",
+    spec2: "825GB SSD",
+    spec3: "دعم 4K 120fps",
+    spec4: "دعم Ray Tracing"
+  }},
+
+    {id:28, name:"AJAZZ NACODEX NK68", category:"إكسسوارات", brand:"AJAZZ", price:350, oldPrice:430, condition:"جديد", 
+  images:[
+    'https://imgur.com/kNnMbAr.jpg',
+    'https://i.ytimg.com/vi/_-avpk2tS-w/oardefault.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLD0wybMTtJ9_2Dgz4ucFTYqJC2T-g.jpg',
+    'https://imgur.com/RNPvebh.jpg',
+    'https://imgur.com/CguDQ6z.jpg'
+  ],
+  desc:"كيبورد AJAZZ NACODEX NK68 يتميز بتصميم ميكانيكي أنيق بحجم 68% يجمع بين العملية والمظهر العصري. يأتي بسويتشات حمراء ناعمة وسريعة الاستجابة، مثالية للألعاب والكتابة بدون ضجيج مزعج. يتمتع بإضاءة RGB خلابة مع تأثيرات متعددة تضيف لمسة جمالية رائعة، إلى جانب جودة تصنيع عالية تمنحك تجربة استخدام مريحة وقوية سواء للاعبين أو لمحبي الكيبوردات الميكانيكية.",
+  specs: {
+    spec1: "حجم 68%",
+    spec2: "Red Switches",
+    spec3: "High Quality",
+    spec4: "Black & White Color"
+  }},
+
+      {id:27, name:"PlayStation 5 Slim", category:"بلايستيشن", brand:"PlayStation", price:3000, oldPrice:null, condition:"مستعمل", 
+  images:[
+    'https://static-catalog.tiendamia.com/marketplace_manager_service/production/product_99c1ed6b_mirakl_image_2_large.jpg',
+    'https://i.ytimg.com/vi/_-avpk2tS-w/oardefault.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLD0wybMTtJ9_2Dgz4ucFTYqJC2T-g.jpg',
+    'https://imgur.com/RNPvebh.jpg',
+    'https://imgur.com/CguDQ6z.jpg'
+  ],
+  desc:"جهاز PlayStation 5 Slim يأتي بتصميم أنحف وأخف من الإصدار السابق مع الحفاظ على نفس القوة والأداء العالي. يوفر تجربة لعب مذهلة بفضل المعالج القوي ودعم دقة 4K وسرعات تحميل فائقة بفضل SSD فائق السرعة. يدعم يد التحكم DualSense بميزات الاهتزاز التفاعلي والمقاومة المتكيفة، ليمنحك إحساسًا واقعيًا داخل الألعاب. خيار مثالي للاعبين الذين يبحثون عن أداء قوي بتصميم عصري وأنيق. 🎮",
+  specs: {
+    spec1: "تصميم أنحف وأخف",
+    spec2: "أداء 4K 120fps",
+    spec3: "SSD فائق السرعة",
+    spec4: "DualSense Controller"
+  }},
+
+  {id:26, name:"Projector HY 300 Pro", category:"إكسسوارات", brand:"Projector", price:300, oldPrice:360, condition:"جديد", 
+  images:[
+    'https://static-01.daraz.lk/p/0efbfad3101d41aa08ad4e98cfeac2e1.jpg',
+    'https://nicdecor.com/wp-content/uploads/2025/05/HY-300-pro.jpg',
+    'https://sc04.alicdn.com/kf/H3ba5642b49d34f73a992c4e20cb5bbb6Y.jpg',
+    'https://ae01.alicdn.com/kf/S97523c0f61e34113a2f8cede1815eeedE.jpg'
+  ],
+  desc:"بروجكتر ذكي مزوّد بنظام Android 11 يقدم تجربة مشاهدة سلسة بدقة فيزيائية 720P مع دعم تشغيل محتوى يصل إلى 4K. يتميز باتصال WiFi 6 السريع وBluetooth 5.0 لربط أسهل مع الأجهزة. يأتي بمدخلات HDMI وUSB ومخرج صوت 3.5mm، ويعمل على طاقة AC 90–260V. تصميمه العصري يأتي بأبعاد 170×101 مم لسهولة الحمل والاستخدام.",
+  specs: {
+    spec1: "الدقة الفيزيائية 720P",
+    spec2: "أقصى دقة دعم 4K",
+    spec3: "Android 11",
+    spec4: "WiFi6 BT5"
+  }},
+  
+  {id:25, name:"Projector HY 300 Mini", category:"إكسسوارات", brand:"Projector", price:320, oldPrice:399, condition:"جديد", 
+  images:[
+    'https://i.imgur.com/rnjXh9M.png',
+    'https://i.imgur.com/w3qOp6f.png',
+    'https://sc04.alicdn.com/kf/Ha9ff9a1501d245bda51ea50ddb2b4f81i.jpg',
+    'https://gomuto.com/cdn/shop/files/HY300-Mini-4K-Projector-Portable-180_-Rotatable-Projection-Android-11.0-Dual-Band-WiFi-Video-Beammer-For-Outdoor-Cinema-Gomuto-16162843.webp?v=1744706645&width=1445',
+    'https://i5.walmartimages.com/asr/c43154b3-f071-44c5-885e-7d7aa883556a.04297864d621f83b0a1b6994cc57e57a.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF.jpg',
+    'https://sc04.alicdn.com/kf/H3ba5642b49d34f73a992c4e20cb5bbb6Y.jpg',
     'https://m.media-amazon.com/images/I/71R3P0LefHL.jpg'
   ],
-  
   desc:"بروجكتر ذكي مزوّد بنظام Android 12 يقدم تجربة مشاهدة سلسة بدقة فيزيائية 720P مع دعم تشغيل محتوى يصل إلى 4K. يتميز باتصال WiFi 6 السريع وBluetooth 5.0 لربط أسهل مع الأجهزة. يأتي بمدخلات HDMI وUSB ومخرج صوت 3.5mm، ويعمل على طاقة AC 90–260V. تصميمه العصري يأتي بأبعاد 170×101 مم لسهولة الحمل والاستخدام.",
   specs: {
     spec1: "الدقة الفيزيائية 720P",
@@ -1313,7 +2156,7 @@ const products = [
     spec4: "WiFi6 BT5"
   }},
   
-  {id:22, name:"LDON Mide 68", category:"إكسسوارات", brand:"LDON", price:299, oldPrice:399, condition:"جديد", 
+  {id:24, name:"LDON Mide 68", category:"إكسسوارات", brand:"LDON", price:299, oldPrice:399, condition:"جديد", 
   images:[
     'https://sc04.alicdn.com/kf/H381c0debded941d9a29ba06b76f13cebf.jpg',
     'https://ae01.alicdn.com/kf/S1d39d71de2de42809a1433ec5b8b8398W.jpg',
@@ -1327,9 +2170,37 @@ const products = [
     spec4: "68% حجم"
   }},
 
+  {id:23, name:"LOGITECH G413 SE MECHANICAL", category:"إكسسوارات", brand:"LOGITECH", price:299, oldPrice:399, condition:"جديد", 
+  images:[
+    'https://ecommerce.datablitz.com.ph/cdn/shop/products/710m45UA-RL._AC_SL1500_800x.jpg?v=1679964052.jpg',
+    'https://cdn.arstechnica.net/wp-content/uploads/2022/02/switches.jpg',
+    'https://m.media-amazon.com/images/I/716ssIJFzcL.jpg'
+  ],  
+  desc:"لوحة مفاتيح ميكانيكية Logitech G413 SE، تصميم أنيق وأداء سريع ودقيق للألعاب.",
+  specs: {
+    spec1: "Mechanical Switches",
+    spec2: "Aluminium",
+    spec3: "Brown switches",
+    spec4: "75% حجم"
+  }},
+
+  {id:22, name:"FZ - 200 NZXT", category:"مراوح", brand:"NZXT", price:40, oldPrice:55, condition:"جديد", 
+  images:[
+    'https://www.bhphotovideo.com/images/fb/nzxt_rf_fz20s_u1_fz_200mm_high_airflow_fan_1165554.jpg', 
+    'https://m.media-amazon.com/images/I/41KAQ7brUwL.jpg',
+    'https://bermorzone.com.ph/wp-content/uploads/2022/06/35-146-032-05.jpg'
+  ], 
+  desc:"مروحة NZXT FZ-200 بحجم 200 مم توفر تدفق هواء عالي وهدوء أثناء التشغيل، مما يجعلها مثالية لتحسين تبريد جهاز الكمبيوتر الخاص بك.",
+  specs: {
+    spec1: "200mm",
+    spec2: "Blue LED",
+    spec3: "3-Pin",
+    spec4: "900 RPM"
+  }},
+
   {id:21, name:"Gigabyte M27Q EK", category:"شاشات", brand:"Gigabyte", price:1800, oldPrice:null, condition:"علبة مفتوحة", 
   images:[
-    'https://s3.chip7.pt/20VM0-M27QBA-2EKR_site.jpg',
+    'https://s3.chip7.pt/20VM0-M27QBA-2EKR_site.jpg', 
     'https://i.rtings.com/assets/products/mwTbpPbi/gigabyte-m27q-rev-2-0/design-small.jpg?format=auto'
   ], 
   desc:"توفر أداءً ممتازًا في الألعاب مع حركة سلسة وألوان نابضة بالحياة. مناسبة للاعبين المحترفين والعمل الإبداعي.",
@@ -1555,31 +2426,42 @@ const products = [
   }}
 ];
 
-// All items (products only, no gift cards)
-const allItems = [...products];
-
-// Customer Purchases Images - Products that were actually purchased from Switches store
-const customerPurchases = [
-  {image: 'https://i.imgur.com/dGVl5Qq.jpg', name: 'زبون: أحمد - كارت شاشة'},
-  {image: 'https://i.imgur.com/fG7pW9b.jpg', name: 'زبون: محمد - معالج'},
-  {image: 'https://i.imgur.com/hKj8L2m.jpg', name: 'زبون: خالد - لوحة أم'},
-  {image: 'https://i.imgur.com/pXq9YrT.jpg', name: 'زبون: سعيد - ذاكرة RAM'},
-  {image: 'https://i.imgur.com/qR3sV8n.jpg', name: 'زبون: علي - SSD'},
-  {image: 'https://i.imgur.com/tUv5w7x.jpg', name: 'زبون: عمر - كيبورد'},
-  {image: 'https://i.imgur.com/vW6y9zY.jpg', name: 'زبون: يوسف - ماوس'},
-  {image: 'https://i.imgur.com/xY7zAaB.jpg', name: 'زبون: حسن - سماعات'},
-  {image: 'https://i.imgur.com/zA8bBcC.jpg', name: 'زبون: محمود - شاشة'},
-  {image: 'https://i.imgur.com/bC9dDeF.jpg', name: 'زبون: رامي - كيس'},
-  {image: 'https://i.imgur.com/cD0eEgG.jpg', name: 'زبون: وليد - كولر'},
-  {image: 'https://i.imgur.com/dE1fFhH.jpg', name: 'زبون: فادي - مزود طاقة'},
-  {image: 'https://i.imgur.com/eF2gGiI.jpg', name: 'زبون: ناصر - كابل'},
-  {image: 'https://i.imgur.com/fG3hHjJ.jpg', name: 'زبون: باسل - محول'},
-  {image: 'https://i.imgur.com/gH4iIkK.jpg', name: 'زبون: طارق - حامل لابتوب'}
-];
+// All items (products only) مع إضافة خاصية isComingSoon
+const allItems = [...products].map(product => {
+  return {
+    ...product,
+    isComingSoon: comingSoonProductNames.includes(product.name)
+  };
+});
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentProductImage = {};
 let swiperInstance = null;
+let currentAllProductsType = 'all';
+
+// دالة للتحكم في الأقسام الأفقية (يمين/يسار)
+function scrollHorizontal(trackId, direction) {
+  const track = document.getElementById(trackId);
+  const scrollAmount = 300;
+  
+  if (direction === 'left') {
+    track.scrollLeft += scrollAmount;
+  } else {
+    track.scrollLeft -= scrollAmount;
+  }
+}
+
+// دالة للتحكم في الشريط السفلي (يمين/يسار)
+function scrollBottomBar(direction) {
+  const track = document.getElementById('bottomImageBar');
+  const scrollAmount = 250;
+  
+  if (direction === 'left') {
+    track.scrollLeft += scrollAmount;
+  } else {
+    track.scrollLeft -= scrollAmount;
+  }
+}
 
 // Initialize Image Slider
 function initImageSlider() {
@@ -1587,7 +2469,7 @@ function initImageSlider() {
     direction: 'horizontal',
     loop: true,
     autoplay: {
-      delay: 5000, // 5 seconds
+      delay: 5000,
       disableOnInteraction: false,
     },
     pagination: {
@@ -1604,32 +2486,9 @@ function initImageSlider() {
   });
 }
 
-// Initialize Customer Purchases Carousel
-function initCustomerPurchasesCarousel() {
-  const purchasesTrack = document.getElementById('purchasesTrack');
-  
-  // Duplicate items for seamless infinite loop
-  const allPurchases = [...customerPurchases, ...customerPurchases, ...customerPurchases];
-  
-  purchasesTrack.innerHTML = allPurchases.map((purchase, index) => `
-    <div class="purchase-item">
-      <img src="${purchase.image}" alt="${purchase.name}" loading="lazy">
-      <p>${purchase.name}</p>
-    </div>
-  `).join('');
-}
-
-// Show/hide carousel based on scroll position
-function handleScroll() {
-  const purchasesCarousel = document.getElementById('purchasesCarousel');
-  const scrollPosition = window.scrollY + window.innerHeight;
-  const pageHeight = document.documentElement.scrollHeight;
-  
-  if (scrollPosition >= pageHeight - 100) {
-    purchasesCarousel.classList.add('visible');
-  } else {
-    purchasesCarousel.classList.remove('visible');
-  }
+// Function to format price with (د.ل) instead of $
+function formatPrice(price) {
+  return price + ' (د.ل)';
 }
 
 // Function to get condition class based on condition text
@@ -1642,35 +2501,99 @@ function getConditionClass(condition) {
   }
 }
 
-// Function to format price with (د.ل) instead of $
-function formatPrice(price) {
-  return price + ' (د.ل)';
-}
-
-// NEW: Function to get appropriate labels for specifications based on content
-function getSpecLabel(specValue) {
-  if (specValue.includes("بوصة") || specValue.includes("إنش")) return "الحجم";
-  if (specValue.includes("هرتز") || specValue.includes("Hz")) return "معدل التحديث";
-  if (specValue.includes("ms")) return "وقت الاستجابة";
-  if (specValue.includes("GB") || specValue.includes("MB")) return "السعة";
-  if (specValue.includes("MHz") || specValue.includes("GHz")) return "السرعة";
-  if (specValue.includes("نواة") || specValue.includes("Core")) return "النوى";
-  if (specValue.includes("مسار") || specValue.includes("Thread")) return "المسارات";
-  if (specValue.includes("W") || specValue.includes("واط")) return "الطاقة";
-  if (specValue.includes("PCIe")) return "الواجهة";
-  if (specValue.includes("DDR")) return "النوع";
-  if (specValue.includes("FHD") || specValue.includes("QHD") || specValue.includes("4K")) return "الدقة";
-  if (specValue.includes("موديولار")) return "النظام";
-  if (specValue.includes("ضمان")) return "الضمان";
-  if (specValue.includes("Wi-Fi")) return "الشبكة";
+// Render horizontal products bars
+function renderHorizontalProductsBars() {
+  // 1. Most Selling Products (من القائمة المخصصة)
+  const mostSellingProducts = allItems
+    .filter(p => mostSellingProductNames.includes(p.name))
+    .slice(0, 8);
   
-  return "المواصفات";
+  renderHorizontalBar('mostSellingProductsTrack', mostSellingProducts, false);
+  
+  // 2. Discounted Products (من القائمة المخصصة)
+  const discountedProducts = allItems
+    .filter(p => discountedProductNames.includes(p.name) && p.oldPrice !== null && p.oldPrice !== undefined);
+  
+  renderHorizontalBar('discountedProductsTrack', discountedProducts, true);
+  
+  // 3. Coming Soon Products (من القائمة المخصصة)
+  const comingSoonProducts = allItems
+    .filter(p => comingSoonProductNames.includes(p.name));
+  
+  renderHorizontalBar('comingSoonProductsTrack', comingSoonProducts, false, true);
 }
 
-// Render Products - SORTED BY ID DESCENDING (Newest First)
-function renderProducts(filter = {}) {
-  // Start with all items sorted by ID descending (newest first)
-  let filtered = [...allItems].sort((a, b) => b.id - a.id);
+// Render a single horizontal bar مع ترتيب المنتجات (المتوفرة أولاً)
+function renderHorizontalBar(trackId, products, showDiscount = false, showComingSoon = false) {
+  const track = document.getElementById(trackId);
+  
+  // ترتيب المنتجات: المتوفرة أولاً ثم غير المتوفرة
+  const sortedProducts = [...products].sort((a, b) => {
+    const aUnavailable = unavailableProducts.includes(a.name);
+    const bUnavailable = unavailableProducts.includes(b.name);
+    if (aUnavailable && !bUnavailable) return 1;
+    if (!aUnavailable && bUnavailable) return -1;
+    return 0;
+  });
+  
+  track.innerHTML = sortedProducts.map(p => {
+    const isUnavailable = unavailableProducts.includes(p.name);
+    const isComingSoon = p.isComingSoon;
+    const conditionClass = getConditionClass(p.condition);
+    
+    return `
+    <div class="horizontal-product-card ${isUnavailable ? 'unavailable-product' : ''}" data-id="${p.id}">
+      ${showDiscount && p.oldPrice ? `<div class="product-badge">-${Math.round((1 - p.price/p.oldPrice)*100)}%</div>` : ''}
+      ${showComingSoon && isComingSoon ? `<div class="coming-soon-badge">قريباً</div>` : ''}
+      ${isUnavailable ? '<div class="unavailable-label">غير متوفر</div>' : ''}
+      <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
+      <div class="horizontal-product-info">
+        <h3 class="horizontal-product-name">${p.name}</h3>
+        <p class="horizontal-product-condition ${conditionClass}">${p.brand} • ${p.condition}</p>
+        <div>
+          <span class="horizontal-product-price">${formatPrice(p.price)}</span>
+          ${p.oldPrice ? `<span class="horizontal-product-old-price">${formatPrice(p.oldPrice)}</span>` : ''}
+        </div>
+        <button class="btn add-to-cart" style="margin-top:1rem;" data-id="${p.id}" ${isUnavailable ? 'disabled' : ''}>
+          ${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}
+        </button>
+      </div>
+    </div>
+  `}).join('');
+
+  // Add click event to horizontal product cards
+  document.querySelectorAll(`#${trackId} .horizontal-product-card`).forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('add-to-cart') || e.target.classList.contains('unavailable-label') || 
+          e.target.classList.contains('product-badge') || e.target.classList.contains('coming-soon-badge')) return;
+      const id = parseInt(card.dataset.id);
+      showProductDetail(id);
+    });
+  });
+
+  // Add to cart buttons
+  document.querySelectorAll(`#${trackId} .add-to-cart`).forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = parseInt(e.target.dataset.id);
+      addToCart(id, e.target);
+    });
+  });
+}
+
+// Render bottom image bar
+function renderBottomImageBar() {
+  const track = document.getElementById('bottomImageBar');
+  
+  track.innerHTML = bottomBarImages.map((src, index) => `
+    <div class="bottom-image-item">
+      <img src="${src}" alt="صورة ${index + 1}" loading="lazy">
+    </div>
+  `).join('');
+}
+
+// Render all products in grid layout مع ترتيب المنتجات حسب الأنواع
+function renderAllProducts(filter = {}, productsToShow = allItems) {
+  let filtered = [...productsToShow].sort((a, b) => b.id - a.id);
 
   // Apply filters
   if (filter.category) {
@@ -1694,45 +2617,66 @@ function renderProducts(filter = {}) {
     );
   }
 
-  // Sort products by availability - available first, then unavailable
+  // ترتيب المنتجات حسب الأنواع المطلوبة:
+  // 1. المنتجات المتوفرة (ليست غير متوفرة وليست قادمة قريباً)
+  // 2. المنتجات التي ستتوفر قريباً
+  // 3. المنتجات غير المتوفرة
   filtered.sort((a, b) => {
-    const aUnavailable = unavailableProducts.includes(a.name);
-    const bUnavailable = unavailableProducts.includes(b.name);
+    const aIsUnavailable = unavailableProducts.includes(a.name);
+    const bIsUnavailable = unavailableProducts.includes(b.name);
+    const aIsComingSoon = a.isComingSoon;
+    const bIsComingSoon = b.isComingSoon;
     
-    if (aUnavailable && !bUnavailable) return 1;
-    if (!aUnavailable && bUnavailable) return -1;
-    return 0;
+    // المنتجات المتوفرة أولاً
+    if (!aIsUnavailable && !aIsComingSoon && (bIsUnavailable || bIsComingSoon)) return -1;
+    if ((aIsUnavailable || aIsComingSoon) && !bIsUnavailable && !bIsComingSoon) return 1;
+    
+    // المنتجات التي ستتوفر قريباً ثانياً
+    if (aIsComingSoon && !aIsUnavailable && bIsUnavailable) return -1;
+    if (aIsUnavailable && bIsComingSoon && !bIsUnavailable) return 1;
+    
+    // المنتجات غير المتوفرة ثالثاً
+    if (aIsUnavailable && !bIsUnavailable) return 1;
+    if (!aIsUnavailable && bIsUnavailable) return -1;
+    
+    // إذا كان كلاهما من نفس النوع، ترتيب حسب السعر أو التاريخ
+    return b.id - a.id;
   });
 
-  const grid = document.getElementById('productsGrid');
+  const grid = document.getElementById('allProductsGrid');
   grid.innerHTML = filtered.map(p => {
     const isUnavailable = unavailableProducts.includes(p.name);
+    const isComingSoon = p.isComingSoon;
     const conditionClass = getConditionClass(p.condition);
+    
+    // تحديد النوع للعرض
+    let typeLabel = '';
+    if (isUnavailable) {
+      typeLabel = '<div class="unavailable-label">غير متوفر</div>';
+    } else if (isComingSoon) {
+      typeLabel = '<div class="coming-soon-badge">قريباً</div>';
+    }
     
     return `
     <div class="product-card ${isUnavailable ? 'unavailable-product' : ''}" data-id="${p.id}">
-      <div class="rgb-border-wrapper">
-        <div class="rgb-border"></div>
-      </div>
-      ${isUnavailable ? '<div class="unavailable-label">(غير متوفر)</div>' : ''}
+      ${typeLabel}
       ${p.oldPrice ? `<span class="badge">-${Math.round((1 - p.price/p.oldPrice)*100)}%</span>` : ''}
       <img src="${p.images[0]}" alt="${p.name}" loading="lazy"/>
       <div class="product-info">
         <h3>${p.name}</h3>
         <p>${p.brand} • <span class="${conditionClass}">${p.condition}</span></p>
-        
-        <!-- REMOVED: Specifications from product card -->
-        
         <div>
           <span class="price">${formatPrice(p.price)}</span>${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''}
         </div>
-        <button class="btn add-to-cart" style="margin-top:1rem;" data-id="${p.id}" ${isUnavailable ? 'disabled' : ''}>${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}</button>
+        <button class="btn add-to-cart" style="margin-top:1rem;" data-id="${p.id}" ${isUnavailable ? 'disabled' : ''}>
+          ${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}
+        </button>
       </div>
     </div>
   `}).join('');
 
-  // Add to cart buttons for regular products
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
+  // Add to cart buttons
+  document.querySelectorAll('#allProductsGrid .add-to-cart').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = parseInt(e.target.dataset.id);
       addToCart(id, e.target);
@@ -1740,28 +2684,85 @@ function renderProducts(filter = {}) {
   });
 
   // Open product modal
-  document.querySelectorAll('.product-card').forEach(card => {
+  document.querySelectorAll('#allProductsGrid .product-card').forEach(card => {
     card.addEventListener('click', (e) => {
-      if (e.target.classList.contains('add-to-cart') || e.target.classList.contains('unavailable-label') || e.target.classList.contains('btn')) return;
+      if (e.target.classList.contains('add-to-cart') || e.target.classList.contains('unavailable-label') || 
+          e.target.classList.contains('coming-soon-badge') || e.target.classList.contains('badge') || 
+          e.target.classList.contains('btn')) return;
       const id = parseInt(card.dataset.id);
       showProductDetail(id);
     });
   });
+}
+
+// Show all products page - عند الضغط على الزر يعرض جميع المنتجات
+function showAllProducts(type = 'all') {
+  currentAllProductsType = type;
+  let title = 'جميع المنتجات';
+  let filteredProducts = allItems;
   
-  // إضافة مستمعات الأحداث لتأثير RGB على الهواتف
-  if ('ontouchstart' in window) {
-    document.querySelectorAll('.product-card, .feature-box, .filters, .support-section').forEach(element => {
-      element.addEventListener('touchstart', function() {
-        this.classList.add('active');
-      });
-      
-      element.addEventListener('touchend', function() {
-        setTimeout(() => {
-          this.classList.remove('active');
-        }, 1000);
-      });
-    });
+  // عند الضغط على الزر يعرض جميع المنتجات مع ترتيبها حسب الأنواع
+  if (type === 'all') {
+    title = 'جميع المنتجات';
+    filteredProducts = allItems;
   }
+  
+  document.getElementById('allProductsTitle').textContent = title;
+  document.getElementById('mainPage').style.display = 'none';
+  document.getElementById('allProductsPage').classList.add('active');
+  
+  // Reset filters
+  document.getElementById('allProductsSearchInput').value = '';
+  document.getElementById('allProductsCategoryFilter').value = '';
+  document.getElementById('allProductsBrandFilter').value = '';
+  document.getElementById('allProductsConditionFilter').value = '';
+  document.getElementById('allProductsPriceFilter').value = '';
+  
+  // عرض جميع المنتجات مع الترتيب المناسب
+  renderAllProducts({}, filteredProducts);
+  
+  // Scroll to top
+  window.scrollTo(0, 0);
+}
+
+// Show main page
+function showMainPage() {
+  document.getElementById('allProductsPage').classList.remove('active');
+  document.getElementById('mainPage').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+// Filters for main page
+document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+document.getElementById('brandFilter').addEventListener('change', applyFilters);
+document.getElementById('conditionFilter').addEventListener('change', applyFilters);
+document.getElementById('priceFilter').addEventListener('change', applyFilters);
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+document.getElementById('searchBtn').addEventListener('click', applyFilters);
+
+function applyFilters() {
+  showNotification('استخدم زر "عرض جميع العروض" لرؤية المنتجات مع الفلاتر');
+}
+
+// Filters for all products page
+document.getElementById('allProductsCategoryFilter').addEventListener('change', applyAllProductsFilters);
+document.getElementById('allProductsBrandFilter').addEventListener('change', applyAllProductsFilters);
+document.getElementById('allProductsConditionFilter').addEventListener('change', applyAllProductsFilters);
+document.getElementById('allProductsPriceFilter').addEventListener('change', applyAllProductsFilters);
+document.getElementById('allProductsSearchInput').addEventListener('input', applyAllProductsFilters);
+document.getElementById('allProductsSearchBtn').addEventListener('click', applyAllProductsFilters);
+
+function applyAllProductsFilters() {
+  const filter = {
+    category: document.getElementById('allProductsCategoryFilter').value,
+    brand: document.getElementById('allProductsBrandFilter').value,
+    condition: document.getElementById('allProductsConditionFilter').value,
+    price: document.getElementById('allProductsPriceFilter').value,
+    search: document.getElementById('allProductsSearchInput').value
+  };
+  
+  // تطبيق الفلاتر على جميع المنتجات
+  renderAllProducts(filter, allItems);
 }
 
 // Add to cart with animation
@@ -1850,27 +2851,6 @@ function showNotification(message) {
       document.body.removeChild(notification);
     }, 300);
   }, 2000);
-}
-
-// Filters
-document.getElementById('categoryFilter').addEventListener('change', applyFilters);
-document.getElementById('brandFilter').addEventListener('change', applyFilters);
-document.getElementById('conditionFilter').addEventListener('change', applyFilters);
-document.getElementById('priceFilter').addEventListener('change', applyFilters);
-
-// Search functionality
-document.getElementById('searchInput').addEventListener('input', applyFilters);
-document.getElementById('searchBtn').addEventListener('click', applyFilters);
-
-function applyFilters() {
-  const filter = {
-    category: document.getElementById('categoryFilter').value,
-    brand: document.getElementById('brandFilter').value,
-    condition: document.getElementById('conditionFilter').value,
-    price: document.getElementById('priceFilter').value,
-    search: document.getElementById('searchInput').value
-  };
-  renderProducts(filter);
 }
 
 // Cart Functions
@@ -1992,7 +2972,6 @@ document.getElementById('orderForm').onsubmit = (e) => {
   hideModal(orderModal);
   e.target.reset();
   
-  // Show success message
   showNotification('تم تقديم طلبك بنجاح! سنتواصل معك عبر الواتس أب قريباً.');
 };
 
@@ -2013,45 +2992,21 @@ document.getElementById('supportForm').onsubmit = (e) => {
   showNotification('تم إرسال طلب الدعم الفني! سنتواصل معك قريباً.');
 };
 
-// Product Detail Modal with Specifications Table
+// Product Detail Modal
 function showProductDetail(id) {
   const p = allItems.find(x => x.id === id);
   const isUnavailable = unavailableProducts.includes(p.name);
+  const isComingSoon = p.isComingSoon;
   const conditionClass = getConditionClass(p.condition);
   
   if (!currentProductImage[id]) {
     currentProductImage[id] = p.images[0];
   }
   
-  // Create specifications table
-  const specsTableHTML = p.specs ? `
-    <div style="margin: 1.5rem 0;">
-      <h3 style="margin-bottom: 1rem; color: var(--primary);">المواصفات الفنية</h3>
-      <table class="specs-table">
-        <tr>
-          <th>${getSpecLabel(p.specs.spec1)}</th>
-          <td>${p.specs.spec1}</td>
-        </tr>
-        <tr>
-          <th>${getSpecLabel(p.specs.spec2)}</th>
-          <td>${p.specs.spec2}</td>
-        </tr>
-        <tr>
-          <th>${getSpecLabel(p.specs.spec3)}</th>
-          <td>${p.specs.spec3}</td>
-        </tr>
-        <tr>
-          <th>${getSpecLabel(p.specs.spec4)}</th>
-          <td>${p.specs.spec4}</td>
-        </tr>
-      </table>
-    </div>
-  ` : '';
-  
   document.getElementById('productDetail').innerHTML = `
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
       <div>
-        <h2>${p.name} ${isUnavailable ? '<span style="color:red;">(غير متوفر)</span>' : ''}</h2>
+        <h2>${p.name} ${isUnavailable ? '<span style="color:red;">(غير متوفر)</span>' : ''} ${isComingSoon && !isUnavailable ? '<span style="color:#17a2b8;">(ستتوفر قريباً)</span>' : ''}</h2>
         <p style="color:#888;">${p.brand} • <span class="${conditionClass}">${p.condition}</span></p>
         
         <img class="modal-product-image" src="${currentProductImage[id]}" id="mainProductImage" alt="${p.name}">
@@ -2064,12 +3019,24 @@ function showProductDetail(id) {
       </div>
       
       <div>
-        ${specsTableHTML}
+        ${p.specs ? `
+        <div style="margin: 1.5rem 0;">
+          <h3 style="margin-bottom: 1rem; color: var(--primary);">المواصفات الفنية</h3>
+          <table class="specs-table">
+            <tr><th>المواصفة 1</th><td>${p.specs.spec1}</td></tr>
+            <tr><th>المواصفة 2</th><td>${p.specs.spec2}</td></tr>
+            <tr><th>المواصفة 3</th><td>${p.specs.spec3}</td></tr>
+            <tr><th>المواصفة 4</th><td>${p.specs.spec4}</td></tr>
+          </table>
+        </div>
+        ` : ''}
         
         <h2 style="color:var(--primary); margin:1.5rem 0;">${formatPrice(p.price)}</h2>
         ${p.oldPrice ? `<p><s>${formatPrice(p.oldPrice)}</s> وفر ${Math.round((1 - p.price/p.oldPrice)*100)}%</p>` : ''}
         
-        <button class="btn add-to-cart" data-id="${p.id}" style="padding:1rem; font-size:1.2rem; margin-bottom: 1.5rem;" ${isUnavailable ? 'disabled' : ''}>${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}</button>
+        <button class="btn add-to-cart" data-id="${p.id}" style="padding:1rem; font-size:1.2rem; margin-bottom: 1.5rem;" ${isUnavailable ? 'disabled' : ''}>
+          ${isUnavailable ? 'غير متوفر' : 'أضف إلى السلة'}
+        </button>
         
         <div style="background: rgba(13, 110, 253, 0.05); padding: 1.5rem; border-radius: 8px;">
           <h3 style="margin-bottom: 1rem;">وصف المنتج</h3>
@@ -2087,7 +3054,6 @@ function showProductDetail(id) {
   });
 }
 
-// Function to change the main image when clicking on thumbnails
 function changeMainImage(productId, src, element) {
   document.getElementById('mainProductImage').src = src;
   currentProductImage[productId] = src;
@@ -2135,8 +3101,6 @@ ${cartItems}
     message: orderSummary 
   };
   
-  console.log('Sending order email with data:', emailParams);
-  
   emailjs.send('service_e0irzhi', 'template_2d5uee9', emailParams)
     .then(function(response) {
       console.log('Order email sent successfully:', response);
@@ -2169,8 +3133,6 @@ ${supportData.issue}
     message: supportMessage
   };
   
-  console.log('Sending support email with data:', emailParams);
-  
   emailjs.send('service_e0irzhi', 'template_2d5uee9', emailParams)
     .then(function(response) {
       console.log('Support email sent successfully:', response);
@@ -2181,12 +3143,10 @@ ${supportData.issue}
 
 // Initialize the page
 function init() {
-  renderProducts();
+  renderHorizontalProductsBars();
+  renderBottomImageBar();
   initImageSlider();
-  initCustomerPurchasesCarousel();
   updateCart();
-  
-  window.addEventListener('scroll', handleScroll);
 }
 
 // Initial cart count
