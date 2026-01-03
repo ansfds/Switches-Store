@@ -1758,18 +1758,11 @@
     </div>
     <select id="allProductsCategoryFilter">
       <option value="">جميع الفئات</option>
-      <option>المعالجات</option>
-      <option>كروت الشاشة</option>
-      <option>اللوحات الأم</option>
-      <option>الذاكرة</option>
-      <option>التخزين</option>
-      <option>مزودات الطاقة</option>
+      <option>قطع التجميعة</option>
       <option>لابتوبات</option>
-      <option>الصناديق</option>
       <option>شاشات</option>
       <option>إكسسوارات</option>
       <option>بلايستيشن</option>
-      <option>مراوح</option>
 
     </select>
     <select id="allProductsBrandFilter">
@@ -1975,6 +1968,7 @@ const discountedProductNames = [
 
 // 3. قائمة المنتجات التي ستتوفر قريباً (حددها يدوياً)
 const comingSoonProductNames = [
+  "Lovingcool DP-360mm"
   "AJAZZ NACODEX NK68",
   "PlayStation 5 Slim",
   "Mouse Pad Ghost Operator",
@@ -2029,6 +2023,19 @@ const bottomBarImages = [
 // Sample Products - SORTED BY ID DESCENDING (Newest First)
 
 const products = [
+
+        {id:34, name:"Lovingcool DP-360mm", category:"قطع التجميعة", brand:"Lovingcool", price:990, oldPrice:null, condition:"جديد", 
+  images:[
+    'https://s.alicdn.com/@sc04/kf/Hb08a54fc6e5144c98029e12424729404b.jpg?avif=close&webp=close.jpg',
+  ],
+desc:"مبرد Lovingcool 360mm ARGB بتبريد مائي قوي للمعالج مع شاشة عرض فيديو 4.0 بوصة قابلة للتخصيص، يوفر أداء تبريد عالي حتى 300W مع تشغيل هادئ وتصميم أنيق بإضاءة ARGB."
+  specs: {
+    spec1: "تبريد مائي احترافي",
+    spec2: "شاشة عرض ذكية",
+    spec3: "إضاءة ARGB جذابة",
+    spec4: "شاشة فيديو 4.0 بوصة قابلة للتخصيص"
+  }},
+
         {id:33, name:"Mouse Pad Ghost Operator", category:"إكسسوارات", brand:"Mouse Pad", price:65, oldPrice:null, condition:"جديد", 
   images:[
     'https://ae01.alicdn.com/kf/S75a159b4e30d4de7acea94cfdabed03e1.jpg',
@@ -2184,7 +2191,7 @@ const products = [
     spec4: "75% حجم"
   }},
 
-  {id:22, name:"FZ - 200 NZXT", category:"مراوح", brand:"NZXT", price:40, oldPrice:55, condition:"جديد", 
+  {id:22, name:"FZ - 200 NZXT", category:"قطع التجميعة", brand:"NZXT", price:40, oldPrice:55, condition:"جديد", 
   images:[
     'https://www.bhphotovideo.com/images/fb/nzxt_rf_fz20s_u1_fz_200mm_high_airflow_fan_1165554.jpg', 
     'https://m.media-amazon.com/images/I/41KAQ7brUwL.jpg',
@@ -2315,7 +2322,7 @@ const products = [
     spec4: "1ms"
   }},
 
-  {id:8, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:1550, oldPrice:1950, condition:"جديد", 
+  {id:8, name:"ASUS TUF B850M-E WIFI", category:"قطع التجميعة", brand:"ASUS", price:1550, oldPrice:1950, condition:"جديد", 
   images:[
     'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
     'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
@@ -2329,7 +2336,7 @@ const products = [
     spec4: "Wi-Fi 6"
   }},
 
-  {id:7, name:"ASUS TUF B850M-E WIFI", category:"اللوحات الأم", brand:"ASUS", price:1550, oldPrice:1950, condition:"جديد", 
+  {id:7, name:"ASUS TUF B850M-E WIFI", category:"قطع التجميعة", brand:"ASUS", price:1550, oldPrice:1950, condition:"جديد", 
   images:[
     'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
     'https://m.media-amazon.com/images/I/51qsiPseF1L.jpg',
@@ -2343,7 +2350,7 @@ const products = [
     spec4: "Wi-Fi 6"
   }},
 
-  {id:6, name:"ASUS ROG Strix 1000W 80+ Platinum", category:"مزودات الطاقة", brand:"Corsair", price:1600, oldPrice:1900, condition:"جديد", 
+  {id:6, name:"ASUS ROG Strix 1000W 80+ Platinum", category:"قطع التجميعة", brand:"Corsair", price:1600, oldPrice:1900, condition:"جديد", 
   images:[
     'https://rog.asus.com/media/1723518683990.jpg',
     'https://dlcdnwebimgs.asus.com/files/media/0003A3D7-4037-4F8D-BC15-38902D1057ED/v1/img/engineering/80_plusgold_2.jpg',
@@ -2357,7 +2364,7 @@ const products = [
     spec4: "10 سنوات ضمان"
   }},
 
-  {id:5, name:"ASUS ROG Strix Z790-E", category:"اللوحات الأم", brand:"ASUS", price:2000, oldPrice:2400, condition:"جديد", 
+  {id:5, name:"ASUS ROG Strix Z790-E", category:"قطع التجميعة", brand:"ASUS", price:2000, oldPrice:2400, condition:"جديد", 
   images:[
     'https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg',
     'https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg',
@@ -2371,7 +2378,7 @@ const products = [
     spec4: "Wi-Fi 6E"
   }},
   
-  {id:4, name:"Crucial t705 2TB NVMe Gen5 SSD", category:"التخزين", brand:"Samsung", price:1200, oldPrice:1500, condition:"جديد", 
+  {id:4, name:"Crucial t705 2TB NVMe Gen5 SSD", category:"قطع التجميعة", brand:"Samsung", price:1200, oldPrice:1500, condition:"جديد", 
   images:[
     'https://cdn.mos.cms.futurecdn.net/iZEGMzkmaX8o87Apg5HsZV.jpg',
     'https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg',
@@ -2385,7 +2392,7 @@ const products = [
     spec4: "12,700 MB/s"
   }},
 
-  {id:3, name:"Corsair Vengeance 32GB DDR5 6000MHz", category:"الذاكرة", brand:"Corsair", price:1600, oldPrice:2000, condition:"علبة مفتوحة", 
+  {id:3, name:"Corsair Vengeance 32GB DDR5 6000MHz", category:"قطع التجميعة", brand:"Corsair", price:1600, oldPrice:2000, condition:"علبة مفتوحة", 
   images:[
     'https://gamers.ge/wp-content/uploads/2023/08/Corsair-VENGEANCE-RGB-DDR5-16x2-6000MHz-white.jpg',
     'https://static.tweaktown.com/content/1/0/10340_888_corsair-vengeance-rgb-ddr5-6000-32gb-dual-channel-memory-kit-review_full.jpg',
@@ -2398,7 +2405,7 @@ const products = [
     spec4: "CL36"
   }},
   
-  {id:2, name:"Ryzen 9 7950X", category:"المعالجات", brand:"AMD", price:4000, oldPrice:4600, condition:"جديد", 
+  {id:2, name:"Ryzen 9 7950X", category:"قطع التجميعة", brand:"AMD", price:4000, oldPrice:4600, condition:"جديد", 
   images:[
     'https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x-og.jpg',
     'https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg',
@@ -2412,7 +2419,7 @@ const products = [
     spec4: "170W TDP"
   }},
 
-  {id:1, name:"RTX 3070 Ti", category:"كروت الشاشة", brand:"NVIDIA", price:2500, oldPrice:2800, condition:"جديد", 
+  {id:1, name:"RTX 3070 Ti", category:"قطع التجميعة", brand:"NVIDIA", price:2500, oldPrice:2800, condition:"جديد", 
   images:[
     'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/ZOTAC_Gaming_GeForce_RTX_3080_Ti_cards_unveiled_early_June_2021.jpg', 
     'https://www.gpuheaven.com/wp-content/uploads/2025/10/Zotac-Gaming-Geforce-Rtx-3070-Ti-Amp-Holo-2.jpg', 
