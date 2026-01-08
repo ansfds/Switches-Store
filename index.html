@@ -123,7 +123,6 @@
       --background-scale: 1;
       --background-brightness: 1;
       --rgb-intensity: 0.7;
-      --banner-image: url('https://m.media-amazon.com/images/I/81Smi3twk5L.jpg'); /* إضافة صورة البانر */
     }
     [data-theme="dark"] {
       --bg: #121212;
@@ -154,18 +153,6 @@
       transform: scale(var(--background-scale));
       z-index: -1;
       pointer-events: none;
-    }
-    
-    /* إضافة صورة البانر العريضة أعلى الموقع */
-    .top-banner {
-      width: 100%;
-      height: 300px;
-      background-image: var(--banner-image);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;
-      margin-bottom: 2rem;
     }
     
     .top-banner::after {
@@ -1563,7 +1550,7 @@
           </div>
         </div>
         <div class="swiper-slide">
-          <img src="https://currysprod.a.bigcontent.io/v1/static/razer-gaming-peripherals-header-img" alt="إكسسوارات الكمبيوتر">
+          <img src="https://m.media-amazon.com/images/I/81Smi3twk5L.jpg" alt="إكسسوارات الكمبيوتر">
           <div class="slide-content">
             <h3 class="slide-title">إكسسوارات متميزة</h3>
             <p class="slide-description">كل ما تحتاجه لتجهيز محطة العمل الخاصة بك</p>
@@ -2023,6 +2010,19 @@ const bottomBarImages = [
 // Sample Products - SORTED BY ID DESCENDING (Newest First)
 
 const products = [
+{id:35, name:"Combo(ram 16GB + Motherboard B650)", category:"قطع التجميعة", brand:"Combo", price:2600, oldPrice:null, condition:"جديد", 
+  images:[
+    'https://cdn.mos.cms.futurecdn.net/v2/t:0,l:0,cw:1479,ch:832,q:80,w:1479/J7pdHamQPPcRm5TzwJp5Ze.jpg',
+    'https://down-my.img.susercontent.com/file/my-11134208-7r98z-lxqjtn3aqu0gcf',
+    'https://m.media-amazon.com/images/I/71KvpD-WuNL._UF1000,1000_QL80_.jpg'
+  ],
+desc: "طقم ذاكرة 16GB DDR5 بسرعة 6000MHz يوفر أداءً عاليًا واستجابة سريعة، ومع لوحة Gigabyte B650M Gaming Plus WiFi تحصل على منصة قوية ومستقرة تدعم أحدث معالجات Ryzen مع اتصال Wi-Fi مدمج للألعاب والعمل."
+  specs: {
+    spec1: "تردد عالي 6000MHz",
+    spec2: "أتصال Wi-Fi مدمج",
+    spec3: "دعم رامات يصل الى 128GB",
+    spec4: "تدعم معالجات أخر معالجات رايزن القوية"
+  }},
 
         {id:34, name:"Lovingcool DP-360mm", category:"قطع التجميعة", brand:"Lovingcool", price:990, oldPrice:null, condition:"جديد", 
   images:[
