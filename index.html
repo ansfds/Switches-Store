@@ -1,12 +1,77 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- ========== الأكواد المضافة لتحسين المشاركة ========== -->
+  
+  <!-- 1. العنوان الأساسي -->
   <title>سويتشز - متجر قطع الكمبيوتر والأجهزة الإلكترونية</title>
+  
+  <!-- 2. وصف الموقع لمحركات البحث -->
   <meta name="description" content="متجر سويتشز هو الوجهة المثالية لشراء قطع الكمبيوتر، الإلكترونيات، الإكسسوارات وأحدث التقنيات بأسعار تنافسية.">
   
-  <meta name="keywords" content="قطع كمبيوتر, لابتوبات, شاشات, إكسسوارات, تجميع جهاز, بلايستيشن, ألعاب">
+  <!-- 3. الكلمات المفتاحية -->
+  <meta name="keywords" content="قطع كمبيوتر, لابتوبات, شاشات, إكسسوارات, تجميع جهاز, بلايستيشن, ألعاب, قطع غيار كمبيوتر, قطع تجميعة, أجهزة إلكترونية, سويتشز">
+  
+  <!-- 4. معلومات المالك -->
+  <meta name="author" content="متجر سويتشز">
+  
+  <!-- 5. Open Graph Protocol للفيسبوك والمتصفحات الأخرى -->
+  <meta property="og:title" content="سويتشز - متجر قطع الكمبيوتر والأجهزة الإلكترونية">
+  <meta property="og:description" content="متجر سويتشز هو الوجهة المثالية لشراء قطع الكمبيوتر، الإلكترونيات، الإكسسوارات وأحدث التقنيات بأسعار تنافسية.">
+  <meta property="og:image" content="https://i.imgur.com/1tQdXnn.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="متجر سويتشز - أفضل قطع الكمبيوتر في ليبيا">
+  <meta property="og:url" content="https://www.switches-store.ly/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="سويتشز - Switches">
+  <meta property="og:locale" content="ar_LY">
+  
+  <!-- 6. Twitter Cards لتويتر -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@swytshz">
+  <meta name="twitter:creator" content="@swytshz">
+  <meta name="twitter:title" content="سويتشز - متجر قطع الكمبيوتر والأجهزة الإلكترونية">
+  <meta name="twitter:description" content="متجر سويتشز هو الوجهة المثالية لشراء قطع الكمبيوتر، الإلكترونيات، الإكسسوارات وأحدث التقنيات بأسعار تنافسية.">
+  <meta name="twitter:image" content="https://i.imgur.com/1tQdXnn.png">
+  <meta name="twitter:image:alt" content="متجر سويتشز - أفضل قطع الكمبيوتر في ليبيا">
+  
+  <!-- 7. Structured Data لتحسين ظهور الموقع في جوجل -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "سويتشز - Switches",
+    "alternateName": "متجر سويتشز",
+    "url": "https://yourdomain.com",
+    "description": "متجر سويتشز هو الوجهة المثالية لشراء قطع الكمبيوتر، الإلكترونيات، الإكسسوارات وأحدث التقنيات بأسعار تنافسية.",
+    "image": "https://i.imgur.com/1tQdXnn.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "سويتشز",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://i.imgur.com/7QJkJg9.png"
+      }
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "LYD",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+  
+  <!-- 8. Favicon أيقونة الموقع -->
+  <link rel="icon" type="image/x-icon" href="https://i.imgur.com/7QJkJg9.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/7QJkJg9.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/7QJkJg9.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/7QJkJg9.png">
+  
+  <!-- ========== نهاية الأكواد المضافة ========== -->
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -2811,14 +2876,11 @@
     let swiperInstance = null;
     
     // ===== المنتجات المخصصة للأقسام =====
-    // هنا يمكنك تعديل أسماء المنتجات التي تريد عرضها في كل قسم
-    // فقط قم بإضافة أسماء المنتجات في المصفوفات التالية:
     const customBestSellingProducts = [
       "Combo (RAM 16GB + Motherboard B650)",
       "Projector HY 300 Mini",
       "LDON Mide 68",
       "LG 27″ UltraGear 27GS75Q-B"
-      // أضف أسماء منتجات إضافية هنا
     ];
     
     const customDiscountedProducts = [
@@ -2826,7 +2888,6 @@
       "Projector HY 300 Mini",
       "LDON Mide 68",
       "FZ - 200 NZXT"
-      // أضف أسماء منتجات إضافية هنا
     ];
     
     const customComingSoonProducts = [
@@ -2834,7 +2895,6 @@
       "PlayStation 5 Slim",
       "Mouse Pad Ghost Operator",
       "AJAZZ NACODEX NK68"
-      // أضف أسماء منتجات إضافية هنا
     ];
 
     // ===== تهيئة التطبيق =====
@@ -2956,7 +3016,7 @@
         return sortedProducts.find(product => 
           product.name.toLowerCase().includes(productName.toLowerCase())
         );
-      }).filter(product => product); // إزالة القيم غير المعرفة
+      }).filter(product => product);
       
       // إذا لم يتم العثور على منتجات، استخدم بعض المنتجات الافتراضية
       if (productsToShow.length === 0) {
