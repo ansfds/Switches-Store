@@ -2145,6 +2145,29 @@
 
     // ===== جميع المنتجات الأصلية =====
     const allProducts = [
+     {
+        id: 36,
+        name: "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6",
+        category: "قطع التجميعة",
+        brand: "ASUS",
+        price: 1650,
+        oldPrice: null,
+        condition: "مستعمل",
+        images: [
+          'https://dlcdnimgs.asus.com/websites/global/products/utcn39mqdlxmh2r1/img/kv/product-kv_s.jpg',
+          'https://i.ebayimg.com/images/g/X7MAAOSwZHRkjetV/s-l1200.jpg'
+        ],
+        description: "طقم ذاكرة 16GB DDR5 بسرعة 6000MHz يوفر أداءً عاليًا واستجابة سريعة، ومع لوحة Gigabyte B650M Gaming Plus WiFi تحصل على منصة قوية ومستقرة تدعم أحدث معالجات Ryzen مع اتصال Wi-Fi مدمج للألعاب والعمل.",
+        specs: {
+          "الذاكرة": "16GB DDR5 6000MHz",
+          "اللوحة الأم": "Gigabyte B650M Gaming Plus WiFi",
+          "التوافق": "AMD Ryzen 7000",
+          "الميزات": "Wi-Fi مدمج + دعم رامات حتى 128GB"
+        },
+        tags: ["bestSelling", "new"],
+        availability: "comingSoon"
+      },
+
       {
         id: 35,
         name: "Combo (RAM 16GB + Motherboard B650)",
@@ -2177,7 +2200,10 @@
         oldPrice: null,
         condition: "جديد",
         images: [
+          'https://sc04.alicdn.com/kf/H545f8caf6ca741e9a9cda4002a7759e45.jpg',
           'https://s.alicdn.com/@sc04/kf/Hb08a54fc6e5144c98029e12424729404b.jpg?avif=close&webp=close.jpg',
+          'https://ezonelb.com/wp-content/uploads/2025/12/91lzup.jpg',
+          'https://ae01.alicdn.com/kf/Sa30a6da079094da98af017334f886d43Y.jpg'
         ],
         description: "مبرد Lovingcool 360mm ARGB بتبريد مائي قوي للمعالج مع شاشة عرض فيديو 4.0 بوصة قابلة للتخصيص، يوفر أداء تبريد عالي حتى 300W مع تشغيل هادئ وتصميم أنيق بإضاءة ARGB.",
         specs: {
@@ -2535,7 +2561,7 @@
           "زمن الاستجابة": "1ms"
         },
         tags: ["discounted"],
-        availability: "available"
+        availability: "unavailable"
       },
       {
         id: 17,
@@ -2880,22 +2906,22 @@
       "Combo (RAM 16GB + Motherboard B650)",
       "Projector HY 300 Mini",
       "LDON Mide 68",
-      "LG 27″ UltraGear 27GS75Q-B"
+      "AJAZZ NACODEX NK68"
     ];
     
     const customDiscountedProducts = [
       "Combo (RAM 16GB + Motherboard B650)",
       "Projector HY 300 Mini",
       "LDON Mide 68",
-      "FZ - 200 NZXT"
+      "AJAZZ NACODEX NK68"
     ];
     
     const customComingSoonProducts = [
       "Lovingcool DP-360mm",
       "PlayStation 5 Slim",
       "Mouse Pad Ghost Operator",
-      "AJAZZ NACODEX NK68"
-    ];
+      "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6"
+        ];
 
     // ===== تهيئة التطبيق =====
     function initApp() {
