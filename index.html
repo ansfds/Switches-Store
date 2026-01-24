@@ -451,13 +451,72 @@
       }
     }
     
-    @media (max-width: 900px) {
+    @media (max-width: 992px) {
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
       }
     }
     
-    @media (max-width: 600px) {
+    /* تحسينات للهواتف - التعديلات المطلوبة */
+    @media (max-width: 768px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      
+      .product-card {
+        height: auto;
+        min-height: 380px;
+      }
+      
+      .product-image-container {
+        height: 180px;
+      }
+      
+      .product-content {
+        padding: 15px;
+      }
+      
+      .product-title {
+        font-size: 1rem;
+        height: 2.8em;
+      }
+      
+      .current-price {
+        font-size: 1.1rem;
+      }
+      
+      .old-price {
+        font-size: 0.9rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      
+      .product-card {
+        min-height: 350px;
+      }
+      
+      .product-image-container {
+        height: 150px;
+      }
+      
+      .btn-add-cart {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+      
+      .section-title {
+        font-size: 1.4rem;
+      }
+    }
+    
+    @media (max-width: 360px) {
       .products-grid {
         grid-template-columns: 1fr;
       }
@@ -476,13 +535,27 @@
       }
     }
     
-    @media (max-width: 900px) {
+    @media (max-width: 992px) {
       .all-products-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
     
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      .all-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .all-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+    
+    @media (max-width: 360px) {
       .all-products-grid {
         grid-template-columns: 1fr;
       }
@@ -1622,7 +1695,7 @@
       
       .products-grid,
       .all-products-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
       
       .modal-actions {
@@ -1853,7 +1926,7 @@
         </div>
       </section>
 
-      <!-- قسم المنتجات الأكثر مبيعاً (ثابت) -->
+            <!-- قسم المنتجات الأكثر مبيعاً (ثابت) - أخيراً -->
       <section class="products-section">
         <div class="section-header">
           <h2 class="section-title">
@@ -1874,28 +1947,7 @@
         </div>
       </section>
 
-      <!-- قسم العروض المخفضة (ثابت) -->
-      <section class="products-section">
-        <div class="section-header">
-          <h2 class="section-title">
-            <i class="fas fa-tag section-icon"></i>
-            عروض مخفضة مع توصيل مجاني
-          </h2>
-        </div>
-        
-        <div class="products-grid" id="discountedProducts">
-          <!-- سيتم ملؤها بالجافاسكريبت -->
-        </div>
-        
-        <div class="show-more-container">
-          <button class="btn-show-more" onclick="showAllProducts('العروض الخاصة')">
-            <span>عرض المزيد</span>
-            <i class="fas fa-arrow-left"></i>
-          </button>
-        </div>
-      </section>
-
-      <!-- قسم قريباً في المتجر (ثابت) -->
+      <!-- قسم قريباً في المتجر (ثابت) - جعلته أولاً كما طلبت -->
       <section class="products-section">
         <div class="section-header">
           <h2 class="section-title">
@@ -1915,6 +1967,29 @@
           </button>
         </div>
       </section>
+
+      <!-- قسم العروض المخفضة (ثابت) - ثانياً -->
+      <section class="products-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fas fa-tag section-icon"></i>
+            عروض مخفضة مع خصومات خاصة
+          </h2>
+        </div>
+        
+        <div class="products-grid" id="discountedProducts">
+          <!-- سيتم ملؤها بالجافاسكريبت -->
+        </div>
+        
+        <div class="show-more-container">
+          <button class="btn-show-more" onclick="showAllProducts('العروض الخاصة')">
+            <span>عرض المزيد</span>
+            <i class="fas fa-arrow-left"></i>
+          </button>
+        </div>
+      </section>
+
+
 
       <!-- الشريط السفلي للصور -->
       <div class="bottom-image-bar">
@@ -2145,6 +2220,54 @@
 
     // ===== جميع المنتجات الأصلية =====
     const allProducts = [
+
+           {
+        id: 38,
+        name: "Smailwolf RS8",
+        category: "إكسسوارات",
+        brand: "Smailwolf",
+        price: 170,
+        oldPrice: null,
+        condition: "جديد",
+        images: [
+          'https://img4.dhresource.com/webp/m/0x0/f3/albu/ys/z/21/8de14eae-b070-4ad5-ab73-8e411f1d242a.jpg',
+          'https://content2.rozetka.com.ua/goods/images/big/518748660.jpg',
+          "https://ae01.alicdn.com/kf/S21cb7255718f4a3285a73496b4c7cad47.jpg"
+        ],
+        description: "ماوس Smailwolf RS8 مصمم للألعاب الاحترافية بوزن خفيف وأداء سريع يمنحك تحكمًا دقيقًا واستجابة عالية.يدعم عدة أوضاع اتصال مع إضاءة RGB وتصميم مريح للاستخدام الطويل.",
+        specs: {
+          "السرعة": "12000 DPI",
+          "الوزن": "خفيف الوزن بتصميم مريح",
+          "التوافق": "متعدد الأوضاع (سلكي، بلوتوث، 2.4 جيجاهرتز)",
+          "الميزات": "إضاءة RGB + أزرار قابلة للبرمجة"
+        },
+        tags: ["bestSelling", "new"],
+        availability: "comingSoon"
+      },
+
+           {
+        id: 37,
+        name: "Palit RTX 3070 GameRock OC 8GB GDDR6",
+        category: "قطع التجميعة",
+        brand: "Palit",
+        price: 2400,
+        oldPrice: null,
+        condition: "مستعمل",
+        images: [
+          'https://microless.com/cdn/product_description/8578797_1610809604.jpg',
+          'https://microless.com/cdn/products/19c57f5aa18dda3e04c2c29802632bcb-hi.jpg'
+        ],
+        description: "بطاقة رسومات Palit RTX 3070 GameRock OC 8GB GDDR6 تقدم أداءً ممتازًا للألعاب بدقة 1440p مع تبريد فعال وتصميم متين، مما يجعلها خيارًا مثاليًا للاعبين الذين يبحثون عن تجربة ألعاب سلسة وعالية الجودة.",
+        specs: {
+          "الذاكرة": "8GB GDDR6",
+          "التبريد": "3 مرواح بتبريد عالي ",
+          "التوافق": "PCIe 4.0",
+          "الميزات": "دعم FreeSync + RGB"
+        },
+        tags: ["bestSelling", "new"],
+        availability: "comingSoon"
+      },
+
      {
         id: 36,
         name: "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6",
@@ -2157,12 +2280,12 @@
           'https://dlcdnimgs.asus.com/websites/global/products/utcn39mqdlxmh2r1/img/kv/product-kv_s.jpg',
           'https://i.ebayimg.com/images/g/X7MAAOSwZHRkjetV/s-l1200.jpg'
         ],
-        description: "طقم ذاكرة 16GB DDR5 بسرعة 6000MHz يوفر أداءً عاليًا واستجابة سريعة، ومع لوحة Gigabyte B650M Gaming Plus WiFi تحصل على منصة قوية ومستقرة تدعم أحدث معالجات Ryzen مع اتصال Wi-Fi مدمج للألعاب والعمل.",
+        description: "بطاقة رسومات ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6 تقدم أداءً ممتازًا للألعاب بدقة 1440p مع تبريد فعال وتصميم متين، مما يجعلها خيارًا مثاليًا للاعبين الذين يبحثون عن تجربة ألعاب سلسة وعالية الجودة.",
         specs: {
-          "الذاكرة": "16GB DDR5 6000MHz",
-          "اللوحة الأم": "Gigabyte B650M Gaming Plus WiFi",
-          "التوافق": "AMD Ryzen 7000",
-          "الميزات": "Wi-Fi مدمج + دعم رامات حتى 128GB"
+          "الذاكرة": "8GB GDDR6",
+          "التبريد": "3 مرواح بتبريد عالي ",
+          "التوافق": "PCIe 4.0",
+          "الميزات": "دعم FreeSync + RGB"
         },
         tags: ["bestSelling", "new"],
         availability: "comingSoon"
@@ -2170,7 +2293,7 @@
 
       {
         id: 35,
-        name: "Combo (RAM 16GB + Motherboard B650)",
+        name: "Combo Gigabyte B650M GAMING PLUS WIFI with TEAMGROUP T-Force DELTA White 16GB DDR5 6000MHz",
         category: "قطع التجميعة",
         brand: "Combo",
         price: 2600,
@@ -2331,7 +2454,10 @@
         condition: "جديد",
         images: [
           'https://imgur.com/kNnMbAr.jpg',
-          'https://i.ytimg.com/vi/_-avpk2tS-w/oardefault.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLD0wybMTtJ9_2Dgz4ucFTYqJC2T-g.jpg'
+          'https://i.ytimg.com/vi/_-avpk2tS-w/oardefault.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLD0wybMTtJ9_2Dgz4ucFTYqJC2T-g.jpg',
+          "https://sc04.alicdn.com/kf/H4bc3ea13a9984b6db7a2a23635d14a65T/244701615/H4bc3ea13a9984b6db7a2a23635d14a65T.jpg",
+          "https://img.olx.com.br/images/88/888643365575329.jpg",
+          "https://ecommerce.datablitz.com.ph/cdn/shop/files/AJAZZ_NK68_RGB_Black_Contours_15_800x.jpg?v=1754877377"
         ],
         description: "كيبورد AJAZZ NACODEX NK68 يتميز بتصميم ميكانيكي أنيق بحجم 68% يجمع بين العملية والمظهر العصري.",
         specs: {
@@ -2370,8 +2496,8 @@
         name: "Projector HY 300 Pro",
         category: "إكسسوارات",
         brand: "Projector",
-        price: 300,
-        oldPrice: 360,
+        price: 410,
+        oldPrice: 490,
         condition: "جديد",
         images: [
           'https://static-01.daraz.lk/p/0efbfad3101d41aa08ad4e98cfeac2e1.jpg',
@@ -2392,12 +2518,12 @@
         name: "Projector HY 300 Mini",
         category: "إكسسوارات",
         brand: "Projector",
-        price: 320,
-        oldPrice: 399,
+        price: 370,
+        oldPrice: 490,
         condition: "جديد",
         images: [
-          'https://i.imgur.com/rnjXh9M.png',
-          'https://i.imgur.com/w3qOp6f.png'
+          'https://i.ytimg.com/vi/xo-7MJqnRtc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAdfm85iSCDT2GphLsYNYxAK3TN2w.jpg',
+          'https://5.imimg.com/data5/SELLER/Default/2024/9/451115115/JW/KG/CY/46517936/hy-300-pro-mini-projector-for-home-portable-hd-android-12-short-4k-1080p-500x500.jpg'
         ],
         description: "بروجكتر ذكي مزوّد بنظام Android 12 يقدم تجربة مشاهدة سلسة بدقة فيزيائية 720P مع دعم تشغيل محتوى يصل إلى 4K.",
         specs: {
@@ -2411,15 +2537,15 @@
       },
       {
         id: 24,
-        name: "LDON Mide 68",
+        name: "LDON Mide 68 8000Hz Magnetic Switch",
         category: "إكسسوارات",
         brand: "LDON",
-        price: 299,
+        price: 330,
         oldPrice: 399,
         condition: "جديد",
         images: [
-          'https://sc04.alicdn.com/kf/H381c0debded941d9a29ba06b76f13cebf.jpg',
-          'https://ae01.alicdn.com/kf/S1d39d71de2de42809a1433ec5b8b8398W.jpg'
+          'https://sc04.alicdn.com/kf/Hf663101fc1b44d1d800ba3d8b84e3c2es/279883721/Hf663101fc1b44d1d800ba3d8b84e3c2es.jpg',
+          'https://sc04.alicdn.com/kf/H156878d29dc2460fbcf6a068367bb69fW/279883721/H156878d29dc2460fbcf6a068367bb69fW.jpg'
         ],
         description: "كيبورد مغناطيسي مميز للألعاب مع إضاءة RGB قابلة للتخصيص وأداء عالي.",
         specs: {
@@ -2903,24 +3029,25 @@
     
     // ===== المنتجات المخصصة للأقسام =====
     const customBestSellingProducts = [
-      "Combo (RAM 16GB + Motherboard B650)",
+      "AJAZZ NACODEX NK68",
+      "Combo Gigabyte B650M GAMING PLUS WIFI with TEAMGROUP T-Force DELTA White 16GB DDR5 6000MHz",
       "Projector HY 300 Mini",
-      "LDON Mide 68",
-      "AJAZZ NACODEX NK68"
+      "LDON Mide 68 8000Hz Magnetic Switch"
     ];
     
     const customDiscountedProducts = [
-      "Combo (RAM 16GB + Motherboard B650)",
+      "AJAZZ NACODEX NK68",
+      "Combo Gigabyte B650M GAMING PLUS WIFI with TEAMGROUP T-Force DELTA White 16GB DDR5 6000MHz",
       "Projector HY 300 Mini",
-      "LDON Mide 68",
-      "AJAZZ NACODEX NK68"
-    ];
+      "LDON Mide 68 8000Hz Magnetic Switch"
+        ];
     
     const customComingSoonProducts = [
       "Lovingcool DP-360mm",
-      "PlayStation 5 Slim",
-      "Mouse Pad Ghost Operator",
-      "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6"
+      "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6",
+      "Palit RTX 3070 GameRock OC 8GB GDDR6",
+      "Smailwolf RS8"
+
         ];
 
     // ===== تهيئة التطبيق =====
