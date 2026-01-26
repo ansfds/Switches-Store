@@ -194,6 +194,7 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
+      cursor: pointer;
     }
     
     .logo-img {
@@ -219,6 +220,28 @@
       display: flex;
       align-items: center;
       gap: 20px;
+    }
+    
+    /* زر الرجوع الجديد */
+    .back-to-home {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      text-decoration: none;
+      margin-left: auto;
+    }
+    
+    .back-to-home:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
     }
     
     /* ===== زر السلة ===== */
@@ -398,6 +421,31 @@
       font-size: 0.95rem;
     }
     
+    /* ===== تحسين حجم الأيقونات على الهاتف ===== */
+    @media (max-width: 768px) {
+      .feature-icon {
+        font-size: 2rem; /* تقليل حجم الأيقونات على الهاتف */
+      }
+      
+      .feature-card {
+        padding: 20px 15px;
+      }
+      
+      .feature-title {
+        font-size: 1.1rem;
+      }
+      
+      .feature-description {
+        font-size: 0.9rem;
+      }
+    }
+    
+    @media (min-width: 769px) {
+      .feature-icon {
+        font-size: 2.5rem; /* الحفاظ على الحجم الأصلي على الكمبيوتر */
+      }
+    }
+    
     /* ===== أقسام المنتجات ===== */
     .products-section {
       margin-bottom: 60px;
@@ -561,35 +609,25 @@
       }
     }
     
-    .product-card {
-      background: var(--bg-primary);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: 0 5px 20px var(--shadow-color);
-      transition: all var(--transition-normal);
-      border: 1px solid var(--border-color);
-      position: relative;
-      height: 420px;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 40px var(--shadow-hover);
-      border-color: var(--primary-light);
-    }
-    
-    .product-badge {
+    /* تحسين ترتيب أيقونات الحالة */
+    .product-badges-container {
       position: absolute;
       top: 15px;
       right: 15px;
       z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+    
+    .product-badge {
       padding: 6px 12px;
       border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
+      white-space: nowrap;
     }
     
     .badge-discount {
@@ -610,6 +648,25 @@
     .badge-unavailable {
       background: linear-gradient(135deg, var(--danger-color), #dc2626);
       color: white;
+    }
+    
+    .product-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 5px 20px var(--shadow-color);
+      transition: all var(--transition-normal);
+      border: 1px solid var(--border-color);
+      position: relative;
+      height: 420px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px var(--shadow-hover);
+      border-color: var(--primary-light);
     }
     
     .product-image-container {
@@ -1591,6 +1648,42 @@
       color: var(--primary-color);
     }
     
+    /* تحسين وضوح النص في المودال للوضع الساطع */
+    .form-input {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      transition: all var(--transition-normal);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .form-input::placeholder {
+      color: var(--text-tertiary);
+    }
+    
+    /* تحسين وضوح النص في مودال الطلب للوضع الساطع */
+    .order-modal-content .form-label {
+      color: var(--text-primary);
+    }
+    
+    .order-modal-content .form-input {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .order-modal-content .form-input::placeholder {
+      color: var(--text-tertiary);
+    }
+    
     /* ===== التجاوبية ===== */
     @media (max-width: 1024px) {
       .products-grid,
@@ -1657,6 +1750,11 @@
       .bottom-image-item {
         width: 150px;
         height: 100px;
+      }
+      
+      /* إخفاء زر الرجوع في الهيدر على الهاتف */
+      .back-to-home {
+        display: none;
       }
     }
     
@@ -1801,12 +1899,18 @@
   <!-- الهيدر -->
   <header>
     <div class="header-container">
-      <a href="#" class="logo">
+      <a href="#" class="logo" id="logoLink">
         <img src="https://qwertyqop.com/cdn/shop/files/individualswitch.png?v=1698726047" alt="شعار سويتشز" class="logo-img">
         <div class="logo-text">سويتشز<span> - Switches</span></div>
       </a>
       
       <div class="header-actions">
+        <!-- زر الرجوع الجديد -->
+        <button class="back-to-home" id="backToHome">
+          <i class="fas fa-home"></i>
+          الرئيسية
+        </button>
+        
         <button class="cart-btn" id="cartBtn">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-count" id="cartCount">0</span>
@@ -3027,6 +3131,13 @@
     let currentProductModalImage = {};
     let swiperInstance = null;
     
+    // ===== نظام تحديد عدد الطلبات =====
+    let orderLimitData = JSON.parse(localStorage.getItem('orderLimitData')) || {
+      dailyOrders: 0,
+      lastOrderDate: null,
+      userIP: null
+    };
+    
     // ===== المنتجات المخصصة للأقسام =====
     const customBestSellingProducts = [
       "AJAZZ NACODEX NK68",
@@ -3072,6 +3183,45 @@
       
       // تهيئة EmailJS
       emailjs.init("oC5f4LnSO9Gazmn5A");
+      
+      // تحديث بيانات نظام تحديد الطلبات
+      updateOrderLimitData();
+    }
+
+    // ===== نظام تحديد عدد الطلبات =====
+    function updateOrderLimitData() {
+      const today = new Date().toDateString();
+      
+      // إذا كان التاريخ مختلفًا، نعيد تعيين العد اليومي
+      if (orderLimitData.lastOrderDate !== today) {
+        orderLimitData.dailyOrders = 0;
+        orderLimitData.lastOrderDate = today;
+        saveOrderLimitData();
+      }
+    }
+    
+    function canPlaceOrder() {
+      updateOrderLimitData();
+      return orderLimitData.dailyOrders < 5; // الحد الأقصى 5 طلبات في اليوم
+    }
+    
+    function incrementOrderCount() {
+      updateOrderLimitData();
+      if (orderLimitData.dailyOrders < 5) {
+        orderLimitData.dailyOrders++;
+        saveOrderLimitData();
+        return true;
+      }
+      return false;
+    }
+    
+    function saveOrderLimitData() {
+      localStorage.setItem('orderLimitData', JSON.stringify(orderLimitData));
+    }
+    
+    function getRemainingOrders() {
+      updateOrderLimitData();
+      return 5 - orderLimitData.dailyOrders;
     }
 
     // ===== تهيئة Swiper =====
@@ -3204,10 +3354,13 @@
       
       grid.innerHTML = productsToShow.slice(0, 4).map(product => `
         <div class="product-card" data-id="${product.id}">
-          ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
-          ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
-          ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
-          ${!product.oldPrice && product.availability === 'available' && product.id > 30 ? `<div class="product-badge badge-new">جديد</div>` : ''}
+          <!-- حاوية لأيقونات الحالة مرتبة عموديًا -->
+          <div class="product-badges-container">
+            ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
+            ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
+            ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
+            ${!product.oldPrice && product.availability === 'available' && product.id > 30 ? `<div class="product-badge badge-new">جديد</div>` : ''}
+          </div>
           
           <div class="product-image-container">
             <img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy">
@@ -3287,10 +3440,13 @@
       
       grid.innerHTML = productsToShow.map(product => `
         <div class="product-card" data-id="${product.id}">
-          ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
-          ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
-          ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
-          ${!product.oldPrice && product.availability === 'available' && product.id > 30 ? `<div class="product-badge badge-new">جديد</div>` : ''}
+          <!-- حاوية لأيقونات الحالة مرتبة عموديًا -->
+          <div class="product-badges-container">
+            ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
+            ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
+            ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
+            ${!product.oldPrice && product.availability === 'available' && product.id > 30 ? `<div class="product-badge badge-new">جديد</div>` : ''}
+          </div>
           
           <div class="product-image-container">
             <img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy">
@@ -3567,18 +3723,41 @@
       // فتح مودال السلة
       document.getElementById('cartBtn').addEventListener('click', () => openModal('cartModal'));
       
+      // زر الشعار للعودة للصفحة الرئيسية
+      document.getElementById('logoLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        showMainPage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      // زر الرجوع للصفحة الرئيسية
+      document.getElementById('backToHome').addEventListener('click', function() {
+        showMainPage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
       // إغلاق المودالات
       document.getElementById('closeProductModal').addEventListener('click', () => closeModal('productModal'));
       document.getElementById('closeCartModal').addEventListener('click', () => closeModal('cartModal'));
       document.getElementById('closeOrderModal').addEventListener('click', () => closeModal('orderModal'));
       document.getElementById('continueShoppingBtn').addEventListener('click', () => closeModal('cartModal'));
       
-      // متابعة الشراء
+      // متابعة الشراء مع التحقق من الحد اليومي
       document.getElementById('checkoutBtn').addEventListener('click', () => {
         if (cart.length === 0) {
           showNotification('سلة التسوق فارغة', 'warning');
           return;
         }
+        
+        // التحقق من الحد اليومي للطلبات
+        if (!canPlaceOrder()) {
+          showNotification(`لقد وصلت إلى الحد الأقصى للطلبات اليومية (5 طلبات). يرجى المحاولة مرة أخرى غدًا.`, 'error');
+          return;
+        }
+        
+        const remainingOrders = getRemainingOrders();
+        showNotification(`يمكنك تقديم ${remainingOrders} طلب${remainingOrders > 1 ? 'ات' : ''} أخرى اليوم`, 'info');
+        
         closeModal('cartModal');
         setTimeout(() => openModal('orderModal'), 300);
       });
@@ -3586,7 +3765,7 @@
       // نموذج الدعم
       document.getElementById('supportForm').addEventListener('submit', handleSupportForm);
       
-      // نموذج الطلب
+      // نموذج الطلب مع التحقق من الحد اليومي
       document.getElementById('orderForm').addEventListener('submit', handleOrderForm);
       
       // إغلاق المودال عند النقر خارجها
@@ -3660,10 +3839,13 @@
       
       grid.innerHTML = filteredProducts.map(product => `
         <div class="product-card" data-id="${product.id}">
-          ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
-          ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
-          ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
-          ${!product.oldPrice && product.availability === 'available' && product.id > 30 ? `<div class="product-badge badge-new">جديد</div>` : ''}
+          <!-- حاوية لأيقونات الحالة مرتبة عموديًا -->
+          <div class="product-badges-container">
+            ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
+            ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
+            ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
+            ${!product.oldPrice && product.availability === 'available' && product.id > 30 ? `<div class="product-badge badge-new">جديد</div>` : ''}
+          </div>
           
           <div class="product-image-container">
             <img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy">
@@ -3743,6 +3925,18 @@
         return;
       }
       
+      // التحقق من الحد اليومي للطلبات
+      if (!canPlaceOrder()) {
+        showNotification(`لقد وصلت إلى الحد الأقصى للطلبات اليومية (5 طلبات). يرجى المحاولة مرة أخرى غدًا.`, 'error');
+        return;
+      }
+      
+      // زيادة عداد الطلبات
+      if (!incrementOrderCount()) {
+        showNotification('حدث خطأ في نظام الطلبات', 'error');
+        return;
+      }
+      
       const formData = new FormData(e.target);
       const orderDetails = cart.map(item => 
         `${item.name} (${item.quantity} × ${formatPrice(item.price)})`
@@ -3784,6 +3978,14 @@
         // إغلاق المودال وإعادة تعيين النموذج
         closeModal('orderModal');
         e.target.reset();
+        
+        // عرض عدد الطلبات المتبقية
+        const remainingOrders = getRemainingOrders();
+        if (remainingOrders > 0) {
+          setTimeout(() => {
+            showNotification(`يمكنك تقديم ${remainingOrders} طلب${remainingOrders > 1 ? 'ات' : ''} أخرى اليوم`, 'info');
+          }, 1500);
+        }
       } catch (error) {
         console.error('Error sending order email:', error);
         showNotification('حدث خطأ أثناء تأكيد الطلب، يرجى المحاولة مرة أخرى', 'error');
