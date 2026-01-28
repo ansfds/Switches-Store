@@ -2050,6 +2050,27 @@
           </button>
         </div>
       </section>
+      
+      <!-- قسم العروض المخفضة (ثابت) - ثانياً -->
+      <section class="products-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fas fa-tag section-icon"></i>
+            عروض مخفضة مع خصومات خاصة
+          </h2>
+        </div>
+        
+        <div class="products-grid" id="discountedProducts">
+          <!-- سيتم ملؤها بالجافاسكريبت -->
+        </div>
+        
+        <div class="show-more-container">
+          <button class="btn-show-more" onclick="showAllProducts('العروض الخاصة')">
+            <span>عرض المزيد</span>
+            <i class="fas fa-arrow-left"></i>
+          </button>
+        </div>
+      </section>
 
       <!-- قسم قريباً في المتجر (ثابت) - جعلته أولاً كما طلبت -->
       <section class="products-section">
@@ -2072,26 +2093,6 @@
         </div>
       </section>
 
-      <!-- قسم العروض المخفضة (ثابت) - ثانياً -->
-      <section class="products-section">
-        <div class="section-header">
-          <h2 class="section-title">
-            <i class="fas fa-tag section-icon"></i>
-            عروض مخفضة مع خصومات خاصة
-          </h2>
-        </div>
-        
-        <div class="products-grid" id="discountedProducts">
-          <!-- سيتم ملؤها بالجافاسكريبت -->
-        </div>
-        
-        <div class="show-more-container">
-          <button class="btn-show-more" onclick="showAllProducts('العروض الخاصة')">
-            <span>عرض المزيد</span>
-            <i class="fas fa-arrow-left"></i>
-          </button>
-        </div>
-      </section>
 
 
 
@@ -2328,6 +2329,54 @@
     // ===== جميع المنتجات الأصلية =====
     const allProducts = [
 
+
+           {
+        id: 40,
+        name: "Lovingcool Factory Gaming PC Case - Black",
+        category: "قطع التجميعة",
+        brand: "Lovingcool",
+        price: 450,
+        oldPrice: null,
+        condition: "جديد",
+        images: [
+          'https://s.alicdn.com/@sc04/kf/H7aeb06aafd2e4702b7faa1ed7c803f92E.jpg?avif=close&webp=close.jpg',
+          "https://s.alicdn.com/@sc04/kf/Heca7ea744c6441d28b90f5ed94d31874l.jpg?avif=close&webp=close.jpg",
+        ],
+        description: "صندوق كمبيوتر Lovingcool Factory Gaming PC Case - Black يتميز بتصميم أنيق مع إضاءة RGB قابلة للتخصيص، ويوفر تبريدًا فعالًا مع مساحة واسعة لتركيب المكونات، مما يجعله خيارًا مثاليًا لبناء جهاز ألعاب قوي وجذاب.",
+        specs: {
+          "السرعة": "N/A",
+          "الطاقة": "N/A",
+          "التوافق": "ATX, Micro-ATX, Mini-ITX",
+          "الميزات": "إضاءة RGB + تبريد فعال"
+        },
+        tags: ["bestSelling", "new"],
+        availability: "comingSoon"
+      },
+
+
+       {
+        id: 39,
+        name: "AMD Ryzen™ 5 5600X Desktop Processors",
+        category: "قطع التجميعة",
+        brand: "AMD Ryzen",
+        price: 1170,
+        oldPrice: null,
+        condition: "جديد",
+        images: [
+          'https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-5-5600x-og.jpg'
+        ],
+        description: "معالج AMD Ryzen™ 5 5600X يقدم أداءً ممتازًا للألعاب والتطبيقات المتعددة بفضل نواته الست وتقنياته المتقدمة، مما يجعله خيارًا مثاليًا لبناء جهاز كمبيوتر قوي وفعال.",
+        specs: {
+          "السرعة": "3.7 GHz (4.6 GHz Boost)",
+          "الطاقة": "65W TDP",
+          "التوافق": "AM4 Socket",
+          "الميزات": "تقنية AMD SenseMI + Precision Boost 2"
+        },
+        tags: ["bestSelling", "new"],
+        availability: "comingSoon"
+      },
+
+
            {
         id: 38,
         name: "Smailwolf RS8",
@@ -2381,7 +2430,7 @@
         category: "قطع التجميعة",
         brand: "ASUS",
         price: 1650,
-        oldPrice: null,
+        oldPrice: 1850,
         condition: "مستعمل",
         images: [
           'https://dlcdnimgs.asus.com/websites/global/products/utcn39mqdlxmh2r1/img/kv/product-kv_s.jpg',
@@ -2395,7 +2444,7 @@
           "الميزات": "دعم FreeSync + RGB"
         },
         tags: ["bestSelling", "new"],
-        availability: "comingSoon"
+        availability: "available"
       },
 
       {
@@ -2427,7 +2476,7 @@
         category: "قطع التجميعة",
         brand: "Lovingcool",
         price: 990,
-        oldPrice: null,
+        oldPrice: 1200,
         condition: "جديد",
         images: [
           'https://sc04.alicdn.com/kf/H545f8caf6ca741e9a9cda4002a7759e45.jpg',
@@ -2443,7 +2492,7 @@
           "التوافق": "جميع المعالجات الحديثة"
         },
         tags: ["new"],
-        availability: "comingSoon"
+        availability: "available"
       },
       {
         id: 33,
@@ -2531,17 +2580,16 @@
       },
       {
         id: 29,
-        name: "PlayStation 5 Standard Edition (Disc Version)",
+        name: "PlayStation 5 FAT Standard Edition (Disc Version)",
         category: "بلايستيشن",
         brand: "PlayStation",
-        price: 3000,
-        oldPrice: null,
+        price: 3699,
+        oldPrice: 3800,
         condition: "مستعمل",
         images: [
-          'https://assets2.cbsnewsstatic.com/hub/i/r/2020/06/11/ea2b6ee5-6955-42a5-bb76-bb775df093f1/thumbnail/1200x630/11b096d4ab612a908a4e054454eae910/playstation5-a.png',
-          'https://i.ytimg.com/vi/_-avpk2tS-w/oardefault.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLD0wybMTtJ9_2Dgz4ucFTYqJC2T-g.jpg'
+          'https://assets2.cbsnewsstatic.com/hub/i/r/2020/06/11/ea2b6ee5-6955-42a5-bb76-bb775df093f1/thumbnail/1200x630/11b096d4ab612a908a4e054454eae910/playstation5-a.png'
         ],
-        description: "جهاز PlayStation 5 Standard Edition (Disc Version) يوفر تجربة لعب استثنائية بدقة 4K و120 إطارًا في الثانية.",
+        description: "جهاز PlayStation 5 FAT Standard Edition (Disc Version) يوفر تجربة لعب استثنائية بدقة 4K و120 إطارًا في الثانية.",
         specs: {
           "المعالج": "AMD Zen 2",
           "التخزين": "825GB SSD",
@@ -2549,7 +2597,7 @@
           "الميزات": "Ray Tracing + 3D Audio"
         },
         tags: ["bestSelling"],
-        availability: "comingSoon"
+        availability: "available"
       },
       {
         id: 28,
@@ -2581,12 +2629,11 @@
         name: "PlayStation 5 Slim",
         category: "بلايستيشن",
         brand: "PlayStation",
-        price: 3000,
-        oldPrice: null,
+        price: 3699,
+        oldPrice: 3899s,
         condition: "مستعمل",
         images: [
-          'https://static-catalog.tiendamia.com/marketplace_manager_service/production/product_99c1ed6b_mirakl_image_2_large.jpg',
-          'https://i.ytimg.com/vi/_-avpk2tS-w/oardefault.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLD0wybMTtJ9_2Dgz4ucFTYqJC2T-g.jpg'
+          'https://static.independent.co.uk/2025/09/30/11/06/ps5-slim-deal.png'
         ],
         description: "جهاز PlayStation 5 Slim يأتي بتصميم أنحف وأخف من الإصدار السابق مع الحفاظ على نفس القوة والأداء العالي.",
         specs: {
@@ -2596,7 +2643,7 @@
           "التحكم": "DualSense Controller"
         },
         tags: ["new"],
-        availability: "comingSoon"
+        availability: "available"
       },
       {
         id: 26,
@@ -3150,19 +3197,19 @@
     ];
     
     const customDiscountedProducts = [
-      "AJAZZ NACODEX NK68",
-      "Combo Gigabyte B650M GAMING PLUS WIFI with TEAMGROUP T-Force DELTA White 16GB DDR5 6000MHz",
-      "Projector HY 300 Mini",
-      "LDON Mide 68 8000Hz Magnetic Switch"
-        ];
-    
-    const customComingSoonProducts = [
       "Lovingcool DP-360mm",
       "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6",
+      "PlayStation 5 Slim",
+      "PlayStation 5 FAT Standard Edition (Disc Version)"
+     ];
+    
+    const customComingSoonProducts = [
+      "Lovingcool Factory Gaming PC Case - Black",
+      "AMD Ryzen™ 5 5600X Desktop Processors",
       "Palit RTX 3070 GameRock OC 8GB GDDR6",
       "Smailwolf RS8"
 
-        ];
+      ];
 
     // ===== تهيئة التطبيق =====
     function initApp() {
