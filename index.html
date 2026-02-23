@@ -2249,7 +2249,7 @@
       <div class="cart-summary">
         <div class="cart-total">
           <span>المجموع:</span>
-          <span class="total-amount" id="cartTotal">0 د.ل</span>
+          <span class="total-amount" id="cartTotal">0 $</span>
         </div>
         <div class="cart-buttons">
           <button class="btn-modal btn-secondary" id="continueShoppingBtn">
@@ -2329,13 +2329,35 @@
     // ===== جميع المنتجات الأصلية =====
     const allProducts = [
 
-
-           {
+      {
+        id: 41,
+        name: "Razer Hanbo Chroma RGB AIO Liquid Cooler - 240mm",
+        category: "قطع التجميعة",
+        brand: "Razer",
+        price: 80,
+        oldPrice: null,
+        condition: "جديد",
+        images: [
+          'https://assets3.razerzone.com/RwuxIJuL2PGl97_3Phux9-3xaZE=/1920x1280/https%3A%2F%2Fmedias-p1.phoenix.razer.com%2Fsys-master-phoenix-images-container%2Fh9e%2Fh1f%2F9311159746590%2F220119-hanbo-aio-240-1500x1000-1.jpg',
+          "https://i0.wp.com/claremontcomputers.com/wp-content/uploads/2024/08/70eef546-c623-4854-8712-fbd65f0ef565.jpeg?fit=1440%2C1799&ssl=1.jpg",
+        ],
+        description: "مبرد مائي شامل بتصميم أنيق وإضاءة Chroma RGB، يوفر تبريدًا قويًا وهادئًا لمعالجات الألعاب العالية الأداء.",
+        specs: {
+          "السرعة": "N/A",
+          "الطاقة": "N/A",
+          "التوافق": "ATX, Micro-ATX, Mini-ITX",
+          "الميزات": "إضاءة RGB + تبريد فعال"
+        },
+        tags: ["bestSelling", "new"],
+        availability: "available"
+      },
+           
+      {
         id: 40,
         name: "Lovingcool Factory Gaming PC Case - Black",
         category: "قطع التجميعة",
         brand: "Lovingcool",
-        price: 450,
+        price: 45,
         oldPrice: null,
         condition: "جديد",
         images: [
@@ -2359,7 +2381,7 @@
         name: "AMD Ryzen™ 5 5600X Desktop Processors",
         category: "قطع التجميعة",
         brand: "AMD Ryzen",
-        price: 1400,
+        price: 140,
         oldPrice: null,
         condition: "جديد",
         images: [
@@ -2382,7 +2404,7 @@
         name: "Smailwolf RS8",
         category: "إكسسوارات",
         brand: "Smailwolf",
-        price: 230,
+        price: 28,
         oldPrice: null,
         condition: "جديد",
         images: [
@@ -2406,7 +2428,7 @@
         name: "Palit RTX 3070 GameRock OC 8GB GDDR6",
         category: "قطع التجميعة",
         brand: "Palit",
-        price: 2490,
+        price: 295,
         oldPrice: null,
         condition: "مستعمل",
         images: [
@@ -2429,8 +2451,8 @@
         name: "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6",
         category: "قطع التجميعة",
         brand: "ASUS",
-        price: 1450,
-        oldPrice: 1800,
+        price: 145,
+        oldPrice: 170,
         condition: "مستعمل",
         images: [
           'https://dlcdnimgs.asus.com/websites/global/products/utcn39mqdlxmh2r1/img/kv/product-kv_s.jpg',
@@ -2444,20 +2466,19 @@
           "الميزات": "دعم FreeSync + RGB"
         },
         tags: ["bestSelling", "new"],
-        availability: "available"
+        availability: "unavailable"
       },
 
       {
         id: 35,
         name: "Gigabyte B650M GAMING PLUS WIFI",
         category: "قطع التجميعة",
-        brand: "Combo",
-        price: 1480,
+        brand: "Gigabyte",
+        price: 148,
         oldPrice: null,
         condition: "جديد",
         images: [
-          'https://cdn.mos.cms.futurecdn.net/v2/t:0,l:0,cw:1479,ch:832,q:80,w:1479/J7pdHamQPPcRm5TzwJp5Ze.jpg',
-          'https://down-my.img.susercontent.com/file/my-11134208-7r98z-lxqjtn3aqu0gcf'
+          'https://prod.scorptec.com.au/19/1178/111162/328049_large.jpg',
       ],
         description: "لوحة Gigabyte B650M GAMING PLUS WIFI تقدّم أداءً قويًا لمعالجات AMD Ryzen مع دعم Wi-Fi مدمج وتصميم مخصص للألعاب بحجم mATX.",
         specs: {
@@ -2474,13 +2495,12 @@
         name: "Lovingcool DP-360mm",
         category: "قطع التجميعة",
         brand: "Lovingcool",
-        price: 1050,
-        oldPrice: 1200,
+        price: 105,
+        oldPrice: 150,
         condition: "جديد",
         images: [
           'https://sc04.alicdn.com/kf/H545f8caf6ca741e9a9cda4002a7759e45.jpg',
           'https://s.alicdn.com/@sc04/kf/Hb08a54fc6e5144c98029e12424729404b.jpg?avif=close&webp=close.jpg',
-          'https://ezonelb.com/wp-content/uploads/2025/12/91lzup.jpg',
           'https://ae01.alicdn.com/kf/Sa30a6da079094da98af017334f886d43Y.jpg'
         ],
         description: "مبرد Lovingcool 360mm ARGB بتبريد مائي قوي للمعالج مع شاشة عرض فيديو 4.0 بوصة قابلة للتخصيص، يوفر أداء تبريد عالي حتى 300W مع تشغيل هادئ وتصميم أنيق بإضاءة ARGB.",
@@ -2498,7 +2518,7 @@
         name: "Mouse Pad Ghost Operator",
         category: "إكسسوارات",
         brand: "Mouse Pad",
-        price: 65,
+        price: 6.5,
         oldPrice: null,
         condition: "جديد",
         images: [
@@ -2519,7 +2539,7 @@
         name: "Mouse Pad Urban Combat Force",
         category: "إكسسوارات",
         brand: "Mouse Pad",
-        price: 65,
+        price: 6.5,
         oldPrice: null,
         condition: "جديد",
         images: [
@@ -2540,7 +2560,7 @@
         name: "Mouse Pad Miyamoto Musashi from Vagabond",
         category: "إكسسوارات",
         brand: "Mouse Pad",
-        price: 65,
+        price: 6.5,
         oldPrice: null,
         condition: "جديد",
         images: [
@@ -2561,7 +2581,7 @@
         name: "Mouse Pad KATANA BLACK",
         category: "إكسسوارات",
         brand: "Mouse Pad",
-        price: 65,
+        price: 6.5,
         oldPrice: null,
         condition: "جديد",
         images: [
@@ -2582,8 +2602,8 @@
         name: "PlayStation 5 FAT Standard Edition (Disc Version)",
         category: "بلايستيشن",
         brand: "PlayStation",
-        price: 3699,
-        oldPrice: 3800,
+        price: 400,
+        oldPrice: 450,
         condition: "مستعمل",
         images: [
           'https://assets2.cbsnewsstatic.com/hub/i/r/2020/06/11/ea2b6ee5-6955-42a5-bb76-bb775df093f1/thumbnail/1200x630/11b096d4ab612a908a4e054454eae910/playstation5-a.png'
@@ -2603,8 +2623,8 @@
         name: "AJAZZ NACODEX NK68",
         category: "إكسسوارات",
         brand: "AJAZZ",
-        price: 350,
-        oldPrice: 430,
+        price: 40,
+        oldPrice: 50,
         condition: "جديد",
         images: [
           'https://imgur.com/kNnMbAr.jpg',
@@ -2628,8 +2648,8 @@
         name: "PlayStation 5 Slim",
         category: "بلايستيشن",
         brand: "PlayStation",
-        price: 3950,
-        oldPrice: 4100,
+        price: 400,
+        oldPrice: 450,
         condition: "مستعمل",
         images: [
           'https://static.independent.co.uk/2025/09/30/11/06/ps5-slim-deal.png'
@@ -2649,8 +2669,8 @@
         name: "Projector HY 300 Pro",
         category: "إكسسوارات",
         brand: "Projector",
-        price: 410,
-        oldPrice: 490,
+        price: 38,
+        oldPrice: 40,
         condition: "جديد",
         images: [
           'https://static-01.daraz.lk/p/0efbfad3101d41aa08ad4e98cfeac2e1.jpg',
@@ -2671,11 +2691,11 @@
         name: "Projector HY 300 Mini",
         category: "إكسسوارات",
         brand: "Projector",
-        price: 370,
-        oldPrice: 490,
+        price: 37,
+        oldPrice: 40,
         condition: "جديد",
         images: [
-          'https://i.ytimg.com/vi/xo-7MJqnRtc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAdfm85iSCDT2GphLsYNYxAK3TN2w.jpg',
+          'https://chinaplanet.sk/wp-content/uploads/2025/09/Magcubic-Hy300-new-cover.jpg',
           'https://5.imimg.com/data5/SELLER/Default/2024/9/451115115/JW/KG/CY/46517936/hy-300-pro-mini-projector-for-home-portable-hd-android-12-short-4k-1080p-500x500.jpg'
         ],
         description: "بروجكتر ذكي مزوّد بنظام Android 12 يقدم تجربة مشاهدة سلسة بدقة فيزيائية 720P مع دعم تشغيل محتوى يصل إلى 4K.",
@@ -2693,8 +2713,8 @@
         name: "LDON Mide 68 8000Hz Magnetic Switch",
         category: "إكسسوارات",
         brand: "LDON",
-        price: 350,
-        oldPrice: 399,
+        price: 40,
+        oldPrice: 50,
         condition: "جديد",
         images: [
           'https://sc04.alicdn.com/kf/Hf663101fc1b44d1d800ba3d8b84e3c2es/279883721/Hf663101fc1b44d1d800ba3d8b84e3c2es.jpg',
@@ -2715,8 +2735,8 @@
         name: "LOGITECH G413 SE MECHANICAL",
         category: "إكسسوارات",
         brand: "LOGITECH",
-        price: 350,
-        oldPrice: 399,
+        price: 45,
+        oldPrice: 55,
         condition: "جديد",
         images: [
           'https://ecommerce.datablitz.com.ph/cdn/shop/products/710m45UA-RL._AC_SL1500_800x.jpg?v=1679964052.jpg',
@@ -2737,8 +2757,8 @@
         name: "FZ - 200 NZXT",
         category: "قطع التجميعة",
         brand: "NZXT",
-        price: 40,
-        oldPrice: 55,
+        price: 4,
+        oldPrice: 7,
         condition: "جديد",
         images: [
           'https://www.bhphotovideo.com/images/fb/nzxt_rf_fz20s_u1_fz_200mm_high_airflow_fan_1165554.jpg',
@@ -2759,7 +2779,7 @@
         name: "Gigabyte M27Q EK",
         category: "شاشات",
         brand: "Gigabyte",
-        price: 1800,
+        price: 180,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2781,7 +2801,7 @@
         name: "MSI G255F",
         category: "شاشات",
         brand: "MSI",
-        price: 1075,
+        price: 107.5,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2803,7 +2823,7 @@
         name: "MSI MAG 32C6X",
         category: "شاشات",
         brand: "MSI",
-        price: 1600,
+        price: 160,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2825,7 +2845,7 @@
         name: "LG 27″ UltraGear 27GS75Q-B",
         category: "شاشات",
         brand: "LG",
-        price: 2200,
+        price: 220,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2847,7 +2867,7 @@
         name: "ASUS ROG Strix XG27UCS",
         category: "شاشات",
         brand: "ASUS",
-        price: 2450,
+        price: 245,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2869,7 +2889,7 @@
         name: "Lenovo Legion R271",
         category: "شاشات",
         brand: "Lenovo",
-        price: 1025,
+        price: 102.5,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2891,7 +2911,7 @@
         name: "ASUS ROG Strix XG27ACS",
         category: "شاشات",
         brand: "ASUS",
-        price: 2250,
+        price: 225,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2913,7 +2933,7 @@
         name: "ACER Nitro VGO 27",
         category: "شاشات",
         brand: "Acer",
-        price: 999,
+        price: 99.9,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2935,7 +2955,7 @@
         name: "HP OMEN 24",
         category: "شاشات",
         brand: "HP",
-        price: 950,
+        price: 95,
         oldPrice: null,
         condition: "علبة مفتوحة",
         images: [
@@ -2957,8 +2977,8 @@
         name: "ASUS TUF B850M-E WIFI",
         category: "قطع التجميعة",
         brand: "ASUS",
-        price: 1550,
-        oldPrice: 1950,
+        price: 170,
+        oldPrice: 190,
         condition: "جديد",
         images: [
           'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
@@ -2979,8 +2999,8 @@
         name: "ASUS TUF B850M-E WIFI",
         category: "قطع التجميعة",
         brand: "ASUS",
-        price: 1550,
-        oldPrice: 1950,
+        price: 155,
+        oldPrice: 220,
         condition: "جديد",
         images: [
           'https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp',
@@ -3001,8 +3021,8 @@
         name: "ASUS ROG Strix 1000W 80+ Platinum",
         category: "قطع التجميعة",
         brand: "ASUS",
-        price: 1600,
-        oldPrice: 1900,
+        price: 160,
+        oldPrice: 190,
         condition: "جديد",
         images: [
           'https://rog.asus.com/media/1723518683990.jpg',
@@ -3023,8 +3043,8 @@
         name: "ASUS ROG Strix Z790-E",
         category: "قطع التجميعة",
         brand: "ASUS",
-        price: 2000,
-        oldPrice: 2400,
+        price: 200,
+        oldPrice: 230,
         condition: "جديد",
         images: [
           'https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg',
@@ -3045,7 +3065,7 @@
         name: "Crucial T705 2TB NVMe Gen5 SSD",
         category: "قطع التجميعة",
         brand: "Crucial",
-        price: 1200,
+        price: 120,
         oldPrice: 1500,
         condition: "جديد",
         images: [
@@ -3067,8 +3087,8 @@
         name: "Corsair Vengeance 32GB DDR5 6000MHz",
         category: "قطع التجميعة",
         brand: "Corsair",
-        price: 1600,
-        oldPrice: 2000,
+        price: 160,
+        oldPrice: 280,
         condition: "علبة مفتوحة",
         images: [
           'https://gamers.ge/wp-content/uploads/2023/08/Corsair-VENGEANCE-RGB-DDR5-16x2-6000MHz-white.jpg',
@@ -3089,8 +3109,8 @@
         name: "Ryzen 9 7950X",
         category: "قطع التجميعة",
         brand: "AMD",
-        price: 4000,
-        oldPrice: 4600,
+        price: 400,
+        oldPrice: 460,
         condition: "جديد",
         images: [
           'https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x-og.jpg',
@@ -3111,8 +3131,8 @@
         name: "RTX 3070 Ti",
         category: "قطع التجميعة",
         brand: "NVIDIA",
-        price: 2500,
-        oldPrice: 2800,
+        price: 300,
+        oldPrice: 350,
         condition: "جديد",
         images: [
           'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/ZOTAC_Gaming_GeForce_RTX_3080_Ti_cards_unveiled_early_June_2021.jpg',
@@ -3154,12 +3174,12 @@
     // ===== صور الشريط السفلي =====
     const bottomBarImages = [
       "https://m.media-amazon.com/images/I/71JsBdZyphL._AC_UF1000,1000_QL80_.jpg",
-      "https://sc01.alicdn.com/kf/H10b8c756d3ce496db99160bab7603e76A.jpg",
+      "https://www.ixbt.com/img/x780x600/r30/00/02/39/05/light2.jpg",
       "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/06/the-melgeek-made68-next-to-usb-c-cable-box-and-spare-keycaps.jpg",
       "https://m.media-amazon.com/images/I/714OqczlCgL.jpg?aicid=community-reviews.desktop.in-app-desktop-community-reviews.image.1cf63f2b-6d3e-4f5e-8f6e-3f3f6e1e1e1e._QL100_.jpg",
-      "https://ugc-user-content.pccomponentes.com/IMG_6488a1c0438a2_20230613170504276640.jpeg",
+      "https://i0.wp.com/claremontcomputers.com/wp-content/uploads/2024/08/70eef546-c623-4854-8712-fbd65f0ef565.jpeg?fit=1440%2C1799&ssl=1.jpg",
       "https://images.everyeye.it/img-articoli/rog-strix-xg27ucs-recensione-gaming-4k-160-hz-giusto-prezzo-v7-63846.jpg",
-      "https://mybroadband.co.za/news/wp-content/uploads/2024/10/Monitor1_6-4.jpg",
+      "https://i0.wp.com/claremontcomputers.com/wp-content/uploads/2024/08/70eef546-c623-4854-8712-fbd65f0ef565.jpeg?fit=1440%2C1799&ssl=1.jpg",
       "https://www.gdm.or.jp/wp-content/uploads/2024/08/19/msi_mag_32c6x_62-620x466.jpg",
       "https://i.ytimg.com/vi/TkWilXnaUd8/maxresdefault.jpg",
       "https://www.techspot.com/images/products/2024/monitors/org/2025-05-13-product-5.jpg",
@@ -3170,7 +3190,6 @@
       "https://www.jumbo-computer.com/cdn/shop/files/TUF_GAMING_B850M-PLUS_WIFI_600x600_03_600x.jpg?v=1736864462",
       "https://cdn.mwave.com.au/images/400/asus_rog_strix_1000w_80_platinum_fully_modular_power_supply_white_ac82582_9537.jpg",
       "https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg",
-      "https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg",
       "https://static.tweaktown.com/content/1/0/10340_888_corsair-vengeance-rgb-ddr5-6000-32gb-dual-channel-memory-kit-review_full.jpg",
       "https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg"
     ];
@@ -3197,9 +3216,9 @@
     
     const customDiscountedProducts = [
       "Lovingcool DP-360mm",
-      "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6",
       "PlayStation 5 Slim",
-      "PlayStation 5 FAT Standard Edition (Disc Version)"
+      "Razer Hanbo Chroma RGB AIO Liquid Cooler - 240mm",
+      "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6"
      ];
     
     const customComingSoonProducts = [
@@ -3632,7 +3651,7 @@
             <p>أضف بعض المنتجات إلى سلة التسوق لرؤيتها هنا</p>
           </div>
         `;
-        cartTotal.textContent = '0 د.ل';
+        cartTotal.textContent = '0 $';
         return;
       }
       
@@ -4055,7 +4074,7 @@
 
     // ===== دوال مساعدة =====
     function formatPrice(price) {
-      return `${price.toLocaleString('ar-LY')} د.ل`;
+      return `${price.toLocaleString('ar-LY')}$`;
     }
 
     function calculateDiscount(currentPrice, oldPrice) {
