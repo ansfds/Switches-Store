@@ -1974,7 +1974,7 @@
             <i class="fas fa-shield-alt"></i>
           </div>
           <h3 class="feature-title">ضمان شامل</h3>
-          <p class="feature-description">ضمان على جميع المنتجات لمدة تصل إلى سنتين</p>
+          <p class="feature-description">ضمان على جميع المنتجات</p>
         </div>
         
         <div class="feature-card">
@@ -1990,7 +1990,7 @@
             <i class="fas fa-undo"></i>
           </div>
           <h3 class="feature-title">إرجاع سهل</h3>
-          <p class="feature-description">سياسة إرجاع وإستبدال لمدة 14 يوم</p>
+          <p class="feature-description">سياسة إرجاع وإستبدال أي منتج في حالة عدم مطابقته للوصف</p>
         </div>
       </section>
 
@@ -4342,6 +4342,226 @@
     window.showAllProducts = showAllProducts;
     window.showMainPage = showMainPage;
     window.scrollBottomBar = scrollBottomBar;
+    // ============================================================
+// تعديل نظام عرض المنتجات ليعمل ديناميكياً حسب حالة availability
+// ============================================================
+
+// ================== استبدال دالة loadProducts ==================
+function loadProducts() {
+    // تصفية المنتجات حسب حالة التوفر
+    const availableProducts = sortedProducts.filter(p => p.availability === 'available');
+    const comingSoonProducts = sortedProducts.filter(p => p.availability === 'comingSoon');
+    const unavailableProducts = sortedProducts.filter(p => p.availability === 'unavailable');
+
+    // دالة مساعدة لعرض المنتجات في أي grid
+    function renderDynamicGrid(gridId, products) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        if (products.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:50px;color:var(--text-tertiary)"><i class="fas fa-box-open" style="font-size:3rem"></i><h3>لا توجد منتجات</h3></div>`;
+            return;
+        }
+        const productsToShow = products.slice(0, 4);
+        grid.innerHTML = productsToShow.map(product => `
+            <div class="product-card" data-id="${product.id}">
+                <div class="product-badges-container">
+                    ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
+                    ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
+                    ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
+                    ${!product.oldPrice && product.availability === 'available' ? `<div class="product-badge badge-new">جديد</div>` : ''}
+                </div>
+                <div class="product-image-container"><img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy"></div>
+                <div class="product-content">
+                    <h3 class="product-title">${product.name}</h3>
+                    <div class="product-meta"><span class="product-brand">${product.brand}</span><span class="product-condition condition-${product.condition.replace(' ', '-')}">${product.condition}</span></div>
+                    <div class="product-price"><span class="current-price">${formatPrice(product.price)}</span>${product.oldPrice ? `<span class="old-price">${formatPrice(product.oldPrice)}</span><span class="discount-percent">-${calculateDiscount(product.price, product.oldPrice)}%</span>` : ''}</div>
+                    <div class="product-actions"><button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})" ${product.availability !== 'available' ? 'disabled' : ''}><i class="fas fa-cart-plus"></i>${product.availability === 'available' ? 'أضف إلى السلة' : (product.availability === 'comingSoon' ? 'قريباً' : 'غير متوفر')}</button></div>
+                </div>
+            </div>
+        `).join('');
+        // إضافة حدث النقر لفتح المودال
+        document.querySelectorAll(`#${gridId} .product-card`).forEach(card => {
+            card.removeEventListener('click', card._clickHandler);
+            card._clickHandler = () => showProductModal(parseInt(card.dataset.id));
+            card.addEventListener('click', card._clickHandler);
+        });
+    }
+
+    // عرض الأقسام الثلاثة
+    renderDynamicGrid('bestSellingProducts', availableProducts);
+    renderDynamicGrid('comingSoonProducts', comingSoonProducts);
+    renderDynamicGrid('discountedProducts', unavailableProducts);
+
+    // تحديث أزرار "عرض المزيد" لتمرير الحالة الصحيحة
+    const showMoreBtns = document.querySelectorAll('.btn-show-more');
+    if (showMoreBtns.length >= 3) {
+        showMoreBtns[0].setAttribute('onclick', "showAllProducts('available')");
+        showMoreBtns[1].setAttribute('onclick', "showAllProducts('comingSoon')");
+        showMoreBtns[2].setAttribute('onclick', "showAllProducts('unavailable')");
+    }
+}
+
+function showAllProducts() {
+    // إخفاء الصفحة الرئيسية
+    document.querySelector('.main-content').style.display = 'none';
+    document.getElementById('allProductsPage').classList.add('active');
+
+    // ترتيب جميع المنتجات حسب الأولوية: available → comingSoon → unavailable
+    const allProductsSorted = [...sortedProducts].sort((a, b) => {
+        const order = { "available": 1, "comingSoon": 2, "unavailable": 3 };
+        return (order[a.availability] || 3) - (order[b.availability] || 3);
+    });
+
+    document.getElementById('allProductsTitle').textContent = 'جميع المنتجات (مرتبة حسب التوفر)';
+    renderAllProductsGrid(allProductsSorted);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+function renderAllProductsGrid(products) {
+    const grid = document.getElementById('allProductsGrid');
+    if (!grid) return;
+    if (products.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:50px;color:var(--text-tertiary)"><i class="fas fa-box-open" style="font-size:3rem"></i><h3>لا توجد منتجات</h3></div>`;
+        return;
+    }
+    grid.innerHTML = products.map(product => `
+        <div class="product-card" data-id="${product.id}">
+            <div class="product-badges-container">
+                ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
+                ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
+                ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
+                ${!product.oldPrice && product.availability === 'available' ? `<div class="product-badge badge-new">جديد</div>` : ''}
+            </div>
+            <div class="product-image-container"><img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy"></div>
+            <div class="product-content">
+                <h3 class="product-title">${product.name}</h3>
+                <div class="product-meta"><span class="product-brand">${product.brand}</span><span class="product-condition condition-${product.condition.replace(' ', '-')}">${product.condition}</span></div>
+                <div class="product-price"><span class="current-price">${formatPrice(product.price)}</span>${product.oldPrice ? `<span class="old-price">${formatPrice(product.oldPrice)}</span><span class="discount-percent">-${calculateDiscount(product.price, product.oldPrice)}%</span>` : ''}</div>
+                <div class="product-actions"><button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})" ${product.availability !== 'available' ? 'disabled' : ''}><i class="fas fa-cart-plus"></i>${product.availability === 'available' ? 'أضف إلى السلة' : (product.availability === 'comingSoon' ? 'قريباً' : 'غير متوفر')}</button></div>
+            </div>
+        </div>
+    `).join('');
+
+    document.querySelectorAll('#allProductsGrid .product-card').forEach(card => {
+        card.removeEventListener('click', card._clickHandler);
+        card._clickHandler = () => showProductModal(parseInt(card.dataset.id));
+        card.addEventListener('click', card._clickHandler);
+    });
+}
+
+// ================== دالة مساعدة لعرض شبكة المنتجات في صفحة "جميع المنتجات" ==================
+function renderAllProductsGrid(products) {
+    const grid = document.getElementById('allProductsGrid');
+    if (!grid) return;
+    if (products.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:50px;color:var(--text-tertiary)"><i class="fas fa-box-open" style="font-size:3rem"></i><h3>لا توجد منتجات</h3></div>`;
+        return;
+    }
+    grid.innerHTML = products.map(product => `
+        <div class="product-card" data-id="${product.id}">
+            <div class="product-badges-container">
+                ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
+                ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
+                ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
+                ${!product.oldPrice && product.availability === 'available' ? `<div class="product-badge badge-new">جديد</div>` : ''}
+            </div>
+            <div class="product-image-container"><img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy"></div>
+            <div class="product-content">
+                <h3 class="product-title">${product.name}</h3>
+                <div class="product-meta"><span class="product-brand">${product.brand}</span><span class="product-condition condition-${product.condition.replace(' ', '-')}">${product.condition}</span></div>
+                <div class="product-price"><span class="current-price">${formatPrice(product.price)}</span>${product.oldPrice ? `<span class="old-price">${formatPrice(product.oldPrice)}</span><span class="discount-percent">-${calculateDiscount(product.price, product.oldPrice)}%</span>` : ''}</div>
+                <div class="product-actions"><button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})" ${product.availability !== 'available' ? 'disabled' : ''}><i class="fas fa-cart-plus"></i>${product.availability === 'available' ? 'أضف إلى السلة' : (product.availability === 'comingSoon' ? 'قريباً' : 'غير متوفر')}</button></div>
+            </div>
+        </div>
+    `).join('');
+
+    document.querySelectorAll('#allProductsGrid .product-card').forEach(card => {
+        card.removeEventListener('click', card._clickHandler);
+        card._clickHandler = () => showProductModal(parseInt(card.dataset.id));
+        card.addEventListener('click', card._clickHandler);
+    });
+}
+
+// ================== استبدال دالة renderAllProducts (لن يتم استخدامها لكن للتجنب) ==================
+function renderAllProducts() {
+    // تم استبدالها بـ renderAllProductsGrid
+}
+
+function filterAllProducts() {
+    const searchTerm = document.getElementById('allProductsSearchInput').value.toLowerCase();
+    const category = document.getElementById('allProductsCategoryFilter').value;
+    const brand = document.getElementById('allProductsBrandFilter').value;
+    const condition = document.getElementById('allProductsConditionFilter').value;
+
+    let filtered = sortedProducts; // نبدأ من المصفوفة الأصلية المرتبة حسب الأولوية
+
+    if (searchTerm) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm) || p.brand.toLowerCase().includes(searchTerm));
+    }
+    if (category) filtered = filtered.filter(p => p.category === category);
+    if (brand) filtered = filtered.filter(p => p.brand === brand);
+    if (condition) filtered = filtered.filter(p => p.condition === condition);
+
+    // إعادة ترتيب النتائج حسب الأولوية: available → comingSoon → unavailable
+    const order = { "available": 1, "comingSoon": 2, "unavailable": 3 };
+    filtered.sort((a, b) => (order[a.availability] || 3) - (order[b.availability] || 3));
+
+    renderAllProductsGrid(filtered);
+}
+
+function loadProducts() {
+    // تصفية المنتجات حسب حالة التوفر
+    const availableProducts = sortedProducts.filter(p => p.availability === 'available');
+    const comingSoonProducts = sortedProducts.filter(p => p.availability === 'comingSoon');
+    const unavailableProducts = sortedProducts.filter(p => p.availability === 'unavailable');
+
+    // دالة مساعدة لعرض المنتجات في أي grid
+    function renderGrid(gridId, products) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        if (products.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:50px;color:var(--text-tertiary)"><i class="fas fa-box-open" style="font-size:3rem"></i><h3>لا توجد منتجات</h3></div>`;
+            return;
+        }
+        const productsToShow = products.slice(0, 4);
+        grid.innerHTML = productsToShow.map(product => `
+            <div class="product-card" data-id="${product.id}">
+                <div class="product-badges-container">
+                    ${product.oldPrice ? `<div class="product-badge badge-discount">خصم ${calculateDiscount(product.price, product.oldPrice)}%</div>` : ''}
+                    ${product.availability === 'comingSoon' ? `<div class="product-badge badge-soon">قريباً</div>` : ''}
+                    ${product.availability === 'unavailable' ? `<div class="product-badge badge-unavailable">غير متوفر</div>` : ''}
+                    ${!product.oldPrice && product.availability === 'available' ? `<div class="product-badge badge-new">جديد</div>` : ''}
+                </div>
+                <div class="product-image-container"><img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy"></div>
+                <div class="product-content">
+                    <h3 class="product-title">${product.name}</h3>
+                    <div class="product-meta"><span class="product-brand">${product.brand}</span><span class="product-condition condition-${product.condition.replace(' ', '-')}">${product.condition}</span></div>
+                    <div class="product-price"><span class="current-price">${formatPrice(product.price)}</span>${product.oldPrice ? `<span class="old-price">${formatPrice(product.oldPrice)}</span><span class="discount-percent">-${calculateDiscount(product.price, product.oldPrice)}%</span>` : ''}</div>
+                    <div class="product-actions"><button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})" ${product.availability !== 'available' ? 'disabled' : ''}><i class="fas fa-cart-plus"></i>${product.availability === 'available' ? 'أضف إلى السلة' : (product.availability === 'comingSoon' ? 'قريباً' : 'غير متوفر')}</button></div>
+                </div>
+            </div>
+        `).join('');
+
+        // إضافة حدث النقر على البطاقة لفتح المودال
+        document.querySelectorAll(`#${gridId} .product-card`).forEach(card => {
+            card.removeEventListener('click', card._clickHandler);
+            card._clickHandler = () => showProductModal(parseInt(card.dataset.id));
+            card.addEventListener('click', card._clickHandler);
+        });
+    }
+
+    // عرض الأقسام الثلاثة
+    renderGrid('bestSellingProducts', availableProducts);
+    renderGrid('comingSoonProducts', comingSoonProducts);
+    renderGrid('discountedProducts', unavailableProducts);
+
+    // تحديث أزرار "عرض المزيد" - الآن كل الأزرار تعرض جميع المنتجات المرتبة
+    const allShowMoreBtns = document.querySelectorAll('.btn-show-more');
+    allShowMoreBtns.forEach(btn => {
+        btn.setAttribute('onclick', "showAllProducts()");
+    });
+}
   </script>
 </body>
 </html>
