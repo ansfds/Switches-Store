@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
@@ -1178,11 +1178,11 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      transition: transform var(--transition-normal);
+      transition: color var(--transition-normal);
     }
     
     .social-link:hover {
-      transform: translateY(-5px);
+      transform: none;
     }
     
     .social-icon {
@@ -1195,15 +1195,51 @@
       font-size: 1.8rem;
       margin-bottom: 10px;
       color: white;
-      transition: transform var(--transition-normal);
+      position: relative;
+      isolation: isolate;
+      transition: box-shadow var(--transition-normal);
     }
     
     .social-link:hover .social-icon {
-      transform: scale(1.1);
+      transform: none;
     }
     
-    .social-icon.facebook { background: #1877f2; }
-    .social-icon.whatsapp { background: #25d366; }
+    .social-icon.facebook {
+      --social-wave-color: rgba(24, 119, 242, 0.32);
+      background: #1877f2;
+    }
+
+    .social-icon.whatsapp {
+      --social-wave-color: rgba(37, 211, 102, 0.32);
+      background: #25d366;
+    }
+
+    .social-icon.facebook::before,
+    .social-icon.facebook::after,
+    .social-icon.whatsapp::before,
+    .social-icon.whatsapp::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border: 2px solid var(--social-wave-color);
+      border-radius: inherit;
+      opacity: 0;
+      transform: scale(0.95);
+      z-index: -1;
+      animation: socialWave 2.8s ease-out infinite;
+      pointer-events: none;
+    }
+
+    .social-icon.facebook::after,
+    .social-icon.whatsapp::after {
+      animation-delay: 1.4s;
+    }
+
+    .social-icon i {
+      position: relative;
+      z-index: 1;
+    }
+
     .social-icon.instagram { 
       background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
     }
@@ -1274,6 +1310,85 @@
       overflow-y: auto;
       position: relative;
       animation: slideUp 0.4s ease;
+    }
+
+    .promo-popup {
+      position: fixed;
+      inset: 0;
+      z-index: 2600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(16px, 4vw, 42px);
+      background: rgba(2, 6, 23, 0.62);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    .promo-popup[hidden] {
+      display: none;
+    }
+
+    .promo-popup.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .promo-popup-dialog {
+      position: relative;
+      width: auto;
+      max-width: min(92vw, 720px);
+      max-height: min(82vh, 760px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
+      transform: translateY(14px) scale(0.96);
+      transition: transform 0.28s ease, opacity 0.28s ease;
+    }
+
+    .promo-popup.active .promo-popup-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+    .promo-popup-image {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      max-height: min(78vh, 720px);
+      object-fit: contain;
+      border-radius: var(--radius-lg);
+      background: var(--bg-primary);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .promo-popup-close {
+      position: absolute;
+      top: -14px;
+      left: -14px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 1.55rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .promo-popup-close:hover {
+      background: var(--primary-color);
+      color: #fff;
+      transform: rotate(90deg);
     }
     
     @keyframes slideUp {
@@ -1605,13 +1720,43 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.4rem;
+      gap: 16px;
+      font-size: 1rem;
       font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+    }
+
+    .cart-total > span:first-child,
+    .order-summary-row > span:first-child {
+      min-width: 0;
+      line-height: 1.5;
+    }
+
+    .cart-discount-row {
+      color: var(--success-color);
+    }
+
+    .cart-discount-row[hidden] {
+      display: none;
+    }
+
+    .cart-final-row {
+      margin-top: 8px;
       margin-bottom: 25px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+      font-size: 1.35rem;
+      color: var(--text-primary);
     }
     
     .total-amount {
       color: var(--primary-color);
+      white-space: nowrap;
+    }
+
+    .cart-discount-row .total-amount {
+      color: var(--success-color);
     }
     
     .cart-buttons {
@@ -1637,6 +1782,47 @@
       text-align: center;
       color: var(--text-secondary);
       margin-bottom: 30px;
+    }
+
+    .order-summary {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 18px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+    }
+
+    .order-summary:empty {
+      display: none;
+    }
+
+    .order-summary-title {
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .order-summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--text-secondary);
+      font-weight: 650;
+    }
+
+    .order-summary-discount {
+      color: var(--success-color);
+    }
+
+    .order-summary-final {
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-size: 1.08rem;
+      font-weight: 800;
     }
     
     .order-form {
@@ -2218,14 +2404,16 @@
       text-decoration: none;
       box-shadow: 0 16px 35px rgba(17, 24, 39, 0.2);
       isolation: isolate;
-      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+      transition: box-shadow var(--transition-normal);
     }
 
     .floating-social.whatsapp {
+      --social-wave-color: rgba(37, 211, 102, 0.32);
       background: linear-gradient(135deg, #25d366, #128c7e);
     }
 
     .floating-social.facebook {
+      --social-wave-color: rgba(24, 119, 242, 0.32);
       background: #1877f2;
     }
 
@@ -2233,35 +2421,41 @@
     .floating-social::after {
       content: '';
       position: absolute;
-      inset: -7px;
+      inset: -2px;
       border-radius: inherit;
-      background: currentColor;
-      opacity: 0.22;
+      border: 2px solid var(--social-wave-color);
+      opacity: 0;
+      transform: scale(0.95);
       z-index: -1;
-      animation: whatsappGlow 2s ease-out infinite;
+      animation: socialWave 2.8s ease-out infinite;
+      pointer-events: none;
     }
 
     .floating-social::after {
-      animation-delay: 1s;
+      animation-delay: 1.4s;
     }
 
     .floating-social i {
+      position: relative;
+      z-index: 1;
       font-size: 2rem;
       line-height: 1;
     }
 
     .floating-social:hover {
-      transform: translateY(-4px) scale(1.04);
       box-shadow: 0 20px 42px rgba(109, 40, 217, 0.28);
     }
 
-    @keyframes whatsappGlow {
+    @keyframes socialWave {
       0% {
-        transform: scale(0.82);
-        opacity: 0.75;
+        transform: scale(0.95);
+        opacity: 0;
       }
-      70%, 100% {
-        transform: scale(1.35);
+      18% {
+        opacity: 0.32;
+      }
+      100% {
+        transform: scale(1.72);
         opacity: 0;
       }
     }
@@ -2744,6 +2938,28 @@
         max-height: calc(100vh - 20px - env(safe-area-inset-top));
         overflow-y: auto;
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      .promo-popup {
+        padding: 18px;
+      }
+
+      .promo-popup-dialog {
+        max-width: 92vw;
+        max-height: 74vh;
+      }
+
+      .promo-popup-image {
+        max-height: 72vh;
+        border-radius: var(--radius-md);
+      }
+
+      .promo-popup-close {
+        top: -10px;
+        left: -10px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.35rem;
       }
 
       .product-modal-content,
@@ -3240,6 +3456,13 @@
     </a>
   </div>
 
+  <div class="promo-popup" id="promoPopup" aria-hidden="true" hidden>
+    <div class="promo-popup-dialog" role="dialog" aria-modal="true" aria-label="إعلان">
+      <button class="promo-popup-close" id="closePromoPopup" type="button" aria-label="إغلاق الإعلان">&times;</button>
+      <img class="promo-popup-image" id="promoPopupImage" src="" alt="إعلان Switches">
+    </div>
+  </div>
+
   <!-- المودالات -->
   
   <!-- مودال المنتج -->
@@ -3262,7 +3485,15 @@
       </div>
       <div class="cart-summary">
         <div class="cart-total">
-          <span>المجموع:</span>
+          <span>المجموع الفرعي:</span>
+          <span class="total-amount" id="cartSubtotal">0 $</span>
+        </div>
+        <div class="cart-total cart-discount-row" id="cartDiscountRow" hidden>
+          <span>خصم شراء قطعتين أو أكثر (10%):</span>
+          <span class="total-amount" id="cartDiscount">-0 $</span>
+        </div>
+        <div class="cart-total cart-final-row">
+          <span>الإجمالي النهائي:</span>
           <span class="total-amount" id="cartTotal">0 $</span>
         </div>
         <div class="cart-buttons">
@@ -3285,6 +3516,7 @@
       <button class="modal-close" id="closeOrderModal">&times;</button>
       <h2 class="order-title">إتمام الطلب</h2>
       <p class="order-description">يرجى ملء البيانات التالية لإتمام عملية الشراء</p>
+      <div class="order-summary" id="orderSummary"></div>
       
       <form class="order-form" id="orderForm">
         <div class="form-group">
@@ -4914,6 +5146,10 @@ specs: {
     let currentProductModalImage = {};
     let selectedModalColors = {};
     let swiperInstance = null;
+
+    const POPUP_IMAGE_URL = 'https://i.postimg.cc/26sT42KJ/92347da3-51f4-47df-9c1b-2725fed110be.png';
+    const CART_DISCOUNT_MIN_QUANTITY = 2;
+    const CART_DISCOUNT_RATE = 0.10;
     
     // ===== نظام تحديد عدد الطلبات =====
     let orderLimitData = JSON.parse(localStorage.getItem('orderLimitData')) || {
@@ -5015,6 +5251,8 @@ specs: {
       
       // إضافة مستمعي الأحداث
       setupEventListeners();
+
+      initPromoPopup();
       
       // تهيئة EmailJS
       emailjs.init("oC5f4LnSO9Gazmn5A");
@@ -5332,6 +5570,114 @@ specs: {
       }
     }
 
+    function getCartTotals() {
+      const totals = cart.reduce((summary, item) => {
+        const quantity = Math.max(0, Number(item.quantity) || 0);
+        const price = Number(item.price) || 0;
+
+        summary.totalQuantity += quantity;
+        summary.subtotal += price * quantity;
+        return summary;
+      }, {
+        subtotal: 0,
+        totalQuantity: 0
+      });
+
+      const hasDiscount = totals.totalQuantity >= CART_DISCOUNT_MIN_QUANTITY;
+      const discount = hasDiscount ? roundCurrency(totals.subtotal * CART_DISCOUNT_RATE) : 0;
+      const total = roundCurrency(totals.subtotal - discount);
+
+      return {
+        subtotal: totals.subtotal,
+        totalQuantity: totals.totalQuantity,
+        discount,
+        total,
+        hasDiscount
+      };
+    }
+
+    function updateCartSummaryDisplay(totals = getCartTotals()) {
+      const cartSubtotal = document.getElementById('cartSubtotal');
+      const cartDiscountRow = document.getElementById('cartDiscountRow');
+      const cartDiscount = document.getElementById('cartDiscount');
+      const cartTotal = document.getElementById('cartTotal');
+
+      if (cartSubtotal) {
+        cartSubtotal.textContent = formatPrice(totals.subtotal);
+      }
+
+      if (cartDiscountRow) {
+        cartDiscountRow.hidden = !totals.hasDiscount;
+      }
+
+      if (cartDiscount) {
+        cartDiscount.textContent = `-${formatPrice(totals.discount)}`;
+      }
+
+      if (cartTotal) {
+        cartTotal.textContent = formatPrice(totals.total);
+      }
+    }
+
+    function renderOrderSummary() {
+      const orderSummary = document.getElementById('orderSummary');
+      if (!orderSummary) return;
+
+      if (cart.length === 0) {
+        orderSummary.innerHTML = '';
+        return;
+      }
+
+      const totals = getCartTotals();
+      orderSummary.innerHTML = `
+        <div class="order-summary-title">ملخص الطلب</div>
+        <div class="order-summary-row">
+          <span>المجموع الفرعي:</span>
+          <strong>${formatPrice(totals.subtotal)}</strong>
+        </div>
+        ${totals.hasDiscount ? `
+          <div class="order-summary-row order-summary-discount">
+            <span>خصم شراء قطعتين أو أكثر (10%):</span>
+            <strong>-${formatPrice(totals.discount)}</strong>
+          </div>
+        ` : ''}
+        <div class="order-summary-row order-summary-final">
+          <span>الإجمالي النهائي:</span>
+          <strong>${formatPrice(totals.total)}</strong>
+        </div>
+      `;
+    }
+
+    function initPromoPopup() {
+      const popup = document.getElementById('promoPopup');
+      const popupImage = document.getElementById('promoPopupImage');
+      const imageUrl = POPUP_IMAGE_URL.trim();
+
+      if (!popup || !popupImage || !imageUrl) return;
+
+      popupImage.src = imageUrl;
+      popupImage.addEventListener('error', closePromoPopup, { once: true });
+      popup.hidden = false;
+
+      requestAnimationFrame(() => {
+        popup.classList.add('active');
+        popup.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    function closePromoPopup() {
+      const popup = document.getElementById('promoPopup');
+      if (!popup || popup.hidden) return;
+
+      popup.classList.remove('active');
+      popup.setAttribute('aria-hidden', 'true');
+
+      window.clearTimeout(closePromoPopup.timer);
+      closePromoPopup.timer = window.setTimeout(() => {
+        popup.hidden = true;
+      }, 280);
+    }
+
     // ===== إدارة السلة =====
     function addToCart(productId, selectedColor = null) {
       const product = sortedProducts.find(p => p.id === productId);
@@ -5403,7 +5749,7 @@ specs: {
       item.quantity += change;
       
       if (item.quantity <= 0) {
-        removeFromCart(productId);
+        removeFromCart(itemKey);
       } else {
         saveCart();
         updateCartCount();
@@ -5417,13 +5763,12 @@ specs: {
 
     function updateCartCount() {
       const cartCount = document.getElementById('cartCount');
-      const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+      const totalItems = cart.reduce((total, item) => total + (Number(item.quantity) || 0), 0);
       cartCount.textContent = totalItems;
     }
 
     function renderCartModal() {
       const cartItemsContainer = document.getElementById('cartItems');
-      const cartTotal = document.getElementById('cartTotal');
       
       if (cart.length === 0) {
         cartItemsContainer.innerHTML = `
@@ -5433,12 +5778,19 @@ specs: {
             <p>أضف بعض المنتجات إلى سلة التسوق لرؤيتها هنا</p>
           </div>
         `;
-        cartTotal.textContent = '0 $';
+        updateCartSummaryDisplay({
+          subtotal: 0,
+          totalQuantity: 0,
+          discount: 0,
+          total: 0,
+          hasDiscount: false
+        });
+        renderOrderSummary();
         return;
       }
       
       // حساب المجموع الكلي
-      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const totals = getCartTotals();
       
       // عرض العناصر
       cartItemsContainer.innerHTML = cart.map(item => `
@@ -5465,7 +5817,8 @@ specs: {
       `).join('');
       
       // تحديث المجموع الكلي
-      cartTotal.textContent = `${formatPrice(total)}`;
+      updateCartSummaryDisplay(totals);
+      renderOrderSummary();
     }
 
     // ===== المودالات =====
@@ -5560,6 +5913,10 @@ specs: {
         if (modalId === 'cartModal') {
           renderCartModal();
         }
+
+        if (modalId === 'orderModal') {
+          renderOrderSummary();
+        }
       }
     }
 
@@ -5594,6 +5951,13 @@ specs: {
       document.getElementById('closeCartModal').addEventListener('click', () => closeModal('cartModal'));
       document.getElementById('closeOrderModal').addEventListener('click', () => closeModal('orderModal'));
       document.getElementById('continueShoppingBtn').addEventListener('click', () => closeModal('cartModal'));
+
+      document.getElementById('closePromoPopup')?.addEventListener('click', closePromoPopup);
+      document.getElementById('promoPopup')?.addEventListener('click', (e) => {
+        if (e.target.id === 'promoPopup') {
+          closePromoPopup();
+        }
+      });
       
       // متابعة الشراء مع التحقق من الحد اليومي
       document.getElementById('checkoutBtn').addEventListener('click', () => {
@@ -5633,6 +5997,7 @@ specs: {
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           document.querySelectorAll('.modal.active').forEach(modal => closeModal(modal.id));
+          closePromoPopup();
         }
       });
 
@@ -5829,7 +6194,7 @@ specs: {
         return;
       }
 
-      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const totals = getCartTotals();
       const orderDate = new Date().toLocaleString('ar-LY');
       const orderDetails = cart.map(formatCartLine).join('\n\n');
       const productNames = cart.map(item => item.name).join('، ');
@@ -5855,7 +6220,9 @@ specs: {
 تفاصيل الطلب:
 ${orderDetails}
 
-الإجمالي: ${formatPrice(total)}`;
+المجموع الفرعي: ${formatPrice(totals.subtotal)}
+خصم شراء قطعتين أو أكثر (10%): ${totals.hasDiscount ? `-${formatPrice(totals.discount)}` : formatPrice(0)}
+الإجمالي النهائي: ${formatPrice(totals.total)}`;
 
       const data = {
         name,
@@ -5864,7 +6231,9 @@ ${orderDetails}
         paymentMethod,
         notes,
         orderDetails: orderDetails,
-        total: formatPrice(total),
+        subtotal: formatPrice(totals.subtotal),
+        discount: totals.hasDiscount ? `-${formatPrice(totals.discount)}` : formatPrice(0),
+        total: formatPrice(totals.total),
         date: orderDate
       };
       
@@ -5887,6 +6256,8 @@ ${orderDetails}
           payment_method: data.paymentMethod,
           customer_notes: data.notes || 'لا يوجد',
           order_items: data.orderDetails,
+          order_subtotal: data.subtotal,
+          order_discount: data.discount,
           order_total: data.total,
           order_date: data.date,
           message: plainMessage,
@@ -5903,6 +6274,7 @@ ${orderDetails}
         cart = [];
         saveCart();
         updateCartCount();
+        renderOrderSummary();
         
         // إغلاق المودال وإعادة تعيين النموذج
         closeModal('orderModal');
@@ -5922,8 +6294,12 @@ ${orderDetails}
     }
 
     // ===== دوال مساعدة =====
+    function roundCurrency(value) {
+      return Math.round((Number(value) || 0) * 100) / 100;
+    }
+
     function formatPrice(price) {
-      return `${price.toLocaleString('ar-LY')}$`;
+      return `${roundCurrency(price).toLocaleString('ar-LY')}$`;
     }
 
     function calculateDiscount(currentPrice, oldPrice) {
