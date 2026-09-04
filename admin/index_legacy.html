@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم سويتشز</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/admin-static/admin.css">
+</head>
+<body>
+  <div id="toastRoot" class="toast-root"></div>
+
+  <section class="auth-shell" id="authShell">
+    <div class="auth-card">
+      <div>
+        <span class="tag">Switches Admin</span>
+        <h1>لوحة التحكم الاحترافية</h1>
+        <p>إدارة المنتجات والخدمات والبنر وإعدادات الموقع من مكان واحد.</p>
+      </div>
+      <form id="loginForm" class="stack-form">
+        <label>
+          <span>اسم المستخدم</span>
+          <input name="username" type="text" value="admin" required>
+        </label>
+        <label>
+          <span>كلمة المرور</span>
+          <input name="password" type="password" value="ChangeMe123!" required>
+        </label>
+        <button class="btn primary" type="submit">دخول</button>
+        <small class="hint">غيّر بيانات الدخول من ملف <code>.env</code> قبل النشر.</small>
+      </form>
+    </div>
+  </section>
+
+  <div class="app-shell hidden" id="appShell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <span class="brand-badge">SW</span>
+        <div>
+          <strong>لوحة سويتشز</strong>
+          <small id="loggedUserLabel">admin</small>
+        </div>
+      </div>
+      <nav class="side-nav" id="sideNav">
+        <button class="nav-btn active" data-section="dashboard"><i class="fas fa-chart-line"></i><span>الرئيسية</span></button>
+        <button class="nav-btn" data-section="products"><i class="fas fa-box"></i><span>المنتجات</span></button>
+        <button class="nav-btn" data-section="services"><i class="fas fa-code"></i><span>الخدمات</span></button>
+        <button class="nav-btn" data-section="slides"><i class="fas fa-images"></i><span>البانر</span></button>
+        <button class="nav-btn" data-section="site"><i class="fas fa-gear"></i><span>إعدادات الموقع</span></button>
+        <button class="nav-btn" data-section="orders"><i class="fas fa-cart-shopping"></i><span>الطلبات</span></button>
+      </nav>
+      <button class="btn danger ghost" id="logoutBtn">تسجيل الخروج</button>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Admin Panel</p>
+          <h2 id="sectionTitle">الرئيسية</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn ghost" id="refreshAllBtn"><i class="fas fa-rotate"></i>تحديث</button>
+          <button class="btn ghost" id="exportBtn"><i class="fas fa-download"></i>تصدير</button>
+        </div>
+      </header>
+
+      <section class="section-panel active" id="section-dashboard">
+        <div class="cards-grid" id="overviewCards"></div>
+        <div class="panel-grid two-cols">
+          <article class="panel-box">
+            <div class="panel-head">
+              <h3>آخر المنتجات</h3>
+            </div>
+            <div id="recentProducts"></div>
+          </article>
+          <article class="panel-box">
+            <div class="panel-head">
+              <h3>آخر الطلبات</h3>
+            </div>
+            <div id="recentOrders"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-panel" id="section-products">
+        <div class="panel-box">
+          <div class="panel-head split-head">
+            <div>
+              <h3>إدارة المنتجات</h3>
+              <p>إضافة، تعديل، حذف، تفعيل، وتغيير التوفر.</p>
+            </div>
+            <button class="btn primary" id="addProductBtn"><i class="fas fa-plus"></i>منتج جديد</button>
+          </div>
+          <div class="toolbar-row">
+            <input class="search-input" id="productSearchInput" placeholder="ابحث باسم المنتج أو الماركة أو الفئة">
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>الاسم</th>
+                  <th>الفئة</th>
+                  <th>السعر</th>
+                  <th>الحالة</th>
+                  <th>التوفر</th>
+                  <th>مفعل</th>
+                  <th>التحكم</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-panel" id="section-services">
+        <div class="panel-box">
+          <div class="panel-head split-head">
+            <div>
+              <h3>إدارة الخدمات</h3>
+              <p>تحرير الخدمات البرمجية وصفحاتها التفصيلية.</p>
+            </div>
+            <button class="btn primary" id="addServiceBtn"><i class="fas fa-plus"></i>خدمة جديدة</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>المفتاح</th>
+                  <th>العنوان</th>
+                  <th>السعر</th>
+                  <th>مفعل</th>
+                  <th>التحكم</th>
+                </tr>
+              </thead>
+              <tbody id="servicesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-panel" id="section-slides">
+        <div class="panel-box">
+          <div class="panel-head split-head">
+            <div>
+              <h3>البانر الرئيسي</h3>
+              <p>الشرائح التي تظهر أعلى الصفحة الرئيسية.</p>
+            </div>
+            <button class="btn primary" id="addSlideBtn"><i class="fas fa-plus"></i>شريحة جديدة</button>
+          </div>
+          <div class="cards-list" id="slidesList"></div>
+        </div>
+      </section>
+
+      <section class="section-panel" id="section-site">
+        <div class="panel-grid two-cols">
+          <article class="panel-box">
+            <div class="panel-head">
+              <h3>إعدادات الموقع</h3>
+            </div>
+            <form id="siteSettingsForm" class="stack-form wide-form">
+              <label><span>اسم الموقع</span><input name="name" required></label>
+              <label><span>الوصف المختصر</span><input name="subtitle"></label>
+              <label><span>رابط الشعار</span><input name="logo"></label>
+              <label><span>رابط صورة نجاح الطلب</span><input name="successThumb"></label>
+              <button class="btn primary" type="submit">حفظ الإعدادات</button>
+            </form>
+          </article>
+          <article class="panel-box">
+            <div class="panel-head">
+              <h3>محتوى الصفحة الرئيسية</h3>
+            </div>
+            <form id="homeContentForm" class="stack-form wide-form">
+              <label><span>كلمات الشريط المتحرك</span><textarea name="words" rows="8" placeholder="كل سطر كلمة أو عبارة"></textarea></label>
+              <label><span>عنوان القسم السفلي الصغير</span><input name="bottomStripLabel"></label>
+              <label><span>عنوان القسم السفلي الكبير</span><input name="bottomStripTitle"></label>
+              <button class="btn primary" type="submit">حفظ المحتوى</button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-panel" id="section-orders">
+        <div class="panel-box">
+          <div class="panel-head">
+            <h3>الطلبات</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>الاسم</th>
+                  <th>الهاتف</th>
+                  <th>الإجمالي</th>
+                  <th>الحالة</th>
+                  <th>التاريخ</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="editorModal">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card">
+      <button class="icon-close" data-close-modal><i class="fas fa-xmark"></i></button>
+      <div class="panel-head"><h3 id="editorTitle">تحرير</h3></div>
+      <form id="editorForm" class="stack-form wide-form"></form>
+    </div>
+  </div>
+
+  <script src="/admin-static/admin.js"></script>
+</body>
+</html>
