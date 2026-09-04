@@ -91,6 +91,14 @@
         <div class="dashboard-grid">
           <article class="panel-card wide"><div class="panel-head split"><div><h3>Hero Banners</h3><p>شرائح أعلى الصفحة الرئيسية.</p></div><button id="addSlideBtn" class="btn primary"><i class="fa-solid fa-plus"></i> بانر</button></div><div id="slidesGrid" class="entity-grid"></div></article>
           <article class="panel-card wide"><div class="panel-head split"><div><h3>الإعلانات</h3><p>بانرات إعلانية بمواعيد بداية ونهاية.</p></div><button id="addAdBtn" class="btn primary"><i class="fa-solid fa-plus"></i> إعلان</button></div><div id="adsGrid" class="entity-grid"></div></article>
+          <article class="panel-card wide"><div class="panel-head"><div><h3>إعلان فتح الموقع</h3><p>الصورة التي تظهر للزائر عند فتح المتجر.</p></div></div><form id="popupForm" class="form-grid">
+            <label><span>الحالة</span><select name="popup_enabled"><option value="1">مفعل</option><option value="0">معطل</option></select></label>
+            <label><span>رفع صورة جديدة</span><input id="popupImageUpload" type="file" accept="image/*"></label>
+            <input type="hidden" name="popup_image_url">
+            <div class="full popup-preview" id="popupPreviewBox"><img id="popupImagePreview" alt="معاينة إعلان فتح الموقع"></div>
+            <div id="popupUploadHint" class="hint full"></div>
+            <div class="full row-actions"><button class="btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ</button><button class="btn ghost danger-text" id="removePopupImageBtn" type="button"><i class="fa-solid fa-trash"></i> حذف الصورة</button></div>
+          </form></article>
         </div>
       </section>
 
@@ -105,6 +113,7 @@
           <label class="full"><span>العنوان</span><input name="address"></label><label class="full"><span>أوقات العمل</span><input name="workingHours"></label>
           <fieldset class="full"><legend>طرق الدفع</legend><div class="check-grid"><label><input type="checkbox" name="pay_cash"> كاش</label><label><input type="checkbox" name="pay_bank"> تحويل مصرفي</label><label><input type="checkbox" name="pay_usdt"> USDT</label><label><input type="checkbox" name="pay_cod"> الدفع عند الاستلام</label></div></fieldset>
           <fieldset class="full"><legend>الشحن</legend><div class="form-grid"><label><span>سعر الشحن الافتراضي</span><input name="shippingPrice" type="number" step="0.01"></label><label><span>شحن مجاني بعد</span><input name="freeAbove" type="number" step="0.01"></label><label class="full"><span>المناطق (كل سطر منطقة)</span><textarea name="regions" rows="5"></textarea></label></div></fieldset>
+          <fieldset class="full"><legend>خصم السلة</legend><div class="form-grid"><label><span>تفعيل خصم السلة</span><select name="cart_discount_enabled"><option value="1">نعم</option><option value="0">لا</option></select></label><label><span>نسبة الخصم %</span><input name="cart_discount_percent" type="number" min="0" max="100" step="0.01"></label></div></fieldset>
           <div class="full"><button class="btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ الإعدادات</button></div>
         </form></article>
       </section>

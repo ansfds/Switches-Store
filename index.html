@@ -3489,7 +3489,7 @@
           <span class="total-amount" id="cartSubtotal">0 $</span>
         </div>
         <div class="cart-total cart-discount-row" id="cartDiscountRow" hidden>
-          <span>خصم شراء قطعتين أو أكثر (10%):</span>
+          <span id="cartDiscountLabel">خصم شراء قطعتين أو أكثر (10%):</span>
           <span class="total-amount" id="cartDiscount">-0 $</span>
         </div>
         <div class="cart-total cart-final-row">
@@ -3581,62 +3581,18 @@
 
   <!-- مكتبات JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/shared/supabase-config.js"></script>
+  <script src="/shared/supabase-client.js"></script>
   
   <script>
-    // ===== ربط المنتجات بـ Supabase =====
+    // ===== ربط المتجر بـ Supabase =====
     async function loadProductsFromSupabase() {
-      const supabaseUrl = 'https://ctxlyttbtzivlabqbsvz.supabase.co';
-      const publishableKey = 'sb_publishable_1O75zgDfOlE8BJXGLalv2g_DKb8fn7T';
-
-      const fields = [
-        'id','name','short_description','description','category','brand',
-        'price','old_price','condition','images_json','specs_json','tags_json',
-        'availability','slug','sort_order','status','is_active','is_deleted'
-      ].join(',');
-
-      const endpoint =
-        `${supabaseUrl}/rest/v1/products` +
-        `?select=${encodeURIComponent(fields)}` +
-        `&is_active=eq.true&is_deleted=eq.false&status=eq.published` +
-        `&order=sort_order.asc,id.desc`;
-
-      const response = await fetch(endpoint, {
-        headers: {
-          apikey: publishableKey,
-          Authorization: `Bearer ${publishableKey}`,
-          Accept: 'application/json'
-        },
-        cache: 'no-store'
-      });
-
-      if (!response.ok) {
-        throw new Error(`Supabase products request failed: ${response.status} ${await response.text()}`);
-      }
-
-      const rows = await response.json();
-      if (!Array.isArray(rows) || rows.length === 0) {
+      const bootstrap = await loadStoreBootstrapFromSupabase();
+      const mappedProducts = (bootstrap.products || []).map(normalizePublicProduct).filter(Boolean);
+      if (!mappedProducts.length) {
         throw new Error('Supabase returned no products; keeping the built-in fallback products.');
       }
-
-      const mappedProducts = rows.map(row => ({
-        id: Number(row.id),
-        name: row.name || '',
-        category: row.category || '',
-        brand: row.brand || '',
-        price: Number(row.price) || 0,
-        oldPrice: row.old_price === null || row.old_price === undefined ? null : Number(row.old_price),
-        condition: row.condition || 'جديد',
-        images: Array.isArray(row.images_json) ? row.images_json : [],
-        description: row.description || row.short_description || '',
-        specs: row.specs_json && typeof row.specs_json === 'object' && !Array.isArray(row.specs_json)
-          ? row.specs_json
-          : {},
-        tags: Array.isArray(row.tags_json) ? row.tags_json : [],
-        availability: row.availability || 'available',
-        slug: row.slug || '',
-        colorSelectionEnabled: false,
-        colors: []
-      }));
 
       allProducts.splice(0, allProducts.length, ...mappedProducts);
 
@@ -3654,7 +3610,69 @@
       sortedProducts.splice(0, sortedProducts.length, ...refreshedSortedProducts);
 
       window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ = true;
+      publicHomepageSections = Array.isArray(bootstrap.homepageSections) ? bootstrap.homepageSections : [];
+      publicHomepageLoaded = Boolean(bootstrap.homepageLoaded);
+      applyPublicStoreSettings(bootstrap.settings, Boolean(bootstrap.settingsLoaded));
       console.info(`Switches Store: loaded ${allProducts.length} products from Supabase.`);
+    }
+
+    async function loadStoreBootstrapFromSupabase() {
+      if (window.SwitchesSupabaseStore?.configured?.()) {
+        try {
+          const bootstrap = await window.SwitchesSupabaseStore.loadBootstrap();
+          return {
+            products: bootstrap.products || [],
+            homepageSections: bootstrap.homepageSections || [],
+            settings: bootstrap.settings || {},
+            homepageLoaded: true,
+            settingsLoaded: true
+          };
+        } catch (error) {
+          console.warn('Switches Store: shared Supabase bootstrap failed; trying products fallback.', error);
+        }
+      }
+
+      return {
+        products: await fetchPublicProductsFallback(),
+        homepageSections: [],
+        settings: {},
+        homepageLoaded: false,
+        settingsLoaded: false
+      };
+    }
+
+    async function fetchPublicProductsFallback() {
+      const config = window.SWITCHES_SUPABASE_CONFIG || {};
+      if (!config.url || !config.publishableKey) {
+        throw new Error('Supabase config is not available.');
+      }
+
+      const fields = [
+        'id','name','short_description','description','category','brand',
+        'price','old_price','condition','images_json','specs_json','tags_json',
+        'availability','slug','sort_order','status','is_active','is_deleted'
+      ].join(',');
+
+      const endpoint =
+        `${config.url}/rest/v1/products` +
+        `?select=${encodeURIComponent(fields)}` +
+        `&is_active=eq.true&is_deleted=eq.false&status=eq.published` +
+        `&order=sort_order.asc,id.desc`;
+
+      const response = await fetch(endpoint, {
+        headers: {
+          apikey: config.publishableKey,
+          Authorization: `Bearer ${config.publishableKey}`,
+          Accept: 'application/json'
+        },
+        cache: 'no-store'
+      });
+
+      if (!response.ok) {
+        throw new Error(`Supabase products request failed: ${response.status} ${await response.text()}`);
+      }
+
+      return response.json();
     }
 
     // ===== تهيئة التطبيق =====
@@ -5226,9 +5244,17 @@ specs: {
     let selectedModalColors = {};
     let swiperInstance = null;
 
-    const POPUP_IMAGE_URL = 'https://i.postimg.cc/26sT42KJ/92347da3-51f4-47df-9c1b-2725fed110be.png';
+    const DEFAULT_POPUP_IMAGE_URL = 'https://i.postimg.cc/26sT42KJ/92347da3-51f4-47df-9c1b-2725fed110be.png';
     const CART_DISCOUNT_MIN_QUANTITY = 2;
-    const CART_DISCOUNT_RATE = 0.10;
+    const DEFAULT_CART_DISCOUNT_PERCENT = 10;
+    let publicHomepageSections = [];
+    let publicHomepageLoaded = false;
+    let publicStoreSettings = {
+      popup_enabled: true,
+      popup_image_url: DEFAULT_POPUP_IMAGE_URL,
+      cart_discount_enabled: true,
+      cart_discount_percent: DEFAULT_CART_DISCOUNT_PERCENT
+    };
     
     // ===== نظام تحديد عدد الطلبات =====
     let orderLimitData = JSON.parse(localStorage.getItem('orderLimitData')) || {
@@ -5307,6 +5333,188 @@ specs: {
         colors: []
       }, productOptionOverrides[product.id] || {});
     });
+
+    const homepageSectionConfig = {
+      best_sellers: {
+        gridId: 'bestSellingProducts',
+        fallbackKey: 'bestSellers',
+        showMoreTitle: 'الأكثر مبيعاً',
+        defaultSortOrder: 10,
+        aliases: ['best_sellers', 'bestSellers', 'bestSelling', 'best-selling', 'bestsellers', 'bestSellingProducts']
+      },
+      offers: {
+        gridId: 'discountedProducts',
+        fallbackKey: 'specialOffers',
+        showMoreTitle: 'العروض الخاصة',
+        defaultSortOrder: 20,
+        aliases: ['offers', 'special_offers', 'specialOffers', 'discounted', 'discountedProducts']
+      },
+      coming_soon: {
+        gridId: 'comingSoonProducts',
+        fallbackKey: 'comingSoon',
+        showMoreTitle: 'قريباً في المتجر',
+        defaultSortOrder: 30,
+        aliases: ['coming_soon', 'comingSoon', 'coming-soon', 'comingSoonProducts']
+      }
+    };
+
+    function pickSetting(settings, ...keys) {
+      const source = settings && typeof settings === 'object' ? settings : {};
+      for (const key of keys) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) return source[key];
+      }
+      return undefined;
+    }
+
+    function hasSetting(settings, ...keys) {
+      const source = settings && typeof settings === 'object' ? settings : {};
+      return keys.some(key => Object.prototype.hasOwnProperty.call(source, key));
+    }
+
+    function parseBooleanSetting(value, fallback = false) {
+      if (value === undefined || value === null || value === '') return fallback;
+      if (typeof value === 'boolean') return value;
+      if (typeof value === 'number') return value === 1;
+      const normalized = String(value).trim().toLowerCase();
+      return ['1', 'true', 'yes', 'on', 'enabled'].includes(normalized);
+    }
+
+    function parsePercentSetting(value, fallback = 0) {
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) return fallback;
+      return Math.min(100, Math.max(0, parsed));
+    }
+
+    function normalizePublicProduct(row) {
+      if (!row) return null;
+      const images = Array.isArray(row.images) ? row.images : (Array.isArray(row.images_json) ? row.images_json : []);
+      const specs = row.specs && typeof row.specs === 'object' && !Array.isArray(row.specs)
+        ? row.specs
+        : (row.specs_json && typeof row.specs_json === 'object' && !Array.isArray(row.specs_json) ? row.specs_json : {});
+      const tags = Array.isArray(row.tags) ? row.tags : (Array.isArray(row.tags_json) ? row.tags_json : []);
+      const oldPrice = row.oldPrice ?? row.old_price;
+
+      return {
+        id: Number(row.id),
+        name: row.name || '',
+        category: row.category || '',
+        brand: row.brand || '',
+        price: Number(row.price) || 0,
+        oldPrice: oldPrice == null || oldPrice === '' ? null : Number(oldPrice),
+        condition: row.condition || 'جديد',
+        images,
+        description: row.description || row.shortDescription || row.short_description || '',
+        specs,
+        tags,
+        availability: row.availability || 'available',
+        slug: row.slug || '',
+        colorSelectionEnabled: false,
+        colors: []
+      };
+    }
+
+    function applyPublicStoreSettings(settings = {}, settingsLoaded = false) {
+      const popupImage = pickSetting(settings, 'popup_image_url', 'popupImageUrl');
+      const popupEnabled = pickSetting(settings, 'popup_enabled', 'popupEnabled');
+      const cartDiscountEnabled = pickSetting(settings, 'cart_discount_enabled', 'cartDiscountEnabled');
+      const cartDiscountPercent = pickSetting(settings, 'cart_discount_percent', 'cartDiscountPercent');
+      const hasPopupImage = hasSetting(settings, 'popup_image_url', 'popupImageUrl');
+
+      publicStoreSettings = {
+        popup_enabled: parseBooleanSetting(popupEnabled, settingsLoaded ? true : publicStoreSettings.popup_enabled),
+        popup_image_url: hasPopupImage ? String(popupImage || '').trim() : (settingsLoaded ? publicStoreSettings.popup_image_url : DEFAULT_POPUP_IMAGE_URL),
+        cart_discount_enabled: parseBooleanSetting(cartDiscountEnabled, settingsLoaded ? true : publicStoreSettings.cart_discount_enabled),
+        cart_discount_percent: parsePercentSetting(cartDiscountPercent, settingsLoaded ? DEFAULT_CART_DISCOUNT_PERCENT : publicStoreSettings.cart_discount_percent)
+      };
+    }
+
+    function normalizeHomepageSectionKey(key) {
+      const normalized = String(key || '').trim();
+      if (!normalized) return '';
+
+      for (const [canonical, config] of Object.entries(homepageSectionConfig)) {
+        if (config.aliases.includes(normalized)) return canonical;
+      }
+
+      const compact = normalized.replace(/[\s-]+/g, '_').toLowerCase();
+      for (const [canonical, config] of Object.entries(homepageSectionConfig)) {
+        if (config.aliases.map(alias => alias.replace(/[\s-]+/g, '_').toLowerCase()).includes(compact)) {
+          return canonical;
+        }
+      }
+
+      return normalized;
+    }
+
+    function getHomepageSection(canonicalKey) {
+      return publicHomepageSections.find(section => normalizeHomepageSectionKey(section.key) === canonicalKey);
+    }
+
+    function getHomepageSectionProducts(canonicalKey) {
+      const config = homepageSectionConfig[canonicalKey];
+      const section = getHomepageSection(canonicalKey);
+
+      if (!section) {
+        if (publicHomepageLoaded && publicHomepageSections.length) return [];
+        return getConfiguredProducts(config.fallbackKey);
+      }
+
+      const seen = new Set();
+      return (section.items || [])
+        .slice()
+        .sort((a, b) => Number(a.slot || 0) - Number(b.slot || 0))
+        .map(item => item.product)
+        .filter(product => {
+          if (!product || seen.has(product.id)) return false;
+          seen.add(product.id);
+          return true;
+        })
+        .slice(0, section.maxItems || 4);
+    }
+
+    function setHomepageSectionTitle(sectionEl, titleText) {
+      const titleEl = sectionEl?.querySelector('.section-title');
+      const icon = titleEl?.querySelector('.section-icon');
+      if (!titleEl || !icon || !titleText) return;
+
+      titleEl.textContent = '';
+      titleEl.appendChild(icon);
+      titleEl.appendChild(document.createTextNode(`\n            ${titleText}\n          `));
+    }
+
+    function syncHomepageSectionShells() {
+      const sections = Object.entries(homepageSectionConfig)
+        .map(([canonicalKey, config]) => {
+          const grid = document.getElementById(config.gridId);
+          const element = grid?.closest('.products-section');
+          const section = getHomepageSection(canonicalKey);
+          const hasSupabaseSections = publicHomepageLoaded && publicHomepageSections.length > 0;
+          const isVisible = !hasSupabaseSections || (section ? section.isVisible !== false : false);
+          return {
+            canonicalKey,
+            config,
+            section,
+            element,
+            sortOrder: section ? Number(section.sortOrder || 0) : config.defaultSortOrder,
+            isVisible
+          };
+        })
+        .filter(item => item.element);
+
+      sections.forEach(item => {
+        item.element.hidden = !item.isVisible;
+        if (item.section?.title) setHomepageSectionTitle(item.element, item.section.title);
+      });
+
+      const parent = sections[0]?.element?.parentElement;
+      const beforeNode = document.querySelector('.bottom-image-bar');
+      if (!parent || !beforeNode) return;
+
+      sections
+        .slice()
+        .sort((a, b) => a.sortOrder - b.sortOrder || a.config.defaultSortOrder - b.config.defaultSortOrder)
+        .forEach(item => parent.insertBefore(item.element, beforeNode));
+    }
 
     // ===== تهيئة التطبيق =====
     function initApp() {
@@ -5649,6 +5857,18 @@ specs: {
       }
     }
 
+    function getCartDiscountPercent() {
+      return parsePercentSetting(publicStoreSettings.cart_discount_percent, DEFAULT_CART_DISCOUNT_PERCENT);
+    }
+
+    function isCartDiscountEnabled() {
+      return parseBooleanSetting(publicStoreSettings.cart_discount_enabled, true) && getCartDiscountPercent() > 0;
+    }
+
+    function getCartDiscountLabel() {
+      return `خصم شراء قطعتين أو أكثر (${getCartDiscountPercent()}%)`;
+    }
+
     function getCartTotals() {
       const totals = cart.reduce((summary, item) => {
         const quantity = Math.max(0, Number(item.quantity) || 0);
@@ -5662,8 +5882,8 @@ specs: {
         totalQuantity: 0
       });
 
-      const hasDiscount = totals.totalQuantity >= CART_DISCOUNT_MIN_QUANTITY;
-      const discount = hasDiscount ? roundCurrency(totals.subtotal * CART_DISCOUNT_RATE) : 0;
+      const hasDiscount = isCartDiscountEnabled() && totals.totalQuantity >= CART_DISCOUNT_MIN_QUANTITY;
+      const discount = hasDiscount ? roundCurrency(totals.subtotal * (getCartDiscountPercent() / 100)) : 0;
       const total = roundCurrency(totals.subtotal - discount);
 
       return {
@@ -5678,6 +5898,7 @@ specs: {
     function updateCartSummaryDisplay(totals = getCartTotals()) {
       const cartSubtotal = document.getElementById('cartSubtotal');
       const cartDiscountRow = document.getElementById('cartDiscountRow');
+      const cartDiscountLabel = document.getElementById('cartDiscountLabel');
       const cartDiscount = document.getElementById('cartDiscount');
       const cartTotal = document.getElementById('cartTotal');
 
@@ -5687,6 +5908,10 @@ specs: {
 
       if (cartDiscountRow) {
         cartDiscountRow.hidden = !totals.hasDiscount;
+      }
+
+      if (cartDiscountLabel) {
+        cartDiscountLabel.textContent = `${getCartDiscountLabel()}:`;
       }
 
       if (cartDiscount) {
@@ -5716,7 +5941,7 @@ specs: {
         </div>
         ${totals.hasDiscount ? `
           <div class="order-summary-row order-summary-discount">
-            <span>خصم شراء قطعتين أو أكثر (10%):</span>
+            <span>${getCartDiscountLabel()}:</span>
             <strong>-${formatPrice(totals.discount)}</strong>
           </div>
         ` : ''}
@@ -5730,9 +5955,10 @@ specs: {
     function initPromoPopup() {
       const popup = document.getElementById('promoPopup');
       const popupImage = document.getElementById('promoPopupImage');
-      const imageUrl = POPUP_IMAGE_URL.trim();
+      const popupEnabled = parseBooleanSetting(publicStoreSettings.popup_enabled, false);
+      const imageUrl = String(publicStoreSettings.popup_image_url || '').trim();
 
-      if (!popup || !popupImage || !imageUrl) return;
+      if (!popup || !popupImage || !popupEnabled || !imageUrl) return;
 
       popupImage.src = imageUrl;
       popupImage.addEventListener('error', closePromoPopup, { once: true });
@@ -6282,6 +6508,8 @@ specs: {
       const quantities = cart.map(item => `${item.name}: ${item.quantity}`).join('، ');
       const priceList = cart.map(item => `${item.name}: ${formatPrice(item.price)}`).join('، ');
       const emailSubject = `طلب جديد من Switches Store — ${cart[0].name}${cart.length > 1 ? ` + ${cart.length - 1}` : ''}`;
+      const discountLine = totals.hasDiscount ? `\n${getCartDiscountLabel()}: -${formatPrice(totals.discount)}` : '';
+      const discountValue = totals.hasDiscount ? `-${formatPrice(totals.discount)}` : '';
       const plainMessage = `طلب شراء جديد
 
 اسم الزبون: ${name}
@@ -6300,7 +6528,7 @@ specs: {
 ${orderDetails}
 
 المجموع الفرعي: ${formatPrice(totals.subtotal)}
-خصم شراء قطعتين أو أكثر (10%): ${totals.hasDiscount ? `-${formatPrice(totals.discount)}` : formatPrice(0)}
+${discountLine}
 الإجمالي النهائي: ${formatPrice(totals.total)}`;
 
       const data = {
@@ -6311,7 +6539,7 @@ ${orderDetails}
         notes,
         orderDetails: orderDetails,
         subtotal: formatPrice(totals.subtotal),
-        discount: totals.hasDiscount ? `-${formatPrice(totals.discount)}` : formatPrice(0),
+        discount: discountValue,
         total: formatPrice(totals.total),
         date: orderDate
       };
@@ -6936,14 +7164,18 @@ function loadProducts() {
 
 // ===== التعريف النهائي النظيف لعرض المنتجات =====
 function loadProducts() {
-    renderProductsGrid('bestSellingProducts', getConfiguredProducts('bestSellers'));
-    renderProductsGrid('discountedProducts', getConfiguredProducts('specialOffers'));
-    renderProductsGrid('comingSoonProducts', getConfiguredProducts('comingSoon'));
+    Object.entries(homepageSectionConfig).forEach(([canonicalKey, config]) => {
+        renderProductsGrid(config.gridId, getHomepageSectionProducts(canonicalKey));
+    });
 
-    const showMoreBtns = document.querySelectorAll('.btn-show-more');
-    const titles = ['الأكثر مبيعاً', 'العروض الخاصة', 'قريباً في المتجر'];
-    showMoreBtns.forEach((btn, index) => {
-        btn.setAttribute('onclick', `showAllProducts('${titles[index] || 'جميع المنتجات'}')`);
+    syncHomepageSectionShells();
+
+    Object.entries(homepageSectionConfig).forEach(([canonicalKey, config]) => {
+        const grid = document.getElementById(config.gridId);
+        const btn = grid?.closest('.products-section')?.querySelector('.btn-show-more');
+        const section = getHomepageSection(canonicalKey);
+        const title = section?.title || config.showMoreTitle;
+        if (btn) btn.setAttribute('onclick', `showAllProducts('${escapeJsString(title)}')`);
     });
 }
 

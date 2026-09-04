@@ -508,7 +508,6 @@
   async function listHomepage(adminMode) {
     const sb = supabaseClient();
     let sectionsQuery = sb.from("homepage_sections").select("*").order("sort_order").order("section_key");
-    if (!adminMode) sectionsQuery = sectionsQuery.eq("is_visible", true);
     const [sectionsResult, itemsResult, products] = await Promise.all([
       sectionsQuery,
       sb.from("homepage_items").select("*").order("slot_index"),
@@ -694,7 +693,7 @@
   }
 
   async function listPublicProducts() {
-    const { data, error } = await supabaseClient().from("products").select("*").order("sort_order").order("id", { ascending: false });
+    const { data, error } = await supabaseClient().from("products").select("*").eq("is_active", true).eq("is_deleted", false).eq("status", "published").order("sort_order").order("id", { ascending: false });
     throwIf(error, "تعذر تحميل المنتجات.");
     return (data || []).map(productFromRow);
   }
