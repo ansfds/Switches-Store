@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
@@ -3583,8 +3583,87 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   
   <script>
+    // ===== ربط المنتجات بـ Supabase =====
+    async function loadProductsFromSupabase() {
+      const supabaseUrl = 'https://ctxlyttbtzivlabqbsvz.supabase.co';
+      const publishableKey = 'sb_publishable_1O75zgDfOlE8BJXGLalv2g_DKb8fn7T';
+
+      const fields = [
+        'id','name','short_description','description','category','brand',
+        'price','old_price','condition','images_json','specs_json','tags_json',
+        'availability','slug','sort_order','status','is_active','is_deleted'
+      ].join(',');
+
+      const endpoint =
+        `${supabaseUrl}/rest/v1/products` +
+        `?select=${encodeURIComponent(fields)}` +
+        `&is_active=eq.true&is_deleted=eq.false&status=eq.published` +
+        `&order=sort_order.asc,id.desc`;
+
+      const response = await fetch(endpoint, {
+        headers: {
+          apikey: publishableKey,
+          Authorization: `Bearer ${publishableKey}`,
+          Accept: 'application/json'
+        },
+        cache: 'no-store'
+      });
+
+      if (!response.ok) {
+        throw new Error(`Supabase products request failed: ${response.status} ${await response.text()}`);
+      }
+
+      const rows = await response.json();
+      if (!Array.isArray(rows) || rows.length === 0) {
+        throw new Error('Supabase returned no products; keeping the built-in fallback products.');
+      }
+
+      const mappedProducts = rows.map(row => ({
+        id: Number(row.id),
+        name: row.name || '',
+        category: row.category || '',
+        brand: row.brand || '',
+        price: Number(row.price) || 0,
+        oldPrice: row.old_price === null || row.old_price === undefined ? null : Number(row.old_price),
+        condition: row.condition || 'جديد',
+        images: Array.isArray(row.images_json) ? row.images_json : [],
+        description: row.description || row.short_description || '',
+        specs: row.specs_json && typeof row.specs_json === 'object' && !Array.isArray(row.specs_json)
+          ? row.specs_json
+          : {},
+        tags: Array.isArray(row.tags_json) ? row.tags_json : [],
+        availability: row.availability || 'available',
+        slug: row.slug || '',
+        colorSelectionEnabled: false,
+        colors: []
+      }));
+
+      allProducts.splice(0, allProducts.length, ...mappedProducts);
+
+      productOriginalOrder.clear();
+      allProducts.forEach((product, index) => {
+        productOriginalOrder.set(product.id, index);
+        Object.assign(
+          product,
+          { colorSelectionEnabled: false, colors: [] },
+          (typeof productOptionOverrides !== 'undefined' && productOptionOverrides[product.id]) || {}
+        );
+      });
+
+      const refreshedSortedProducts = sortProductsByAvailability(allProducts);
+      sortedProducts.splice(0, sortedProducts.length, ...refreshedSortedProducts);
+
+      window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ = true;
+      console.info(`Switches Store: loaded ${allProducts.length} products from Supabase.`);
+    }
+
     // ===== تهيئة التطبيق =====
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
+      try {
+        await loadProductsFromSupabase();
+      } catch (error) {
+        console.error('Switches Store: Supabase load failed; using built-in fallback products.', error);
+      }
       initApp();
     });
 
