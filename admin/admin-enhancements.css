@@ -1,0 +1,35 @@
+.admin-enhancement-box {
+  grid-column: 1 / -1;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(124, 58, 237, 0.08);
+  padding: 14px;
+}
+
+.admin-enhancement-box > strong {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.admin-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-chip-grid label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #0d1422;
+  color: var(--text);
+  padding: 0 12px;
+}
+
+.admin-chip-grid input {
+  width: auto;
+  accent-color: var(--primary);
+}

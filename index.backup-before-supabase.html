@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
@@ -80,8 +80,8 @@
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   
-  <link rel="stylesheet" href="/auth.css">
-  <link rel="stylesheet" href="/gift-cards.css">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   
   <style>
     /* ===== متغيرات التصميم ===== */
@@ -308,224 +308,86 @@
     /* ===== القسم الرئيسي ===== */
     .main-content {
       margin-top: var(--header-height);
-      padding: 0 0 30px;
+      padding: 30px 0;
     }
     
     /* ===== شريط الإعلانات المتحركة ===== */
     .hero-slider {
-      display: none !important;
       margin-bottom: 40px;
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: 0 8px 30px var(--shadow-color);
     }
-
-    .featured-hero-stage {
-      --featured-hero-bg: url("https://pcandparts.com/wp-content/uploads/asus_rog.jpg");
-      --featured-hero-overlay: 0.58;
+    
+    .swiper {
+      width: 100%;
+      height: 400px;
+      border-radius: var(--radius-lg);
+    }
+    
+    .swiper-slide {
       position: relative;
-      width: 100vw;
-      min-height: clamp(500px, 38vw, 600px);
-      margin: 0 calc(50% - 50vw) 34px;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      color: #fff;
-      background:
-        radial-gradient(circle at 50% 42%, rgb(42 58 94 / 0.22), transparent 36%),
-        linear-gradient(90deg, rgb(3 6 12 / 0.94), rgb(8 12 28 / var(--featured-hero-overlay)), rgb(3 12 11 / 0.9)),
-        var(--featured-hero-bg) center / cover no-repeat;
-      isolation: isolate;
     }
-
-    .featured-hero-stage[hidden] {
-      display: none !important;
-    }
-
-    .featured-hero-stage::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.4)),
-        linear-gradient(90deg, rgb(0 0 0 / 0.46), transparent 24%, transparent 76%, rgb(0 0 0 / 0.52));
-      z-index: -1;
-    }
-
-    .featured-hero-stage::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0;
-      height: 34%;
-      background: linear-gradient(180deg, transparent, rgb(0 0 0 / 0.42));
-      z-index: -1;
-    }
-
-    .featured-hero-shell {
-      width: min(1360px, calc(100vw - 48px));
-      margin: 0 auto;
-      padding: clamp(42px, 5vw, 76px) 0;
-    }
-
-    .featured-hero-track {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: clamp(14px, 1.6vw, 24px);
-      align-items: end;
-    }
-
-    .featured-offer-card {
-      position: relative;
-      min-height: 0;
-      aspect-ratio: 3 / 4;
-      border: 0;
-      border-radius: 8px;
-      overflow: hidden;
-      padding: 0;
-      color: #fff;
-      background: #06070a;
-      cursor: pointer;
-      text-align: right;
-      box-shadow: 0 22px 55px rgb(0 0 0 / 0.28);
-      transform: translateZ(0);
-      transition: transform 300ms ease, box-shadow 300ms ease, filter 300ms ease;
-    }
-
-    .featured-offer-card:hover,
-    .featured-offer-card:focus-visible {
-      transform: translateY(-5px) scale(1.035);
-      box-shadow: 0 32px 70px rgb(0 0 0 / 0.48);
-      z-index: 3;
-    }
-
-    .featured-offer-card:focus-visible {
-      outline: 3px solid rgb(56 189 248 / 0.72);
-      outline-offset: 3px;
-    }
-
-    .featured-offer-card img {
-      position: absolute;
-      inset: 0;
+    
+    .swiper-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      transition: transform 360ms ease, filter 360ms ease;
     }
-
-    .featured-offer-card:hover img,
-    .featured-offer-card:focus-visible img {
-      transform: scale(1.045);
-      filter: saturate(1.08) contrast(1.04);
-    }
-
-    .featured-offer-card::before {
-      content: "";
+    
+    .slide-overlay {
       position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgb(0 0 0 / 0.08) 0%, rgb(0 0 0 / 0.08) 42%, rgb(0 0 0 / 0.9) 100%),
-        linear-gradient(90deg, rgb(0 0 0 / 0.4), transparent 34%, rgb(0 0 0 / 0.24));
-      z-index: 1;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 40px;
+      color: white;
     }
-
-    .featured-card-content {
-      position: absolute;
-      inset: auto 0 0;
-      z-index: 2;
-      display: grid;
-      gap: 8px;
-      padding: 22px 18px 20px;
-    }
-
-    .featured-card-badge {
-      justify-self: start;
-      max-width: 100%;
-      border-radius: 999px;
-      padding: 5px 10px;
-      background: linear-gradient(135deg, #ef4444, #f97316);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 900;
-      line-height: 1;
-      white-space: nowrap;
-    }
-
-    .featured-card-title {
-      margin: 0;
-      color: #fff;
-      font-size: clamp(1.22rem, 1.6vw, 1.7rem);
-      line-height: 1.12;
-      font-weight: 900;
-      letter-spacing: 0;
-      overflow-wrap: anywhere;
-    }
-
-    .featured-card-subtitle,
-    .featured-card-price {
-      margin: 0;
-      color: rgb(255 255 255 / 0.86);
-      font-size: 0.94rem;
-      line-height: 1.45;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-
-    .featured-card-price {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      flex-wrap: wrap;
-      font-weight: 800;
-    }
-
-    .featured-card-price strong {
-      color: #fff;
-      font-size: 1.04rem;
-    }
-
-    .featured-card-price s {
-      color: rgb(255 255 255 / 0.52);
-      font-size: 0.82rem;
+    
+    .slide-title {
+      font-size: 2.2rem;
       font-weight: 700;
+      margin-bottom: 10px;
     }
-
-    .featured-discount-ribbon {
-      position: absolute;
-      z-index: 2;
-      top: 16px;
-      inset-inline-start: 16px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #fff;
-      filter: drop-shadow(0 12px 22px rgb(0 0 0 / 0.28));
+    
+    .slide-description {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
     }
-
-    .featured-discount-ribbon small,
-    .featured-discount-ribbon strong {
-      min-height: 32px;
-      display: inline-flex;
-      align-items: center;
-      font-weight: 900;
-      line-height: 1;
+    
+    .swiper-pagination-bullet {
+      background: white !important;
+      opacity: 0.5;
+      width: 10px !important;
+      height: 10px !important;
     }
-
-    .featured-discount-ribbon small {
-      padding: 0 12px;
-      background: linear-gradient(135deg, #0ea5e9, #2563eb);
-      clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-      font-size: 0.8rem;
+    
+    .swiper-pagination-bullet-active {
+      opacity: 1 !important;
+      background: var(--primary-color) !important;
     }
-
-    .featured-discount-ribbon strong {
-      margin-inline-start: -12px;
-      padding: 0 18px 0 16px;
-      background: linear-gradient(135deg, #f97316, #ef4444);
-      clip-path: polygon(12% 0, 100% 0, 88% 100%, 0 100%);
-      font-size: clamp(1.16rem, 1.8vw, 1.7rem);
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: white !important;
+      background: rgba(0,0,0,0.3);
+      width: 50px !important;
+      height: 50px !important;
+      border-radius: 50%;
+      transition: all var(--transition-normal);
+    }
+    
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      background: rgba(0,0,0,0.5);
+      transform: scale(1.1);
+    }
+    
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 1.2rem !important;
     }
     
     /* ===== ميزات الموقع ===== */
@@ -2663,11 +2525,10 @@
 
       .main-content {
         direction: ltr;
-        padding: 0 0 18px;
+        padding: 18px 0;
       }
 
       .site-notices,
-      .featured-hero-stage,
       .hero-slider,
       .features,
       .products-section,
@@ -2758,44 +2619,45 @@
         font-size: 0.65rem;
       }
 
-      .featured-hero-stage {
-        min-height: 460px;
+      .hero-slider {
         margin-bottom: 24px;
-        align-items: stretch;
+        border-radius: var(--radius-md);
       }
 
-      .featured-hero-shell {
-        width: 100%;
-        padding: 34px 0 28px;
+      .swiper {
+        height: clamp(190px, 56vw, 280px);
+        border-radius: var(--radius-md);
       }
 
-      .featured-hero-track {
-        display: flex;
-        gap: 14px;
-        overflow-x: auto;
-        overscroll-behavior-inline: contain;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        padding: 4px 16px 18px;
+      .swiper-slide img {
+        object-position: center;
       }
 
-      .featured-hero-track::-webkit-scrollbar {
-        display: none;
+      .slide-overlay {
+        padding: 18px 16px 22px;
+        background: linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.18), transparent);
       }
 
-      .featured-offer-card {
-        flex: 0 0 min(78vw, 315px);
-        scroll-snap-align: center;
-        aspect-ratio: 3 / 4;
+      .slide-title {
+        max-width: 100%;
+        font-size: clamp(1.05rem, 4.6vw, 1.3rem);
+        line-height: 1.25;
+        overflow-wrap: anywhere;
       }
 
-      .featured-offer-card:hover,
-      .featured-offer-card:focus-visible {
-        transform: translateY(-3px) scale(1.015);
+      .slide-description {
+        max-width: 100%;
+        font-size: 0.92rem;
+        line-height: 1.55;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
-      .featured-card-content {
-        padding: 20px 16px 18px;
+      .swiper-button-next,
+      .swiper-button-prev {
+        display: none !important;
       }
 
       .features {
@@ -3237,252 +3099,6 @@
         aspect-ratio: 1 / 1;
       }
     }
-    /* ===== Marketplace cards and favorites final UI ===== */
-    .products-grid,
-    .all-products-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .all-products-page,
-    .favorites-page {
-      display: none;
-      padding-top: calc(var(--header-height) + 24px);
-      padding-bottom: 44px;
-      direction: rtl;
-      animation: fadeIn 0.35s ease;
-    }
-
-    .all-products-page.active,
-    .favorites-page.active {
-      display: block;
-    }
-
-    .favorites-subtitle {
-      margin: 8px 0 0;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
-    .product-card {
-      height: auto;
-      min-height: 0;
-      border-radius: 12px;
-      background: var(--bg-primary);
-      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
-      cursor: pointer;
-      transform: translateY(0);
-    }
-
-    [data-theme="dark"] .product-card {
-      background: color-mix(in srgb, var(--bg-secondary) 86%, #111827);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
-    }
-
-    .product-card:hover {
-      transform: translateY(-6px) scale(1.012);
-      box-shadow: 0 18px 44px rgba(15, 23, 42, 0.16);
-    }
-
-    .product-image-container {
-      height: auto;
-      aspect-ratio: 16 / 11;
-      display: grid;
-      place-items: center;
-      background:
-        linear-gradient(135deg, rgba(37, 99, 235, 0.07), transparent 46%),
-        var(--bg-secondary);
-    }
-
-    .product-image {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 10px;
-    }
-
-    .product-content {
-      gap: 9px;
-      padding: 15px;
-    }
-
-    .product-title {
-      min-height: 2.72em;
-      height: auto;
-      margin: 0;
-      color: var(--text-primary);
-      font-size: 0.98rem;
-      font-weight: 850;
-      line-height: 1.36;
-    }
-
-    .product-meta {
-      min-height: 24px;
-      margin-bottom: 0;
-      flex-wrap: wrap;
-    }
-
-    .product-price {
-      min-height: 34px;
-      margin-top: auto;
-      gap: 8px;
-    }
-
-    .current-price {
-      font-size: 1.12rem;
-      font-weight: 900;
-    }
-
-    .old-price {
-      font-size: 0.88rem;
-    }
-
-    .discount-percent {
-      border-radius: 7px;
-      padding: 3px 7px;
-      font-size: 0.75rem;
-      font-weight: 900;
-    }
-
-    .product-actions {
-      margin-top: 10px;
-    }
-
-    .btn-add-cart {
-      min-height: 42px;
-      border-radius: 9px;
-      font-size: 0.92rem;
-      font-weight: 850;
-    }
-
-    .favorite-btn {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      z-index: 4;
-      width: 40px;
-      height: 40px;
-      display: inline-grid;
-      place-items: center;
-      border: 1px solid rgba(148, 163, 184, 0.28);
-      border-radius: 50%;
-      background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
-      color: var(--text-secondary);
-      cursor: pointer;
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
-      transition: transform var(--transition-fast), color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
-    }
-
-    .favorite-btn:hover {
-      transform: translateY(-1px) scale(1.06);
-      color: #e11d48;
-      border-color: rgba(225, 29, 72, 0.28);
-    }
-
-    .favorite-btn.active {
-      color: #fff;
-      border-color: rgba(225, 29, 72, 0.72);
-      background: linear-gradient(135deg, #fb7185, #e11d48);
-      box-shadow: 0 12px 24px rgba(225, 29, 72, 0.28);
-    }
-
-    .favorite-btn i {
-      font-size: 1.04rem;
-      line-height: 1;
-    }
-
-    .favorites-state {
-      grid-column: 1 / -1;
-      min-height: 260px;
-      display: grid;
-      place-items: center;
-      padding: 42px 18px;
-      border: 1px dashed var(--border-color);
-      border-radius: 14px;
-      background: var(--bg-secondary);
-      text-align: center;
-    }
-
-    .favorites-state-inner {
-      max-width: 460px;
-      display: grid;
-      gap: 14px;
-      justify-items: center;
-    }
-
-    .favorites-state i {
-      color: var(--primary-color);
-      font-size: 2.6rem;
-      opacity: 0.78;
-    }
-
-    .favorites-state h3 {
-      margin: 0;
-      color: var(--text-primary);
-      font-size: 1.35rem;
-    }
-
-    .favorites-state p {
-      margin: 0;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    .favorites-login-btn {
-      min-height: 42px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      border: 0;
-      border-radius: 10px;
-      padding: 0 18px;
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-      color: #fff;
-      font-weight: 850;
-      cursor: pointer;
-    }
-
-    @media (max-width: 1180px) {
-      .products-grid,
-      .all-products-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 820px) {
-      .products-grid,
-      .all-products-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .product-content {
-        padding: 12px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .products-grid,
-      .all-products-grid {
-        gap: 10px;
-      }
-
-      .favorite-btn {
-        width: 36px;
-        height: 36px;
-      }
-
-      .product-title {
-        font-size: 0.86rem;
-      }
-
-      .btn-add-cart {
-        font-size: 0.78rem;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -3519,12 +3135,6 @@
   <!-- الصفحة الرئيسية -->
   <main class="main-content">
     <div class="container">
-      <section class="featured-hero-stage" id="featuredHeroStage" aria-label="العروض المميزة" hidden>
-        <div class="featured-hero-shell">
-          <div class="featured-hero-track" id="featuredHeroCards"></div>
-        </div>
-      </section>
-
       <section class="site-notices" aria-label="تنبيهات مهمة">
         <div class="notice-card currency">
           <i class="fas fa-dollar-sign" aria-hidden="true"></i>
@@ -3537,6 +3147,38 @@
       </section>
 
       <!-- شريط الإعلانات المتحركة -->
+      <section class="hero-slider">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="https://pcandparts.com/wp-content/uploads/asus_rog.jpg" alt="أحدث قطع الكمبيوتر">
+              <div class="slide-overlay">
+                <h2 class="slide-title">أحدث قطع الكمبيوتر</h2>
+                <p class="slide-description">اكتشف مجموعتنا المتميزة من أحدث المعالجات والكروت والقطع بأفضل الأسعار</p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <img src="https://dlcdnwebimgs.asus.com/gain/DBBA29D7-A5AF-4074-ABC8-795718A78EC0/fwebp" alt="شاشات الألعاب">
+              <div class="slide-overlay">
+                <h2 class="slide-title">شاشات الألعاب الاحترافية</h2>
+                <p class="slide-description">أداء عالي ودقة فائقة لتجربة ألعاب لا تُنسى مع أفضل الشاشات</p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <img src="https://m.media-amazon.com/images/I/81Smi3twk5L.jpg" alt="إكسسوارات الكمبيوتر">
+              <div class="slide-overlay">
+                <h2 class="slide-title">إكسسوارات متميزة</h2>
+                <p class="slide-description">كل ما تحتاجه لتجهيز محطة العمل الخاصة بك بكفاءة وجودة عالية</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </section>
+
       <!-- ميزات الموقع -->
       <section class="features">
         <div class="feature-card">
@@ -3789,24 +3431,7 @@
     </div>
     
     <!-- جميع المنتجات -->
-  <div class="all-products-grid" id="allProductsGrid">
-      <!-- سيتم ملؤها بالجافاسكريبت -->
-    </div>
-  </div>
-
-  <!-- صفحة المفضلة -->
-  <div class="container favorites-page" id="favoritesPage">
-    <div class="page-header">
-      <div>
-        <h2>المفضلة</h2>
-        <p class="favorites-subtitle">منتجاتك المحفوظة مرتبطة بحسابك الحالي.</p>
-      </div>
-      <button class="back-btn" onclick="showMainPage()">
-        <i class="fas fa-arrow-right"></i>
-        العودة للصفحة الرئيسية
-      </button>
-    </div>
-    <div class="all-products-grid" id="favoritesGrid">
+    <div class="all-products-grid" id="allProductsGrid">
       <!-- سيتم ملؤها بالجافاسكريبت -->
     </div>
   </div>
@@ -3864,7 +3489,7 @@
           <span class="total-amount" id="cartSubtotal">0 $</span>
         </div>
         <div class="cart-total cart-discount-row" id="cartDiscountRow" hidden>
-          <span id="cartDiscountLabel">خصم شراء قطعتين أو أكثر (10%):</span>
+          <span>خصم شراء قطعتين أو أكثر (10%):</span>
           <span class="total-amount" id="cartDiscount">-0 $</span>
         </div>
         <div class="cart-total cart-final-row">
@@ -3955,109 +3580,12 @@
   </div>
 
   <!-- مكتبات JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/shared/supabase-config.js"></script>
-  <script src="/shared/supabase-client.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   
   <script>
-    // ===== ربط المتجر بـ Supabase =====
-    async function loadProductsFromSupabase() {
-      const bootstrap = await loadStoreBootstrapFromSupabase();
-      const mappedProducts = (bootstrap.products || []).map(normalizePublicProduct).filter(Boolean);
-      if (!mappedProducts.length) {
-        throw new Error('Supabase returned no products; keeping the built-in fallback products.');
-      }
-
-      allProducts.splice(0, allProducts.length, ...mappedProducts);
-
-      productOriginalOrder.clear();
-      allProducts.forEach((product, index) => {
-        productOriginalOrder.set(product.id, index);
-        Object.assign(
-          product,
-          { colorSelectionEnabled: false, colors: [] },
-          (typeof productOptionOverrides !== 'undefined' && productOptionOverrides[product.id]) || {}
-        );
-      });
-
-      const refreshedSortedProducts = sortProductsByAvailability(allProducts);
-      sortedProducts.splice(0, sortedProducts.length, ...refreshedSortedProducts);
-
-      window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ = true;
-      publicHomepageSections = Array.isArray(bootstrap.homepageSections) ? bootstrap.homepageSections : [];
-      publicHomepageLoaded = Boolean(bootstrap.homepageLoaded);
-      applyPublicStoreSettings(bootstrap.settings, Boolean(bootstrap.settingsLoaded));
-      console.info(`Switches Store: loaded ${allProducts.length} products from Supabase.`);
-    }
-
-    async function loadStoreBootstrapFromSupabase() {
-      if (window.SwitchesSupabaseStore?.configured?.()) {
-        try {
-          const bootstrap = await window.SwitchesSupabaseStore.loadBootstrap();
-          return {
-            products: bootstrap.products || [],
-            homepageSections: bootstrap.homepageSections || [],
-            settings: bootstrap.settings || {},
-            homepageLoaded: true,
-            settingsLoaded: true
-          };
-        } catch (error) {
-          console.warn('Switches Store: shared Supabase bootstrap failed; trying products fallback.', error);
-        }
-      }
-
-      return {
-        products: await fetchPublicProductsFallback(),
-        homepageSections: [],
-        settings: {},
-        homepageLoaded: false,
-        settingsLoaded: false
-      };
-    }
-
-    async function fetchPublicProductsFallback() {
-      const config = window.SWITCHES_SUPABASE_CONFIG || {};
-      if (!config.url || !config.publishableKey) {
-        throw new Error('Supabase config is not available.');
-      }
-
-      const fields = [
-        'id','name','short_description','description','category','brand',
-        'price','old_price','condition','images_json','specs_json','tags_json',
-        'availability','slug','sort_order','status','is_active','is_deleted'
-      ].join(',');
-
-      const endpoint =
-        `${config.url}/rest/v1/products` +
-        `?select=${encodeURIComponent(fields)}` +
-        `&is_active=eq.true&is_deleted=eq.false&status=eq.published` +
-        `&order=sort_order.asc,id.desc`;
-
-      const response = await fetch(endpoint, {
-        headers: {
-          apikey: config.publishableKey,
-          Authorization: `Bearer ${config.publishableKey}`,
-          Accept: 'application/json'
-        },
-        cache: 'no-store'
-      });
-
-      if (!response.ok) {
-        throw new Error(`Supabase products request failed: ${response.status} ${await response.text()}`);
-      }
-
-      return response.json();
-    }
-
     // ===== تهيئة التطبيق =====
-    document.addEventListener('DOMContentLoaded', async function() {
-      try {
-        await loadProductsFromSupabase();
-      } catch (error) {
-        console.error('Switches Store: Supabase load failed; using built-in fallback products.', error);
-      }
+    document.addEventListener('DOMContentLoaded', function() {
       initApp();
-      initFavoritesExperience();
     });
 
     // ===== جميع المنتجات الأصلية =====
@@ -5619,21 +5147,9 @@ specs: {
     let selectedModalColors = {};
     let swiperInstance = null;
 
-    const DEFAULT_POPUP_IMAGE_URL = 'https://i.postimg.cc/26sT42KJ/92347da3-51f4-47df-9c1b-2725fed110be.png';
-    const DEFAULT_FEATURED_HERO_BACKGROUND_URL = 'https://pcandparts.com/wp-content/uploads/asus_rog.jpg';
+    const POPUP_IMAGE_URL = 'https://i.postimg.cc/26sT42KJ/92347da3-51f4-47df-9c1b-2725fed110be.png';
     const CART_DISCOUNT_MIN_QUANTITY = 2;
-    const DEFAULT_CART_DISCOUNT_PERCENT = 10;
-    const DEFAULT_FEATURED_HERO_OVERLAY = 58;
-    let publicHomepageSections = [];
-    let publicHomepageLoaded = false;
-    let publicStoreSettings = {
-      popup_enabled: true,
-      popup_image_url: DEFAULT_POPUP_IMAGE_URL,
-      cart_discount_enabled: true,
-      cart_discount_percent: DEFAULT_CART_DISCOUNT_PERCENT,
-      featured_hero_background_url: DEFAULT_FEATURED_HERO_BACKGROUND_URL,
-      featured_hero_overlay_opacity: DEFAULT_FEATURED_HERO_OVERLAY
-    };
+    const CART_DISCOUNT_RATE = 0.10;
     
     // ===== نظام تحديد عدد الطلبات =====
     let orderLimitData = JSON.parse(localStorage.getItem('orderLimitData')) || {
@@ -5713,328 +5229,6 @@ specs: {
       }, productOptionOverrides[product.id] || {});
     });
 
-    const homepageSectionConfig = {
-      best_sellers: {
-        gridId: 'bestSellingProducts',
-        fallbackKey: 'bestSellers',
-        showMoreTitle: 'الأكثر مبيعاً',
-        defaultSortOrder: 10,
-        aliases: ['best_sellers', 'bestSellers', 'bestSelling', 'best-selling', 'bestsellers', 'bestSellingProducts']
-      },
-      offers: {
-        gridId: 'discountedProducts',
-        fallbackKey: 'specialOffers',
-        showMoreTitle: 'العروض الخاصة',
-        defaultSortOrder: 20,
-        aliases: ['offers', 'special_offers', 'specialOffers', 'discounted', 'discountedProducts']
-      },
-      coming_soon: {
-        gridId: 'comingSoonProducts',
-        fallbackKey: 'comingSoon',
-        showMoreTitle: 'قريباً في المتجر',
-        defaultSortOrder: 30,
-        aliases: ['coming_soon', 'comingSoon', 'coming-soon', 'comingSoonProducts']
-      }
-    };
-
-    function pickSetting(settings, ...keys) {
-      const source = settings && typeof settings === 'object' ? settings : {};
-      for (const key of keys) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) return source[key];
-      }
-      return undefined;
-    }
-
-    function hasSetting(settings, ...keys) {
-      const source = settings && typeof settings === 'object' ? settings : {};
-      return keys.some(key => Object.prototype.hasOwnProperty.call(source, key));
-    }
-
-    function parseBooleanSetting(value, fallback = false) {
-      if (value === undefined || value === null || value === '') return fallback;
-      if (typeof value === 'boolean') return value;
-      if (typeof value === 'number') return value === 1;
-      const normalized = String(value).trim().toLowerCase();
-      return ['1', 'true', 'yes', 'on', 'enabled'].includes(normalized);
-    }
-
-    function parsePercentSetting(value, fallback = 0) {
-      const parsed = Number(value);
-      if (!Number.isFinite(parsed)) return fallback;
-      return Math.min(100, Math.max(0, parsed));
-    }
-
-    function normalizePublicProduct(row) {
-      if (!row) return null;
-      const images = Array.isArray(row.images) ? row.images : (Array.isArray(row.images_json) ? row.images_json : []);
-      const specs = row.specs && typeof row.specs === 'object' && !Array.isArray(row.specs)
-        ? row.specs
-        : (row.specs_json && typeof row.specs_json === 'object' && !Array.isArray(row.specs_json) ? row.specs_json : {});
-      const tags = Array.isArray(row.tags) ? row.tags : (Array.isArray(row.tags_json) ? row.tags_json : []);
-      const oldPrice = row.oldPrice ?? row.old_price;
-
-      return {
-        id: Number(row.id),
-        name: row.name || '',
-        category: row.category || '',
-        brand: row.brand || '',
-        price: Number(row.price) || 0,
-        oldPrice: oldPrice == null || oldPrice === '' ? null : Number(oldPrice),
-        condition: row.condition || 'جديد',
-        images,
-        description: row.description || row.shortDescription || row.short_description || '',
-        specs,
-        tags,
-        availability: row.availability || 'available',
-        slug: row.slug || '',
-        colorSelectionEnabled: false,
-        colors: []
-      };
-    }
-
-    function applyPublicStoreSettings(settings = {}, settingsLoaded = false) {
-      const popupImage = pickSetting(settings, 'popup_image_url', 'popupImageUrl');
-      const popupEnabled = pickSetting(settings, 'popup_enabled', 'popupEnabled');
-      const cartDiscountEnabled = pickSetting(settings, 'cart_discount_enabled', 'cartDiscountEnabled');
-      const cartDiscountPercent = pickSetting(settings, 'cart_discount_percent', 'cartDiscountPercent');
-      const featuredHeroBackground = pickSetting(settings, 'featured_hero_background_url', 'featuredHeroBackgroundUrl');
-      const featuredHeroOverlay = pickSetting(settings, 'featured_hero_overlay_opacity', 'featuredHeroOverlayOpacity');
-      const hasPopupImage = hasSetting(settings, 'popup_image_url', 'popupImageUrl');
-      const hasFeaturedHeroBackground = hasSetting(settings, 'featured_hero_background_url', 'featuredHeroBackgroundUrl');
-
-      const rawSettings = settings && typeof settings === 'object' ? settings : {};
-
-      publicStoreSettings = {
-        ...rawSettings,
-        popup_enabled: parseBooleanSetting(popupEnabled, settingsLoaded ? true : publicStoreSettings.popup_enabled),
-        popup_image_url: hasPopupImage ? String(popupImage || '').trim() : (settingsLoaded ? publicStoreSettings.popup_image_url : DEFAULT_POPUP_IMAGE_URL),
-        cart_discount_enabled: parseBooleanSetting(cartDiscountEnabled, settingsLoaded ? true : publicStoreSettings.cart_discount_enabled),
-        cart_discount_percent: parsePercentSetting(cartDiscountPercent, settingsLoaded ? DEFAULT_CART_DISCOUNT_PERCENT : publicStoreSettings.cart_discount_percent),
-        featured_hero_background_url: hasFeaturedHeroBackground ? String(featuredHeroBackground || '').trim() : (settingsLoaded ? publicStoreSettings.featured_hero_background_url : DEFAULT_FEATURED_HERO_BACKGROUND_URL),
-        featured_hero_overlay_opacity: parsePercentSetting(featuredHeroOverlay, settingsLoaded ? DEFAULT_FEATURED_HERO_OVERLAY : publicStoreSettings.featured_hero_overlay_opacity)
-      };
-      window.SwitchesStoreSettings = publicStoreSettings;
-      window.dispatchEvent(new CustomEvent('switches:settings-changed', { detail: { settings: publicStoreSettings } }));
-    }
-
-    function normalizeHomepageSectionKey(key) {
-      const normalized = String(key || '').trim();
-      if (!normalized) return '';
-
-      for (const [canonical, config] of Object.entries(homepageSectionConfig)) {
-        if (config.aliases.includes(normalized)) return canonical;
-      }
-
-      const compact = normalized.replace(/[\s-]+/g, '_').toLowerCase();
-      if (['featured_hero', 'featuredhero', 'hero_featured', 'homepage_hero'].includes(compact)) return 'featured_hero';
-      for (const [canonical, config] of Object.entries(homepageSectionConfig)) {
-        if (config.aliases.map(alias => alias.replace(/[\s-]+/g, '_').toLowerCase()).includes(compact)) {
-          return canonical;
-        }
-      }
-
-      return normalized;
-    }
-
-    function getHomepageSection(canonicalKey) {
-      return publicHomepageSections.find(section => normalizeHomepageSectionKey(section.key) === canonicalKey);
-    }
-
-    function getHomepageSectionProducts(canonicalKey) {
-      const config = homepageSectionConfig[canonicalKey];
-      const section = getHomepageSection(canonicalKey);
-
-      if (!section) {
-        if (publicHomepageLoaded && publicHomepageSections.length) return [];
-        return getConfiguredProducts(config.fallbackKey);
-      }
-
-      const seen = new Set();
-      return (section.items || [])
-        .slice()
-        .sort((a, b) => Number(a.slot || 0) - Number(b.slot || 0))
-        .map(item => item.product)
-        .filter(product => {
-          if (!product || seen.has(product.id)) return false;
-          seen.add(product.id);
-          return true;
-        })
-        .slice(0, section.maxItems || 4);
-    }
-
-    function isActiveHomepageItem(item) {
-      const now = Math.floor(Date.now() / 1000);
-      if (!item || !item.product) return false;
-      if (item.startsAt && Number(item.startsAt) > now) return false;
-      if (item.endsAt && Number(item.endsAt) < now) return false;
-      return true;
-    }
-
-    function productImageUrl(product) {
-      return product?.images?.[0] || DEFAULT_FEATURED_HERO_BACKGROUND_URL;
-    }
-
-    function getFeaturedHeroItems() {
-      const section = getHomepageSection('featured_hero');
-      if (section && section.isVisible === false) return [];
-
-      let items = (section?.items || [])
-        .filter(isActiveHomepageItem)
-        .slice()
-        .sort((a, b) => Number(a.slot || 0) - Number(b.slot || 0));
-
-      if (!items.length) {
-        items = getHomepageSectionProducts('offers').map((product, index) => ({
-          slot: index + 1,
-          product,
-          customPrice: null,
-        }));
-      }
-
-      if (!items.length) {
-        items = getConfiguredProducts('specialOffers').map((product, index) => ({
-          slot: index + 1,
-          product,
-          customPrice: null,
-        }));
-      }
-
-      if (!items.length) {
-        items = allProducts
-          .filter(product => product && (product.oldPrice || (product.tags || []).includes('featured') || (product.tags || []).includes('bestSelling')))
-          .slice(0, 4)
-          .map((product, index) => ({ slot: index + 1, product, customPrice: null }));
-      }
-
-      const seen = new Set();
-      return items.filter(item => {
-        const id = item?.product?.id;
-        if (!id || seen.has(id)) return false;
-        seen.add(id);
-        return true;
-      }).slice(0, 4);
-    }
-
-    function featuredHeroBadge(product, item) {
-      const tags = product?.tags || [];
-      if (product?.availability === 'comingSoon') return 'قريبًا';
-      if (tags.includes('bestSelling')) return 'الأكثر مبيعًا';
-      if (tags.includes('newArrival')) return 'جديد';
-      if (tags.includes('combo')) return 'باقة';
-      if (product?.oldPrice || item?.customPrice) return 'عرض';
-      return product?.category || product?.brand || 'مميز';
-    }
-
-    function featuredHeroSubtitle(product) {
-      const source = product?.description || product?.brand || product?.category || '';
-      const text = String(source).replace(/\s+/g, ' ').trim();
-      if (!text) return product?.category || product?.brand || '';
-      return text.length > 82 ? `${text.slice(0, 79)}...` : text;
-    }
-
-    function cssUrlValue(url) {
-      const clean = String(url || DEFAULT_FEATURED_HERO_BACKGROUND_URL).replace(/["\\\n\r]/g, '');
-      return `url("${clean}")`;
-    }
-
-    function featuredHeroCardHtml(item, index) {
-      const product = item.product;
-      const currentPrice = item.customPrice ?? product.price;
-      const oldPrice = Number(product.oldPrice || 0) > Number(currentPrice || 0) ? Number(product.oldPrice) : null;
-      const discount = oldPrice ? calculateDiscount(currentPrice, oldPrice) : 0;
-      const subtitle = featuredHeroSubtitle(product);
-
-      return `
-        <button class="featured-offer-card" type="button" data-featured-product="${product.id}" aria-label="افتح العرض: ${escapeHtml(product.name)}">
-          <img src="${escapeHtml(productImageUrl(product))}" alt="${escapeHtml(product.name)}" loading="${index === 0 ? 'eager' : 'lazy'}">
-          ${discount ? `<span class="featured-discount-ribbon"><small>حتى</small><strong>-${discount}%</strong></span>` : ''}
-          <span class="featured-card-content">
-            <span class="featured-card-badge">${escapeHtml(featuredHeroBadge(product, item))}</span>
-            <span class="featured-card-title" dir="auto">${escapeHtml(product.name)}</span>
-            ${subtitle ? `<span class="featured-card-subtitle">${escapeHtml(subtitle)}</span>` : ''}
-            <span class="featured-card-price">
-              <strong>${formatPrice(currentPrice)}</strong>
-              ${oldPrice ? `<s>${formatPrice(oldPrice)}</s>` : ''}
-            </span>
-          </span>
-        </button>
-      `;
-    }
-
-    function renderFeaturedHero() {
-      const stage = document.getElementById('featuredHeroStage');
-      const root = document.getElementById('featuredHeroCards');
-      if (!stage || !root) return;
-
-      const items = getFeaturedHeroItems();
-      if (!items.length) {
-        stage.hidden = true;
-        root.innerHTML = '';
-        return;
-      }
-
-      const backgroundUrl = publicStoreSettings.featured_hero_background_url || DEFAULT_FEATURED_HERO_BACKGROUND_URL;
-      const overlay = Math.min(0.82, Math.max(0.28, Number(publicStoreSettings.featured_hero_overlay_opacity || DEFAULT_FEATURED_HERO_OVERLAY) / 100));
-      stage.style.setProperty('--featured-hero-bg', cssUrlValue(backgroundUrl));
-      stage.style.setProperty('--featured-hero-overlay', overlay.toFixed(2));
-      stage.hidden = false;
-      root.innerHTML = items.map(featuredHeroCardHtml).join('');
-
-      root.querySelectorAll('[data-featured-product]').forEach(card => {
-        const productId = Number(card.dataset.featuredProduct);
-        card.addEventListener('click', () => showProductModal(productId));
-        card.addEventListener('keydown', event => {
-          if (event.key !== 'Enter' && event.key !== ' ') return;
-          event.preventDefault();
-          showProductModal(productId);
-        });
-      });
-    }
-
-    function setHomepageSectionTitle(sectionEl, titleText) {
-      const titleEl = sectionEl?.querySelector('.section-title');
-      const icon = titleEl?.querySelector('.section-icon');
-      if (!titleEl || !icon || !titleText) return;
-
-      titleEl.textContent = '';
-      titleEl.appendChild(icon);
-      titleEl.appendChild(document.createTextNode(`\n            ${titleText}\n          `));
-    }
-
-    function syncHomepageSectionShells() {
-      const sections = Object.entries(homepageSectionConfig)
-        .map(([canonicalKey, config]) => {
-          const grid = document.getElementById(config.gridId);
-          const element = grid?.closest('.products-section');
-          const section = getHomepageSection(canonicalKey);
-          const hasSupabaseSections = publicHomepageLoaded && publicHomepageSections.length > 0;
-          const isVisible = !hasSupabaseSections || (section ? section.isVisible !== false : false);
-          return {
-            canonicalKey,
-            config,
-            section,
-            element,
-            sortOrder: section ? Number(section.sortOrder || 0) : config.defaultSortOrder,
-            isVisible
-          };
-        })
-        .filter(item => item.element);
-
-      sections.forEach(item => {
-        item.element.hidden = !item.isVisible;
-        if (item.section?.title) setHomepageSectionTitle(item.element, item.section.title);
-      });
-
-      const parent = sections[0]?.element?.parentElement;
-      const beforeNode = document.querySelector('.bottom-image-bar');
-      if (!parent || !beforeNode) return;
-
-      sections
-        .slice()
-        .sort((a, b) => a.sortOrder - b.sortOrder || a.config.defaultSortOrder - b.config.defaultSortOrder)
-        .forEach(item => parent.insertBefore(item.element, beforeNode));
-    }
-
     // ===== تهيئة التطبيق =====
     function initApp() {
       // تهيئة Swiper
@@ -6105,12 +5299,33 @@ specs: {
 
     // ===== تهيئة Swiper =====
     function initSwiper() {
-      const legacySlider = document.querySelector('.hero-slider');
-      if (legacySlider) {
-        legacySlider.hidden = true;
-        legacySlider.setAttribute('aria-hidden', 'true');
-      }
-      swiperInstance = null;
+      swiperInstance = new Swiper('.swiper', {
+        direction: 'horizontal',
+        loop: true,
+        speed: 800,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+          dynamicBullets: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        },
+        grabCursor: true,
+        preloadImages: false,
+        lazy: {
+          loadPrevNext: true,
+        },
+      });
     }
 
     // ===== تهيئة الثيم =====
@@ -6275,12 +5490,6 @@ specs: {
     function showMainPage() {
       // إخفاء صفحة جميع المنتجات
       document.getElementById('allProductsPage').classList.remove('active');
-      document.getElementById('favoritesPage')?.classList.remove('active');
-      document.getElementById('giftCardsPage')?.classList.remove('active');
-      document.getElementById('accountPage')?.classList.remove('active');
-      if (window.location.pathname === '/favorites' || window.location.pathname === '/account/favorites') {
-        window.history.pushState({ page: 'home' }, '', '/');
-      }
       
       // إظهار الصفحة الرئيسية
       document.querySelector('.main-content').style.display = 'block';
@@ -6361,18 +5570,6 @@ specs: {
       }
     }
 
-    function getCartDiscountPercent() {
-      return parsePercentSetting(publicStoreSettings.cart_discount_percent, DEFAULT_CART_DISCOUNT_PERCENT);
-    }
-
-    function isCartDiscountEnabled() {
-      return parseBooleanSetting(publicStoreSettings.cart_discount_enabled, true) && getCartDiscountPercent() > 0;
-    }
-
-    function getCartDiscountLabel() {
-      return `خصم شراء قطعتين أو أكثر (${getCartDiscountPercent()}%)`;
-    }
-
     function getCartTotals() {
       const totals = cart.reduce((summary, item) => {
         const quantity = Math.max(0, Number(item.quantity) || 0);
@@ -6386,8 +5583,8 @@ specs: {
         totalQuantity: 0
       });
 
-      const hasDiscount = isCartDiscountEnabled() && totals.totalQuantity >= CART_DISCOUNT_MIN_QUANTITY;
-      const discount = hasDiscount ? roundCurrency(totals.subtotal * (getCartDiscountPercent() / 100)) : 0;
+      const hasDiscount = totals.totalQuantity >= CART_DISCOUNT_MIN_QUANTITY;
+      const discount = hasDiscount ? roundCurrency(totals.subtotal * CART_DISCOUNT_RATE) : 0;
       const total = roundCurrency(totals.subtotal - discount);
 
       return {
@@ -6402,7 +5599,6 @@ specs: {
     function updateCartSummaryDisplay(totals = getCartTotals()) {
       const cartSubtotal = document.getElementById('cartSubtotal');
       const cartDiscountRow = document.getElementById('cartDiscountRow');
-      const cartDiscountLabel = document.getElementById('cartDiscountLabel');
       const cartDiscount = document.getElementById('cartDiscount');
       const cartTotal = document.getElementById('cartTotal');
 
@@ -6412,10 +5608,6 @@ specs: {
 
       if (cartDiscountRow) {
         cartDiscountRow.hidden = !totals.hasDiscount;
-      }
-
-      if (cartDiscountLabel) {
-        cartDiscountLabel.textContent = `${getCartDiscountLabel()}:`;
       }
 
       if (cartDiscount) {
@@ -6445,7 +5637,7 @@ specs: {
         </div>
         ${totals.hasDiscount ? `
           <div class="order-summary-row order-summary-discount">
-            <span>${getCartDiscountLabel()}:</span>
+            <span>خصم شراء قطعتين أو أكثر (10%):</span>
             <strong>-${formatPrice(totals.discount)}</strong>
           </div>
         ` : ''}
@@ -6459,10 +5651,9 @@ specs: {
     function initPromoPopup() {
       const popup = document.getElementById('promoPopup');
       const popupImage = document.getElementById('promoPopupImage');
-      const popupEnabled = parseBooleanSetting(publicStoreSettings.popup_enabled, false);
-      const imageUrl = String(publicStoreSettings.popup_image_url || '').trim();
+      const imageUrl = POPUP_IMAGE_URL.trim();
 
-      if (!popup || !popupImage || !popupEnabled || !imageUrl) return;
+      if (!popup || !popupImage || !imageUrl) return;
 
       popupImage.src = imageUrl;
       popupImage.addEventListener('error', closePromoPopup, { once: true });
@@ -7012,8 +6203,6 @@ specs: {
       const quantities = cart.map(item => `${item.name}: ${item.quantity}`).join('، ');
       const priceList = cart.map(item => `${item.name}: ${formatPrice(item.price)}`).join('، ');
       const emailSubject = `طلب جديد من Switches Store — ${cart[0].name}${cart.length > 1 ? ` + ${cart.length - 1}` : ''}`;
-      const discountLine = totals.hasDiscount ? `\n${getCartDiscountLabel()}: -${formatPrice(totals.discount)}` : '';
-      const discountValue = totals.hasDiscount ? `-${formatPrice(totals.discount)}` : '';
       const plainMessage = `طلب شراء جديد
 
 اسم الزبون: ${name}
@@ -7032,7 +6221,7 @@ specs: {
 ${orderDetails}
 
 المجموع الفرعي: ${formatPrice(totals.subtotal)}
-${discountLine}
+خصم شراء قطعتين أو أكثر (10%): ${totals.hasDiscount ? `-${formatPrice(totals.discount)}` : formatPrice(0)}
 الإجمالي النهائي: ${formatPrice(totals.total)}`;
 
       const data = {
@@ -7043,7 +6232,7 @@ ${discountLine}
         notes,
         orderDetails: orderDetails,
         subtotal: formatPrice(totals.subtotal),
-        discount: discountValue,
+        discount: totals.hasDiscount ? `-${formatPrice(totals.discount)}` : formatPrice(0),
         total: formatPrice(totals.total),
         date: orderDate
       };
@@ -7183,308 +6372,14 @@ ${discountLine}
       return availabilityPriority[String(availability || '').trim()] || 99;
     }
 
-    function getProductCategoryKey(product) {
-      return String(product?.category || '').trim().toLowerCase();
-    }
-
     function sortProductsByAvailability(products) {
-      const categoryGroupOrder = new Map();
-      products.forEach(product => {
-        const availability = getAvailabilityPriority(product?.availability);
-        const categoryKey = getProductCategoryKey(product);
-        const groupKey = `${availability}::${categoryKey}`;
-        if (!categoryGroupOrder.has(groupKey)) {
-          categoryGroupOrder.set(groupKey, categoryGroupOrder.size);
-        }
-      });
-
       return [...products].sort((a, b) => {
-        const aPriority = getAvailabilityPriority(a.availability);
-        const bPriority = getAvailabilityPriority(b.availability);
-        const priorityDifference = aPriority - bPriority;
+        const priorityDifference = getAvailabilityPriority(a.availability) - getAvailabilityPriority(b.availability);
         if (priorityDifference !== 0) return priorityDifference;
-
-        const aCategoryOrder = categoryGroupOrder.get(`${aPriority}::${getProductCategoryKey(a)}`) ?? Number.MAX_SAFE_INTEGER;
-        const bCategoryOrder = categoryGroupOrder.get(`${bPriority}::${getProductCategoryKey(b)}`) ?? Number.MAX_SAFE_INTEGER;
-        const categoryDifference = aCategoryOrder - bCategoryOrder;
-        if (categoryDifference !== 0) return categoryDifference;
 
         return (productOriginalOrder.get(a.id) ?? Number.MAX_SAFE_INTEGER) -
           (productOriginalOrder.get(b.id) ?? Number.MAX_SAFE_INTEGER);
       });
-    }
-
-    const favoriteProductIds = new Set();
-    let favoritesLoading = false;
-    let favoritesLoadedUserId = "";
-    let favoritesExperienceReady = false;
-
-    function favoriteKey(productId) {
-      return String(productId || "").trim();
-    }
-
-    function getFavoritesUser() {
-      return window.SwitchesAuth?.getCachedUser?.() || null;
-    }
-
-    function isFavoritesRoute() {
-      const path = window.location.pathname.replace(/\/+$/, "") || "/";
-      return path === "/account/favorites" || path === "/favorites";
-    }
-
-    function isFavorite(productId) {
-      return favoriteProductIds.has(favoriteKey(productId));
-    }
-
-    function findProductByFavoriteId(productId) {
-      const key = favoriteKey(productId);
-      return allProducts.find(product => favoriteKey(product.id) === key) ||
-        sortedProducts.find(product => favoriteKey(product.id) === key) ||
-        null;
-    }
-
-    function setFavoriteIds(ids = []) {
-      favoriteProductIds.clear();
-      ids.forEach(id => {
-        const key = favoriteKey(id);
-        if (key) favoriteProductIds.add(key);
-      });
-    }
-
-    function syncFavoriteButtons() {
-      document.querySelectorAll("[data-favorite-id]").forEach(button => {
-        const active = isFavorite(button.dataset.favoriteId);
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-pressed", String(active));
-        button.setAttribute("aria-label", active ? "إزالة من المفضلة" : "إضافة إلى المفضلة");
-        const icon = button.querySelector("i");
-        if (icon) {
-          icon.classList.toggle("fa-solid", active);
-          icon.classList.toggle("fa-regular", !active);
-        }
-      });
-    }
-
-    async function refreshFavoritesForUser({ force = false } = {}) {
-      const user = getFavoritesUser();
-      if (!user) {
-        favoritesLoadedUserId = "";
-        favoritesLoading = false;
-        setFavoriteIds([]);
-        syncFavoriteButtons();
-        if (isFavoritesRoute()) renderFavoritesPage();
-        return;
-      }
-
-      if (!force && favoritesLoadedUserId === user.id) {
-        syncFavoriteButtons();
-        if (isFavoritesRoute()) renderFavoritesPage();
-        return;
-      }
-
-      favoritesLoading = true;
-      if (isFavoritesRoute()) renderFavoritesPage();
-
-      try {
-        const response = await fetch("/api/favorites", {
-          credentials: "same-origin",
-          cache: "no-store",
-        });
-        if (response.status === 401) {
-          favoritesLoadedUserId = "";
-          setFavoriteIds([]);
-          return;
-        }
-        if (!response.ok) throw new Error("favorites_load_failed");
-        const data = await response.json();
-        favoritesLoadedUserId = user.id;
-        setFavoriteIds(data.favorites || []);
-      } catch (error) {
-        console.error("Switches Store: unable to load favorites.", error);
-      } finally {
-        favoritesLoading = false;
-        syncFavoriteButtons();
-        if (isFavoritesRoute()) renderFavoritesPage();
-      }
-    }
-
-    function renderFavoriteButton(product) {
-      const key = favoriteKey(product.id);
-      const active = isFavorite(key);
-      return `
-        <button class="favorite-btn ${active ? "active" : ""}" type="button" data-favorite-id="${escapeHtml(key)}" onclick="toggleFavorite('${escapeJsString(key)}', event)" aria-pressed="${active}" aria-label="${active ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}">
-          <i class="${active ? "fa-solid" : "fa-regular"} fa-heart" aria-hidden="true"></i>
-        </button>
-      `;
-    }
-
-    async function toggleFavorite(productId, event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-
-      const key = favoriteKey(productId);
-      const product = findProductByFavoriteId(key);
-      if (!key || !product) return;
-
-      const user = getFavoritesUser();
-      if (!user) {
-        showNotification("سجل دخولك لإضافة المنتجات إلى المفضلة", "warning");
-        if (window.SwitchesAuth?.loginWithGoogle) window.SwitchesAuth.loginWithGoogle(isFavoritesRoute() ? "/account/favorites" : `${window.location.pathname}${window.location.search}`);
-        return;
-      }
-
-      const wasFavorite = isFavorite(key);
-      if (wasFavorite) favoriteProductIds.delete(key);
-      else favoriteProductIds.add(key);
-      syncFavoriteButtons();
-      if (isFavoritesRoute()) renderFavoritesPage();
-
-      try {
-        const response = await fetch(wasFavorite ? `/api/favorites/${encodeURIComponent(key)}` : "/api/favorites", {
-          method: wasFavorite ? "DELETE" : "POST",
-          credentials: "same-origin",
-          headers: wasFavorite ? { "X-Requested-With": "SwitchesStore" } : {
-            "Content-Type": "application/json",
-            "X-Requested-With": "SwitchesStore",
-          },
-          body: wasFavorite ? undefined : JSON.stringify({ product_id: key }),
-        });
-        if (response.status === 401) {
-          favoriteProductIds[wasFavorite ? "add" : "delete"](key);
-          syncFavoriteButtons();
-          if (isFavoritesRoute()) renderFavoritesPage();
-          if (window.SwitchesAuth?.loginWithGoogle) window.SwitchesAuth.loginWithGoogle("/account/favorites");
-          return;
-        }
-        if (!response.ok) throw new Error("favorite_toggle_failed");
-        const data = await response.json();
-        favoritesLoadedUserId = user.id;
-        setFavoriteIds(data.favorites || []);
-        showNotification(wasFavorite ? "تمت إزالة المنتج من المفضلة" : "تمت إضافة المنتج إلى المفضلة", "success");
-      } catch (error) {
-        if (wasFavorite) favoriteProductIds.add(key);
-        else favoriteProductIds.delete(key);
-        showNotification("تعذر تحديث المفضلة، حاول مرة أخرى", "error");
-      } finally {
-        syncFavoriteButtons();
-        if (isFavoritesRoute()) renderFavoritesPage();
-      }
-    }
-
-    function requestFavoritesLogin(event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      if (window.SwitchesAuth?.loginWithGoogle) window.SwitchesAuth.loginWithGoogle("/account/favorites");
-    }
-
-    function renderFavoritesState({ icon = "fa-heart", title, message, login = false }) {
-      return `
-        <div class="favorites-state">
-          <div class="favorites-state-inner">
-            <i class="fas ${icon}" aria-hidden="true"></i>
-            <h3>${escapeHtml(title)}</h3>
-            <p>${escapeHtml(message)}</p>
-            ${login ? `
-              <button class="favorites-login-btn" type="button" onclick="requestFavoritesLogin(event)">
-                <i class="fa-brands fa-google" aria-hidden="true"></i>
-                تسجيل الدخول
-              </button>
-            ` : ""}
-          </div>
-        </div>
-      `;
-    }
-
-    function renderFavoritesPage() {
-      const grid = document.getElementById("favoritesGrid");
-      if (!grid) return;
-
-      const user = getFavoritesUser();
-      if (!user) {
-        grid.innerHTML = renderFavoritesState({
-          icon: "fa-user-lock",
-          title: "سجل دخولك لعرض المفضلة",
-          message: "المفضلة تحفظ لكل حساب بشكل منفصل وتظهر هنا بعد تسجيل الدخول.",
-          login: true,
-        });
-        return;
-      }
-
-      if (favoritesLoading && !favoritesLoadedUserId) {
-        grid.innerHTML = renderFavoritesState({
-          icon: "fa-spinner fa-spin",
-          title: "جاري تحميل المفضلة",
-          message: "لحظات فقط.",
-        });
-        return;
-      }
-
-      const products = Array.from(favoriteProductIds).map(findProductByFavoriteId).filter(Boolean);
-      if (!products.length) {
-        grid.innerHTML = renderFavoritesState({
-          icon: "fa-heart",
-          title: "لا توجد منتجات مفضلة بعد",
-          message: "اضغط على القلب في أي منتج لحفظه هنا.",
-        });
-        return;
-      }
-
-      renderProductsGrid("favoritesGrid", products);
-      syncFavoriteButtons();
-    }
-
-    function hideFavoritesPage() {
-      document.getElementById("favoritesPage")?.classList.remove("active");
-    }
-
-    function showFavoritesPage(options = {}) {
-      const page = document.getElementById("favoritesPage");
-      if (!page) return;
-
-      if (options.push !== false && window.location.pathname !== "/account/favorites") {
-        window.history.pushState({ page: "favorites" }, "", "/account/favorites");
-      }
-
-      const main = document.querySelector(".main-content");
-      const allProductsPage = document.getElementById("allProductsPage");
-      const giftCardsPage = document.getElementById("giftCardsPage");
-      const accountPage = document.getElementById("accountPage");
-
-      if (main) main.style.display = "none";
-      if (allProductsPage) allProductsPage.classList.remove("active");
-      if (giftCardsPage) giftCardsPage.classList.remove("active");
-      if (accountPage) accountPage.classList.remove("active");
-      page.classList.add("active");
-
-      renderFavoritesPage();
-      refreshFavoritesForUser();
-      if (options.scroll !== false) window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function initFavoritesExperience() {
-      if (favoritesExperienceReady) return;
-      favoritesExperienceReady = true;
-
-      window.addEventListener("switches:auth-changed", () => {
-        favoritesLoadedUserId = "";
-        if (isFavoritesRoute()) showFavoritesPage({ push: false, scroll: false });
-        else refreshFavoritesForUser({ force: true });
-      });
-
-      window.addEventListener("popstate", () => {
-        if (isFavoritesRoute()) {
-          showFavoritesPage({ push: false, scroll: false });
-          return;
-        }
-        hideFavoritesPage();
-      });
-
-      if (isFavoritesRoute()) showFavoritesPage({ push: false, scroll: false });
-      refreshFavoritesForUser();
     }
 
     function renderProductCard(product) {
@@ -7493,7 +6388,6 @@ ${discountLine}
           <div class="product-badges-container">
             ${renderProductBadges(product)}
           </div>
-          ${renderFavoriteButton(product)}
           <div class="product-image-container">
             <img src="${escapeHtml(product.images[0])}" alt="${escapeHtml(product.name)}" class="product-image" loading="lazy">
           </div>
@@ -7739,9 +6633,6 @@ ${discountLine}
     window.closeModal = closeModal;
     window.showAllProducts = showAllProducts;
     window.showMainPage = showMainPage;
-    window.toggleFavorite = toggleFavorite;
-    window.showFavoritesPage = showFavoritesPage;
-    window.requestFavoritesLogin = requestFavoritesLogin;
     window.scrollBottomBar = scrollBottomBar;
     // ============================================================
 // تعديل نظام عرض المنتجات ليعمل ديناميكياً حسب حالة availability
@@ -7966,31 +6857,19 @@ function loadProducts() {
 
 // ===== التعريف النهائي النظيف لعرض المنتجات =====
 function loadProducts() {
-    renderFeaturedHero();
+    renderProductsGrid('bestSellingProducts', getConfiguredProducts('bestSellers'));
+    renderProductsGrid('discountedProducts', getConfiguredProducts('specialOffers'));
+    renderProductsGrid('comingSoonProducts', getConfiguredProducts('comingSoon'));
 
-    Object.entries(homepageSectionConfig).forEach(([canonicalKey, config]) => {
-        renderProductsGrid(config.gridId, getHomepageSectionProducts(canonicalKey));
-    });
-
-    syncHomepageSectionShells();
-
-    Object.entries(homepageSectionConfig).forEach(([canonicalKey, config]) => {
-        const grid = document.getElementById(config.gridId);
-        const btn = grid?.closest('.products-section')?.querySelector('.btn-show-more');
-        const section = getHomepageSection(canonicalKey);
-        const title = section?.title || config.showMoreTitle;
-        if (btn) btn.setAttribute('onclick', `showAllProducts('${escapeJsString(title)}')`);
+    const showMoreBtns = document.querySelectorAll('.btn-show-more');
+    const titles = ['الأكثر مبيعاً', 'العروض الخاصة', 'قريباً في المتجر'];
+    showMoreBtns.forEach((btn, index) => {
+        btn.setAttribute('onclick', `showAllProducts('${titles[index] || 'جميع المنتجات'}')`);
     });
 }
 
 function showAllProducts(sectionTitle = 'جميع المنتجات') {
-    if (window.location.pathname === '/favorites' || window.location.pathname === '/account/favorites') {
-        window.history.pushState({ page: 'products' }, '', '/');
-    }
     document.querySelector('.main-content').style.display = 'none';
-    document.getElementById('favoritesPage')?.classList.remove('active');
-    document.getElementById('giftCardsPage')?.classList.remove('active');
-    document.getElementById('accountPage')?.classList.remove('active');
     document.getElementById('allProductsPage').classList.add('active');
     document.getElementById('allProductsTitle').textContent = sectionTitle === 'جميع المنتجات' ? 'جميع المنتجات' : `${sectionTitle} - جميع المنتجات`;
     renderAllProductsGrid(allProducts);
@@ -8028,7 +6907,5 @@ function filterAllProducts() {
     renderAllProductsGrid(filtered);
 }
   </script>
-  <script src="/auth.js"></script>
-  <script src="/gift-cards.js"></script>
 </body>
 </html>

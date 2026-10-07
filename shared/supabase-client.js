@@ -505,6 +505,60 @@
     return [...byPhone.values()].sort((a, b) => b.lastOrderAt - a.lastOrderAt);
   }
 
+  const DEFAULT_HOMEPAGE_SECTIONS = [
+    { key: "featured_hero", title: "العروض الرئيسية", sortOrder: 5, maxItems: 4, isVisible: true },
+    { key: "best_sellers", title: "منتجات مميزة", sortOrder: 10, maxItems: 4, isVisible: true },
+    { key: "offers", title: "الكومبوهات والعروض", sortOrder: 20, maxItems: 4, isVisible: true },
+    { key: "coming_soon", title: "قريبًا في المتجر", sortOrder: 30, maxItems: 4, isVisible: true },
+  ];
+
+  function defaultHomepageSection(key) {
+    return DEFAULT_HOMEPAGE_SECTIONS.find((section) => section.key === key) || {
+      key,
+      title: key,
+      sortOrder: 99,
+      maxItems: 4,
+      isVisible: true,
+    };
+  }
+
+  function mergeHomepageDefaults(sections) {
+    const byKey = new Map((sections || []).map((section) => [section.section_key, section]));
+    DEFAULT_HOMEPAGE_SECTIONS.forEach((section) => {
+      if (byKey.has(section.key)) return;
+      byKey.set(section.key, {
+        section_key: section.key,
+        title: section.title,
+        is_visible: section.isVisible,
+        sort_order: section.sortOrder,
+        max_items: section.maxItems,
+      });
+    });
+    return [...byKey.values()].sort((a, b) => {
+      const order = Number(a.sort_order || 0) - Number(b.sort_order || 0);
+      return order || String(a.section_key || "").localeCompare(String(b.section_key || ""));
+    });
+  }
+
+  async function ensureHomepageSection(key) {
+    const sb = supabaseClient();
+    const { data, error } = await sb.from("homepage_sections").select("section_key").eq("section_key", key).maybeSingle();
+    throwIf(error, "تعذر فحص قسم الصفحة الرئيسية.");
+    if (data) return;
+
+    const defaults = defaultHomepageSection(key);
+    const { error: insertError } = await sb.from("homepage_sections").insert({
+      section_key: key,
+      title: defaults.title,
+      is_visible: defaults.isVisible !== false,
+      sort_order: Number(defaults.sortOrder || 0),
+      max_items: Number(defaults.maxItems || 4),
+      created_at: nowTs(),
+      updated_at: nowTs(),
+    });
+    throwIf(insertError, "تعذر إنشاء قسم الصفحة الرئيسية.");
+  }
+
   async function listHomepage(adminMode) {
     const sb = supabaseClient();
     let sectionsQuery = sb.from("homepage_sections").select("*").order("sort_order").order("section_key");
@@ -516,13 +570,10 @@
     throwIf(sectionsResult.error, "تعذر تحميل أقسام الرئيسية.");
     throwIf(itemsResult.error, "تعذر تحميل منتجات الرئيسية.");
     const productById = new Map(products.map((product) => [Number(product.id), product]));
-    return (sectionsResult.data || []).map((section) => ({
-      key: section.section_key,
-      title: section.title,
-      isVisible: bool(section.is_visible),
-      sortOrder: Number(section.sort_order || 0),
-      maxItems: Number(section.max_items || 4),
-      items: (itemsResult.data || [])
+    const sections = adminMode ? mergeHomepageDefaults(sectionsResult.data || []) : (sectionsResult.data || []);
+    return sections.map((section) => {
+      const maxItems = Number(section.max_items || 4);
+      const items = (itemsResult.data || [])
         .filter((item) => item.section_key === section.section_key)
         .map((item) => ({
           slot: Number(item.slot_index || 0),
@@ -531,15 +582,42 @@
           startsAt: item.starts_at,
           endsAt: item.ends_at,
         }))
-        .filter((item) => item.product),
-    }));
+        .filter((item) => item.product);
+
+      if (adminMode) {
+        const slots = Array.from({ length: Math.max(4, maxItems) }, () => null);
+        items.forEach((item) => {
+          const index = Math.max(0, Math.min(slots.length - 1, Number(item.slot || 1) - 1));
+          slots[index] = item;
+        });
+        return {
+          key: section.section_key,
+          title: section.title,
+          isVisible: bool(section.is_visible),
+          sortOrder: Number(section.sort_order || 0),
+          maxItems,
+          items: slots,
+        };
+      }
+
+      return {
+        key: section.section_key,
+        title: section.title,
+        isVisible: bool(section.is_visible),
+        sortOrder: Number(section.sort_order || 0),
+        maxItems,
+        items,
+      };
+    });
   }
 
   async function updateHomepageSection(key, payload) {
+    await ensureHomepageSection(key);
     const { error } = await supabaseClient().from("homepage_sections").update({
       title: payload.title || "",
       is_visible: payload.isVisible !== false,
       sort_order: Number(payload.sortOrder || 0),
+      max_items: Number(payload.maxItems || 4),
       updated_at: nowTs(),
     }).eq("section_key", key);
     throwIf(error, "تعذر تحديث القسم.");
@@ -549,11 +627,12 @@
 
   async function updateHomepageItems(key, payload) {
     const sb = supabaseClient();
+    await ensureHomepageSection(key);
     const { error: deleteError } = await sb.from("homepage_items").delete().eq("section_key", key);
     throwIf(deleteError, "تعذر تحديث منتجات القسم.");
     const rows = (payload.items || []).map((item, index) => ({
       section_key: key,
-      slot_index: index + 1,
+      slot_index: Number(item.slot || item.slotIndex || index + 1),
       product_id: item.productId,
       custom_price: item.customPrice == null ? null : Number(item.customPrice),
       starts_at: item.startsAt || null,

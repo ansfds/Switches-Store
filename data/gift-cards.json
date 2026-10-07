@@ -1,0 +1,365 @@
+{
+  "platforms": [
+    {
+      "id": "playstation",
+      "name": "PlayStation Store",
+      "shortName": "PlayStation",
+      "iconClass": "fa-brands fa-playstation",
+      "accent": "#2563eb",
+      "description": "بطاقات رقمية لحسابات PlayStation Store حسب المنطقة.",
+      "available": true,
+      "regions": [
+        {
+          "id": "us",
+          "name": "United States",
+          "label": "أمريكي",
+          "flag": "🇺🇸",
+          "currency": "USD",
+          "available": true,
+          "denominations": [
+            {
+              "value": 10,
+              "sellingPriceLYD": 110,
+              "available": true
+            },
+            {
+              "value": 15,
+              "sellingPriceLYD": 162,
+              "available": true
+            },
+            {
+              "value": 25,
+              "sellingPriceLYD": 267.5,
+              "available": true
+            },
+            {
+              "value": 50,
+              "sellingPriceLYD": 525,
+              "available": true
+            },
+            {
+              "value": 100,
+              "sellingPriceLYD": 1030,
+              "available": false
+            }
+          ]
+        },
+        {
+          "id": "uk",
+          "name": "United Kingdom",
+          "label": "بريطاني",
+          "flag": "🇬🇧",
+          "currency": "GBP",
+          "available": true,
+          "denominations": [
+            {
+              "value": 10,
+              "sellingPriceLYD": 138,
+              "available": true
+            },
+            {
+              "value": 20,
+              "sellingPriceLYD": 268,
+              "available": true
+            },
+            {
+              "value": 50,
+              "sellingPriceLYD": 650,
+              "available": true
+            }
+          ]
+        },
+        {
+          "id": "ae",
+          "name": "United Arab Emirates",
+          "label": "إماراتي",
+          "flag": "🇦🇪",
+          "currency": "AED",
+          "available": true,
+          "denominations": [
+            {
+              "value": 50,
+              "sellingPriceLYD": 112,
+              "available": true
+            },
+            {
+              "value": 100,
+              "sellingPriceLYD": 218,
+              "available": true
+            },
+            {
+              "value": 200,
+              "sellingPriceLYD": 430,
+              "available": false
+            }
+          ]
+        },
+        {
+          "id": "sa",
+          "name": "Saudi Arabia",
+          "label": "سعودي",
+          "flag": "🇸🇦",
+          "currency": "SAR",
+          "available": true,
+          "denominations": [
+            {
+              "value": 50,
+              "sellingPriceLYD": 112,
+              "available": true
+            },
+            {
+              "value": 100,
+              "sellingPriceLYD": 218,
+              "available": true
+            },
+            {
+              "value": 200,
+              "sellingPriceLYD": 430,
+              "available": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "steam",
+      "name": "Steam Wallet",
+      "shortName": "Steam",
+      "iconClass": "fa-brands fa-steam",
+      "accent": "#38bdf8",
+      "description": "رصيد Steam Wallet للألعاب والمحتوى الرقمي.",
+      "available": true,
+      "regions": [
+        {
+          "id": "us",
+          "name": "United States",
+          "label": "أمريكي",
+          "flag": "🇺🇸",
+          "currency": "USD",
+          "available": true,
+          "denominations": [
+            {
+              "value": 10,
+              "sellingPriceLYD": 110,
+              "available": true
+            },
+            {
+              "value": 20,
+              "sellingPriceLYD": 215,
+              "available": true
+            },
+            {
+              "value": 50,
+              "sellingPriceLYD": 525,
+              "available": true
+            },
+            {
+              "value": 100,
+              "sellingPriceLYD": 1030,
+              "available": true
+            }
+          ]
+        },
+        {
+          "id": "uk",
+          "name": "United Kingdom",
+          "label": "بريطاني",
+          "flag": "🇬🇧",
+          "currency": "GBP",
+          "available": true,
+          "denominations": [
+            {
+              "value": 10,
+              "sellingPriceLYD": 138,
+              "available": true
+            },
+            {
+              "value": 20,
+              "sellingPriceLYD": 268,
+              "available": true
+            },
+            {
+              "value": 50,
+              "sellingPriceLYD": 650,
+              "available": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "apple",
+      "name": "Apple Gift Card",
+      "shortName": "Apple",
+      "iconClass": "fa-brands fa-apple",
+      "accent": "#f8fafc",
+      "description": "بطاقات Apple للخدمات والتطبيقات والاشتراكات.",
+      "available": true,
+      "regions": [
+        {
+          "id": "us",
+          "name": "United States",
+          "label": "أمريكي",
+          "flag": "🇺🇸",
+          "currency": "USD",
+          "available": true,
+          "denominations": [
+            {
+              "value": 10,
+              "sellingPriceLYD": 110,
+              "available": true
+            },
+            {
+              "value": 25,
+              "sellingPriceLYD": 267.5,
+              "available": true
+            },
+            {
+              "value": 50,
+              "sellingPriceLYD": 525,
+              "available": true
+            },
+            {
+              "value": 100,
+              "sellingPriceLYD": 1030,
+              "available": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "google-play",
+      "name": "Google Play",
+      "shortName": "Google Play",
+      "iconClass": "fa-brands fa-google-play",
+      "accent": "#22c55e",
+      "description": "رصيد Google Play للتطبيقات والألعاب.",
+      "available": true,
+      "regions": [
+        {
+          "id": "us",
+          "name": "United States",
+          "label": "أمريكي",
+          "flag": "🇺🇸",
+          "currency": "USD",
+          "available": true,
+          "denominations": [
+            {
+              "value": 10,
+              "sellingPriceLYD": 110,
+              "available": true
+            },
+            {
+              "value": 25,
+              "sellingPriceLYD": 267.5,
+              "available": true
+            },
+            {
+              "value": 50,
+              "sellingPriceLYD": 525,
+              "available": true
+            },
+            {
+              "value": 100,
+              "sellingPriceLYD": 1030,
+              "available": false
+            }
+          ]
+        },
+        {
+          "id": "sa",
+          "name": "Saudi Arabia",
+          "label": "سعودي",
+          "flag": "🇸🇦",
+          "currency": "SAR",
+          "available": true,
+          "denominations": [
+            {
+              "value": 50,
+              "sellingPriceLYD": 112,
+              "available": true
+            },
+            {
+              "value": 100,
+              "sellingPriceLYD": 218,
+              "available": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "xbox",
+      "name": "Xbox",
+      "shortName": "Xbox",
+      "iconClass": "fa-brands fa-xbox",
+      "accent": "#16a34a",
+      "description": "بطاقات Xbox و Microsoft Store للألعاب والخدمات.",
+      "available": true,
+      "regions": [
+        {
+          "id": "us",
+          "name": "United States",
+          "label": "أمريكي",
+          "flag": "🇺🇸",
+          "currency": "USD",
+          "available": true,
+          "denominations": [
+            {
+              "value": 10,
+              "sellingPriceLYD": 110,
+              "available": true
+            },
+            {
+              "value": 25,
+              "sellingPriceLYD": 267.5,
+              "available": true
+            },
+            {
+              "value": 50,
+              "sellingPriceLYD": 525,
+              "available": true
+            },
+            {
+              "value": 100,
+              "sellingPriceLYD": 1030,
+              "available": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon Gift Card",
+      "shortName": "Amazon",
+      "iconClass": "fa-brands fa-amazon",
+      "accent": "#f59e0b",
+      "description": "بطاقات Amazon للمناطق المدعومة.",
+      "available": false,
+      "regions": [
+        {
+          "id": "us",
+          "name": "United States",
+          "label": "أمريكي",
+          "flag": "🇺🇸",
+          "currency": "USD",
+          "available": false,
+          "denominations": [
+            {
+              "value": 25,
+              "sellingPriceLYD": 267.5,
+              "available": false
+            },
+            {
+              "value": 50,
+              "sellingPriceLYD": 525,
+              "available": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

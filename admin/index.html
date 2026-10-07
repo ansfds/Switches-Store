@@ -84,6 +84,22 @@
 
       <section class="section-panel" id="section-homepage">
         <div class="panel-head page-head"><div><h3>إدارة الصفحة الرئيسية</h3><p>غيّر المنتجات المعروضة ورتبها بالسحب والإفلات.</p></div></div>
+        <article class="panel-card featured-hero-admin">
+          <div class="panel-head split">
+            <div>
+              <h3>واجهة العروض الرئيسية</h3>
+              <p>اختر خلفية القسم العلوي ورتب عروض Slots 1-4 من قسم العروض الرئيسية.</p>
+            </div>
+          </div>
+          <form id="featuredHeroSettingsForm" class="form-grid">
+            <label class="full"><span>خلفية قسم العروض الرئيسية</span><input name="featured_hero_background_url" placeholder="رابط الصورة"></label>
+            <label><span>رفع صورة جديدة</span><input id="featuredHeroBgUpload" type="file" accept="image/*"></label>
+            <label><span>Overlay opacity</span><select name="featured_hero_overlay_opacity"><option value="40">40%</option><option value="50">50%</option><option value="60">60%</option><option value="70">70%</option></select></label>
+            <div class="full hero-bg-preview" id="featuredHeroBgPreviewBox"><img id="featuredHeroBgPreview" alt="معاينة خلفية العروض الرئيسية"></div>
+            <div id="featuredHeroBgHint" class="hint full"></div>
+            <div class="full row-actions"><button class="btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ خلفية الواجهة</button><button class="btn ghost danger-text" id="removeFeaturedHeroBgBtn" type="button"><i class="fa-solid fa-trash"></i> حذف الخلفية</button></div>
+          </form>
+        </article>
         <div id="homepageSections" class="homepage-stack"></div>
       </section>
 
@@ -114,6 +130,45 @@
           <fieldset class="full"><legend>طرق الدفع</legend><div class="check-grid"><label><input type="checkbox" name="pay_cash"> كاش</label><label><input type="checkbox" name="pay_bank"> تحويل مصرفي</label><label><input type="checkbox" name="pay_usdt"> USDT</label><label><input type="checkbox" name="pay_cod"> الدفع عند الاستلام</label></div></fieldset>
           <fieldset class="full"><legend>الشحن</legend><div class="form-grid"><label><span>سعر الشحن الافتراضي</span><input name="shippingPrice" type="number" step="0.01"></label><label><span>شحن مجاني بعد</span><input name="freeAbove" type="number" step="0.01"></label><label class="full"><span>المناطق (كل سطر منطقة)</span><textarea name="regions" rows="5"></textarea></label></div></fieldset>
           <fieldset class="full"><legend>خصم السلة</legend><div class="form-grid"><label><span>تفعيل خصم السلة</span><select name="cart_discount_enabled"><option value="1">نعم</option><option value="0">لا</option></select></label><label><span>نسبة الخصم %</span><input name="cart_discount_percent" type="number" min="0" max="100" step="0.01"></label></div></fieldset>
+          <fieldset class="full settings-visuals-fieldset">
+            <legend>Store visual images</legend>
+            <div class="form-grid">
+              <label><span>PC PARTS button image URL</span><input name="mode_button_pc_background_url" data-settings-image-input="mode_button_pc_background_url" placeholder="https://example.com/pc-parts.jpg"></label>
+              <label><span>Gift Card button image URL</span><input name="mode_button_gift_background_url" data-settings-image-input="mode_button_gift_background_url" placeholder="https://example.com/gift-card.jpg"></label>
+              <div class="full settings-preview-grid">
+                <div class="settings-image-preview"><span>PC PARTS</span><img id="modePcBgPreview" alt="PC PARTS preview"></div>
+                <div class="settings-image-preview"><span>Gift Card</span><img id="modeGiftBgPreview" alt="Gift Card preview"></div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="full settings-visuals-fieldset">
+            <legend>Gift Cards platform images</legend>
+            <div class="form-grid three">
+              <label><span>PlayStation image URL</span><input name="gift_card_image_playstation" data-settings-image-input="gift_card_image_playstation" placeholder="https://example.com/playstation.jpg"></label>
+              <label><span>Steam image URL</span><input name="gift_card_image_steam" data-settings-image-input="gift_card_image_steam" placeholder="https://example.com/steam.jpg"></label>
+              <label><span>Xbox image URL</span><input name="gift_card_image_xbox" data-settings-image-input="gift_card_image_xbox" placeholder="https://example.com/xbox.jpg"></label>
+              <label><span>Apple image URL</span><input name="gift_card_image_apple" data-settings-image-input="gift_card_image_apple" placeholder="https://example.com/apple.jpg"></label>
+              <label><span>Amazon image URL</span><input name="gift_card_image_amazon" data-settings-image-input="gift_card_image_amazon" placeholder="https://example.com/amazon.jpg"></label>
+              <label><span>Google Play image URL</span><input name="gift_card_image_google_play" data-settings-image-input="gift_card_image_google_play" placeholder="https://example.com/google-play.jpg"></label>
+            </div>
+            <div class="settings-preview-grid gift-settings-preview-grid">
+              <div class="settings-image-preview"><span>PlayStation</span><img id="giftImagePreviewPlaystation" alt="PlayStation preview"></div>
+              <div class="settings-image-preview"><span>Steam</span><img id="giftImagePreviewSteam" alt="Steam preview"></div>
+              <div class="settings-image-preview"><span>Xbox</span><img id="giftImagePreviewXbox" alt="Xbox preview"></div>
+              <div class="settings-image-preview"><span>Apple</span><img id="giftImagePreviewApple" alt="Apple preview"></div>
+              <div class="settings-image-preview"><span>Amazon</span><img id="giftImagePreviewAmazon" alt="Amazon preview"></div>
+              <div class="settings-image-preview"><span>Google Play</span><img id="giftImagePreviewGooglePlay" alt="Google Play preview"></div>
+            </div>
+          </fieldset>
+          <fieldset class="full settings-visuals-fieldset">
+            <legend>Gift Cards purchase settings</legend>
+            <div class="form-grid three">
+              <label><span>WhatsApp Purchase Number</span><input name="gift_cards_whatsapp_purchase_number" placeholder="2189XXXXXXXX"></label>
+              <label><span>Flame highlight</span><select name="gift_card_highlight_enabled"><option value="1">Enabled</option><option value="0">Disabled</option></select></label>
+              <label><span>PlayStation highlighted denomination</span><select name="gift_card_highlight_playstation"><option value="25">$25</option><option value="30">$30</option><option value="40">$40</option><option value="50">$50</option><option value="60">$60</option><option value="70">$70</option><option value="75">$75</option><option value="80">$80</option><option value="90">$90</option><option value="100">$100</option><option value="125">$125</option><option value="150">$150</option><option value="175">$175</option><option value="200">$200</option><option value="225">$225</option><option value="250">$250</option></select></label>
+              <label><span>Xbox highlighted denomination</span><select name="gift_card_highlight_xbox"><option value="5">$5</option><option value="10">$10</option><option value="15">$15</option><option value="20">$20</option><option value="25">$25</option><option value="30">$30</option><option value="40">$40</option><option value="50">$50</option><option value="60">$60</option><option value="70">$70</option><option value="80">$80</option><option value="90">$90</option><option value="100">$100</option></select></label>
+            </div>
+          </fieldset>
           <div class="full"><button class="btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ الإعدادات</button></div>
         </form></article>
       </section>

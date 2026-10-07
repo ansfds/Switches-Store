@@ -1,0 +1,1595 @@
+[
+  {
+    "id": 66,
+    "name": "MSI B850 GAMING PLUS WIFI6E Motherboard",
+    "category": "قطع التجميعة",
+    "brand": "MSI",
+    "price": 159,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/81Ezo61FTmL._AC_UF1000,1000_QL80_.jpg"
+    ],
+    "description": "لوحة أم قوية بمعيار ATX تدعم معالجات AMD Ryzen 9000 و8000 و7000، مع ذاكرة DDR5 وWi-Fi 6E وPCIe 4.0 وM.2 Gen5.",
+    "specs": {
+      "الموديل": "B850 GAMING PLUS WIFI6E",
+      "المقبس": "AM5",
+      "دعم المعالجات": "AMD Ryzen 9000 / 8000 / 7000",
+      "الذاكرة": "DDR5",
+      "الشكل": "ATX",
+      "الشبكة اللاسلكية": "Wi-Fi 6E",
+      "الشبكة السلكية": "2.5G LAN",
+      "PCIe": "PCIe 4.0 x16",
+      "التخزين": "M.2 Gen5"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "comingSoon"
+  },
+  {
+    "id": 65,
+    "name": "AMD Ryzen 9 9900X",
+    "category": "قطع التجميعة",
+    "brand": "AMD",
+    "price": 410,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2613900-ryzen-9-9950x.jpg"
+    ],
+    "description": "معالج AMD Ryzen 9 9900X من سلسلة Ryzen 9000 بمعمارية Zen 5، يحتوي على 12 نواة ويقدم أداءً قوياً للألعاب والأعمال الثقيلة.",
+    "specs": {
+      "الموديل": "Ryzen 9 9900X",
+      "السلسلة": "Ryzen 9000",
+      "المعمارية": "Zen 5",
+      "عدد الأنوية": "12-Core",
+      "التردد الأساسي": "4.4 GHz",
+      "المقبس": "AM5",
+      "الاستهلاك": "120W",
+      "معالج الرسوميات": "Radeon Graphics"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "comingSoon"
+  },
+  {
+    "id": 64,
+    "name": "Cooler Master Elite Liquid 240 CPU AIO Cooler",
+    "category": "قطع التجميعة",
+    "brand": "Cooler Master",
+    "price": 50,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/61ab+RZO2mL._AC_UF894,1000_QL80_.jpg"
+    ],
+    "description": "مبرد مائي AIO بحجم 240mm مع مروحتين ARGB PWM وتصميم مضخة Dual-Chamber لتوفير تبريد قوي وهادئ لمعالجات AMD وIntel.",
+    "specs": {
+      "الموديل": "Elite Liquid 240",
+      "النوع": "AIO Liquid CPU Cooler",
+      "حجم الراديتر": "240mm",
+      "المراوح": "2x ARGB PWM",
+      "تصميم المضخة": "Dual-Chamber Pump",
+      "المقبس": "AMD AM5 / AM4",
+      "دعم Intel": "LGA 1851 / LGA 1700",
+      "اللون": "Black"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "comingSoon"
+  },
+  {
+    "id": 63,
+    "name": "PowerColor Red Devil Radeon RX 6700 XT 12GB GDDR6",
+    "category": "قطع التجميعة",
+    "brand": "PowerColor",
+    "price": 300,
+    "oldPrice": null,
+    "condition": "مستعمل",
+    "images": [
+      "images/powercolor-red-devil-rx-6700-xt.webp"
+    ],
+    "description": "أداء ممتاز للألعاب بدقة 1440p، بذاكرة 12GB وتبريد Red Devil القوي 💜",
+    "specs": {
+      "المعالج الرسومي": "AMD Radeon RX 6700 XT",
+      "الذاكرة": "12GB GDDR6",
+      "الدقة المناسبة": "1440p",
+      "التبريد": "Red Devil Triple Fan",
+      "الحالة": "مستعمل"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 62,
+    "name": "PowerColor Red Devil Radeon RX 5700 XT 8GB GDDR6",
+    "category": "قطع التجميعة",
+    "brand": "PowerColor",
+    "price": 190,
+    "oldPrice": null,
+    "condition": "مستعمل",
+    "images": [
+      "images/powercolor-red-devil-rx-5700.jpg"
+    ],
+    "description": "كرت قوي للألعاب بدقة 1080p، بتبريد Red Devil المعروف وأداء ممتاز مقابل السعر 🎮",
+    "specs": {
+      "المعالج الرسومي": "AMD Radeon RX 5700 XT ",
+      "الذاكرة": "8GB GDDR6",
+      "الدقة المناسبة": "1080p",
+      "التبريد": "Red Devil Triple Fan",
+      "الحالة": "مستعمل"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 61,
+    "name": "RTX 5060 Gaming PC Build|تجميعة AMD Ryzen 9 7900",
+    "category": "التجميعة",
+    "brand": "AMD",
+    "price": 1558,
+    "oldPrice": 1658,
+    "condition": "جديد",
+    "images": [
+      "https://i.postimg.cc/CxSxhzdW/093.png"
+    ],
+    "description": "تجميعة ألعاب واحترافية عالية الأداء تعتمد على أحدث منصة AM5، وتضم معالج AMD Ryzen 9 7900 مع لوحة MSI PRO B850M-P WIFI وذاكرة DDR5 بسرعة 6000MHz، بالإضافة إلى مبرد مائي Razer Hanbo Chroma RGB بقياس 240mm. تأتي مزودة ببطاقة RTX 5060 لتقديم أداء ممتاز في الألعاب، البث المباشر، المونتاج، والتصميم، مع جاهزية كاملة للاستخدام.",
+    "specs": {
+      "كرت الشاشة": "MSI GeForce RTX 5060 8GB Shadow 2X OC",
+      "المعالج": "AMD Ryzen 9 7900 (12 Cores / 24 Threads)",
+      "اللوحة الأم": "MSI PRO B850M-P WIFI",
+      "المبرد": "Razer Hanbo Chroma RGB AIO Liquid Cooler (240mm)",
+      "الذاكرة": "V-COLOR Manta XSky DDR5 32GB (2x16GB) 6000MHz CL30 RGB",
+      "التخزين": "SSD 256GB + HDD Seagate 500GB",
+      "مزود الطاقة": "Cooler Master 650W 80+ (شبه جديد)",
+      "الكيس": "Game Arena CG220 VOID Fish Tank (3 ARGB Fans)",
+      "النظام": "Windows 10 Pro",
+      "الحالة": "جميع القطع جديدة باستثناء الهاردات والباور (شبه جديدة)"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 60,
+    "name": "AMD Ryzen 7 2700X Processors 3.7GHz",
+    "category": "قطع التجميعة",
+    "brand": "AMD",
+    "price": 55,
+    "oldPrice": 60,
+    "condition": "مستعمل",
+    "images": [
+      "https://m.media-amazon.com/images/I/41ECnJ1NiQL._SS1000_.jpg"
+    ],
+    "description": "معالج AMD Ryzen 7 2700X يقدم أداءً قوياً للألعاب وتعدد المهام بفضل 8 أنوية و16 خيط معالجة. يعتمد على معمارية Zen+ ويتميز بترددات مرتفعة وتقنية Precision Boost، مما يجعله خياراً ممتازاً لتجميعات الألعاب والعمل والإنتاجية على منصة AM4.",
+    "specs": {
+      "الأنوية": "8 Cores",
+      "الخيوط": "16 Threads",
+      "التردد": "3.7GHz - 4.3GHz",
+      "الذاكرة المخبأة": "20MB Cache",
+      "المقبس": "AM4",
+      "استهلاك الطاقة": "105W",
+      "التوافق": "لوحات B450 / B550 / X470 / X570",
+      "دقة التصنيع": "12nm",
+      "الميزات": "Precision Boost 2 + XFR 2",
+      "الحالة": "مستعمل"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 59,
+    "name": "Game Arena CG220 VOID Fish Tank ( 3 ARGB Fans)",
+    "category": "قطع التجميعة",
+    "brand": "Case",
+    "price": 43,
+    "oldPrice": 50,
+    "condition": "مستعمل",
+    "images": [
+      "https://gamearena.ly/image/cache/catalog/Products/0%20%20%20%20%20%20CASES/CG220/photo_2025-03-17_20-41-32%20(3)-500x500.jpg",
+      "https://gamearena.ly/image/cache/catalog/Products/0%20%20%20%20%20%20CASES/CG220/photo_2025-03-17_20-41-31%20(2)-500x500.jpg"
+    ],
+    "description": "كيس Game Arena CG220 VOID Fish Tank يتميز بتصميم عصري بواجهة وزجاج جانبي بانورامي يمنح مظهراً احترافياً لتجميعة الألعاب. يأتي مزوداً بثلاث مراوح ARGB جاهزة لتوفير تدفق هواء ممتاز وإضاءة قابلة للتخصيص، مع مساحة كافية لتركيب المكونات الحديثة وإدارة الكابلات بشكل منظم.",
+    "specs": {
+      "النوع": "Gaming Case",
+      "التصميم": "Fish Tank Panorama Glass",
+      "المراوح المرفقة": "3 ARGB Fans",
+      "الإضاءة": "ARGB قابلة للتخصيص",
+      "التوافق": "لوحات Micro-ATX و ATX",
+      "دعم التبريد": "مراوح وتبريد مائي متعدد المقاسات",
+      "إدارة الكابلات": "تصميم منظم وسهل",
+      "اللون": "أسود",
+      "الحالة": "جديد",
+      "الميزات": "زجاج بانورامي، تدفق هواء ممتاز، مظهر احترافي للألعاب"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 58,
+    "name": "GIGABYTE B550M GAMING X WIFI6 + AMD Ryzen 5 5500 | BOX NEW + Gamdias Boreas E2-410 | CPU Air",
+    "category": "قطع التجميعة",
+    "brand": "COMBO",
+    "price": 235,
+    "oldPrice": 247,
+    "condition": "جديد",
+    "images": [
+      "https://i.postimg.cc/rmps2tRm/693e22f6-21ac-45c1-90bb-6f90a00cce12.png"
+    ],
+    "description": "كومبو AMD المتكامل للألعاب يضم معالج Ryzen 5 5500 مع لوحة GIGABYTE B550M GAMING X WIFI6 ومبرد Gamdias Boreas E2-410، ليمنحك أساساً قوياً لتجميعة ألعاب حديثة بأداء ممتاز واستقرار عالي. يوفر دعماً لـ PCIe 4.0 وWi-Fi 6 مع تبريد احترافي للمعالج، مما يجعله خياراً مثالياً للاعبين الباحثين عن أفضل قيمة مقابل السعر.",
+    "specs": {
+      "المعالج": "AMD Ryzen 5 5500 (6 Cores / 12 Threads)",
+      "اللوحة الأم": "GIGABYTE B550M GAMING X WIFI6",
+      "المبرد": "Gamdias Boreas E2-410",
+      "المقبس": "AM4",
+      "الاتصال": "Wi-Fi 6 + Bluetooth",
+      "الذاكرة": "DDR4 حتى 128GB",
+      "التوسعة": "PCIe 4.0",
+      "التبريد": "120mm PWM Fan + 4 Copper Heat Pipes",
+      "الحالة": "جديد (BOX NEW)",
+      "الميزات": "أداء ممتاز للألعاب، تبريد احترافي، قابلية تطوير عالية"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 57,
+    "name": "MSI GeForce RTX 5060 | 8G Shadow 2X OC",
+    "category": "قطع التجميعة",
+    "brand": "MSI",
+    "price": 390,
+    "oldPrice": 450,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/71edk5q7MPL._SL1500_.jpg"
+    ],
+    "description": "بطاقة الرسومات MSI GeForce RTX 5060 8G Shadow 2X OC توفر أداءً قوياً للألعاب الحديثة وصناعة المحتوى، مع معمارية NVIDIA RTX الحديثة وذاكرة GDDR7 فائقة السرعة. تتميز بتبريد مزدوج Shadow 2X وكسر سرعة مصنع، مما يمنح أداءً مستقراً وتجربة لعب سلسة بدقة 1080p و1440p مع دعم أحدث تقنيات تتبع الأشعة وDLSS.",
+    "specs": {
+      "المعالج الرسومي": "NVIDIA GeForce RTX 5060",
+      "الذاكرة": "8GB GDDR7",
+      "واجهة الذاكرة": "128-bit",
+      "سرعة الذاكرة": "28 Gbps",
+      "التوافق": "PCI Express 5.0 x16",
+      "التبريد": "Shadow 2X Dual Fan",
+      "المخارج": "HDMI + DisplayPort",
+      "الميزات": "Ray Tracing + DLSS 4 + NVIDIA Reflex + كسر سرعة OC",
+      "الحالة": "جديد"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 56,
+    "name": "V-COLOR Manta XSky DDR5 32GB (2x16GB) | 6000MHz CL30",
+    "category": "قطع التجميعة",
+    "brand": "V-COLOR",
+    "price": 420,
+    "oldPrice": 450,
+    "condition": "جديد",
+    "images": [
+      "https://v-color.net/cdn/shop/files/TMXSAL1664832KWK-_1.jpg?v=1756894283&width=1946.jpg"
+    ],
+    "description": "ذاكرة V-COLOR Manta XSky DDR5 بسعة 32GB (2x16GB) وتردد 6000MHz تقدم أداءً ممتازاً للألعاب والاستخدام الاحترافي، مع توقيت CL30 السريع واعتمادها على شرائح SK Hynix عالية الجودة. تتميز بإضاءة RGB أنيقة ودعم AMD EXPO لتسهيل كسر السرعة وتحقيق أفضل أداء على منصات AMD الحديثة.",
+    "specs": {
+      "السعة": "32GB (2x16GB)",
+      "النوع": "DDR5 RGB",
+      "التردد": "6000MHz",
+      "التوقيت": "CL30",
+      "الشرائح": "SK Hynix IC",
+      "الملف التعريفي": "AMD EXPO",
+      "الجهد": "1.35V",
+      "التوافق": "منصات AMD DDR5",
+      "اللون": "أسود",
+      "الميزات": "RGB، أداء عالي، قابلية ممتازة لكسر السرعة"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 55,
+    "name": "WD_BLACK 1TB SN850X NVMe | Gen4 PCIe, Up to 7,300 MB/s",
+    "category": "قطع التجميعة",
+    "brand": "WD_BLACK",
+    "price": 230,
+    "oldPrice": 235,
+    "condition": "جديد",
+    "images": [
+      "https://www.sv-comp.com/image/cache/catalog/media/main-image/p_7036-900x900.jpg"
+    ],
+    "description": "وحدة التخزين WD_BLACK SN850X NVMe SSD بسعة 1TB مصممة لعشاق الألعاب والأداء العالي، حيث توفر سرعات فائقة بفضل واجهة PCIe Gen4 x4. تضمن أوقات تحميل أسرع واستجابة ممتازة للنظام والألعاب، مما يجعلها خياراً مثالياً لأجهزة الألعاب الحديثة ومحطات العمل الاحترافية.",
+    "specs": {
+      "السعة": "1TB",
+      "النوع": "NVMe M.2 2280 SSD",
+      "الواجهة": "PCIe 4.0 x4",
+      "سرعة القراءة": "حتى 7300 MB/s",
+      "سرعة الكتابة": "حتى 6300 MB/s",
+      "التوافق": "أجهزة الكمبيوتر واللابتوبات الداعمة لـ M.2 NVMe",
+      "الحالة": "جديد",
+      "الميزات": "أداء فائق للألعاب، تحميل سريع، تقنية WD_BLACK Gaming"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 54,
+    "name": " Gamdias Boreas E2-410 | CPU Air ",
+    "category": "قطع التجميعة",
+    "brand": "Gamdias",
+    "price": 35,
+    "oldPrice": 40,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/71BeeB83FzL.jpg",
+      "https://compuscience.com.eg/21575-medium_default/gamdias-boreas-e2-410-cpu-air-cooler.jpg"
+    ],
+    "description": "مبرد المعالج Gamdias Boreas E2-410 يوفر تبريداً فعالاً للمعالجات الحديثة بفضل 4 أنابيب حرارية نحاسية ومروحة PWM مقاس 120 مم. يتميز بأداء تبريد مستقر وضجيج منخفض، مما يجعله خياراً ممتازاً للألعاب والاستخدام المكثف مع دعم واسع لمعالجات Intel و AMD الحديثة.",
+    "specs": {
+      "النوع": "Air Cooler",
+      "الأنابيب الحرارية": "4 Heat Pipes نحاسية",
+      "حجم المروحة": "120mm PWM Fan",
+      "نوع المحمل": "Hydraulic Bearing",
+      "التحكم بالسرعة": "PWM",
+      "التوافق Intel": "LGA 1700 / 1200 / 115X / 2011 / 2066",
+      "التوافق AMD": "AM5 / AM4",
+      "مستوى الضجيج": "منخفض",
+      "الحالة": "جديد",
+      "الميزات": "تبريد قوي، تشغيل هادئ، تركيب سهل"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 53,
+    "name": " Team Group T-FORCE G50 M.2 2280 512GB PCIe 4.0 x4 | NVMe ",
+    "category": "قطع التجميعة",
+    "brand": "Team Group",
+    "price": 100,
+    "oldPrice": 110,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/61s2IwelU1L._AC_SL1500_.jpg"
+    ],
+    "description": "وحدة التخزين Team Group T-FORCE G50 NVMe SSD بسعة 512GB توفر أداءً سريعاً بفضل واجهة PCIe 4.0 x4، مما يسرّع تشغيل النظام والألعاب ونقل الملفات الكبيرة. تتميز بتصميم M.2 2280 المدمج وسرعات قراءة تصل إلى 5000MB/s، ما يجعلها خياراً ممتازاً لأجهزة الألعاب والحواسيب الحديثة.",
+    "specs": {
+      "السعة": "512GB",
+      "النوع": "NVMe M.2 2280 SSD",
+      "الواجهة": "PCIe 4.0 x4",
+      "سرعة القراءة": "حتى 5000 MB/s",
+      "سرعة الكتابة": "حتى 3500 MB/s",
+      "التوافق": "أجهزة الكمبيوتر واللابتوبات الداعمة لـ M.2 NVMe",
+      "الحالة": "جديد",
+      "الميزات": "أداء سريع للنظام والألعاب واستهلاك طاقة منخفض"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 52,
+    "name": " AMD Ryzen 5 5500 | BOX NEW ",
+    "category": "قطع التجميعة",
+    "brand": "MSI",
+    "price": 95,
+    "oldPrice": 95,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/51So7GoGvxL.jpg"
+    ],
+    "description": "معالج AMD Ryzen 5 5500 الجديد يقدم أداءً ممتازاً للألعاب والاستخدام اليومي وصناعة المحتوى، بفضل 6 أنوية و12 خيط معالجة. يأتي بإصدار BOX مع المشتت الأصلي من AMD، ويوفر كفاءة عالية واستهلاك طاقة منخفض، مما يجعله خياراً رائعاً لتجميعات الألعاب الاقتصادية والمتوسطة.",
+    "specs": {
+      "الأنوية": "6 Cores",
+      "الخيوط": "12 Threads",
+      "التردد": "3.6GHz - 4.2GHz",
+      "الذاكرة المخبأة": "16MB L3 Cache",
+      "المقبس": "AM4",
+      "استهلاك الطاقة": "65W",
+      "التبريد": "AMD Wraith Stealth",
+      "التوافق": "لوحات B450 / B550 / X570",
+      "الحالة": "جديد (BOX)",
+      "الميزات": "أداء ممتاز للألعاب والعمل اليومي"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 51,
+    "name": " MSI PRO B850M-P WIFI | PRO Series Motherboards ",
+    "category": "قطع التجميعة",
+    "brand": "MSI",
+    "price": 175,
+    "oldPrice": 180,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/717cM--I9lL._AC_UF1000,1000_QL80_.jpg",
+      "https://www.cclonline.com/images/avante/msi-pro_b850m-p_wifi-3d3.jpg",
+      "https://ecommerce.datablitz.com.ph/cdn/shop/files/sdfgndfhmsdt_800x.jpg?v=1758696573.jpg"
+    ],
+    "description": "لوحة MSI PRO B850M-P WIFI مصممة لتوفير أداء قوي واستقرار ممتاز لمعالجات AMD Ryzen الحديثة على منصة AM5. تدعم ذاكرة DDR5 وواجهة PCIe 5.0 مع شبكة Wi-Fi 7 واتصال 5G LAN فائق السرعة، بالإضافة إلى حلول تبريد متقدمة وتصميم احترافي يجعلها مناسبة للألعاب والعمل والإنتاجية اليومية.",
+    "specs": {
+      "الشريحة": "AMD B850",
+      "المقبس": "AM5",
+      "الذاكرة": "DDR5 حتى 256GB",
+      "سرعة الرام": "حتى 8200+ MT/s (OC)",
+      "التوافق": "Ryzen 7000 / 8000 / 9000",
+      "التوسعة": "PCIe 5.0 x16",
+      "التخزين": "3 منافذ M.2 + 4 SATA",
+      "الاتصال": "Wi-Fi 7 + Bluetooth 5.4 + 5G LAN",
+      "الحجم": "Micro-ATX",
+      "الميزات": "PCIe 5.0 + DDR5 + EZ DIY + تبريد Frozr Guard"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 50,
+    "name": " GIGABYTE B550M GAMING X WIFI6 Motherboard ",
+    "category": "قطع التجميعة",
+    "brand": "GIGABYTE",
+    "price": 117,
+    "oldPrice": 130,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/81EO3LwxpIL._AC_UF1000,1000_QL80_.jpg",
+      "https://www.abcshop-eg.com/web/image/106352-f63aee20/3.jpg?access_token=1a76d33d-0c30-4328-9066-47cd9ce23265.jpg",
+      "https://media.ldlc.com/r1600/ld/products/00/06/25/62/LD0006256277.jpg"
+    ],
+    "description": "لوحة GIGABYTE B550M GAMING X WIFI6 المخصصة للألعاب توفر أداءً مستقراً لمعالجات AMD Ryzen على منصة AM4، مع دعم PCIe 4.0 وذاكرة DDR4 عالية السرعة واتصال Wi-Fi 6 المدمج. تتميز بتصميم قوي للطاقة وتبريد فعال ومنافذ توسعة متعددة، مما يجعلها خياراً ممتازاً لتجميعات الألعاب والعمل اليومي المتقدمة.",
+    "specs": {
+      "الشريحة": "AMD B550",
+      "المقبس": "AM4",
+      "الذاكرة": "DDR4 حتى 128GB",
+      "سرعة الرام": "حتى 4733MHz (OC)",
+      "التوافق": "Ryzen 3000 / 4000G / 5000",
+      "التوسعة": "PCIe 4.0 x16",
+      "التخزين": "2 منافذ M.2 + 4 SATA",
+      "الاتصال": "Wi-Fi 6 + Bluetooth + Gigabit LAN",
+      "الحجم": "Micro-ATX",
+      "الميزات": "RGB Fusion + Smart Fan 6 + PCIe 4.0"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 49,
+    "name": "MAG X870E TOMAHAWK WIFI | Gaming Motherboard ",
+    "category": "قطع التجميعة",
+    "brand": "MSI",
+    "price": 290,
+    "oldPrice": 300,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/81ZRDFQt4kL._AC_UF894,1000_QL80_.jpg",
+      "https://media.ldlc.com/r1600/ld/products/00/06/20/46/LD0006204617.jpg",
+      "https://www.dateks.lv/images/pic/2400/2400/455/2284.jpg"
+    ],
+    "description": "لوحة MSI MAG X870E TOMAHAWK WIFI للألعاب والأعمال الاحترافية، مبنية على شريحة AMD X870E الحديثة وتدعم معالجات Ryzen 7000 و8000 و9000. توفر دعماً كاملاً لذاكرة DDR5 وواجهات PCIe 5.0 مع تبريد قوي واتصال Wi-Fi 7 وشبكة 5GbE، مما يجعلها خياراً مثالياً لتجميعات الألعاب عالية الأداء ومحطات العمل المتقدمة.",
+    "specs": {
+      "الشريحة": "AMD X870E",
+      "المقبس": "AM5",
+      "الذاكرة": "DDR5 حتى 256GB",
+      "سرعة الرام": "حتى 8400+ MT/s (OC)",
+      "التوافق": "Ryzen 7000 / 8000 / 9000",
+      "التوسعة": "PCIe 5.0 x16",
+      "التخزين": "4 منافذ M.2 + 4 SATA",
+      "الاتصال": "Wi-Fi 7 + Bluetooth 5.4 + 5GbE LAN",
+      "المنافذ": "USB4 Type-C",
+      "الميزات": "PCIe 5.0 + DDR5 + EZ DIY + تبريد احترافي"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 48,
+    "name": "Sapphire NITRO+ RX 5700 XT ",
+    "category": "قطع التجميعة",
+    "brand": "Sapphire",
+    "price": 190,
+    "oldPrice": 220,
+    "condition": "مستعمل",
+    "images": [
+      "https://m.media-amazon.com/images/I/81JTXl85DkL.jpg",
+      "https://thumb.pccomponentes.com/w-530-530/articles/32/320620/2695-sapphire-nitro-rx-5700-xt-be-8gb-gddr6-comprar.jpg",
+      "https://m.media-amazon.com/images/I/81Ioo-l0EAL.jpg"
+    ],
+    "description": "بطاقة رسومات Sapphire NITRO+ RX 5700 XT 8GB GDDR6 تقدم أداءً ممتازًا للألعاب بدقة 1440p مع تبريد فعال وتصميم متين، مما يجعلها خيارًا مثاليًا للاعبين الذين يبحثون عن تجربة ألعاب سلسة وعالية الجودة.",
+    "specs": {
+      "الذاكرة": "8GB GDDR6",
+      "التبريد": "3 مرواح بتبريد عالي ",
+      "التوافق": "PCIe 4.0",
+      "الميزات": "دعم FreeSync + RGB"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 47,
+    "name": "GeForce gigabyte RTX™ 3070 EAGLE OC 8G Graphics Card",
+    "category": "قطع التجميعة",
+    "brand": "gigabyte ",
+    "price": 315,
+    "oldPrice": null,
+    "condition": "مستعمل",
+    "images": [
+      "https://www.topmarket.co.il/images/detailed/132/86090555_9651782033.jpg",
+      "https://m.media-amazon.com/images/I/71KgYPy0jGS._AC_UF894,1000_QL80_.jpg"
+    ],
+    "description": "تصميم يجمع بين القوة والنحافة مع تبريد WINDFORCE 3X الثلاثي لضمان أعلى استقرار وأداء في الألعاب الثقيلة.",
+    "specs": {
+      "الذاكرة": "8GB GDDR6 (بسرعة 14000 MHz).",
+      "التبريد": "3 مرواح بتبريد عالي ",
+      "التوافق": "PCIe 4.0",
+      "الميزات": "أداء ممتاز للألعاب بدقة 1440p، دعم تتبع الأشعة وتقنية DLSS من NVIDIA، تصميم متين مع إضاءة RGB قابلة للتخصيص."
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 46,
+    "name": "RX 6700 XT Sapphire NITRO+ SE 12GB GDDR6 Graphics Card",
+    "category": "قطع التجميعة",
+    "brand": "Sapphire",
+    "price": 300,
+    "oldPrice": 370,
+    "condition": "مستعمل",
+    "images": [
+      "https://cdn.mos.cms.futurecdn.net/V4YAePRVyuWv26G9e8C7o4.jpg",
+      "https://media.ldlc.com/r1600/ld/products/00/05/80/21/LD0005802131_1.jpg",
+      "https://m.media-amazon.com/images/I/719yuq3DL4L.jpg"
+    ],
+    "description": " بطاقة Sapphire Nitro+ RX 6700 XT: وحش الأداء بدقة 1440p بتبريد Tri-X جبار وإضاءة ARGB مذهلة لتجربة ألعاب فائقة القوة والجمال.",
+    "specs": {
+      "ذاكرة ": " 12 جيجابايت GDDR6 ",
+      "سرعة المعالج ": "(Boost Clock): تصل إلى 2622 ميجاهرتز (أعلى من التصميم المرجعي).",
+      "الميزات": "تبريد فائق: تعمل بمعدل درجات حرارة أقل بحوالي 10 درجات مئوية مقارنة بالإصدارات العادية."
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 45,
+    "name": "Intel® Core™ i9-12900Kf Processor",
+    "category": "قطع التجميعة",
+    "brand": "Intel",
+    "price": 275,
+    "oldPrice": 290,
+    "condition": "شبه جديد",
+    "images": [
+      "https://c1.neweggimages.com/ProductImageCompressAll1280/19-118-341-06.jpg"
+    ],
+    "description": "معالج مكتبي قوي جدًا من إنتل، مناسب للألعاب القوية، المونتاج، الرندر، والمهام الثقيلة متعددة المهام.",
+    "specs": {
+      "المعالج": " 16 أنوية (8 Performance-cores + 8 Efficient-cores) ",
+      "نواة": "16",
+      "مسار": "24",
+      "السرعة": "أقصى تردد: حتى 5.20 GHz",
+      "الطاقة": "125W TDP",
+      "التوافق": "LGA1700",
+      "الميزات": "تقنية Intel Turbo Boost Max Technology 3.0 + Thermal Velocity Boost"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 44,
+    "name": "AMD Ryzen™ 9 7900 Desktop Processor",
+    "category": "قطع التجميعة",
+    "brand": "AMD",
+    "price": 275,
+    "oldPrice": 300,
+    "condition": "شبه جديد",
+    "images": [
+      "https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x.jpg"
+    ],
+    "description": "معالج مكتبي قوي جدًا من AMD بعدد 12 نواة و24 خيطًا، مناسب للأعمال الثقيلة والألعاب المتقدمة والرندرة والمعالجة السريعة متعددة المهام.",
+    "specs": {
+      "المعالج": " 12 أنوية Zen 5 ",
+      "نواة": "12",
+      "مسار": "24",
+      "السرعة": "4.7 GHz (5.6 GHz Boost)",
+      "الطاقة": "170W TDP",
+      "التوافق": "AM5 Socket",
+      "الميزات": "تقنية AMD SenseMI + Precision Boost 2"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 43,
+    "name": "AMD Ryzen™ 9 7900X Desktop Processor",
+    "category": "قطع التجميعة",
+    "brand": "AMD",
+    "price": 290,
+    "oldPrice": 330,
+    "condition": "شبه جديد",
+    "images": [
+      "https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x.jpg"
+    ],
+    "description": "معالج مكتبي قوي جدًا من AMD بعدد 12 نواة و24 خيطًا، مناسب للأعمال الثقيلة والألعاب المتقدمة والرندرة والمعالجة السريعة متعددة المهام.",
+    "specs": {
+      "المعالج": " 12 أنوية Zen 5 ",
+      "نواة": "12",
+      "مسار": "24",
+      "السرعة": "4.7 GHz (5.6 GHz Boost)",
+      "الطاقة": "170W TDP",
+      "التوافق": "AM5 Socket",
+      "الميزات": "تقنية AMD SenseMI + Precision Boost 2"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 42,
+    "name": "PlayStation 5 Digital Edition",
+    "category": "بلايستيشن",
+    "brand": "PlayStation",
+    "price": 420,
+    "oldPrice": 450,
+    "condition": "مستعمل",
+    "images": [
+      "https://i5.walmartimages.com/seo/Sony-PlayStation-5-Digital-Edition-Video-Game-Consoles_f62842fd-263f-46d4-8954-9fbe1a25d636.fefa1d11a99643573cf756f2ce835c05.png"
+    ],
+    "description": "جهاز PlayStation 5 Digital Edition  جهاز ألعاب اقتصادي مناسب لمن يفضل النسخ الرقمية، يجمع بين السعر المناسب والأداء القوي وسرعة التحميل الفائقة لتجربة جيل جديد بدون أقراص.",
+    "specs": {
+      "المعالج": " 8 أنوية Zen 2 ",
+      "الرام": "16GB GDDR6",
+      "التخزين": "SSD فائق السرعة",
+      "التحكم": "DualSense Controller"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 41,
+    "name": "Razer Hanbo Chroma RGB AIO Liquid Cooler - 240mm",
+    "category": "قطع التجميعة",
+    "brand": "Razer",
+    "price": 80,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/71Laqfa82gL.jpg",
+      "https://i0.wp.com/claremontcomputers.com/wp-content/uploads/2024/08/70eef546-c623-4854-8712-fbd65f0ef565.jpeg?fit=1440%2C1799&ssl=1.jpg"
+    ],
+    "description": "مبرد مائي شامل بتصميم أنيق وإضاءة Chroma RGB، يوفر تبريدًا قويًا وهادئًا لمعالجات الألعاب العالية الأداء.",
+    "specs": {
+      "السرعة": "N/A",
+      "الطاقة": "N/A",
+      "التوافق": "ATX, Micro-ATX, Mini-ITX",
+      "الميزات": "إضاءة RGB + تبريد فعال"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 40,
+    "name": "Lovingcool Factory Gaming PC Case - Black",
+    "category": "قطع التجميعة",
+    "brand": "Lovingcool",
+    "price": 45,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://s.alicdn.com/@sc04/kf/H7aeb06aafd2e4702b7faa1ed7c803f92E.jpg?avif=close&webp=close.jpg",
+      "https://s.alicdn.com/@sc04/kf/Heca7ea744c6441d28b90f5ed94d31874l.jpg?avif=close&webp=close.jpg"
+    ],
+    "description": "صندوق كمبيوتر Lovingcool Factory Gaming PC Case - Black يتميز بتصميم أنيق مع إضاءة RGB قابلة للتخصيص، ويوفر تبريدًا فعالًا مع مساحة واسعة لتركيب المكونات، مما يجعله خيارًا مثاليًا لبناء جهاز ألعاب قوي وجذاب.",
+    "specs": {
+      "السرعة": "N/A",
+      "الطاقة": "N/A",
+      "التوافق": "ATX, Micro-ATX, Mini-ITX",
+      "الميزات": "إضاءة RGB + تبريد فعال"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "comingSoon"
+  },
+  {
+    "id": 39,
+    "name": "AMD Ryzen™ 5 5600X Desktop Processors",
+    "category": "قطع التجميعة",
+    "brand": "AMD Ryzen",
+    "price": 140,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-5-5600x.jpg"
+    ],
+    "description": "معالج AMD Ryzen™ 5 5600X يقدم أداءً ممتازًا للألعاب والتطبيقات المتعددة بفضل نواته الست وتقنياته المتقدمة، مما يجعله خيارًا مثاليًا لبناء جهاز كمبيوتر قوي وفعال.",
+    "specs": {
+      "السرعة": "3.7 GHz (4.6 GHz Boost)",
+      "الطاقة": "65W TDP",
+      "التوافق": "AM4 Socket",
+      "الميزات": "تقنية AMD SenseMI + Precision Boost 2"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "comingSoon"
+  },
+  {
+    "id": 38,
+    "name": "Smailwolf RS8",
+    "category": "إكسسوارات",
+    "brand": "Smailwolf",
+    "price": 28,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://img4.dhresource.com/webp/m/0x0/f3/albu/ys/z/21/8de14eae-b070-4ad5-ab73-8e411f1d242a.jpg",
+      "https://content2.rozetka.com.ua/goods/images/big/518748660.jpg",
+      "https://ae01.alicdn.com/kf/S21cb7255718f4a3285a73496b4c7cad47.jpg"
+    ],
+    "description": "ماوس Smailwolf RS8 مصمم للألعاب الاحترافية بوزن خفيف وأداء سريع يمنحك تحكمًا دقيقًا واستجابة عالية.يدعم عدة أوضاع اتصال مع إضاءة RGB وتصميم مريح للاستخدام الطويل.",
+    "specs": {
+      "السرعة": "12000 DPI",
+      "الوزن": "خفيف الوزن بتصميم مريح",
+      "التوافق": "متعدد الأوضاع (سلكي، بلوتوث، 2.4 جيجاهرتز)",
+      "الميزات": "إضاءة RGB + أزرار قابلة للبرمجة"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "comingSoon"
+  },
+  {
+    "id": 37,
+    "name": "Palit RTX 3070 GameRock OC 8GB GDDR6",
+    "category": "قطع التجميعة",
+    "brand": "Palit",
+    "price": 295,
+    "oldPrice": null,
+    "condition": "مستعمل",
+    "images": [
+      "https://microless.com/cdn/product_description/8578797_1610809604.jpg",
+      "https://microless.com/cdn/products/19c57f5aa18dda3e04c2c29802632bcb-hi.jpg"
+    ],
+    "description": "بطاقة رسومات Palit RTX 3070 GameRock OC 8GB GDDR6 تقدم أداءً ممتازًا للألعاب بدقة 1440p مع تبريد فعال وتصميم متين، مما يجعلها خيارًا مثاليًا للاعبين الذين يبحثون عن تجربة ألعاب سلسة وعالية الجودة.",
+    "specs": {
+      "الذاكرة": "8GB GDDR6",
+      "التبريد": "3 مرواح بتبريد عالي ",
+      "التوافق": "PCIe 4.0",
+      "الميزات": "دعم FreeSync + RGB"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "comingSoon"
+  },
+  {
+    "id": 36,
+    "name": "ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6",
+    "category": "قطع التجميعة",
+    "brand": "ASUS",
+    "price": 190,
+    "oldPrice": 220,
+    "condition": "مستعمل",
+    "images": [
+      "https://dlcdnimgs.asus.com/websites/global/products/utcn39mqdlxmh2r1/img/kv/product-kv_s.jpg",
+      "https://i.ebayimg.com/images/g/X7MAAOSwZHRkjetV/s-l1200.jpg"
+    ],
+    "description": "بطاقة رسومات ASUS TUF RX 5700 XT GAMING OC 8GB GDDR6 تقدم أداءً ممتازًا للألعاب بدقة 1440p مع تبريد فعال وتصميم متين، مما يجعلها خيارًا مثاليًا للاعبين الذين يبحثون عن تجربة ألعاب سلسة وعالية الجودة.",
+    "specs": {
+      "الذاكرة": "8GB GDDR6",
+      "التبريد": "3 مرواح بتبريد عالي ",
+      "التوافق": "PCIe 4.0",
+      "الميزات": "دعم FreeSync + RGB"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 35,
+    "name": "Gigabyte B650M GAMING PLUS WIFI",
+    "category": "قطع التجميعة",
+    "brand": "Gigabyte",
+    "price": 148,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://prod.scorptec.com.au/19/1178/111162/328049_large.jpg"
+    ],
+    "description": "لوحة Gigabyte B650M GAMING PLUS WIFI تقدّم أداءً قويًا لمعالجات AMD Ryzen مع دعم Wi-Fi مدمج وتصميم مخصص للألعاب بحجم mATX.",
+    "specs": {
+      "الذاكرة": "4 x DDR5 DIMM",
+      "اللوحة الأم": "Gigabyte B650M Gaming Plus WiFi",
+      "التوافق": "AMD Ryzen 7000",
+      "الميزات": "Wi-Fi مدمج + دعم رامات حتى 128GB"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 34,
+    "name": "Lovingcool DP-360mm",
+    "category": "قطع التجميعة",
+    "brand": "Lovingcool",
+    "price": 105,
+    "oldPrice": 150,
+    "condition": "جديد",
+    "images": [
+      "https://s.alicdn.com/@sc04/kf/Hb08a54fc6e5144c98029e12424729404b.jpg?avif=close&webp=close.jpg",
+      "https://ae01.alicdn.com/kf/Sa30a6da079094da98af017334f886d43Y.jpg"
+    ],
+    "description": "مبرد Lovingcool 360mm ARGB بتبريد مائي قوي للمعالج مع شاشة عرض فيديو 4.0 بوصة قابلة للتخصيص، يوفر أداء تبريد عالي حتى 300W مع تشغيل هادئ وتصميم أنيق بإضاءة ARGB.",
+    "specs": {
+      "الحجم": "360mm",
+      "الميزات": "شاشة فيديو 4.0 بوصة + إضاءة ARGB",
+      "الأداء": "تبريد حتى 300W",
+      "التوافق": "جميع المعالجات الحديثة"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 33,
+    "name": "Mouse Pad Ghost Operator",
+    "category": "إكسسوارات",
+    "brand": "Mouse Pad",
+    "price": 6.5,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://ae01.alicdn.com/kf/S75a159b4e30d4de7acea94cfdabed03e1.jpg"
+    ],
+    "description": "ماوس باد بتصميم قتالي عصري باللونين الأسود والأبيض، يُظهر جندي قوات خاصة بأسلوب ديناميكي وسط تأثيرات بصرية قوية تعكس أجواء الحرب الحديثة.",
+    "specs": {
+      "الحجم": "900x400mm",
+      "المادة": "سطح ناعم عالي الجودة",
+      "الميزات": "مقاوم للانزلاق + دقة طباعة عالية",
+      "التصميم": "تصميم قتالي عصري"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "comingSoon"
+  },
+  {
+    "id": 32,
+    "name": "Mouse Pad Urban Combat Force",
+    "category": "إكسسوارات",
+    "brand": "Mouse Pad",
+    "price": 6.5,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://ae01.alicdn.com/kf/S37767908ad6546459bbcf901f01e389e9.jpg"
+    ],
+    "description": "ماوس باد بتصميم قتالي عصري باللونين الأسود والأبيض، يُظهر جندي قوات خاصة بأسلوب ديناميكي وسط تأثيرات بصرية قوية.",
+    "specs": {
+      "الحجم": "900x400mm",
+      "المادة": "سطح ناعم عالي الجودة",
+      "الميزات": "مقاوم للانزلاق + دقة طباعة عالية",
+      "التصميم": "تصميم قتالي عصري"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 31,
+    "name": "Mouse Pad Miyamoto Musashi from Vagabond",
+    "category": "إكسسوارات",
+    "brand": "Mouse Pad",
+    "price": 6.5,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://ae01.alicdn.com/kf/Sf54f2b9dc59f4774ad62167adb90a37cb.jpg"
+    ],
+    "description": "ماوس باد بتصميم أنيق باللون البنفسجي، يُظهر محارب ساموراي في لقطة حركية قوية وهو يقفز ممسكًا بسيفه.",
+    "specs": {
+      "الحجم": "900x400mm",
+      "المادة": "سطح ناعم عالي الجودة",
+      "الميزات": "مقاوم للانزلاق + دقة طباعة عالية",
+      "التصميم": "تصميم ساموراي فني"
+    },
+    "tags": [
+      "bestSelling"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 30,
+    "name": "Mouse Pad KATANA BLACK",
+    "category": "إكسسوارات",
+    "brand": "Mouse Pad",
+    "price": 6.5,
+    "oldPrice": null,
+    "condition": "جديد",
+    "images": [
+      "https://ae01.alicdn.com/kf/Se52fcff2070e4f098f7d1e8b00df2258i.jpg"
+    ],
+    "description": "ماوس باد بتصميم فني جريء باللونين الأسود والأبيض، يتميز برسمة يدوية أنيقة ليدين تمسكان بسيفين بأسلوب كلاسيكي.",
+    "specs": {
+      "الحجم": "900x400mm",
+      "المادة": "سطح ناعم عالي الجودة",
+      "الميزات": "مقاوم للانزلاق + دقة طباعة عالية",
+      "التصميم": "تصميم كاتانا كلاسيكي"
+    },
+    "tags": [
+      "bestSelling"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 29,
+    "name": "PlayStation 5 FAT Standard Edition (Disc Version)",
+    "category": "بلايستيشن",
+    "brand": "PlayStation",
+    "price": 420,
+    "oldPrice": 450,
+    "condition": "مستعمل",
+    "images": [
+      "https://assets2.cbsnewsstatic.com/hub/i/r/2020/06/11/ea2b6ee5-6955-42a5-bb76-bb775df093f1/thumbnail/1200x630/11b096d4ab612a908a4e054454eae910/playstation5-a.png"
+    ],
+    "description": "جهاز PlayStation 5 FAT Standard Edition (Disc Version) يوفر تجربة لعب استثنائية بدقة 4K و120 إطارًا في الثانية.",
+    "specs": {
+      "المعالج": "AMD Zen 2",
+      "التخزين": "825GB SSD",
+      "الدقة": "4K 120fps",
+      "الميزات": "Ray Tracing + 3D Audio"
+    },
+    "tags": [
+      "bestSelling"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 28,
+    "name": "AJAZZ NACODEX NK68",
+    "category": "إكسسوارات",
+    "brand": "AJAZZ",
+    "price": 40,
+    "oldPrice": 50,
+    "condition": "جديد",
+    "images": [
+      "https://m.media-amazon.com/images/I/71H1RfFP2ZL.jpg",
+      "https://sc04.alicdn.com/kf/Hd1c8e4cae42b4148a8e3741c95fae09eL.png_350x350.png",
+      "https://sc04.alicdn.com/kf/H4bc3ea13a9984b6db7a2a23635d14a65T/244701615/H4bc3ea13a9984b6db7a2a23635d14a65T.jpg",
+      "https://img.olx.com.br/images/88/888643365575329.jpg",
+      "https://ecommerce.datablitz.com.ph/cdn/shop/files/AJAZZ_NK68_RGB_Black_Contours_15_800x.jpg?v=1754877377"
+    ],
+    "description": "كيبورد AJAZZ NACODEX NK68 يتميز بتصميم ميكانيكي أنيق بحجم 68% يجمع بين العملية والمظهر العصري.",
+    "specs": {
+      "الحجم": "68%",
+      "السويتشات": "Red Switches",
+      "الإضاءة": "RGB متعددة التأثيرات",
+      "الجودة": "بناء عالي الجودة"
+    },
+    "tags": [
+      "bestSelling",
+      "new"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 27,
+    "name": "PlayStation 5 Slim",
+    "category": "بلايستيشن",
+    "brand": "PlayStation",
+    "price": 380,
+    "oldPrice": 450,
+    "condition": "مستعمل",
+    "images": [
+      "https://img.pccomponentes.com/articles/1080/10801090/5513-sony-playstation-5-digital-slim-d5ee392b-fa2f-4dbd-a39f-80b0fc08ce54.jpg"
+    ],
+    "description": "جهاز PlayStation 5 Slim يأتي بتصميم أنحف وأخف من الإصدار السابق مع الحفاظ على نفس القوة والأداء العالي.",
+    "specs": {
+      "التصميم": "أنحف وأخف",
+      "الأداء": "4K 120fps",
+      "التخزين": "SSD فائق السرعة",
+      "التحكم": "DualSense Controller"
+    },
+    "tags": [
+      "new"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 26,
+    "name": "Projector HY 300 Pro",
+    "category": "إكسسوارات",
+    "brand": "Projector",
+    "price": 38,
+    "oldPrice": 40,
+    "condition": "جديد",
+    "images": [
+      "https://static-01.daraz.lk/p/0efbfad3101d41aa08ad4e98cfeac2e1.jpg",
+      "https://nicdecor.com/wp-content/uploads/2025/05/HY-300-pro.jpg"
+    ],
+    "description": "بروجكتر ذكي مزوّد بنظام Android 11 يقدم تجربة مشاهدة سلسة بدقة فيزيائية 720P مع دعم تشغيل محتوى يصل إلى 4K.",
+    "specs": {
+      "الدقة": "720P مع دعم 4K",
+      "النظام": "Android 11",
+      "الاتصال": "WiFi6 + Bluetooth 5.0",
+      "المدخلات": "HDMI + USB + 3.5mm"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 25,
+    "name": "Projector HY 300 Mini",
+    "category": "إكسسوارات",
+    "brand": "Projector",
+    "price": 37,
+    "oldPrice": 40,
+    "condition": "جديد",
+    "images": [
+      "https://chinaplanet.sk/wp-content/uploads/2025/09/Magcubic-Hy300-new-cover.jpg",
+      "https://5.imimg.com/data5/SELLER/Default/2024/9/451115115/JW/KG/CY/46517936/hy-300-pro-mini-projector-for-home-portable-hd-android-12-short-4k-1080p-500x500.jpg"
+    ],
+    "description": "بروجكتر ذكي مزوّد بنظام Android 12 يقدم تجربة مشاهدة سلسة بدقة فيزيائية 720P مع دعم تشغيل محتوى يصل إلى 4K.",
+    "specs": {
+      "الدقة": "720P مع دعم 4K",
+      "النظام": "Android 12",
+      "الاتصال": "WiFi6 + Bluetooth 5.0",
+      "المدخلات": "HDMI + USB + 3.5mm"
+    },
+    "tags": [
+      "bestSelling",
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 24,
+    "name": "LDON Mide 68 8000Hz Magnetic Switch",
+    "category": "إكسسوارات",
+    "brand": "LDON",
+    "price": 40,
+    "oldPrice": 50,
+    "condition": "جديد",
+    "images": [
+      "https://sc04.alicdn.com/kf/Hf663101fc1b44d1d800ba3d8b84e3c2es/279883721/Hf663101fc1b44d1d800ba3d8b84e3c2es.jpg",
+      "https://sc04.alicdn.com/kf/H156878d29dc2460fbcf6a068367bb69fW/279883721/H156878d29dc2460fbcf6a068367bb69fW.jpg"
+    ],
+    "description": "كيبورد مغناطيسي مميز للألعاب مع إضاءة RGB قابلة للتخصيص وأداء عالي.",
+    "specs": {
+      "النوع": "مغناطيسي",
+      "الحجم": "68%",
+      "السويتشات": "Sky Blue PRO",
+      "الاستجابة": "0.125ms"
+    },
+    "tags": [
+      "bestSelling",
+      "discounted"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 23,
+    "name": "LOGITECH G413 SE MECHANICAL",
+    "category": "إكسسوارات",
+    "brand": "LOGITECH",
+    "price": 45,
+    "oldPrice": 55,
+    "condition": "جديد",
+    "images": [
+      "https://ecommerce.datablitz.com.ph/cdn/shop/products/710m45UA-RL._AC_SL1500_800x.jpg?v=1679964052.jpg",
+      "https://cdn.arstechnica.net/wp-content/uploads/2022/02/switches.jpg"
+    ],
+    "description": "لوحة مفاتيح ميكانيكية Logitech G413 SE، تصميم أنيق وأداء سريع ودقيق للألعاب.",
+    "specs": {
+      "السويتشات": "Brown Mechanical",
+      "البناء": "هيكل ألومنيوم",
+      "الإضاءة": "White LED",
+      "التوافق": "جميع الأنظمة"
+    },
+    "tags": [
+      "discounted",
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 22,
+    "name": "FZ - 200 NZXT",
+    "category": "قطع التجميعة",
+    "brand": "NZXT",
+    "price": 4,
+    "oldPrice": 7,
+    "condition": "جديد",
+    "images": [
+      "https://www.bhphotovideo.com/images/fb/nzxt_rf_fz20s_u1_fz_200mm_high_airflow_fan_1165554.jpg",
+      "https://m.media-amazon.com/images/I/41KAQ7brUwL.jpg"
+    ],
+    "description": "مروحة NZXT FZ-200 بحجم 200 مم توفر تدفق هواء عالي وهدوء أثناء التشغيل.",
+    "specs": {
+      "الحجم": "200mm",
+      "الإضاءة": "Blue LED",
+      "التوصيل": "3-Pin",
+      "السرعة": "900 RPM"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "available"
+  },
+  {
+    "id": 21,
+    "name": "Gigabyte M27Q EK",
+    "category": "شاشات",
+    "brand": "Gigabyte",
+    "price": 180,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://s3.chip7.pt/20VM0-M27QBA-2EKR_site.jpg",
+      "https://i.rtings.com/assets/products/mwTbpPbi/gigabyte-m27q-rev-2-0/design-small.jpg?format=auto"
+    ],
+    "description": "شاشة Gigabyte M27Q EK توفر أداءً ممتازًا في الألعاب مع حركة سلسة وألوان نابضة بالحياة.",
+    "specs": {
+      "الحجم": "27 بوصة",
+      "الدقة": "QHD 2560x1440",
+      "معدل التحديث": "170 هرتز",
+      "زمن الاستجابة": "0.5ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 20,
+    "name": "MSI G255F",
+    "category": "شاشات",
+    "brand": "MSI",
+    "price": 107.5,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://m.media-amazon.com/images/S/aplus-media-library-service-media/52d75211-dd11-4272-b60f-9b93ae9d3dd4.__CR590,0,2939,2204_PT0_SX600_V1___.png",
+      "https://mybroadband.co.za/news/wp-content/uploads/2024/10/Monitor1_6-4.jpg"
+    ],
+    "description": "شاشة ألعاب سريعة ومضغوطة تقدم أداءً سلسًا مع استجابة فورية. مثالية للمساحات الصغيرة.",
+    "specs": {
+      "الحجم": "25 بوصة",
+      "الدقة": "FHD 1920x1080",
+      "معدل التحديث": "180 هرتز",
+      "زمن الاستجابة": "1ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 19,
+    "name": "MSI MAG 32C6X",
+    "category": "شاشات",
+    "brand": "MSI",
+    "price": 160,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3688790a-2d35-4ddb-9ae3-1f025cd260e6.__CR0,0,600,450_PT0_SX600_V1___.jpg",
+      "https://www.gdm.or.jp/wp-content/uploads/2024/08/19/msi_mag_32c6x_62-620x466.jpg"
+    ],
+    "description": "شاشة منحنية كبيرة لتجربة غامرة، معدل تحديث عالي وألوان غنية للألعاب التنافسية.",
+    "specs": {
+      "الحجم": "32 بوصة",
+      "الدقة": "FHD 1920x1080",
+      "معدل التحديث": "250 هرتز",
+      "زمن الاستجابة": "1ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 18,
+    "name": "LG 27″ UltraGear 27GS75Q-B",
+    "category": "شاشات",
+    "brand": "LG",
+    "price": 220,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://img.lazcdn.com/g/p/0abdf2cc9f0c74ffa3d7fe5bdb4a01cf.jpg_720x720q80.jpg",
+      "https://i.ytimg.com/vi/TkWilXnaUd8/maxresdefault.jpg"
+    ],
+    "description": "شاشة ألعاب تنافسية بألوان نابضة بالحياة وأداء سلس. تصميم بلا إطار من ثلاث جهات يضفي مظهرًا احترافيًا.",
+    "specs": {
+      "الحجم": "27 بوصة",
+      "الدقة": "QHD 2560x1440",
+      "معدل التحديث": "180-200 هرتز",
+      "زمن الاستجابة": "1ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 17,
+    "name": "ASUS ROG Strix XG27UCS",
+    "category": "شاشات",
+    "brand": "ASUS",
+    "price": 245,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://rog.asus.com/media/1719980534198.jpg",
+      "https://www.techspot.com/images/products/2024/monitors/org/2025-05-13-product-5.jpg"
+    ],
+    "description": "شاشة متميزة بدقة 4K وأداء فائق السرعة، تقدم ألوانًا نابضة بالحياة وتباينًا عاليًا.",
+    "specs": {
+      "الحجم": "27 بوصة",
+      "الدقة": "4K 3840x2160",
+      "معدل التحديث": "160 هرتز",
+      "زمن الاستجابة": "1ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 16,
+    "name": "Lenovo Legion R271",
+    "category": "شاشات",
+    "brand": "Lenovo",
+    "price": 102.5,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://m.media-amazon.com/images/I/71yPdMKhFTL._AC_UF1000,1000_QL80_.jpg",
+      "https://p2-ofp.static.pub/ShareResource/ww/visuals/Legion-R27i-30/lenovo-legion-r27i-30-feature04-1.png"
+    ],
+    "description": "شاشة Lenovo Legion R271 مثالية للاستخدام اليومي والألعاب الخفيفة.",
+    "specs": {
+      "الحجم": "27 بوصة",
+      "الدقة": "FHD 1920x1080",
+      "معدل التحديث": "144 هرتز",
+      "زمن الاستجابة": "4ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 15,
+    "name": "ASUS ROG Strix XG27ACS",
+    "category": "شاشات",
+    "brand": "ASUS",
+    "price": 225,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://pcx.com.ph/cdn/shop/files/ASUS_XG27ACS.jpg?v=1733306817&width=1090",
+      "https://cdn.mos.cms.futurecdn.net/bU4uGHVYCXERRCzVkB5X5e.jpg"
+    ],
+    "description": "شاشة ألعاب احترافية تقدم ألوانًا دقيقة وحركة فائقة السلاسة، مع دعم HDR وتقنيات المزامنة المتقدمة.",
+    "specs": {
+      "الحجم": "27 بوصة",
+      "الدقة": "WQHD 2560x1440",
+      "معدل التحديث": "180 هرتز",
+      "زمن الاستجابة": "1ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 14,
+    "name": "ACER Nitro VGO 27",
+    "category": "شاشات",
+    "brand": "Acer",
+    "price": 99.9,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3e89ed3b-87b4-4826-910a-603daaf5d4da.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+      "https://i.rtings.com/assets/products/GBZurEGf/acer-nitro-vg271up-pbmiipx/design-medium.jpg?format=auto"
+    ],
+    "description": "شاشة Acer Nitro 27 تجمع بين الأداء الجيد والسعر المعقول. تصميمها العصبي والأنيق يعزز تجربة الألعاب والاستخدام اليومي.",
+    "specs": {
+      "الحجم": "27 بوصة",
+      "الدقة": "4K 3840x2160",
+      "معدل التحديث": "60 هرتز",
+      "زمن الاستجابة": "1ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 13,
+    "name": "HP OMEN 24",
+    "category": "شاشات",
+    "brand": "HP",
+    "price": 95,
+    "oldPrice": null,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://memoryzone.aecomapp.com/storage/files/1718186722man-hinh-hp-omen-24-gaming-24-inch-ips-fhd-165hz-780f0aa-06.jpg.webp",
+      "https://i.ytimg.com/vi/syjqja0Cnhk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB6ZTUW5s4D_H0PEXgmSqO5g9fGmw"
+    ],
+    "description": "شاشة HP OMEN 24 تقدم أداءً ممتازًا في الألعاب مع ألوان دقيقة وزوايا مشاهدة واسعة.",
+    "specs": {
+      "الحجم": "24 بوصة",
+      "الدقة": "FHD 1920x1080",
+      "معدل التحديث": "165 هرتز",
+      "زمن الاستجابة": "1ms"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 8,
+    "name": "ASUS TUF B850M-E WIFI",
+    "category": "قطع التجميعة",
+    "brand": "ASUS",
+    "price": 170,
+    "oldPrice": 190,
+    "condition": "جديد",
+    "images": [
+      "https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp",
+      "https://m.media-amazon.com/images/I/51qsiPseF1L.jpg"
+    ],
+    "description": "لوحة أم ASUS TUF B850M-E WIFI من العيار الثقيل تدعم أقوى المعالجات وتوفر استقراراً عالياً.",
+    "specs": {
+      "المقبس": "AM5",
+      "الذاكرة": "DDR5",
+      "التوسعة": "PCIe 4.0",
+      "الاتصال": "Wi-Fi 6"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 7,
+    "name": "ASUS TUF B850M-E WIFI",
+    "category": "قطع التجميعة",
+    "brand": "ASUS",
+    "price": 155,
+    "oldPrice": 220,
+    "condition": "جديد",
+    "images": [
+      "https://gamingpc.com.ua/image/cache/425x372-crop/9cef3a2a8cccf9957bca7b8bf1f7e930.webp",
+      "https://m.media-amazon.com/images/I/51qsiPseF1L.jpg"
+    ],
+    "description": "لوحة أم ASUS TUF B850M-E WIFI من العيار الثقيل تدعم أقوى المعالجات وتوفر استقراراً عالياً.",
+    "specs": {
+      "المقبس": "AM5",
+      "الذاكرة": "DDR5",
+      "التوسعة": "PCIe 4.0",
+      "الاتصال": "Wi-Fi 6"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 6,
+    "name": "ASUS ROG Strix 1000W 80+ Platinum",
+    "category": "قطع التجميعة",
+    "brand": "ASUS",
+    "price": 160,
+    "oldPrice": 190,
+    "condition": "جديد",
+    "images": [
+      "https://rog.asus.com/media/1723518683990.jpg",
+      "https://dlcdnwebimgs.asus.com/files/media/0003A3D7-4037-4F8D-BC15-38902D1057ED/v1/img/engineering/80_plusgold_2.jpg"
+    ],
+    "description": "مزود طاقة ASUS ROG Strix 1000W بكفاءة بلاتينية 80+ وتصميم موديولار مع ضمان 10 سنوات.",
+    "specs": {
+      "القدرة": "1000W",
+      "الكفاءة": "80+ Platinum",
+      "التصميم": "موديولار كامل",
+      "الضمان": "10 سنوات"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 5,
+    "name": "ASUS ROG Strix Z790-E",
+    "category": "قطع التجميعة",
+    "brand": "ASUS",
+    "price": 200,
+    "oldPrice": 230,
+    "condition": "جديد",
+    "images": [
+      "https://hyperpc.ae/images/catalog/hardware/motherboards/1700/asus/rog-strix-z790-e-gaming/asus-rog-strix-z790-e-gaming-ii.jpg",
+      "https://i.ytimg.com/vi/dap0JBsGRHQ/maxresdefault.jpg"
+    ],
+    "description": "لوحة أم ASUS ROG Strix Z790-E متميزة تدعم أحدث معالجات Intel مع ميزات متقدمة للألعاب.",
+    "specs": {
+      "المقبس": "LGA 1700",
+      "الذاكرة": "DDR5",
+      "التوسعة": "PCIe 5.0",
+      "الاتصال": "Wi-Fi 6E"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 4,
+    "name": "Crucial T705 2TB NVMe Gen5 SSD",
+    "category": "قطع التجميعة",
+    "brand": "Crucial",
+    "price": 120,
+    "oldPrice": 1500,
+    "condition": "جديد",
+    "images": [
+      "https://cdn.mos.cms.futurecdn.net/iZEGMzkmaX8o87Apg5HsZV.jpg",
+      "https://www.crucial.com/content/dam/crucial/ssd-products/t705/web/cricual-T705-Web-06-Tile-650x350.psd.transform/small-jpg/img.jpg"
+    ],
+    "description": "أسرع وحدة تخزين NVMe من الجيل الخامس من Crucial بسرعة قراءة تصل إلى 14,500 MB/s.",
+    "specs": {
+      "السعة": "2TB",
+      "الجيل": "PCIe 5.0",
+      "سرعة القراءة": "14,500 MB/s",
+      "سرعة الكتابة": "12,700 MB/s"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 3,
+    "name": "Corsair Vengeance 32GB DDR5 6000MHz",
+    "category": "قطع التجميعة",
+    "brand": "Corsair",
+    "price": 160,
+    "oldPrice": 280,
+    "condition": "علبة مفتوحة",
+    "images": [
+      "https://m.media-amazon.com/images/I/61EVf-QxpvL.jpg"
+    ],
+    "description": "ذاكرة Corsair Vengeance 32GB DDR5 بسرعة 6000MHz عالية الأداء للاعبين والمحترفين.",
+    "specs": {
+      "السعة": "32GB (2x16GB)",
+      "النوع": "DDR5",
+      "السرعة": "6000MHz",
+      "التأخير": "CL36"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 2,
+    "name": "Ryzen 9 7950X",
+    "category": "قطع التجميعة",
+    "brand": "AMD",
+    "price": 400,
+    "oldPrice": 460,
+    "condition": "جديد",
+    "images": [
+      "https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-9-7900x-og.jpg",
+      "https://www.wepc.com/wp-content/uploads/2022/09/WePC_7950x-09268-scaled.jpg"
+    ],
+    "description": "أقوى معالج للمستهلكين من AMD بمواصفات 16 نواة و32 مسار لأداء استثنائي.",
+    "specs": {
+      "النوى": "16 نواة",
+      "المسارات": "32 مسار",
+      "التردد": "4.5 GHz",
+      "الاستهلاك": "170W TDP"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  },
+  {
+    "id": 1,
+    "name": "RTX 3070 Ti",
+    "category": "قطع التجميعة",
+    "brand": "NVIDIA",
+    "price": 300,
+    "oldPrice": 350,
+    "condition": "جديد",
+    "images": [
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/ZOTAC_Gaming_GeForce_RTX_3080_Ti_cards_unveiled_early_June_2021.jpg",
+      "https://www.gpuheaven.com/wp-content/uploads/2025/10/Zotac-Gaming-Geforce-Rtx-3070-Ti-Amp-Holo-2.jpg"
+    ],
+    "description": "كرت شاشة NVIDIA RTX 3070 Ti من الفئة المتوسطة يقدم أفضل أداء في الألعاب الحديثة.",
+    "specs": {
+      "الذاكرة": "8GB GDDR6X",
+      "النوى": "5888 نواة",
+      "التردد": "1770 MHz",
+      "التوصيل": "PCIe 4.0"
+    },
+    "tags": [
+      "discounted"
+    ],
+    "availability": "unavailable"
+  }
+]

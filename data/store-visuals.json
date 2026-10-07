@@ -1,0 +1,30 @@
+{
+  "modeButtons": {
+    "products": {
+      "backgroundUrl": "/assets/ui/pc-parts-mode.webp"
+    },
+    "giftCards": {
+      "backgroundUrl": "/assets/ui/gift-card-mode.jpg"
+    }
+  },
+  "giftCards": {
+    "playstation": {
+      "imageUrl": "/assets/gift-cards/playstation.avif"
+    },
+    "steam": {
+      "imageUrl": "/assets/gift-cards/steam.avif"
+    },
+    "xbox": {
+      "imageUrl": "/assets/gift-cards/xbox.avif"
+    },
+    "apple": {
+      "imageUrl": "/assets/gift-cards/apple.avif"
+    },
+    "amazon": {
+      "imageUrl": "/assets/gift-cards/amazon.webp"
+    },
+    "google-play": {
+      "imageUrl": "/assets/gift-cards/google-play.svg"
+    }
+  }
+}
