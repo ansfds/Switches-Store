@@ -6652,11 +6652,11 @@ specs: {
     }
 
     const PRODUCT_WHATSAPP_ICONS = {
-      cart: "\u{1F6D2}",
-      package: "\u{1F4E6}",
-      quantity: "\u{1F522}",
-      money: "\u{1F4B5}",
-      check: "\u{2705}",
+      cart: "\uD83D\uDED2",
+      package: "\uD83D\uDCE6",
+      quantity: "\uD83D\uDD22",
+      money: "\uD83D\uDCB5",
+      check: "\u2705",
       multiply: "\u00D7",
     };
 
@@ -6694,8 +6694,18 @@ specs: {
       ].join('\n');
     }
 
+    function encodeWhatsappText(message) {
+      if (typeof TextEncoder === 'function') {
+        return Array.from(new TextEncoder().encode(message), byte => (
+          `%${byte.toString(16).padStart(2, '0').toUpperCase()}`
+        )).join('');
+      }
+
+      return encodeURIComponent(message);
+    }
+
     function getProductWhatsappUrl() {
-      return `https://wa.me/${PRODUCTS_WHATSAPP_PHONE}?text=${encodeURIComponent(buildProductWhatsappMessage())}`;
+      return `https://wa.me/${PRODUCTS_WHATSAPP_PHONE}?text=${encodeWhatsappText(buildProductWhatsappMessage())}`;
     }
 
     function syncCartCheckoutButton() {
