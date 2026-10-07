@@ -178,6 +178,10 @@
     return window.SwitchesAuth || null;
   }
 
+  function authUiEnabled() {
+    return window.SwitchesFeatureFlags?.AUTH_UI_ENABLED !== false;
+  }
+
   function currentAuthUser() {
     return authService()?.getCachedUser?.() || null;
   }
@@ -200,6 +204,7 @@
   }
 
   function loginForCheckout(returnTo) {
+    if (!authUiEnabled()) return;
     const path = safeInternalReturnPath(returnTo);
     const service = authService();
     if (service?.loginWithGoogle) {
@@ -1182,6 +1187,7 @@
   function renderCheckoutPage() {
     const selection = checkoutSelection();
     if (!selection.valid) return renderCheckoutInvalid();
+    if (!authUiEnabled()) return renderCheckoutInvalid();
 
     if (checkoutAuthPending()) return renderCheckoutAuthLoading(selection);
     if (!currentAuthUser()) return renderCheckoutLoginPrompt(selection);

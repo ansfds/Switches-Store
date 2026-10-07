@@ -82,6 +82,12 @@
   
   <link rel="stylesheet" href="/auth.css">
   <link rel="stylesheet" href="/gift-cards.css">
+  <script>
+    window.SwitchesFeatureFlags = {
+      ...(window.SwitchesFeatureFlags || {}),
+      AUTH_UI_ENABLED: false,
+    };
+  </script>
   
   <style>
     /* ===== متغيرات التصميم ===== */
@@ -3287,12 +3293,16 @@
 
     .product-image-container {
       height: auto;
-      aspect-ratio: 16 / 11;
+      aspect-ratio: 1 / 1;
       display: grid;
       place-items: center;
-      background:
-        linear-gradient(135deg, rgba(37, 99, 235, 0.07), transparent 46%),
-        var(--bg-secondary);
+      overflow: hidden;
+      background: color-mix(in srgb, var(--bg-secondary) 88%, #ffffff);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    [data-theme="dark"] .product-image-container {
+      background: color-mix(in srgb, var(--bg-secondary) 88%, #020617);
     }
 
     .product-image {
@@ -3300,6 +3310,12 @@
       height: 100%;
       object-fit: contain;
       padding: 10px;
+      transform: scale(1);
+      transition: transform 0.28s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.045);
     }
 
     .product-content {
@@ -7219,6 +7235,10 @@ ${discountLine}
     let favoritesLoadedUserId = "";
     let favoritesExperienceReady = false;
 
+    function authUiEnabled() {
+      return window.SwitchesFeatureFlags?.AUTH_UI_ENABLED !== false;
+    }
+
     function favoriteKey(productId) {
       return String(productId || "").trim();
     }
@@ -7309,6 +7329,7 @@ ${discountLine}
     }
 
     function renderFavoriteButton(product) {
+      if (!authUiEnabled()) return "";
       const key = favoriteKey(product.id);
       const active = isFavorite(key);
       return `
@@ -7323,6 +7344,8 @@ ${discountLine}
         event.preventDefault();
         event.stopPropagation();
       }
+
+      if (!authUiEnabled()) return;
 
       const key = favoriteKey(productId);
       const product = findProductByFavoriteId(key);
@@ -7378,6 +7401,7 @@ ${discountLine}
         event.preventDefault();
         event.stopPropagation();
       }
+      if (!authUiEnabled()) return;
       if (window.SwitchesAuth?.loginWithGoogle) window.SwitchesAuth.loginWithGoogle("/account/favorites");
     }
 
@@ -7402,6 +7426,10 @@ ${discountLine}
     function renderFavoritesPage() {
       const grid = document.getElementById("favoritesGrid");
       if (!grid) return;
+      if (!authUiEnabled()) {
+        grid.innerHTML = "";
+        return;
+      }
 
       const user = getFavoritesUser();
       if (!user) {
@@ -7442,6 +7470,15 @@ ${discountLine}
     }
 
     function showFavoritesPage(options = {}) {
+      if (!authUiEnabled()) {
+        hideFavoritesPage();
+        if (window.location.pathname === "/favorites" || window.location.pathname === "/account/favorites") {
+          window.history.replaceState({ page: "home" }, "", "/");
+        }
+        document.querySelector(".main-content")?.style.removeProperty("display");
+        return;
+      }
+
       const page = document.getElementById("favoritesPage");
       if (!page) return;
 
@@ -7468,6 +7505,11 @@ ${discountLine}
     function initFavoritesExperience() {
       if (favoritesExperienceReady) return;
       favoritesExperienceReady = true;
+      if (!authUiEnabled()) {
+        hideFavoritesPage();
+        syncFavoriteButtons();
+        return;
+      }
 
       window.addEventListener("switches:auth-changed", () => {
         favoritesLoadedUserId = "";

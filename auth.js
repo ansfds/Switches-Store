@@ -1,4 +1,10 @@
 (function () {
+  const AUTH_UI_ENABLED = window.SwitchesFeatureFlags?.AUTH_UI_ENABLED !== false;
+  window.SwitchesFeatureFlags = {
+    ...(window.SwitchesFeatureFlags || {}),
+    AUTH_UI_ENABLED,
+  };
+
   const authState = {
     loaded: false,
     user: null,
@@ -95,6 +101,10 @@
     return String(user?.name || user?.email || "حسابي").trim().split(/\s+/)[0] || "حسابي";
   }
 
+  function authUiEnabled() {
+    return window.SwitchesFeatureFlags?.AUTH_UI_ENABLED !== false;
+  }
+
   async function getCurrentUser() {
     try {
       const response = await fetch("/api/auth/me", {
@@ -162,6 +172,12 @@
   }
 
   function renderAuthNav() {
+    if (!authUiEnabled()) {
+      authState.menuOpen = false;
+      document.getElementById("authNav")?.remove();
+      return;
+    }
+
     const root = ensureAuthNav();
     if (!root) return;
     const user = authState.user;
@@ -232,6 +248,12 @@
   }
 
   function renderAccountPage() {
+    if (!authUiEnabled()) {
+      hideAccountPage({ clear: true });
+      showHomeAfterAccount();
+      return;
+    }
+
     const page = ensureAccountPage();
     hideOtherPagesForAccount();
     page.classList.add("active");
@@ -280,6 +302,7 @@
   }
 
   function showAccount(push = true) {
+    if (!authUiEnabled()) return;
     if (push && window.location.pathname !== "/account") window.history.pushState({ page: "account" }, "", "/account");
     renderAccountPage();
   }
@@ -336,6 +359,12 @@
   }
 
   function renderOrdersPage() {
+    if (!authUiEnabled()) {
+      hideAccountPage({ clear: true });
+      showHomeAfterAccount();
+      return;
+    }
+
     const page = ensureAccountPage();
     hideOtherPagesForAccount();
     page.classList.add("active");
@@ -429,6 +458,12 @@
   }
 
   function renderOrderDetailPage(orderNumber) {
+    if (!authUiEnabled()) {
+      hideAccountPage({ clear: true });
+      showHomeAfterAccount();
+      return;
+    }
+
     const page = ensureAccountPage();
     hideOtherPagesForAccount();
     page.classList.add("active");
@@ -514,6 +549,11 @@
   }
 
   function renderAccountRouteIfNeeded() {
+    if (!authUiEnabled()) {
+      hideAccountPage({ clear: true });
+      return;
+    }
+
     const path = normalizedPath();
     if (path === "/account") {
       renderAccountPage();
@@ -550,6 +590,7 @@
   }
 
   function handleAuthAction(target) {
+    if (!authUiEnabled()) return;
     const action = target.dataset.authAction;
     if (action === "login") loginWithGoogle(window.location.pathname === "/account" ? "/account" : currentPath());
     if (action === "logout") logout();
@@ -602,6 +643,7 @@
   }
 
   function showAuthErrorIfPresent() {
+    if (!authUiEnabled()) return;
     const params = new URLSearchParams(window.location.search);
     const error = params.get("auth_error");
     if (!error) return;
@@ -640,7 +682,7 @@
   }
 
   function install() {
-    ensureAuthNav();
+    if (authUiEnabled()) ensureAuthNav();
     renderAuthNav();
     installEvents();
     installRouteGuard();
