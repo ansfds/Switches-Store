@@ -21,8 +21,8 @@
   <!-- 5. Open Graph Protocol للفيسبوك والمتصفحات الأخرى -->
   <meta property="og:title" content="Switches Store | سويتشز ستور">
   <meta property="og:description" content="قطع كمبيوتر، تجميعات وإكسسوارات بأسعار مميزة وتوصيل إلى جميع مدن ليبيا.">
-  <meta property="og:image" content="https://i.postimg.cc/XJcK8rwR/Purple-and-Green-Gradient-Modern-Game-Presentation.png">
-  <meta property="og:image:secure_url" content="https://i.postimg.cc/XJcK8rwR/Purple-and-Green-Gradient-Modern-Game-Presentation.png">
+  <meta property="og:image" content="https://i.postimg.cc/W1WYv9vb/649257951-122120193375086657-6459998770805675801-n.jpg?v=20261007">
+  <meta property="og:image:secure_url" content="https://i.postimg.cc/W1WYv9vb/649257951-122120193375086657-6459998770805675801-n.jpg?v=20261007">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Switches Store">
@@ -37,7 +37,7 @@
   <meta name="twitter:creator" content="@swytshz">
   <meta name="twitter:title" content="Switches Store | سويتشز ستور">
   <meta name="twitter:description" content="قطع كمبيوتر، تجميعات وإكسسوارات بأسعار مميزة وتوصيل إلى جميع مدن ليبيا.">
-  <meta name="twitter:image" content="https://i.postimg.cc/XJcK8rwR/Purple-and-Green-Gradient-Modern-Game-Presentation.png">
+  <meta name="twitter:image" content="https://i.postimg.cc/W1WYv9vb/649257951-122120193375086657-6459998770805675801-n.jpg?v=20261007">
   <meta name="twitter:image:alt" content="Switches Store">
   
   <!-- 7. Structured Data لتحسين ظهور الموقع في جوجل -->
@@ -49,13 +49,13 @@
     "alternateName": "متجر سويتشز",
     "url": "https://yourdomain.com",
     "description": "متجر سويتشز هو الوجهة المثالية لشراء قطع الكمبيوتر، الإلكترونيات، الإكسسوارات وأحدث التقنيات بأسعار تنافسية.",
-    "image": "https://i.imgur.com/1tQdXnn.png",
+    "image": "https://i.postimg.cc/W1WYv9vb/649257951-122120193375086657-6459998770805675801-n.jpg?v=20261007",
     "publisher": {
       "@type": "Organization",
       "name": "سويتشز",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://i.imgur.com/7QJkJg9.png"
+        "url": "https://i.postimg.cc/W1WYv9vb/649257951-122120193375086657-6459998770805675801-n.jpg?v=20261007"
       }
     },
     "offers": {
@@ -67,10 +67,9 @@
   </script>
   
   <!-- 8. Favicon أيقونة الموقع -->
-  <link rel="icon" type="image/x-icon" href="https://i.imgur.com/7QJkJg9.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/7QJkJg9.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/7QJkJg9.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/7QJkJg9.png">
+  <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/W1WYv9vb/649257951-122120193375086657-6459998770805675801-n.jpg?v=20261007">
+  <link rel="shortcut icon" type="image/jpeg" href="https://i.postimg.cc/W1WYv9vb/649257951-122120193375086657-6459998770805675801-n.jpg?v=20261007">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.postimg.cc/W1WYv9vb/649257951-122120193375086657-6459998770805675801-n.jpg?v=20261007">
   
   <!-- ========== نهاية الأكواد المضافة ========== -->
   
@@ -1590,15 +1589,30 @@
     
     .modal-product-images {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+      background: transparent;
     }
     
     .main-product-image {
+      display: block;
       width: 100%;
-      height: 400px;
+      height: auto;
+      aspect-ratio: 1 / 1;
       object-fit: contain;
-      border-radius: var(--radius-lg);
-      background: var(--bg-secondary);
-      margin-bottom: 20px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+      border-radius: 0;
+      background: transparent;
     }
     
     .product-thumbnails {
@@ -2470,7 +2484,7 @@
     }
 
     .main-product-image {
-      box-shadow: inset 0 0 0 1px var(--border-color);
+      box-shadow: none;
     }
 
     .modal-description {
@@ -3114,7 +3128,7 @@
 
       .main-product-image {
         height: auto;
-        aspect-ratio: 1 / 0.78;
+        aspect-ratio: 1 / 1;
       }
 
       .product-thumbnail {
@@ -4015,6 +4029,20 @@
       console.info(`Switches Store: loaded ${allProducts.length} products from Supabase.`);
     }
 
+    function refreshProductsAfterAsyncLoad() {
+      if (typeof loadProducts === 'function') loadProducts();
+
+      const allProductsPage = document.getElementById('allProductsPage');
+      if (allProductsPage?.classList.contains('active')) {
+        if (typeof filterAllProducts === 'function') filterAllProducts();
+        else if (typeof renderAllProductsGrid === 'function') renderAllProductsGrid(allProducts);
+      }
+
+      if (typeof renderFavoritesPage === 'function') renderFavoritesPage();
+      storeBootstrapPending = false;
+      initPromoPopup();
+    }
+
     async function loadStoreBootstrapFromSupabase() {
       if (window.SwitchesSupabaseStore?.configured?.()) {
         try {
@@ -4075,14 +4103,19 @@
     }
 
     // ===== تهيئة التطبيق =====
-    document.addEventListener('DOMContentLoaded', async function() {
-      try {
-        await loadProductsFromSupabase();
-      } catch (error) {
-        console.error('Switches Store: Supabase load failed; using built-in fallback products.', error);
-      }
+    document.addEventListener('DOMContentLoaded', function() {
       initApp();
       initFavoritesExperience();
+
+      window.requestAnimationFrame(() => {
+        loadProductsFromSupabase()
+          .then(refreshProductsAfterAsyncLoad)
+          .catch(error => {
+            console.error('Switches Store: Supabase load failed; keeping built-in fallback products.', error);
+            storeBootstrapPending = false;
+            initPromoPopup();
+          });
+      });
     });
 
     // ===== جميع المنتجات الأصلية =====
@@ -5651,6 +5684,7 @@ specs: {
     const DEFAULT_FEATURED_HERO_OVERLAY = 58;
     let publicHomepageSections = [];
     let publicHomepageLoaded = false;
+    let storeBootstrapPending = true;
     let publicStoreSettings = {
       popup_enabled: true,
       popup_image_url: DEFAULT_POPUP_IMAGE_URL,
@@ -6482,6 +6516,8 @@ specs: {
     }
 
     function initPromoPopup() {
+      if (storeBootstrapPending) return;
+
       const popup = document.getElementById('promoPopup');
       const popupImage = document.getElementById('promoPopupImage');
       const popupEnabled = parseBooleanSetting(publicStoreSettings.popup_enabled, false);
@@ -6666,7 +6702,7 @@ specs: {
       const modalContent = document.getElementById('productModalContent');
       modalContent.innerHTML = `
         <div class="modal-product-images">
-          <img src="${product.images[0]}" alt="${product.name}" class="main-product-image" id="mainProductImage">
+          <img src="${product.images[0]}" alt="${product.name}" class="main-product-image" id="mainProductImage" loading="eager" fetchpriority="high" decoding="async">
           <div class="product-thumbnails">
             ${product.images.map((img, index) => `
               <img src="${img}" alt="صورة ${index + 1}" class="product-thumbnail ${index === 0 ? 'active' : ''}" 
