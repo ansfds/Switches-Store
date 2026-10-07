@@ -695,13 +695,14 @@
     throwIf(insertError, "تعذر إنشاء قسم الصفحة الرئيسية.");
   }
 
-  async function listHomepage(adminMode) {
+  async function listHomepage(adminMode, productsOverride) {
     const sb = supabaseClient();
     let sectionsQuery = sb.from("homepage_sections").select("*").order("sort_order").order("section_key");
+    const productsSource = productsOverride ? Promise.resolve(productsOverride) : (adminMode ? listProducts(true) : listPublicProducts());
     const [sectionsResult, itemsResult, products] = await Promise.all([
       sectionsQuery,
       sb.from("homepage_items").select("*").order("slot_index"),
-      adminMode ? listProducts(true) : listPublicProducts(),
+      productsSource,
     ]);
     throwIf(sectionsResult.error, "تعذر تحميل أقسام الرئيسية.");
     throwIf(itemsResult.error, "تعذر تحميل منتجات الرئيسية.");
@@ -1004,15 +1005,45 @@
   }
 
   async function listPublicProducts() {
-    const { data, error } = await supabaseClient().from("products").select("*").eq("is_active", true).eq("is_deleted", false).eq("status", "published").order("sort_order").order("id", { ascending: false });
+    const fields = [
+      "id",
+      "name",
+      "short_description",
+      "description",
+      "category",
+      "brand",
+      "price",
+      "old_price",
+      "condition",
+      "images_json",
+      "specs_json",
+      "tags_json",
+      "availability",
+      "slug",
+      "sort_order",
+      "status",
+      "is_active",
+      "is_deleted",
+    ].join(",");
+    const { data, error } = await supabaseClient().from("products").select(fields).eq("is_active", true).eq("is_deleted", false).eq("status", "published").order("sort_order").order("id", { ascending: false });
     throwIf(error, "تعذر تحميل المنتجات.");
     return (data || []).map(productFromRow);
   }
 
+  async function loadPublicProductHomepageBootstrap() {
+    const productsPromise = listPublicProducts();
+    const [products, homepageSections] = await Promise.all([
+      productsPromise,
+      listHomepage(false, productsPromise),
+    ]);
+    return { products, homepageSections };
+  }
+
   async function loadPublicBootstrap() {
+    const productsPromise = listPublicProducts();
     const [products, homepageSections, heroSlides, ads, settings, giftCards] = await Promise.all([
-      listPublicProducts(),
-      listHomepage(false),
+      productsPromise,
+      listHomepage(false, productsPromise),
       listSlides(false),
       listAds(false),
       getSettings(),
@@ -1221,6 +1252,8 @@
     configured,
     client: supabaseClient,
     loadBootstrap: loadPublicBootstrap,
+    loadProductHomepageBootstrap: loadPublicProductHomepageBootstrap,
+    loadSettings: getSettings,
     loadGiftCards: () => listGiftCards(false),
     placeOrder,
     validateCoupon,

@@ -4179,6 +4179,31 @@
     async function loadStoreBootstrapFromSupabase() {
       if (window.SwitchesSupabaseStore?.configured?.()) {
         try {
+          if (typeof window.SwitchesSupabaseStore.loadProductHomepageBootstrap === 'function') {
+            if (typeof window.SwitchesSupabaseStore.loadSettings === 'function') {
+              window.SwitchesSupabaseStore.loadSettings()
+                .then(settings => {
+                  applyPublicStoreSettings(settings || {}, true);
+                  if (window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__) {
+                    renderFeaturedHero();
+                    initPromoPopup();
+                  }
+                })
+                .catch(error => {
+                  console.warn('Switches Store: settings load failed after fast product render.', error);
+                });
+            }
+
+            const bootstrap = await window.SwitchesSupabaseStore.loadProductHomepageBootstrap();
+            return {
+              products: bootstrap.products || [],
+              homepageSections: bootstrap.homepageSections || [],
+              settings: {},
+              homepageLoaded: true,
+              settingsLoaded: false
+            };
+          }
+
           const bootstrap = await window.SwitchesSupabaseStore.loadBootstrap();
           return {
             products: bootstrap.products || [],
@@ -5820,6 +5845,7 @@ specs: {
     let storeBootstrapPending = true;
     let storeBootstrapError = null;
     window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ = false;
+    let publicSettingsLoaded = false;
     let publicStoreSettings = {
       popup_enabled: true,
       popup_image_url: DEFAULT_POPUP_IMAGE_URL,
@@ -5987,6 +6013,7 @@ specs: {
     }
 
     function applyPublicStoreSettings(settings = {}, settingsLoaded = false) {
+      if (settingsLoaded) publicSettingsLoaded = true;
       const popupImage = pickSetting(settings, 'popup_image_url', 'popupImageUrl');
       const popupEnabled = pickSetting(settings, 'popup_enabled', 'popupEnabled');
       const cartDiscountEnabled = pickSetting(settings, 'cart_discount_enabled', 'cartDiscountEnabled');
@@ -6140,7 +6167,7 @@ specs: {
 
       return `
         <button class="featured-offer-card" type="button" data-featured-product="${product.id}" aria-label="افتح العرض: ${escapeHtml(product.name)}">
-          <img src="${escapeHtml(productImageUrl(product))}" alt="${escapeHtml(product.name)}" loading="${index === 0 ? 'eager' : 'lazy'}">
+          <img src="${escapeHtml(productImageUrl(product))}" alt="${escapeHtml(product.name)}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" ${index === 0 ? 'fetchpriority="high"' : ''}>
           ${discount ? `<span class="featured-discount-ribbon"><small>حتى</small><strong>-${discount}%</strong></span>` : ''}
           <span class="featured-card-content">
             <span class="featured-card-badge">${escapeHtml(featuredHeroBadge(product, item))}</span>
@@ -6153,6 +6180,24 @@ specs: {
           </span>
         </button>
       `;
+    }
+
+    function renderFeaturedHeroSkeleton() {
+      const stage = document.getElementById('featuredHeroStage');
+      const root = document.getElementById('featuredHeroCards');
+      if (!stage || !root) return;
+      stage.hidden = false;
+      root.innerHTML = Array.from({ length: 4 }, (_, index) => `
+        <span class="featured-offer-card product-card-skeleton" aria-hidden="true">
+          <span class="skeleton-block" style="position:absolute;inset:18px 22px 108px;border-radius:18px;"></span>
+          <span class="featured-card-content">
+            <span class="skeleton-block" style="width:72px;height:24px;border-radius:999px;"></span>
+            <span class="skeleton-block" style="width:${index === 0 ? 82 : 68}%;height:24px;"></span>
+            <span class="skeleton-block" style="width:58%;height:14px;"></span>
+            <span class="skeleton-block" style="width:44%;height:22px;"></span>
+          </span>
+        </span>
+      `).join('');
     }
 
     function renderFeaturedHero() {
@@ -6606,17 +6651,27 @@ specs: {
       return cart.reduce((total, item) => total + cartItemLineTotal(item), 0);
     }
 
+    const PRODUCT_WHATSAPP_ICONS = {
+      cart: "\u{1F6D2}",
+      package: "\u{1F4E6}",
+      quantity: "\u{1F522}",
+      money: "\u{1F4B5}",
+      check: "\u{2705}",
+      multiply: "\u00D7",
+    };
+
     function buildProductWhatsappMessage() {
-      const closingLine = '✅ نبي نكمل الطلب ونتفق معاكم على الدفع والتوصيل.';
+      const icons = PRODUCT_WHATSAPP_ICONS;
+      const closingLine = `${icons.check} نبي نكمل الطلب ونتفق معاكم على الدفع والتوصيل.`;
 
       if (cart.length === 1) {
         const item = cart[0];
         return [
-          '🛒 *طلب جديد من Switches Store*',
+          `${icons.cart} *طلب جديد من Switches Store*`,
           '',
-          `📦 *المنتج:* ${item.name}`,
-          `🔢 *الكمية:* ${Math.max(1, Number(item.quantity) || 1)}`,
-          `💵 *السعر:* ${formatWhatsAppDollar(cartItemLineTotal(item))}`,
+          `${icons.package} *المنتج:* ${item.name}`,
+          `${icons.quantity} *الكمية:* ${Math.max(1, Number(item.quantity) || 1)}`,
+          `${icons.money} *السعر:* ${formatWhatsAppDollar(cartItemLineTotal(item))}`,
           '',
           closingLine
         ].join('\n');
@@ -6624,16 +6679,16 @@ specs: {
 
       const productLines = cart.map((item, index) => {
         const quantity = Math.max(1, Number(item.quantity) || 1);
-        return `${index + 1}. ${item.name} ×${quantity}`;
+        return `${index + 1}. ${item.name} ${icons.multiply}${quantity}`;
       });
 
       return [
-        '🛒 *طلب جديد من Switches Store*',
+        `${icons.cart} *طلب جديد من Switches Store*`,
         '',
-        '📦 *المنتجات:*',
+        `${icons.package} *المنتجات:*`,
         ...productLines,
         '',
-        `💵 *الإجمالي:* ${formatWhatsAppDollar(getCartWhatsappTotal())}`,
+        `${icons.money} *الإجمالي:* ${formatWhatsAppDollar(getCartWhatsappTotal())}`,
         '',
         closingLine
       ].join('\n');
@@ -6721,6 +6776,7 @@ specs: {
 
     function initPromoPopup() {
       if (storeBootstrapPending) return;
+      if (!publicSettingsLoaded) return;
 
       const popup = document.getElementById('promoPopup');
       const popupImage = document.getElementById('promoPopupImage');
@@ -8298,9 +8354,10 @@ function loadProducts() {
 }
 
 // ===== التعريف النهائي النظيف لعرض المنتجات =====
-function loadProducts() {
+    function loadProducts() {
     if (isProductBootstrapPending() || hasProductBootstrapFailed()) {
-        hideFeaturedProductStage();
+        if (isProductBootstrapPending()) renderFeaturedHeroSkeleton();
+        else hideFeaturedProductStage();
         Object.entries(homepageSectionConfig).forEach(([, config]) => {
             renderProductsGrid(config.gridId, []);
         });
