@@ -1830,6 +1830,13 @@
       transform: translateY(-2px);
       box-shadow: 0 5px 20px rgba(37, 99, 235, 0.3);
     }
+
+    .btn-modal:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      transform: none;
+      box-shadow: none;
+    }
     
     .btn-secondary {
       background: var(--bg-secondary);
@@ -4010,8 +4017,8 @@
             مواصلة التسوق
           </button>
           <button class="btn-modal btn-primary" id="checkoutBtn">
-            <i class="fas fa-shopping-cart"></i>
-            إتمام الشراء
+            <i class="fab fa-whatsapp"></i>
+            إرسال الطلب
           </button>
         </div>
       </div>
@@ -5807,6 +5814,7 @@ specs: {
     const CART_DISCOUNT_MIN_QUANTITY = 2;
     const DEFAULT_CART_DISCOUNT_PERCENT = 10;
     const DEFAULT_FEATURED_HERO_OVERLAY = 58;
+    const PRODUCTS_WHATSAPP_PHONE = '218931853169';
     let publicHomepageSections = [];
     let publicHomepageLoaded = false;
     let storeBootstrapPending = true;
@@ -6585,6 +6593,73 @@ specs: {
       };
     }
 
+    function formatWhatsAppDollar(value) {
+      const amount = roundCurrency(value);
+      return `${amount.toLocaleString('en-US', { maximumFractionDigits: 2 })}$`;
+    }
+
+    function cartItemLineTotal(item) {
+      return roundCurrency((Number(item.price) || 0) * Math.max(1, Number(item.quantity) || 1));
+    }
+
+    function getCartWhatsappTotal() {
+      return cart.reduce((total, item) => total + cartItemLineTotal(item), 0);
+    }
+
+    function buildProductWhatsappMessage() {
+      const closingLine = '✅ نبي نكمل الطلب ونتفق معاكم على الدفع والتوصيل.';
+
+      if (cart.length === 1) {
+        const item = cart[0];
+        return [
+          '🛒 *طلب جديد من Switches Store*',
+          '',
+          `📦 *المنتج:* ${item.name}`,
+          `🔢 *الكمية:* ${Math.max(1, Number(item.quantity) || 1)}`,
+          `💵 *السعر:* ${formatWhatsAppDollar(cartItemLineTotal(item))}`,
+          '',
+          closingLine
+        ].join('\n');
+      }
+
+      const productLines = cart.map((item, index) => {
+        const quantity = Math.max(1, Number(item.quantity) || 1);
+        return `${index + 1}. ${item.name} ×${quantity}`;
+      });
+
+      return [
+        '🛒 *طلب جديد من Switches Store*',
+        '',
+        '📦 *المنتجات:*',
+        ...productLines,
+        '',
+        `💵 *الإجمالي:* ${formatWhatsAppDollar(getCartWhatsappTotal())}`,
+        '',
+        closingLine
+      ].join('\n');
+    }
+
+    function getProductWhatsappUrl() {
+      return `https://wa.me/${PRODUCTS_WHATSAPP_PHONE}?text=${encodeURIComponent(buildProductWhatsappMessage())}`;
+    }
+
+    function syncCartCheckoutButton() {
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      if (!checkoutBtn) return;
+      checkoutBtn.disabled = cart.length === 0;
+      checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> إرسال الطلب';
+    }
+
+    function openProductWhatsappOrder() {
+      if (cart.length === 0) {
+        showNotification('السلة فارغة', 'warning');
+        syncCartCheckoutButton();
+        return;
+      }
+
+      window.open(getProductWhatsappUrl(), '_blank', 'noopener');
+    }
+
     function updateCartSummaryDisplay(totals = getCartTotals()) {
       const cartSubtotal = document.getElementById('cartSubtotal');
       const cartDiscountRow = document.getElementById('cartDiscountRow');
@@ -6611,6 +6686,8 @@ specs: {
       if (cartTotal) {
         cartTotal.textContent = formatPrice(totals.total);
       }
+
+      syncCartCheckoutButton();
     }
 
     function renderOrderSummary() {
@@ -6956,25 +7033,7 @@ specs: {
         }
       });
       
-      // متابعة الشراء مع التحقق من الحد اليومي
-      document.getElementById('checkoutBtn').addEventListener('click', () => {
-        if (cart.length === 0) {
-          showNotification('سلة التسوق فارغة', 'warning');
-          return;
-        }
-        
-        // التحقق من الحد اليومي للطلبات
-        if (!canPlaceOrder()) {
-          showNotification(`لقد وصلت إلى الحد الأقصى للطلبات اليومية (5 طلبات). يرجى المحاولة مرة أخرى غدًا.`, 'error');
-          return;
-        }
-        
-        const remainingOrders = getRemainingOrders();
-        showNotification(`يمكنك تقديم ${remainingOrders} طلب${remainingOrders > 1 ? 'ات' : ''} أخرى اليوم`, 'info');
-        
-        closeModal('cartModal');
-        setTimeout(() => openModal('orderModal'), 300);
-      });
+      document.getElementById('checkoutBtn').addEventListener('click', openProductWhatsappOrder);
       
       // نموذج الدعم
       document.getElementById('supportForm').addEventListener('submit', handleSupportForm);

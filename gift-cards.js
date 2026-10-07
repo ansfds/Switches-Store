@@ -908,18 +908,25 @@
     `;
   }
 
+  function whatsappRegionLabel(region) {
+    return String(region?.label || GIFT_STATIC_REGION.label || "")
+      .replace(/^ريجن\s+/i, "")
+      .trim();
+  }
+
   function giftWhatsappMessage(platform, selection) {
     const denominationText = selection.denomination ? formatDenomination(selection.denomination, selection.region.currency) : "";
     const priceText = selection.denomination ? formatLYD(selection.denomination.sellingPriceLYD) : "";
+    const regionText = whatsappRegionLabel(selection.region);
+    const cardName = platform.name || platform.shortName || "";
     return [
-      "السلام عليكم",
-      `أريد شراء كرت ${platform.name}`,
+      `🎮 *طلب شراء كرت ${cardName}*`,
       "",
-      `الريجن: ${selection.region?.label || GIFT_STATIC_REGION.label}`,
-      `الفئة: ${denominationText}`,
-      `السعر الحالي: ${priceText}`,
+      `🌎 *الريجن:* ${regionText}`,
+      `💳 *الفئة:* ${denominationText}`,
+      `💵 *السعر الحالي:* ${priceText}`,
       "",
-      "أريد إتمام الطلب",
+      "✅ أريد إتمام الطلب.",
     ].join("\n");
   }
 
