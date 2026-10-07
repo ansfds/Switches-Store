@@ -1,6 +1,7 @@
 (function () {
   const config = window.SWITCHES_SUPABASE_CONFIG || {};
   const bucketName = config.storageBucket || "store-media";
+  const GIFT_CARD_STATUSES = ["AVAILABLE", "COMING_SOON", "UNAVAILABLE", "HIDDEN"];
   let client = null;
   let cachedProfile = null;
 
@@ -72,6 +73,32 @@
       .replace(/-+/g, "-")
       .replace(/^-|-$/g, "");
     return slug || `product-${nowTs()}`;
+  }
+
+  function giftCardSlug(text) {
+    return String(text || "")
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
+  }
+
+  function cleanGiftUrl(value) {
+    const trimmed = String(value || "").trim();
+    if (!trimmed) return "";
+    if (/^\/(assets|data)\//.test(trimmed)) return trimmed;
+    try {
+      const url = new URL(trimmed);
+      return url.protocol === "http:" || url.protocol === "https:" ? trimmed : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function normalizeGiftCardStatus(status) {
+    const normalized = String(status || "AVAILABLE").trim().toUpperCase();
+    return GIFT_CARD_STATUSES.includes(normalized) ? normalized : "AVAILABLE";
   }
 
   async function parseJsonBody(body) {
@@ -251,6 +278,115 @@
       product_id: payload.productId || null,
       sort_order: Number(payload.sortOrder || 0),
       is_active: payload.isActive !== false,
+      updated_at: nowTs(),
+    };
+  }
+
+  function giftCardDenominationFromRow(row) {
+    const faceValue = Number(row.face_value || 0);
+    const currency = row.currency || "USD";
+    const highlightEffect = row.highlight_effect || "none";
+    return {
+      id: row.id,
+      giftCardId: row.gift_card_id,
+      faceValue,
+      value: faceValue,
+      currency,
+      sellingPriceLYD: Number(row.selling_price_lyd || 0),
+      available: bool(row.is_available),
+      isAvailable: bool(row.is_available),
+      isMostPopular: bool(row.is_most_popular),
+      highlightEffect,
+      flame: highlightEffect === "flame",
+      sortOrder: Number(row.sort_order || 0),
+      createdAt: Number(row.created_at || 0),
+      updatedAt: Number(row.updated_at || 0),
+    };
+  }
+
+  function giftCardDenominationToRow(payload, giftCardId) {
+    const effect = String(payload.highlightEffect || payload.highlight_effect || "").toLowerCase() === "flame" || payload.flame === true ? "flame" : "none";
+    return {
+      gift_card_id: giftCardId,
+      face_value: Number(payload.faceValue ?? payload.value ?? 0),
+      currency: String(payload.currency || "USD").trim().toUpperCase(),
+      selling_price_lyd: Number(payload.sellingPriceLYD ?? payload.selling_price_lyd ?? 0),
+      is_available: payload.isAvailable !== false && payload.available !== false,
+      is_most_popular: bool(payload.isMostPopular ?? payload.is_most_popular),
+      highlight_effect: effect,
+      sort_order: Number(payload.sortOrder ?? payload.sort_order ?? 0),
+      updated_at: nowTs(),
+    };
+  }
+
+  function giftCardFromRow(row, denominationRows) {
+    const status = normalizeGiftCardStatus(row.status);
+    const slug = row.slug || giftCardSlug(row.name);
+    const currency = row.currency || "USD";
+    const regionCode = row.region_code || "US";
+    const regionLabel = row.region_label || "ريجن أمريكي";
+    const denominations = (denominationRows || []).map(giftCardDenominationFromRow).sort((a, b) => {
+      const order = Number(a.sortOrder || 0) - Number(b.sortOrder || 0);
+      return order || Number(a.faceValue || 0) - Number(b.faceValue || 0);
+    });
+    return {
+      id: row.id,
+      slug,
+      name: row.name || row.display_name || "",
+      displayName: row.display_name || row.name || "",
+      shortName: row.short_name || row.display_name || row.name || "",
+      iconClass: row.icon_class || "fa-solid fa-gift",
+      accent: row.accent || "#7c3aed",
+      description: row.description || "",
+      regionCode,
+      regionLabel,
+      currency,
+      imageUrl: row.image_url || "",
+      backgroundUrl: row.background_url || "",
+      status,
+      available: status === "AVAILABLE",
+      sortOrder: Number(row.sort_order || 0),
+      isDeleted: bool(row.is_deleted),
+      createdAt: Number(row.created_at || 0),
+      updatedAt: Number(row.updated_at || 0),
+      managedGiftCard: true,
+      denominations,
+      regions: [
+        {
+          id: String(regionCode || "US").trim().toLowerCase(),
+          name: regionLabel,
+          label: regionLabel,
+          flag: "",
+          currency,
+          available: status === "AVAILABLE",
+          denominations,
+        },
+      ],
+    };
+  }
+
+  function giftCardToRow(payload) {
+    const name = String(payload.name || payload.displayName || "").trim();
+    const slug = giftCardSlug(payload.slug || name);
+    if (!name) throw new Error("اكتب اسم Gift Card.");
+    if (!slug) throw new Error("Slug غير صالح.");
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error("Slug يجب أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.");
+    const status = normalizeGiftCardStatus(payload.status);
+    return {
+      name,
+      display_name: String(payload.displayName || name).trim(),
+      short_name: String(payload.shortName || payload.displayName || name).trim(),
+      slug,
+      description: String(payload.description || "").trim(),
+      region_code: String(payload.regionCode || payload.region_code || "US").trim().toUpperCase(),
+      region_label: String(payload.regionLabel || payload.region_label || "ريجن أمريكي").trim(),
+      currency: String(payload.currency || "USD").trim().toUpperCase(),
+      image_url: cleanGiftUrl(payload.imageUrl ?? payload.image_url),
+      background_url: cleanGiftUrl(payload.backgroundUrl ?? payload.background_url),
+      icon_class: String(payload.iconClass || payload.icon_class || "fa-solid fa-gift").trim(),
+      accent: String(payload.accent || "#7c3aed").trim(),
+      status,
+      sort_order: Number(payload.sortOrder ?? payload.sort_order ?? 0),
       updated_at: nowTs(),
     };
   }
@@ -695,6 +831,102 @@
     return { message: "تمت إضافة الإعلان.", id: data.id };
   }
 
+  async function requireGiftCardWriteAccess() {
+    const me = await currentAdminProfile();
+    if (!["owner", "admin"].includes(me.role)) {
+      throw new Error("لا تملك صلاحية تعديل Gift Cards.");
+    }
+    return me;
+  }
+
+  async function listGiftCards(adminMode) {
+    const sb = supabaseClient();
+    let cardsQuery = sb.from("gift_cards").select("*").eq("is_deleted", false).order("sort_order").order("name");
+    if (!adminMode) cardsQuery = cardsQuery.neq("status", "HIDDEN");
+    const [cardsResult, denominationsResult] = await Promise.all([
+      cardsQuery,
+      sb.from("gift_card_denominations").select("*").order("sort_order").order("face_value"),
+    ]);
+    throwIf(cardsResult.error, "تعذر تحميل Gift Cards.");
+    throwIf(denominationsResult.error, "تعذر تحميل فئات Gift Cards.");
+
+    const denominationsByCard = new Map();
+    (denominationsResult.data || []).forEach((row) => {
+      const list = denominationsByCard.get(row.gift_card_id) || [];
+      list.push(row);
+      denominationsByCard.set(row.gift_card_id, list);
+    });
+
+    return (cardsResult.data || []).map((row) => giftCardFromRow(row, denominationsByCard.get(row.id) || []));
+  }
+
+  async function saveGiftCard(payload, id) {
+    await requireGiftCardWriteAccess();
+    const sb = supabaseClient();
+    const row = giftCardToRow(payload);
+    let duplicateQuery = sb.from("gift_cards").select("id").eq("slug", row.slug).eq("is_deleted", false);
+    if (id) duplicateQuery = duplicateQuery.neq("id", id);
+    const duplicate = await duplicateQuery.maybeSingle();
+    throwIf(duplicate.error, "تعذر التحقق من Slug.");
+    if (duplicate.data) throw new Error("Slug مستخدم بالفعل. اختر Slug مختلفًا.");
+
+    if (id) {
+      const { error } = await sb.from("gift_cards").update(row).eq("id", id);
+      throwIf(error, "تعذر تحديث Gift Card.");
+      await logAction("تعديل Gift Card", "gift_card", id, row.name);
+      return { message: "تم تحديث Gift Card.", id };
+    }
+
+    row.created_at = nowTs();
+    row.is_deleted = false;
+    const { data, error } = await sb.from("gift_cards").insert(row).select("id").single();
+    throwIf(error, "تعذر إضافة Gift Card.");
+    await logAction("إضافة Gift Card", "gift_card", data.id, row.name);
+    return { message: "تمت إضافة Gift Card.", id: data.id };
+  }
+
+  async function softDeleteGiftCard(id) {
+    await requireGiftCardWriteAccess();
+    const { error } = await supabaseClient().from("gift_cards").update({
+      status: "HIDDEN",
+      is_deleted: true,
+      updated_at: nowTs(),
+    }).eq("id", id);
+    throwIf(error, "تعذر حذف Gift Card.");
+    await logAction("حذف Gift Card", "gift_card", id, "soft delete");
+    return { message: "تم إخفاء وحذف Gift Card بشكل آمن." };
+  }
+
+  async function saveGiftCardDenomination(payload, giftCardId, id) {
+    await requireGiftCardWriteAccess();
+    const row = giftCardDenominationToRow(payload, giftCardId);
+    if (!row.gift_card_id && !id) throw new Error("Gift Card غير محدد.");
+    if (!Number.isFinite(row.face_value) || row.face_value <= 0) throw new Error("Face Value غير صالح.");
+    if (!Number.isFinite(row.selling_price_lyd) || row.selling_price_lyd < 0) throw new Error("سعر البيع بالدينار غير صالح.");
+
+    if (id) {
+      delete row.gift_card_id;
+      const { error } = await supabaseClient().from("gift_card_denominations").update(row).eq("id", id);
+      throwIf(error, "تعذر تحديث الفئة.");
+      await logAction("تعديل فئة Gift Card", "gift_card_denomination", id, String(row.face_value));
+      return { message: "تم تحديث الفئة.", id };
+    }
+
+    row.created_at = nowTs();
+    const { data, error } = await supabaseClient().from("gift_card_denominations").insert(row).select("id").single();
+    throwIf(error, "تعذر إضافة الفئة.");
+    await logAction("إضافة فئة Gift Card", "gift_card_denomination", data.id, String(row.face_value));
+    return { message: "تمت إضافة الفئة.", id: data.id };
+  }
+
+  async function deleteGiftCardDenomination(id) {
+    await requireGiftCardWriteAccess();
+    const { error } = await supabaseClient().from("gift_card_denominations").delete().eq("id", id);
+    throwIf(error, "تعذر حذف الفئة.");
+    await logAction("حذف فئة Gift Card", "gift_card_denomination", id, "");
+    return { message: "تم حذف الفئة." };
+  }
+
   async function getSettings() {
     const { data, error } = await supabaseClient().from("store_settings").select("settings_json").eq("id", 1).maybeSingle();
     throwIf(error, "تعذر تحميل الإعدادات.");
@@ -778,14 +1010,15 @@
   }
 
   async function loadPublicBootstrap() {
-    const [products, homepageSections, heroSlides, ads, settings] = await Promise.all([
+    const [products, homepageSections, heroSlides, ads, settings, giftCards] = await Promise.all([
       listPublicProducts(),
       listHomepage(false),
       listSlides(false),
       listAds(false),
       getSettings(),
+      listGiftCards(false).catch(() => []),
     ]);
-    return { products, homepageSections, heroSlides, ads, settings };
+    return { products, homepageSections, heroSlides, ads, settings, giftCards };
   }
 
   async function placeOrder(payload) {
@@ -805,7 +1038,7 @@
 
   function subscribeToStoreChanges(callback) {
     if (!configured()) return null;
-    const tables = ["products", "homepage_sections", "homepage_items", "hero_slides", "ads", "store_settings"];
+    const tables = ["products", "homepage_sections", "homepage_items", "hero_slides", "ads", "store_settings", "gift_cards", "gift_card_denominations"];
     let timer = null;
     const refresh = () => {
       clearTimeout(timer);
@@ -871,7 +1104,7 @@
   }
 
   async function exportAll() {
-    const tables = ["products", "orders", "categories", "brands", "coupons", "homepage_sections", "homepage_items", "hero_slides", "ads", "admin_profiles", "store_settings", "activity_logs"];
+    const tables = ["products", "orders", "categories", "brands", "coupons", "homepage_sections", "homepage_items", "hero_slides", "ads", "gift_cards", "gift_card_denominations", "admin_profiles", "store_settings", "activity_logs"];
     const result = {};
     for (const table of tables) {
       const { data, error } = await supabaseClient().from(table).select("*");
@@ -960,6 +1193,17 @@
     if (match && method === "PUT") return saveAd(body, Number(match[1]));
     if (match && method === "DELETE") return deleteEntity("ads", Number(match[1]));
 
+    if (route === "/api/admin/gift-cards" && method === "GET") return listGiftCards(true);
+    if (route === "/api/admin/gift-cards" && method === "POST") return saveGiftCard(body);
+    match = route.match(/^\/api\/admin\/gift-cards\/(\d+)$/);
+    if (match && method === "PUT") return saveGiftCard(body, Number(match[1]));
+    if (match && method === "DELETE") return softDeleteGiftCard(Number(match[1]));
+    match = route.match(/^\/api\/admin\/gift-cards\/(\d+)\/denominations$/);
+    if (match && method === "POST") return saveGiftCardDenomination(body, Number(match[1]));
+    match = route.match(/^\/api\/admin\/gift-card-denominations\/(\d+)$/);
+    if (match && method === "PUT") return saveGiftCardDenomination(body, null, Number(match[1]));
+    if (match && method === "DELETE") return deleteGiftCardDenomination(Number(match[1]));
+
     if (route === "/api/admin/users" && method === "GET") return listUsers();
     if (route === "/api/admin/users" && method === "POST") return saveUser(body);
     match = route.match(/^\/api\/admin\/users\/(\d+)$/);
@@ -977,6 +1221,7 @@
     configured,
     client: supabaseClient,
     loadBootstrap: loadPublicBootstrap,
+    loadGiftCards: () => listGiftCards(false),
     placeOrder,
     validateCoupon,
     subscribeToStoreChanges,

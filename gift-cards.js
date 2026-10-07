@@ -4,6 +4,7 @@
   const GIFT_CATALOG_URL = "/data/gift-cards.json";
   const STORE_VISUALS_URL = "/data/store-visuals.json";
   let catalogLoadError = false;
+  let giftCatalogSource = "fallback";
 
   const PAYMENT_METHODS = [
     { id: "bank-card", name: "البطاقة المصرفية", status: "available" },
@@ -126,10 +127,11 @@
   }
 
   function platformFallbackImageSource(platform) {
-    return visualValue("giftCards", platform.id, "imageUrl");
+    return validFallbackImageUrl(platform.imageUrl) || visualValue("giftCards", platform.id, "imageUrl");
   }
 
   function platformImageSource(platform) {
+    if (platform?.managedGiftCard) return validFallbackImageUrl(platform.imageUrl) || platformFallbackImageSource(platform);
     const settings = publicSettings();
     const nested = settings.gift_card_images && typeof settings.gift_card_images === "object" ? settings.gift_card_images[platform.id] : "";
     const camelNested = settings.giftCardImages && typeof settings.giftCardImages === "object" ? settings.giftCardImages[platform.id] : "";
@@ -151,15 +153,31 @@
   }
 
   async function loadGiftCatalog() {
+    if (window.SwitchesSupabaseStore?.configured?.() && typeof window.SwitchesSupabaseStore.loadGiftCards === "function") {
+      try {
+        const platforms = await window.SwitchesSupabaseStore.loadGiftCards();
+        if (Array.isArray(platforms) && platforms.length) {
+          GIFT_CARD_PLATFORMS = platforms;
+          catalogLoadError = false;
+          giftCatalogSource = "supabase";
+          return;
+        }
+      } catch (error) {
+        console.warn("Switches Store: Supabase Gift Cards unavailable; using fallback catalog.", error);
+      }
+    }
+
     try {
       const response = await fetch(GIFT_CATALOG_URL, { cache: "no-store" });
       if (!response.ok) throw new Error("catalog_load_failed");
       const catalog = await response.json();
       GIFT_CARD_PLATFORMS = Array.isArray(catalog.platforms) ? catalog.platforms : [];
       catalogLoadError = !GIFT_CARD_PLATFORMS.length;
+      giftCatalogSource = "fallback";
     } catch {
       GIFT_CARD_PLATFORMS = [];
       catalogLoadError = true;
+      giftCatalogSource = "fallback";
     }
   }
 
@@ -250,6 +268,8 @@
 
   function isLiveGiftPlatform(platformOrId) {
     const id = typeof platformOrId === "string" ? platformOrId : platformOrId?.id;
+    const platform = typeof platformOrId === "string" ? findPlatform(platformOrId) : platformOrId;
+    if (platform?.managedGiftCard) return platform.status === "AVAILABLE";
     return LIVE_GIFT_PLATFORMS.has(id);
   }
 
@@ -264,7 +284,15 @@
   }
 
   function liveDenominations(platformId) {
-    return (GIFT_DENOMINATION_VALUES[platformId] || []).map((value) => ({
+    const platform = typeof platformId === "string" ? findPlatform(platformId) : platformId;
+    if (platform?.managedGiftCard) {
+      return (platform.regions?.[0]?.denominations || []).map((item) => ({
+        ...item,
+        available: item.available !== false && item.isAvailable !== false,
+      }));
+    }
+    const id = typeof platformId === "string" ? platformId : platformId?.id;
+    return (GIFT_DENOMINATION_VALUES[id] || []).map((value) => ({
       value,
       sellingPriceLYD: giftPriceLYD(value),
       available: true,
@@ -281,13 +309,19 @@
   }
 
   function isHighlightedDenomination(platformId, value) {
+    const platform = findPlatform(platformId);
+    if (platform?.managedGiftCard) {
+      const denomination = liveDenominations(platform).find((item) => denominationKey(item) === String(value));
+      return denomination?.highlightEffect === "flame";
+    }
     const settings = giftHighlightSettings();
     if (!settings.enabled) return false;
     return String(value) === String(settings[platformId] || DEFAULT_HIGHLIGHT_VALUE);
   }
 
   function whatsappPurchaseNumber() {
-    return WHATSAPP_PURCHASE_PHONE;
+    const configured = String(pickValue(publicSettings(), "gift_cards_whatsapp_purchase_number", "giftCardsWhatsappPurchaseNumber") || "").replace(/[^\d]/g, "");
+    return configured || WHATSAPP_PURCHASE_PHONE;
   }
 
   function availableRegions(platform) {
@@ -678,8 +712,13 @@
 
   function platformPriceRange(platform) {
     if (isLiveGiftPlatform(platform)) {
-      const values = liveDenominations(platform.id).map((item) => Number(item.value)).filter(Number.isFinite);
-      if (values.length) return `$${Math.min(...values)} - $${Math.max(...values)}`;
+      const denominations = liveDenominations(platform).filter((item) => item.available !== false);
+      const values = denominations.map((item) => Number(item.value)).filter(Number.isFinite);
+      if (values.length) {
+        const currency = denominations[0]?.currency || platform.currency || "USD";
+        const symbol = currencySymbol(currency);
+        return `${symbol}${Math.min(...values)} - ${symbol}${Math.max(...values)}`;
+      }
     }
     const values = [];
     (platform.regions || []).forEach((region) => {
@@ -712,11 +751,27 @@
 
   function giftPlatformsForDisplay() {
     const preferredOrder = ["steam", "playstation", "xbox", "apple", "amazon", "google-play"];
-    return [...GIFT_CARD_PLATFORMS].sort((a, b) => {
+    return [...GIFT_CARD_PLATFORMS].filter((platform) => platform.status !== "HIDDEN").sort((a, b) => {
+      const order = Number(a.sortOrder || 0) - Number(b.sortOrder || 0);
+      if (order) return order;
       const aIndex = preferredOrder.indexOf(a.id);
       const bIndex = preferredOrder.indexOf(b.id);
       return (aIndex === -1 ? preferredOrder.length : aIndex) - (bIndex === -1 ? preferredOrder.length : bIndex);
     });
+  }
+
+  function giftPlatformStatus(platform) {
+    if (!platform?.managedGiftCard) return isLiveGiftPlatform(platform) ? "AVAILABLE" : "COMING_SOON";
+    return platform.status || "AVAILABLE";
+  }
+
+  function giftPlatformStatusLabel(platform) {
+    return ({
+      AVAILABLE: "متوفر",
+      COMING_SOON: "قريبًا",
+      UNAVAILABLE: "غير متوفر",
+      HIDDEN: "مخفي",
+    })[giftPlatformStatus(platform)] || "متوفر";
   }
 
   function renderCardArt(platform, modifier = "") {
@@ -740,17 +795,32 @@
   function renderGiftCard(platform, index) {
     const delay = (index % 4) * 65;
     const live = isLiveGiftPlatform(platform);
-    const title = live ? `عرض تفاصيل ${platform.name}` : `${platform.name} قريبًا`;
+    const status = giftPlatformStatus(platform);
+    const disabled = !live;
+    const title = live ? `عرض تفاصيل ${platform.name}` : `${platform.name} ${giftPlatformStatusLabel(platform)}`;
     return `
-      <article class="gift-platform-card gift-wave-item ${live ? "" : "coming-soon"}" ${live ? `role="button" tabindex="0" data-gift-action="open-platform" data-platform="${safe(platform.id)}"` : `aria-disabled="true"`} aria-label="${safe(title)}" title="${live ? "" : "قريبًا"}" style="--gift-accent:${safe(platform.accent)};--wave-delay:${delay}ms">
-        ${live ? "" : `<span class="gift-coming-soon-badge">قريبًا</span>`}
+      <article class="gift-platform-card gift-wave-item ${disabled ? "coming-soon" : ""} ${status === "UNAVAILABLE" ? "unavailable" : ""}" ${live ? `role="button" tabindex="0" data-gift-action="open-platform" data-platform="${safe(platform.id)}"` : `aria-disabled="true"`} aria-label="${safe(title)}" title="${live ? "" : giftPlatformStatusLabel(platform)}" style="--gift-accent:${safe(platform.accent)};--wave-delay:${delay}ms">
+        ${live ? "" : `<span class="gift-coming-soon-badge">${safe(giftPlatformStatusLabel(platform))}</span>`}
         ${renderCardArt(platform)}
         <div class="gift-card-copy">
           <h3>${safe(platformCardTitle(platform))}</h3>
-          <p class="gift-card-range">${live ? safe(platformPriceRange(platform)) : "قريبًا"}</p>
+          <p class="gift-card-range">${live ? safe(platformPriceRange(platform)) : safe(giftPlatformStatusLabel(platform))}</p>
         </div>
       </article>
     `;
+  }
+
+  function primaryGiftRegion(platform) {
+    if (!platform?.managedGiftCard) return GIFT_STATIC_REGION;
+    return availableRegions(platform)[0] || platform.regions?.[0] || {
+      id: String(platform.regionCode || "US").toLowerCase(),
+      name: platform.regionLabel || "ريجن أمريكي",
+      label: platform.regionLabel || "ريجن أمريكي",
+      flag: "",
+      currency: platform.currency || "USD",
+      available: platform.status === "AVAILABLE",
+      denominations: platform.denominations || [],
+    };
   }
 
   function selectionFor(platform) {
@@ -758,13 +828,14 @@
     const stored = detailState[platform.id] || {};
     if (isLiveGiftPlatform(platform)) {
       let value = stored.value || params.get("value") || "";
-      const denominations = liveDenominations(platform.id);
+      const liveRegion = primaryGiftRegion(platform);
+      const denominations = liveDenominations(platform);
       const denomination = denominations.find((item) => denominationKey(item) === String(value) && item.available) || null;
       value = denomination ? denominationKey(denomination) : "";
       return {
-        regionId: GIFT_STATIC_REGION.id,
+        regionId: liveRegion.id,
         value,
-        region: { ...GIFT_STATIC_REGION, denominations },
+        region: { ...liveRegion, denominations },
         denomination,
         notice: stored.notice || "",
       };
@@ -807,11 +878,14 @@
     return selection.region.denominations.map((denomination) => {
       const key = denominationKey(denomination);
       const active = selection.value === key;
-      const highlighted = isHighlightedDenomination(platform.id, key);
+      const flame = denomination.highlightEffect === "flame" || isHighlightedDenomination(platform.id, key);
+      const mostPopular = denomination.isMostPopular === true || (!platform?.managedGiftCard && flame);
+      const available = denomination.available !== false && denomination.isAvailable !== false;
       return `
-        <button class="gift-denomination-btn ${active ? "active" : ""} ${highlighted ? "highlighted flame-highlight" : ""}" type="button" data-gift-action="select-denomination" data-platform="${safe(platform.id)}" data-region="${safe(selection.region.id)}" data-value="${safe(key)}" ${denomination.available ? "" : "disabled"} aria-pressed="${active}">
+        <button class="gift-denomination-btn ${active ? "active" : ""} ${flame ? "highlighted flame-highlight" : ""}" type="button" data-gift-action="select-denomination" data-platform="${safe(platform.id)}" data-region="${safe(selection.region.id)}" data-value="${safe(key)}" ${available ? "" : "disabled"} aria-pressed="${active}">
           <strong>${safe(formatDenomination(denomination, selection.region.currency))}</strong>
-          ${highlighted ? `<span class="gift-hot-label">الأكثر طلبًا</span>` : ""}
+          ${mostPopular ? `<span class="gift-hot-label">الأكثر طلبًا</span>` : ""}
+          ${available ? "" : `<span class="gift-unavailable-label">غير متوفر</span>`}
         </button>
       `;
     }).join("");
@@ -841,7 +915,7 @@
       "السلام عليكم",
       `أريد شراء كرت ${platform.name}`,
       "",
-      `الريجن: ${GIFT_STATIC_REGION.label}`,
+      `الريجن: ${selection.region?.label || GIFT_STATIC_REGION.label}`,
       `الفئة: ${denominationText}`,
       `السعر الحالي: ${priceText}`,
       "",
@@ -878,8 +952,10 @@
   function renderGiftDetail(platform) {
     const selection = selectionFor(platform);
     const canBuy = Boolean(isLiveGiftPlatform(platform) && platform.available !== false && selection.region && selection.denomination);
+    const background = validFallbackImageUrl(platform.backgroundUrl);
+    const detailStyle = `--gift-accent:${safe(platform.accent)}${background ? `;--gift-detail-bg:${safe(cssUrlValue(background))}` : ""}`;
     return `
-      <section class="gift-detail-view" style="--gift-accent:${safe(platform.accent)}">
+      <section class="gift-detail-view" style="${detailStyle}">
         <nav class="gift-breadcrumb" aria-label="مسار التنقل">
           <button type="button" data-gift-action="back-to-gift-cards"><i class="fas fa-arrow-right"></i> العودة للكروت الدولية</button>
           <span>الكروت الدولية</span>
@@ -889,7 +965,7 @@
         <div class="gift-detail-layout">
           <div class="gift-detail-visual gift-detail-motion">
             ${renderCardArt(platform, "large")}
-            <div class="gift-fixed-region">ريجن ${safe(GIFT_STATIC_REGION.label)}</div>
+            <div class="gift-fixed-region">${safe(selection.region?.label || GIFT_STATIC_REGION.label)}</div>
             ${renderCurrentGiftPrice(selection)}
             ${renderGiftNotes()}
             <button class="gift-buy-btn gift-whatsapp-buy ${canBuy ? "" : "pending"}" type="button" data-gift-action="open-whatsapp-purchase" data-platform="${safe(platform.id)}">
@@ -899,7 +975,7 @@
           </div>
 
           <article class="gift-detail-panel gift-detail-motion">
-            <span class="gift-status ${platform.available ? "available" : "unavailable"}">${platform.available ? "متوفر" : "غير متوفر"}</span>
+            <span class="gift-status ${canBuy ? "available" : "unavailable"}">${safe(giftPlatformStatusLabel(platform))}</span>
             <h1>${safe(platform.name)}</h1>
 
             <section class="gift-choice-block">
@@ -915,10 +991,15 @@
   }
 
   function renderPlatformComingSoon(platform) {
+    const statusLabel = giftPlatformStatusLabel(platform);
+    const message = giftPlatformStatus(platform) === "UNAVAILABLE"
+      ? "هذا الكرت غير متوفر حاليًا ولا يمكن شراؤه."
+      : "هذا الكرت قريبًا وغير متاح للشراء حاليًا.";
     return `
       <section class="gift-not-found gift-platform-coming-soon">
         <h1>${safe(platformCardTitle(platform))}</h1>
-        <p>هذا الكرت قريبًا وغير متاح للشراء حاليًا.</p>
+        <p>${safe(message)}</p>
+        <span class="gift-status unavailable">${safe(statusLabel)}</span>
         <button class="gift-buy-btn secondary" type="button" data-gift-action="back-to-gift-cards">العودة للكروت الدولية</button>
       </section>
     `;
@@ -1694,10 +1775,11 @@
   function selectDenomination(platformId, regionId, value) {
     const platform = findPlatform(platformId);
     if (isLiveGiftPlatform(platform)) {
-      const denominations = liveDenominations(platform.id);
+      const liveRegion = primaryGiftRegion(platform);
+      const denominations = liveDenominations(platform);
       const denomination = denominations.find((item) => denominationKey(item) === String(value) && item.available);
       if (!denomination) return;
-      detailState[platformId] = { regionId: GIFT_STATIC_REGION.id, value: denominationKey(denomination), notice: "" };
+      detailState[platformId] = { regionId: liveRegion.id, value: denominationKey(denomination), notice: "" };
       updateDetailRoute(platform, detailState[platformId]);
       renderGiftCardsPage();
       return;

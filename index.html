@@ -841,6 +841,100 @@
     .product-card:hover .product-image {
       transform: scale(1.05);
     }
+
+    .product-card-skeleton {
+      pointer-events: none;
+    }
+
+    .product-card-skeleton:hover {
+      transform: none;
+      box-shadow: 0 5px 20px var(--shadow-color);
+      border-color: var(--border-color);
+    }
+
+    .skeleton-block {
+      display: block;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--bg-secondary) 0%, var(--bg-tertiary) 45%, var(--bg-secondary) 100%);
+      background-size: 220% 100%;
+      animation: productSkeletonShimmer 1.15s ease-in-out infinite;
+    }
+
+    .product-skeleton-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
+
+    .product-skeleton-title {
+      width: 86%;
+      height: 18px;
+      margin-bottom: 10px;
+    }
+
+    .product-skeleton-line {
+      height: 13px;
+      margin-bottom: 12px;
+    }
+
+    .product-skeleton-line.short {
+      width: 52%;
+    }
+
+    .product-skeleton-price {
+      width: 42%;
+      height: 20px;
+      margin-top: auto;
+      margin-bottom: 14px;
+    }
+
+    .product-skeleton-button {
+      width: 100%;
+      height: 44px;
+      border-radius: var(--radius-md);
+    }
+
+    .product-load-error {
+      grid-column: 1 / -1;
+      min-height: 260px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+
+    .product-load-error i {
+      display: block;
+      font-size: 2.4rem;
+      margin-bottom: 14px;
+      color: var(--danger-color);
+      opacity: 0.85;
+    }
+
+    .product-load-error h3 {
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .product-load-error button {
+      margin-top: 16px;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      background: var(--primary-color);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    @keyframes productSkeletonShimmer {
+      0% { background-position: 120% 0; }
+      100% { background-position: -120% 0; }
+    }
     
     .product-content {
       padding: 20px;
@@ -4004,7 +4098,7 @@
       const bootstrap = await loadStoreBootstrapFromSupabase();
       const mappedProducts = (bootstrap.products || []).map(normalizePublicProduct).filter(Boolean);
       if (!mappedProducts.length) {
-        throw new Error('Supabase returned no products; keeping the built-in fallback products.');
+        throw new Error('Supabase returned no products.');
       }
 
       allProducts.splice(0, allProducts.length, ...mappedProducts);
@@ -4023,6 +4117,7 @@
       sortedProducts.splice(0, sortedProducts.length, ...refreshedSortedProducts);
 
       window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ = true;
+      storeBootstrapError = null;
       publicHomepageSections = Array.isArray(bootstrap.homepageSections) ? bootstrap.homepageSections : [];
       publicHomepageLoaded = Boolean(bootstrap.homepageLoaded);
       applyPublicStoreSettings(bootstrap.settings, Boolean(bootstrap.settingsLoaded));
@@ -4030,6 +4125,9 @@
     }
 
     function refreshProductsAfterAsyncLoad() {
+      storeBootstrapPending = false;
+      storeBootstrapError = null;
+
       if (typeof loadProducts === 'function') loadProducts();
 
       const allProductsPage = document.getElementById('allProductsPage');
@@ -4039,8 +4137,36 @@
       }
 
       if (typeof renderFavoritesPage === 'function') renderFavoritesPage();
-      storeBootstrapPending = false;
       initPromoPopup();
+    }
+
+    function handleProductBootstrapError(error) {
+      console.error('Switches Store: Supabase products load failed.', error);
+      storeBootstrapPending = false;
+      storeBootstrapError = error;
+      window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ = false;
+      if (typeof loadProducts === 'function') loadProducts();
+
+      const allProductsPage = document.getElementById('allProductsPage');
+      if (allProductsPage?.classList.contains('active') && typeof renderAllProductsGrid === 'function') {
+        renderAllProductsGrid([]);
+      }
+
+      initPromoPopup();
+    }
+
+    async function retryProductBootstrap() {
+      storeBootstrapPending = true;
+      storeBootstrapError = null;
+      window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ = false;
+      if (typeof loadProducts === 'function') loadProducts();
+
+      try {
+        await loadProductsFromSupabase();
+        refreshProductsAfterAsyncLoad();
+      } catch (error) {
+        handleProductBootstrapError(error);
+      }
     }
 
     async function loadStoreBootstrapFromSupabase() {
@@ -4055,7 +4181,7 @@
             settingsLoaded: true
           };
         } catch (error) {
-          console.warn('Switches Store: shared Supabase bootstrap failed; trying products fallback.', error);
+          console.warn('Switches Store: shared Supabase bootstrap failed; trying direct products request.', error);
         }
       }
 
@@ -4110,11 +4236,7 @@
       window.requestAnimationFrame(() => {
         loadProductsFromSupabase()
           .then(refreshProductsAfterAsyncLoad)
-          .catch(error => {
-            console.error('Switches Store: Supabase load failed; keeping built-in fallback products.', error);
-            storeBootstrapPending = false;
-            initPromoPopup();
-          });
+          .catch(handleProductBootstrapError);
       });
     });
 
@@ -5641,6 +5763,9 @@ specs: {
       "غير متوفر": 3
     };
 
+    // Supabase is the only active product source; keep the old inline catalog from rendering as stale fallback.
+    allProducts.splice(0, allProducts.length);
+
     const productOriginalOrder = new Map(
       allProducts.map((product, index) => [product.id, index])
     );
@@ -5685,6 +5810,8 @@ specs: {
     let publicHomepageSections = [];
     let publicHomepageLoaded = false;
     let storeBootstrapPending = true;
+    let storeBootstrapError = null;
+    window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ = false;
     let publicStoreSettings = {
       popup_enabled: true,
       popup_image_url: DEFAULT_POPUP_IMAGE_URL,
@@ -7617,6 +7744,55 @@ ${discountLine}
       `;
     }
 
+    function isProductBootstrapPending() {
+      return storeBootstrapPending && window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ !== true;
+    }
+
+    function hasProductBootstrapFailed() {
+      return Boolean(storeBootstrapError) && window.__SWITCHES_SUPABASE_PRODUCTS_LOADED__ !== true;
+    }
+
+    function renderProductSkeletonCards(count = 4) {
+      return Array.from({ length: count }, () => `
+        <div class="product-card product-card-skeleton" aria-hidden="true">
+          <div class="product-image-container">
+            <span class="skeleton-block product-skeleton-image"></span>
+          </div>
+          <div class="product-content">
+            <span class="skeleton-block product-skeleton-title"></span>
+            <span class="skeleton-block product-skeleton-line"></span>
+            <span class="skeleton-block product-skeleton-line short"></span>
+            <span class="skeleton-block product-skeleton-price"></span>
+            <span class="skeleton-block product-skeleton-button"></span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderProductLoadErrorState() {
+      return `
+        <div class="product-load-error">
+          <div>
+            <i class="fas fa-triangle-exclamation"></i>
+            <h3>تعذر تحميل المنتجات، حاول مرة أخرى.</h3>
+            <p>لم يتم عرض أي منتجات قديمة بدل بيانات Supabase.</p>
+            <button type="button" onclick="retryProductBootstrap()">إعادة المحاولة</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function productSkeletonCount(gridId) {
+      return gridId === 'allProductsGrid' ? 8 : 4;
+    }
+
+    function hideFeaturedProductStage() {
+      const stage = document.getElementById('featuredHeroStage');
+      const root = document.getElementById('featuredHeroCards');
+      if (stage) stage.hidden = true;
+      if (root) root.innerHTML = '';
+    }
+
     function attachProductCardEvents(gridSelector) {
       document.querySelectorAll(`${gridSelector} .product-card`).forEach(card => {
         card.addEventListener('click', function() {
@@ -7668,6 +7844,16 @@ ${discountLine}
     function renderProductsGrid(gridId, products) {
       const grid = document.getElementById(gridId);
       if (!grid) return;
+
+      if (isProductBootstrapPending()) {
+        grid.innerHTML = renderProductSkeletonCards(productSkeletonCount(gridId));
+        return;
+      }
+
+      if (hasProductBootstrapFailed()) {
+        grid.innerHTML = renderProductLoadErrorState();
+        return;
+      }
 
       if (!products.length) {
         grid.innerHTML = renderEmptyState();
@@ -7830,6 +8016,7 @@ ${discountLine}
     window.showFavoritesPage = showFavoritesPage;
     window.requestFavoritesLogin = requestFavoritesLogin;
     window.scrollBottomBar = scrollBottomBar;
+    window.retryProductBootstrap = retryProductBootstrap;
     // ============================================================
 // تعديل نظام عرض المنتجات ليعمل ديناميكياً حسب حالة availability
 // ============================================================
@@ -8053,6 +8240,15 @@ function loadProducts() {
 
 // ===== التعريف النهائي النظيف لعرض المنتجات =====
 function loadProducts() {
+    if (isProductBootstrapPending() || hasProductBootstrapFailed()) {
+        hideFeaturedProductStage();
+        Object.entries(homepageSectionConfig).forEach(([, config]) => {
+            renderProductsGrid(config.gridId, []);
+        });
+        syncHomepageSectionShells();
+        return;
+    }
+
     renderFeaturedHero();
 
     Object.entries(homepageSectionConfig).forEach(([canonicalKey, config]) => {

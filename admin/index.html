@@ -37,6 +37,7 @@
         <button class="nav-btn admin-only" data-section="categories"><i class="fa-solid fa-layer-group"></i><span>التصنيفات</span></button>
         <button class="nav-btn admin-only" data-section="brands"><i class="fa-solid fa-tags"></i><span>الماركات</span></button>
         <button class="nav-btn admin-only" data-section="coupons"><i class="fa-solid fa-ticket"></i><span>الكوبونات</span></button>
+        <button class="nav-btn admin-only" data-section="gift-cards"><i class="fa-solid fa-gift"></i><span>Gift Card</span></button>
         <button class="nav-btn admin-only" data-section="homepage"><i class="fa-solid fa-house"></i><span>إدارة الرئيسية</span></button>
         <button class="nav-btn admin-only" data-section="banners"><i class="fa-solid fa-images"></i><span>البانرات والإعلانات</span></button>
         <button class="nav-btn owner-only" data-section="users"><i class="fa-solid fa-user-shield"></i><span>المستخدمون</span></button>
@@ -81,6 +82,27 @@
       <section class="section-panel" id="section-categories"><article class="panel-card"><div class="panel-head split"><h3>التصنيفات</h3><button class="btn primary" data-add-entity="category"><i class="fa-solid fa-plus"></i> تصنيف</button></div><div id="categoriesGrid" class="entity-grid"></div></article></section>
       <section class="section-panel" id="section-brands"><article class="panel-card"><div class="panel-head split"><h3>الماركات</h3><button class="btn primary" data-add-entity="brand"><i class="fa-solid fa-plus"></i> ماركة</button></div><div id="brandsGrid" class="entity-grid"></div></article></section>
       <section class="section-panel" id="section-coupons"><article class="panel-card"><div class="panel-head split"><h3>الكوبونات</h3><button id="addCouponBtn" class="btn primary"><i class="fa-solid fa-plus"></i> كوبون جديد</button></div><div id="couponsGrid" class="entity-grid"></div></article></section>
+
+      <section class="section-panel" id="section-gift-cards">
+        <article class="panel-card gift-admin-panel">
+          <div class="panel-head split">
+            <div>
+              <h3>Gift Card</h3>
+              <p>إدارة الكروت الدولية والفئات والأسعار والحالات من Supabase.</p>
+            </div>
+            <button id="addGiftCardBtn" class="btn primary"><i class="fa-solid fa-plus"></i> إضافة Gift Card</button>
+          </div>
+          <div class="gift-admin-toolbar">
+            <input id="giftCardSearch" placeholder="بحث باسم الكرت أو Slug">
+            <form id="giftWhatsAppForm" class="gift-whatsapp-form">
+              <label><span>WhatsApp Purchase Number</span><input name="gift_cards_whatsapp_purchase_number" placeholder="218931853169"></label>
+              <button class="btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ الرقم</button>
+            </form>
+          </div>
+          <div id="giftCardsAdminHint" class="hint"></div>
+          <div class="table-wrap"><table><thead><tr><th>الكرت</th><th>Slug</th><th>Region</th><th>Status</th><th>الفئات</th><th>آخر تحديث</th><th>تحكم</th></tr></thead><tbody id="giftCardsBody"></tbody></table></div>
+        </article>
+      </section>
 
       <section class="section-panel" id="section-homepage">
         <div class="panel-head page-head"><div><h3>إدارة الصفحة الرئيسية</h3><p>غيّر المنتجات المعروضة ورتبها بالسحب والإفلات.</p></div></div>

@@ -1,7 +1,7 @@
 const state = {
   token: '',
   me: null, overview: null, products: [], orders: [], customers: [], categories: [], brands: [], coupons: [],
-  homepage: [], slides: [], ads: [], users: [], activity: [], settings: null,
+  homepage: [], slides: [], ads: [], giftCards: [], giftCardsError: '', users: [], activity: [], settings: null,
 };
 const $ = (s, root=document) => root.querySelector(s);
 const $$ = (s, root=document) => [...root.querySelectorAll(s)];
@@ -56,7 +56,7 @@ function openModal(title, html, onSubmit){ $('#modalTitle').textContent=title; c
 function closeModal(){ $('#modal').classList.add('hidden'); $('#modalForm').innerHTML=''; }
 $$('[data-close]').forEach(x=>x.addEventListener('click', closeModal));
 
-const titles={dashboard:'Dashboard',products:'المنتجات',orders:'الطلبات',customers:'العملاء',stock:'المخزون',categories:'التصنيفات',brands:'الماركات',coupons:'الكوبونات',homepage:'إدارة الصفحة الرئيسية',banners:'البانرات والإعلانات',users:'المستخدمون والصلاحيات',activity:'سجل النشاط',settings:'الإعدادات'};
+const titles={dashboard:'Dashboard',products:'المنتجات',orders:'الطلبات',customers:'العملاء',stock:'المخزون',categories:'التصنيفات',brands:'الماركات',coupons:'الكوبونات','gift-cards':'Gift Card',homepage:'إدارة الصفحة الرئيسية',banners:'البانرات والإعلانات',users:'المستخدمون والصلاحيات',activity:'سجل النشاط',settings:'الإعدادات'};
 function switchSection(key){
   $$('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.section===key));
   $$('.section-panel').forEach(p=>p.classList.toggle('active',p.id===`section-${key}`));
@@ -83,11 +83,22 @@ async function loadAll(){
     ['categories','/api/admin/categories'],['brands','/api/admin/brands'],['coupons','/api/admin/coupons'],['homepage','/api/admin/homepage'],
     ['slides','/api/admin/hero-slides'],['ads','/api/admin/ads'],['settings','/api/admin/settings']
   ];
-  if(['owner','admin'].includes(state.me.role)) tasks.push(['activity','/api/admin/activity?limit=100']);
+  if(['owner','admin'].includes(state.me.role)){
+    tasks.push(['giftCards','/api/admin/gift-cards']);
+    tasks.push(['activity','/api/admin/activity?limit=100']);
+  }
   if(state.me.role==='owner') tasks.push(['users','/api/admin/users']);
-  const values=await Promise.all(tasks.map(([,url])=>api(url))); tasks.forEach(([k],i)=>state[k]=values[i]); renderAll();
+  const values=await Promise.all(tasks.map(([key,url])=>api(url).catch(error=>({__error:true,key,message:error.message}))));
+  values.forEach((value,i)=>{
+    const key=tasks[i][0];
+    if(value?.__error&&key==='giftCards'){state.giftCards=[];state.giftCardsError=value.message;return}
+    if(value?.__error)throw new Error(value.message);
+    state[key]=value;
+    if(key==='giftCards')state.giftCardsError='';
+  });
+  renderAll();
 }
-function renderAll(){ renderOverview(); renderProducts(); renderOrders(); renderCustomers(); renderStock(); renderEntities(); renderCoupons(); renderHomepage(); renderFeaturedHeroSettings(); renderBanners(); renderUsers(); renderActivity(); renderSettings(); fillFilters(); }
+function renderAll(){ renderOverview(); renderProducts(); renderOrders(); renderCustomers(); renderStock(); renderEntities(); renderCoupons(); renderGiftCardsAdmin(); renderHomepage(); renderFeaturedHeroSettings(); renderBanners(); renderUsers(); renderActivity(); renderSettings(); fillFilters(); }
 $('#refreshBtn').addEventListener('click',async()=>{try{await loadAll();toast('تم التحديث')}catch(e){toast(e.message,true)}});
 $('#exportBtn').addEventListener('click',async()=>{try{const d=await api('/api/admin/export');const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`switches-export-${Date.now()}.json`;a.click();URL.revokeObjectURL(a.href)}catch(e){toast(e.message,true)}});
 
@@ -168,6 +179,102 @@ function renderCoupons(){ $('#couponsGrid').innerHTML=state.coupons.map(c=>`<art
 $('#addCouponBtn').addEventListener('click',()=>editCoupon());
 window.editCoupon=function(id){const c=id?state.coupons.find(x=>x.id===id):{code:'',discountType:'percent',discountValue:10,minOrder:0,startsAt:null,endsAt:null,maxUses:null,isActive:true};openModal(id?'تعديل الكوبون':'كوبون جديد',`<div class="form-grid"><label><span>الكود</span><input name="code" value="${esc(c.code)}" required></label><label><span>نوع الخصم</span><select name="discountType"><option value="percent" ${c.discountType==='percent'?'selected':''}>نسبة %</option><option value="fixed" ${c.discountType==='fixed'?'selected':''}>مبلغ ثابت</option></select></label><label><span>قيمة الخصم</span><input name="discountValue" type="number" step="0.01" value="${c.discountValue}"></label><label><span>الحد الأدنى</span><input name="minOrder" type="number" step="0.01" value="${c.minOrder}"></label><label><span>البداية</span><input name="startsAt" type="datetime-local" value="${dateInput(c.startsAt)}"></label><label><span>النهاية</span><input name="endsAt" type="datetime-local" value="${dateInput(c.endsAt)}"></label><label><span>أقصى استخدام</span><input name="maxUses" type="number" value="${c.maxUses??''}"></label><label><span>الحالة</span><select name="isActive"><option value="1" ${c.isActive?'selected':''}>مفعل</option><option value="0" ${!c.isActive?'selected':''}>معطل</option></select></label><div class="full"><button class="btn primary" type="submit">حفظ</button></div></div>`,async e=>{e.preventDefault();const f=e.currentTarget,p={code:f.code.value.trim(),discountType:f.discountType.value,discountValue:+f.discountValue.value||0,minOrder:+f.minOrder.value||0,startsAt:toTs(f.startsAt.value),endsAt:toTs(f.endsAt.value),maxUses:f.maxUses.value?+f.maxUses.value:null,isActive:f.isActive.value==='1'};try{await api(`/api/admin/coupons${id?'/'+id:''}`,{method:id?'PUT':'POST',body:JSON.stringify(p)});state.coupons=await api('/api/admin/coupons');renderCoupons();closeModal();toast('تم حفظ الكوبون')}catch(err){toast(err.message,true)}})};
 window.deleteCoupon=async id=>{if(!confirm('حذف الكوبون؟'))return;try{await api(`/api/admin/coupons/${id}`,{method:'DELETE'});state.coupons=await api('/api/admin/coupons');renderCoupons();toast('تم الحذف')}catch(e){toast(e.message,true)}};
+
+const GIFT_CARD_STATUSES=[
+  ['AVAILABLE','متوفر','good'],
+  ['COMING_SOON','قريبًا','warn'],
+  ['UNAVAILABLE','غير متوفر','bad'],
+  ['HIDDEN','مخفي','']
+];
+function giftCardStatusLabel(status){return (GIFT_CARD_STATUSES.find(x=>x[0]===status)||GIFT_CARD_STATUSES[0])[1]}
+function giftCardStatusType(status){return (GIFT_CARD_STATUSES.find(x=>x[0]===status)||GIFT_CARD_STATUSES[0])[2]}
+function giftCardCount(card){return (card.denominations||[]).length}
+function giftImage(url){return url?`<img class="thumb gift-thumb" src="${esc(url)}" onerror="this.style.display='none'">`:`<div class="thumb placeholder"><i class="fa-solid fa-gift"></i></div>`}
+async function reloadGiftCards(){try{state.giftCards=await api('/api/admin/gift-cards');state.giftCardsError=''}catch(e){state.giftCards=[];state.giftCardsError=e.message}}
+function renderGiftCardsAdmin(){
+  const body=$('#giftCardsBody'); if(!body)return;
+  const f=$('#giftWhatsAppForm'); if(f)f.gift_cards_whatsapp_purchase_number.value=settingValue(state.settings||{},'gift_cards_whatsapp_purchase_number','giftCardsWhatsappPurchaseNumber')||'';
+  const hint=$('#giftCardsAdminHint');
+  if(hint)hint.textContent=state.giftCardsError?`طبّق Migration الخاصة بـ Gift Cards أولًا: ${state.giftCardsError}`:'';
+  const q=($('#giftCardSearch')?.value||'').trim().toLowerCase();
+  const rows=(state.giftCards||[]).filter(card=>!q||[card.name,card.displayName,card.slug,card.regionCode,card.status].join(' ').toLowerCase().includes(q));
+  body.innerHTML=rows.length?rows.map(card=>`<tr>
+    <td><div class="gift-card-admin-product">${giftImage(card.imageUrl)}<div><strong>${esc(card.displayName||card.name)}</strong><small>${esc(card.description||'')}</small></div></div></td>
+    <td><code>${esc(card.slug)}</code></td>
+    <td>${esc(card.regionCode||'US')}<br><small>${esc(card.regionLabel||'')}</small></td>
+    <td>${badge(giftCardStatusLabel(card.status),giftCardStatusType(card.status))}</td>
+    <td>${giftCardCount(card)}</td>
+    <td>${dateTime(card.updatedAt)}</td>
+    <td><div class="row-actions"><button class="btn small" onclick="openGiftCardEditor(${card.id})">تعديل</button><button class="btn small ghost danger-text" onclick="deleteGiftCard(${card.id})">حذف</button></div></td>
+  </tr>`).join(''):'<tr><td colspan="7">لا توجد Gift Cards.</td></tr>';
+}
+$('#giftCardSearch')?.addEventListener('input',renderGiftCardsAdmin);
+$('#addGiftCardBtn')?.addEventListener('click',()=>openGiftCardEditor());
+$('#giftWhatsAppForm')?.addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget;try{await saveSettingsPatch({gift_cards_whatsapp_purchase_number:f.gift_cards_whatsapp_purchase_number.value.trim()});renderSettings();renderGiftCardsAdmin();toast('تم حفظ رقم واتساب الكروت')}catch(err){toast(err.message,true)}});
+
+function giftStatusOptions(value){return GIFT_CARD_STATUSES.map(([id,label])=>`<option value="${id}" ${value===id?'selected':''}>${label}</option>`).join('')}
+function slugSuggestion(name){return String(name||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'')}
+function giftCardPreview(card){return `<div class="gift-admin-preview" style="--gift-preview-accent:${esc(card.accent||'#7c3aed')};${card.backgroundUrl?`--gift-preview-bg:url('${esc(card.backgroundUrl)}')`:''}">
+  ${card.imageUrl?`<img src="${esc(card.imageUrl)}" alt="">`:`<i class="${esc(card.iconClass||'fa-solid fa-gift')}"></i>`}
+  <strong>${esc(card.displayName||card.name||'Gift Card')}</strong>
+  <span>${esc(giftCardStatusLabel(card.status||'AVAILABLE'))}</span>
+</div>`}
+function giftDenominationRow(d={}){
+  const rowId=d.id||'';
+  return `<tr data-denomination-row data-id="${esc(rowId)}">
+    <td><input name="faceValue" type="number" step="0.01" value="${esc(d.faceValue??d.value??'')}" required></td>
+    <td><input name="currency" value="${esc(d.currency||'USD')}" required></td>
+    <td><input name="sellingPriceLYD" type="number" step="0.01" value="${esc(d.sellingPriceLYD??'')}" required></td>
+    <td><select name="isAvailable"><option value="1" ${d.isAvailable!==false&&d.available!==false?'selected':''}>نعم</option><option value="0" ${d.isAvailable===false||d.available===false?'selected':''}>لا</option></select></td>
+    <td><select name="isMostPopular"><option value="0" ${!d.isMostPopular?'selected':''}>لا</option><option value="1" ${d.isMostPopular?'selected':''}>نعم</option></select></td>
+    <td><select name="highlightEffect"><option value="none" ${d.highlightEffect!=='flame'?'selected':''}>None</option><option value="flame" ${d.highlightEffect==='flame'?'selected':''}>Flame</option></select></td>
+    <td><input name="sortOrder" type="number" value="${esc(d.sortOrder??0)}"></td>
+    <td><button class="btn small ghost danger-text" type="button" onclick="${rowId?`deleteGiftDenomination(${rowId})`:"this.closest('tr').remove()"}">حذف</button></td>
+  </tr>`;
+}
+function openGiftCardEditor(id){
+  const card=id?state.giftCards.find(x=>Number(x.id)===Number(id)):null;
+  const x=card||{name:'',displayName:'',shortName:'',slug:'',regionCode:'US',regionLabel:'ريجن أمريكي',currency:'USD',imageUrl:'',backgroundUrl:'',status:'AVAILABLE',sortOrder:0,description:'',accent:'#7c3aed',iconClass:'fa-solid fa-gift',denominations:[]};
+  openModal(id?'تعديل Gift Card':'إضافة Gift Card',`<div class="gift-editor-layout">
+    <div class="form-grid three">
+      <label><span>Name</span><input name="name" value="${esc(x.name)}" required></label>
+      <label><span>Display Name</span><input name="displayName" value="${esc(x.displayName||x.name)}"></label>
+      <label><span>Slug</span><input name="slug" value="${esc(x.slug)}" placeholder="playstation" required></label>
+      <label><span>Region Code</span><input name="regionCode" value="${esc(x.regionCode||'US')}"></label>
+      <label><span>Region Label</span><input name="regionLabel" value="${esc(x.regionLabel||'ريجن أمريكي')}"></label>
+      <label><span>Currency</span><input name="currency" value="${esc(x.currency||'USD')}"></label>
+      <label><span>Status</span><select name="status">${giftStatusOptions(x.status||'AVAILABLE')}</select></label>
+      <label><span>Sort Order</span><input name="sortOrder" type="number" value="${esc(x.sortOrder||0)}"></label>
+      <label><span>Accent</span><input name="accent" value="${esc(x.accent||'#7c3aed')}"></label>
+      <label class="full"><span>Card Image URL</span><input name="imageUrl" value="${esc(x.imageUrl||'')}"></label>
+      <label><span>رفع صورة الكرت</span><input id="giftCardImageUpload" type="file" accept="image/*"></label>
+      <label><span>Icon Class</span><input name="iconClass" value="${esc(x.iconClass||'fa-solid fa-gift')}"></label>
+      <label class="full"><span>Background Image URL</span><input name="backgroundUrl" value="${esc(x.backgroundUrl||'')}"></label>
+      <label><span>رفع الخلفية</span><input id="giftCardBgUpload" type="file" accept="image/*"></label>
+      <div id="giftCardUploadHint" class="hint"></div>
+      <label class="full"><span>Description</span><textarea name="description" rows="3">${esc(x.description||'')}</textarea></label>
+      <div class="full">${giftCardPreview(x)}</div>
+      <div class="full row-actions"><button class="btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ معلومات الكرت</button>${id?`<button class="btn ghost" type="button" onclick="window.open('/gift-cards/${esc(x.slug)}','_blank')"><i class="fa-solid fa-eye"></i> معاينة</button>`:''}</div>
+    </div>
+    ${id?`<section class="gift-denominations-editor full"><div class="panel-head split"><div><h4>الفئات السعرية</h4><p>تعديل سريع للسعر، التوفر، Most Popular و Flame.</p></div><button class="btn small primary" type="button" onclick="addGiftDenominationRow()"><i class="fa-solid fa-plus"></i> إضافة فئة</button></div><div class="table-wrap"><table><thead><tr><th>Face Value</th><th>Currency</th><th>LYD</th><th>Available</th><th>Most Popular</th><th>Effect</th><th>Order</th><th></th></tr></thead><tbody id="giftDenomRows">${(x.denominations||[]).map(giftDenominationRow).join('')}</tbody></table></div><div class="row-actions gift-denom-actions"><button class="btn primary" type="button" onclick="saveGiftDenominations(${id})"><i class="fa-solid fa-floppy-disk"></i> حفظ الفئات</button></div></section>`:`<p class="hint full">احفظ الكرت أولًا، ثم ستظهر إدارة الفئات السعرية داخل نفس النافذة.</p>`}
+  </div>`,async e=>{
+    e.preventDefault();const f=e.currentTarget;
+    try{
+      const imageUploaded=await uploadImageInput('#giftCardImageUpload','#giftCardUploadHint');
+      const bgUploaded=await uploadImageInput('#giftCardBgUpload','#giftCardUploadHint');
+      const els=f.elements;
+      const payload={name:els.name.value.trim(),displayName:els.displayName.value.trim()||els.name.value.trim(),shortName:els.displayName.value.trim()||els.name.value.trim(),slug:els.slug.value.trim()||slugSuggestion(els.name.value),regionCode:els.regionCode.value.trim()||'US',regionLabel:els.regionLabel.value.trim()||'ريجن أمريكي',currency:els.currency.value.trim()||'USD',imageUrl:imageUploaded||els.imageUrl.value.trim(),backgroundUrl:bgUploaded||els.backgroundUrl.value.trim(),status:els.status.value,sortOrder:+els.sortOrder.value||0,description:els.description.value.trim(),accent:els.accent.value.trim()||'#7c3aed',iconClass:els.iconClass.value.trim()||'fa-solid fa-gift'};
+      const result=await api(`/api/admin/gift-cards${id?'/'+id:''}`,{method:id?'PUT':'POST',body:JSON.stringify(payload)});
+      await reloadGiftCards();renderGiftCardsAdmin();toast('تم الحفظ بنجاح');openGiftCardEditor(result.id||id);
+    }catch(err){toast(err.message,true)}
+  });
+  const form=$('#modalForm'); if(form&&!id){form.elements.name.addEventListener('input',()=>{if(!form.elements.slug.value)form.elements.slug.value=slugSuggestion(form.elements.name.value)})}
+}
+window.openGiftCardEditor=openGiftCardEditor;
+window.addGiftDenominationRow=function(){const body=$('#giftDenomRows');if(body)body.insertAdjacentHTML('beforeend',giftDenominationRow({currency:'USD',isAvailable:true,sortOrder:body.children.length+1}))}
+window.saveGiftDenominations=async function(cardId){const rows=$$('[data-denomination-row]');try{for(const row of rows){const p={faceValue:+row.querySelector('[name="faceValue"]').value||0,currency:row.querySelector('[name="currency"]').value.trim()||'USD',sellingPriceLYD:+row.querySelector('[name="sellingPriceLYD"]').value||0,isAvailable:row.querySelector('[name="isAvailable"]').value==='1',isMostPopular:row.querySelector('[name="isMostPopular"]').value==='1',highlightEffect:row.querySelector('[name="highlightEffect"]').value,sortOrder:+row.querySelector('[name="sortOrder"]').value||0};const id=row.dataset.id;await api(id?`/api/admin/gift-card-denominations/${id}`:`/api/admin/gift-cards/${cardId}/denominations`,{method:id?'PUT':'POST',body:JSON.stringify(p)})}await reloadGiftCards();renderGiftCardsAdmin();toast('تم حفظ الفئات بنجاح');openGiftCardEditor(cardId)}catch(err){toast(err.message,true)}}
+window.deleteGiftDenomination=async function(id){if(!confirm('هل أنت متأكد من حذف هذه الفئة؟'))return;const cardId=$('#modalForm')?.querySelector('[data-denomination-row]')?.closest('.gift-editor-layout')&&state.giftCards.find(card=>(card.denominations||[]).some(d=>Number(d.id)===Number(id)))?.id;try{await api(`/api/admin/gift-card-denominations/${id}`,{method:'DELETE'});await reloadGiftCards();renderGiftCardsAdmin();toast('تم حذف الفئة');if(cardId)openGiftCardEditor(cardId)}catch(e){toast(e.message,true)}}
+window.deleteGiftCard=async function(id){if(!confirm('هل أنت متأكد من حذف هذا الكرت؟ سيتم إخفاؤه واستخدام Soft Delete.'))return;try{await api(`/api/admin/gift-cards/${id}`,{method:'DELETE'});await reloadGiftCards();renderGiftCardsAdmin();toast('تم حذف Gift Card')}catch(e){toast(e.message,true)}}
 
 function renderHomepage(){
   $('#homepageSections').innerHTML=state.homepage.map(s=>`<article class="home-section" data-key="${s.key}"><div class="home-section-head"><div class="home-section-title"><i class="fa-solid fa-grip-vertical"></i><div><strong>${esc(s.title)}</strong><small>${s.isVisible?' ظاهر':' مخفي'} · ترتيب ${s.sortOrder}</small></div></div><div class="row-actions"><button class="btn small" onclick="editHomeSection('${s.key}')">إعدادات القسم</button></div></div><div class="slots-grid" data-slots="${s.key}">${[0,1,2,3].map(i=>slotHtml(s,i)).join('')}</div></article>`).join('');

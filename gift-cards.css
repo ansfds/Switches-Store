@@ -251,6 +251,43 @@
 }
 
 .gift-detail-view {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.gift-detail-view::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--gift-detail-bg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.16;
+}
+
+.gift-detail-view::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg-primary) 82%, transparent), var(--bg-primary));
+}
+
+.gift-unavailable-label {
+  position: relative;
+  z-index: 2;
+  color: var(--gift-muted);
+  font-size: 0.68rem;
+  font-weight: 950;
+}
+
+.gift-platform-card.unavailable .gift-coming-soon-badge {
+  background: linear-gradient(135deg, #475569, #111827);
+}
+
+.gift-detail-view {
   display: grid;
   gap: 18px;
   min-width: 0;
