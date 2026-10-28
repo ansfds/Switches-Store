@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Gemini + Canva</title><desc id="desc">Original typographic cover with abstract artwork for Gemini + Canva. No official logo is used.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="540" x2="960" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#0B0F18"/><stop offset=".54" stop-color="#111623"/><stop offset="1" stop-color="#34346D"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#78D8D7" stop-opacity=".45"/><stop offset="1" stop-color="#78D8D7" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x1="560" y1="80" x2="870" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".035"/></linearGradient>
+<linearGradient id="accent" x1="520" y1="110" x2="900" y2="440" gradientUnits="userSpaceOnUse"><stop stop-color="#78D8D7"/><stop offset="1" stop-color="#34346D"/></linearGradient>
+<filter id="shadow" x="-45%" y="-45%" width="190%" height="210%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity=".3"/></filter>
+<pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" stroke="#FFFFFF" stroke-opacity=".022"/></pattern>
+</defs>
+<path fill="url(#bg)" d="M0 0h960v540H0z"/><path fill="url(#grid)" d="M0 0h960v540H0z"/>
+<ellipse cx="786" cy="255" rx="380" ry="340" fill="url(#glow)"/>
+<g filter="url(#shadow)"><rect x="601" y="122" width="203" height="261" rx="23" transform="rotate(-14 601 122)" fill="#6868B7" stroke="#D6D2FF" stroke-opacity=".5"/><circle cx="716" cy="216" r="54" fill="#A8B9FA" fill-opacity=".5"/><ellipse cx="716" cy="216" rx="74" ry="27" transform="rotate(-31 716 216)" stroke="#DDE7FF" stroke-opacity=".65" stroke-width="2"/><rect x="655" y="238" width="212" height="220" rx="23" transform="rotate(10 655 238)" fill="#2C7F8D" stroke="#A4EFDF" stroke-opacity=".5"/><path d="m692 389 37-89 49 45 46-28 15 94-147-22Z" fill="#86DBCB"/><circle cx="793" cy="298" r="25" fill="#C8AFEF"/><rect x="661" y="412" width="96" height="6" rx="3" transform="rotate(10 661 412)" fill="#C9F3E8" fill-opacity=".6"/></g>
+<path d="M64 73h28" stroke="#78D8D7" stroke-width="4" stroke-linecap="round"/>
+<text x="64" y="131" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600" letter-spacing="4.5" fill="#FFFFFF" fill-opacity=".63">AI + DESIGN</text>
+<text x="60" y="240" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="700" letter-spacing="-3" fill="#FFFFFF">Gemini</text><text x="60" y="332" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="700" letter-spacing="-3" fill="#FFFFFF">+ Canva</text>
+<path d="M64 435h74" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2"/>
+<path d="M64 451h40" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+<path d="M1 539.5h958" stroke="#FFFFFF" stroke-opacity=".05"/>
+</svg>

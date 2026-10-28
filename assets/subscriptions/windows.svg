@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Microsoft Windows</title><desc id="desc">Original typographic cover with abstract artwork for Microsoft Windows. No official logo is used.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="540" x2="960" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#0B0F18"/><stop offset=".54" stop-color="#111623"/><stop offset="1" stop-color="#123C78"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#65B3F6" stop-opacity=".45"/><stop offset="1" stop-color="#65B3F6" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x1="560" y1="80" x2="870" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".035"/></linearGradient>
+<linearGradient id="accent" x1="520" y1="110" x2="900" y2="440" gradientUnits="userSpaceOnUse"><stop stop-color="#65B3F6"/><stop offset="1" stop-color="#123C78"/></linearGradient>
+<filter id="shadow" x="-45%" y="-45%" width="190%" height="210%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity=".3"/></filter>
+<pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" stroke="#FFFFFF" stroke-opacity=".022"/></pattern>
+</defs>
+<path fill="url(#bg)" d="M0 0h960v540H0z"/><path fill="url(#grid)" d="M0 0h960v540H0z"/>
+<ellipse cx="786" cy="255" rx="380" ry="340" fill="url(#glow)"/>
+<g filter="url(#shadow)"><path d="M596 392c-77-60-26-114 65-148 79-30 132-63 115-113 64 31 117 79 90 131-33 64-170 83-178 126-3 18 28 37 68 42-69 24-117-3-160-38Z" fill="#2793E3"/><path d="M614 379c-60-44-7-85 76-116 89-33 135-68 116-113 58 42 77 75 48 112-42 55-160 71-166 121-3 24 30 38 64 42-68 16-102-14-138-46Z" fill="#67C6F8"/><path d="M665 252c72-29 128-68 113-117 32 35 25 78-32 113-40 25-104 54-138 85 0-33 13-64 57-81Z" fill="#1473C5"/><path d="M687 383c9-51 127-67 169-120-20 61-129 69-137 115-4 20 10 32 33 47-34-4-67-18-65-42Z" fill="#B2E9FF"/><path d="M622 411c-54-26-111-69-88-110 2 48 60 73 88 110Z" fill="#56B9F4" fill-opacity=".55"/></g><circle cx="845" cy="124" r="6" fill="#A4DFFF" fill-opacity=".75"/>
+<path d="M64 73h28" stroke="#65B3F6" stroke-width="4" stroke-linecap="round"/>
+<text x="64" y="131" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600" letter-spacing="4.5" fill="#FFFFFF" fill-opacity=".63">MICROSOFT</text>
+<text x="60" y="260" font-family="Arial,Helvetica,sans-serif" font-size="80" font-weight="700" letter-spacing="-3" fill="#FFFFFF">Windows</text>
+<path d="M64 435h74" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2"/>
+<path d="M64 451h40" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+<path d="M1 539.5h958" stroke="#FFFFFF" stroke-opacity=".05"/>
+</svg>

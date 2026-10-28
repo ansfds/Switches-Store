@@ -1,0 +1,12 @@
+.digital-editor-fields { border: 1px solid var(--border, #ddd6fe); border-radius: 14px; padding: 18px; min-width: 0; }
+.digital-editor-fields legend { padding: 0 8px; font-weight: 800; }
+.digital-editor-fields .hint { margin: 0; }
+.digital-section-select { border-bottom: 1px solid var(--border, #ddd6fe); padding-bottom: 16px; }
+.digital-featured-input input { width: 22px; height: 22px; accent-color: #6d28d9; }
+#modalForm [hidden] { display: none !important; }
+.subscription-admin-product { display:flex;align-items:center;gap:12px;min-width:220px; }
+.subscription-admin-product img { width:80px;height:48px;object-fit:contain;border-radius:8px;background:#161d2f; }
+.subscription-admin-product small { display:block;margin-top:5px;color:var(--muted);font-size:.7rem; }
+.subscription-admin-preview { width:100%;max-height:220px;object-fit:contain;background:#0c1320;border-radius:12px; }
+.subscription-notice-settings { margin-top:20px; }
+.local-catalog-entry { width:100%;margin-top:15px;justify-content:center; }

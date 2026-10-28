@@ -229,6 +229,7 @@
   }
 
   function hideOtherPagesForAccount() {
+    window.SwitchesDigitalStore?.hide();
     const main = document.querySelector(".main-content");
     const allProducts = document.getElementById("allProductsPage");
     const giftCards = document.getElementById("giftCardsPage");
@@ -244,7 +245,7 @@
     const main = document.querySelector(".main-content");
     const allProducts = document.getElementById("allProductsPage");
     const favorites = document.getElementById("favoritesPage");
-    if (main && !allProducts?.classList.contains("active") && !favorites?.classList.contains("active")) main.style.display = "block";
+    if (main && !window.SwitchesDigitalStore?.isRoute() && !allProducts?.classList.contains("active") && !favorites?.classList.contains("active")) main.style.display = "block";
   }
 
   function renderAccountPage() {

@@ -13,6 +13,9 @@ import os
 import re
 import secrets
 import time
+import sqlite3
+import posixpath
+import unified_catalog_bridge
 
 from catalog import CatalogError, find_selection
 from database import (
@@ -138,6 +141,12 @@ def safe_return_url(value):
     return "/"
 
 
+class SwitchesHTTPServer(ThreadingHTTPServer):
+    # Browsers request the storefront's scripts/images concurrently. Keep the
+    # local preview from rejecting bursts while another connection is accepted.
+    request_queue_size = 64
+
+
 class SwitchesHandler(SimpleHTTPRequestHandler):
     extensions_map = {
         **SimpleHTTPRequestHandler.extensions_map,
@@ -156,9 +165,15 @@ class SwitchesHandler(SimpleHTTPRequestHandler):
             or clean_path == "/account"
             or clean_path.startswith("/account/")
             or clean_path == "/favorites"
+            or clean_path == "/minecraft"
+            or clean_path.startswith("/minecraft/")
+            or clean_path == "/subscriptions"
+            or clean_path.startswith("/subscriptions/")
         )
         if spa_paths:
-            path = "/index.html"
+            section = clean_path.split("/")[1]
+            section_entry = os.path.join(os.getcwd(), section, "index.html")
+            path = f"/{section}/index.html" if section in ("minecraft", "subscriptions") and os.path.isfile(section_entry) else "/index.html"
         return super().translate_path(path)
 
     def guess_type(self, path):
@@ -184,6 +199,8 @@ class SwitchesHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urlparse(self.path)
+        if self.handle_catalog_request(parsed, "GET"):
+            return
         if parsed.path == "/api/auth/me":
             self.handle_auth_me()
             return
@@ -206,6 +223,8 @@ class SwitchesHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         parsed = urlparse(self.path)
+        if self.handle_catalog_request(parsed, "POST"):
+            return
         if parsed.path == "/auth/logout":
             self.handle_logout()
             return
@@ -219,10 +238,31 @@ class SwitchesHandler(SimpleHTTPRequestHandler):
 
     def do_DELETE(self):
         parsed = urlparse(self.path)
+        if self.handle_catalog_request(parsed, "DELETE"):
+            return
         if parsed.path.startswith("/api/favorites/"):
             self.handle_favorite_remove(parsed)
             return
         self.send_error(HTTPStatus.NOT_FOUND, "Not found")
+
+    def do_PUT(self):
+        parsed = urlparse(self.path)
+        if not self.handle_catalog_request(parsed, "PUT"):
+            self.send_error(HTTPStatus.NOT_FOUND, "Not found")
+
+    def handle_catalog_request(self, parsed, method):
+        if unified_catalog_bridge.forward(self,parsed,method):
+            return True
+        path = '/' + posixpath.normpath(unquote(parsed.path).replace('\\','/')).lstrip('/')
+        parts = path.lower().split('/')
+        allowed_data = ('/data/store-visuals.json',)
+        if path.lower().startswith('/data/') and path.lower() not in allowed_data:
+            self.send_error(HTTPStatus.NOT_FOUND)
+            return True
+        if any(part.startswith('.') or part.endswith(('.db','.db-wal','.db-shm','.sqlite','.sqlite3','.py','.sql')) for part in parts):
+            self.send_error(HTTPStatus.NOT_FOUND)
+            return True
+        return False
 
     def request_origin(self):
         host = self.headers.get("Host", "127.0.0.1:8000")
@@ -638,7 +678,7 @@ def main():
     parser = argparse.ArgumentParser(description="Switches Store local server with Google auth and SPA fallback.")
     parser.add_argument("port", nargs="?", type=int, default=8000)
     args = parser.parse_args()
-    server = ThreadingHTTPServer(("127.0.0.1", args.port), SwitchesHandler)
+    server = SwitchesHTTPServer(("127.0.0.1", args.port), SwitchesHandler)
     print(f"Serving Switches Store on http://127.0.0.1:{args.port}/")
     print(f"SQLite database: {DB_PATH}")
     server.serve_forever()

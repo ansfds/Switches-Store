@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Canva</title><desc id="desc">Original typographic cover with abstract artwork for Canva. No official logo is used.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="540" x2="960" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#0B0F18"/><stop offset=".54" stop-color="#111623"/><stop offset="1" stop-color="#26316B"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#53D8DD" stop-opacity=".45"/><stop offset="1" stop-color="#53D8DD" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x1="560" y1="80" x2="870" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".035"/></linearGradient>
+<linearGradient id="accent" x1="520" y1="110" x2="900" y2="440" gradientUnits="userSpaceOnUse"><stop stop-color="#53D8DD"/><stop offset="1" stop-color="#26316B"/></linearGradient>
+<filter id="shadow" x="-45%" y="-45%" width="190%" height="210%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity=".3"/></filter>
+<pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" stroke="#FFFFFF" stroke-opacity=".022"/></pattern>
+</defs>
+<path fill="url(#bg)" d="M0 0h960v540H0z"/><path fill="url(#grid)" d="M0 0h960v540H0z"/>
+<ellipse cx="786" cy="255" rx="380" ry="340" fill="url(#glow)"/>
+<g filter="url(#shadow)"><rect x="631" y="136" width="207" height="270" rx="20" transform="rotate(17 631 136)" fill="#AA83F2" fill-opacity=".65" stroke="#DCCAFF" stroke-opacity=".4"/><rect x="572" y="112" width="223" height="281" rx="20" transform="rotate(-13 572 112)" fill="#31A4B7" fill-opacity=".55" stroke="#A3F5E5" stroke-opacity=".4"/><rect x="601" y="137" width="224" height="280" rx="20" fill="#E5F5F0" stroke="#FFFFFF" stroke-opacity=".7"/><rect x="621" y="158" width="184" height="111" rx="9" fill="#6C69CE"/><circle cx="713" cy="213" r="41" fill="#F2B97D"/><path d="m621 251 45-53 52 71h-97Z" fill="#F495BC"/><path d="m713 269 50-78 42 78h-92Z" fill="#73D6C5"/><rect x="621" y="290" width="124" height="8" rx="4" fill="#253856" fill-opacity=".6"/><rect x="621" y="311" width="176" height="6" rx="3" fill="#253856" fill-opacity=".2"/><rect x="621" y="327" width="153" height="6" rx="3" fill="#253856" fill-opacity=".2"/><rect x="621" y="365" width="69" height="27" rx="7" fill="#7867D1"/></g><circle cx="873" cy="153" r="18" fill="#A4E5DB"/><circle cx="574" cy="435" r="9" fill="#B09AF1"/>
+<path d="M64 73h28" stroke="#53D8DD" stroke-width="4" stroke-linecap="round"/>
+<text x="64" y="131" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600" letter-spacing="4.5" fill="#FFFFFF" fill-opacity=".63">DESIGN</text>
+<text x="60" y="260" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="700" letter-spacing="-3" fill="#FFFFFF">Canva</text>
+<path d="M64 435h74" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2"/>
+<path d="M64 451h40" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+<path d="M1 539.5h958" stroke="#FFFFFF" stroke-opacity=".05"/>
+</svg>

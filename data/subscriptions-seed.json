@@ -1,0 +1,714 @@
+{
+  "version": 1,
+  "products": [
+    {
+      "name": "Google AI Gemini Pro — 3 Months",
+      "slug": "google-gemini-pro-3-months",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini.svg"
+      ],
+      "description": "Google AI Gemini Pro — 3 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 10,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "3 أشهر",
+          "activationMethod": "Activation Link",
+          "region": "GLOBAL",
+          "featured": true,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Google AI Gemini Pro — 3 Months | Switches Store",
+      "metaDescription": "Google AI Gemini Pro — 3 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Google AI Gemini Pro — 6 Months",
+      "slug": "google-gemini-pro-6-months-invitation",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini.svg"
+      ],
+      "description": "Google AI Gemini Pro — 6 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 20,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "6 أشهر",
+          "activationMethod": "Invitation Link",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Google AI Gemini Pro — 6 Months | Switches Store",
+      "metaDescription": "Google AI Gemini Pro — 6 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Google AI Gemini Pro — 6 Months",
+      "slug": "google-gemini-pro-6-months-activation",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini.svg"
+      ],
+      "description": "Google AI Gemini Pro — 6 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 30,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "6 أشهر",
+          "activationMethod": "Activation Link",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Google AI Gemini Pro — 6 Months | Switches Store",
+      "metaDescription": "Google AI Gemini Pro — 6 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Google AI Gemini Pro — 12 Months",
+      "slug": "google-gemini-pro-12-months",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini.svg"
+      ],
+      "description": "Google AI Gemini Pro — 12 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 40,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "12 شهر",
+          "activationMethod": "Activation Link",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Google AI Gemini Pro — 12 Months | Switches Store",
+      "metaDescription": "Google AI Gemini Pro — 12 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Google AI Subscription Pro — 12 Months",
+      "slug": "google-ai-subscription-pro-12-months",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini.svg"
+      ],
+      "description": "Google AI Subscription Pro — 12 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 50,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "12 شهر",
+          "activationMethod": "Google One AI Invitation Link",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Google AI Subscription Pro — 12 Months | Switches Store",
+      "metaDescription": "Google AI Subscription Pro — 12 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Google AI Gemini Pro — 18 Months",
+      "slug": "google-gemini-pro-18-months-activation",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini.svg"
+      ],
+      "description": "Google AI Gemini Pro — 18 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 60,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "18 شهر",
+          "activationMethod": "Activation Link",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Google AI Gemini Pro — 18 Months | Switches Store",
+      "metaDescription": "Google AI Gemini Pro — 18 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Google AI Gemini Pro — 18 Months",
+      "slug": "google-gemini-pro-18-months-invitation",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini.svg"
+      ],
+      "description": "Google AI Gemini Pro — 18 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 70,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "18 شهر",
+          "activationMethod": "Invitation Link",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Google AI Gemini Pro — 18 Months | Switches Store",
+      "metaDescription": "Google AI Gemini Pro — 18 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Google AI Gemini Pro — 18 Months — Brazil",
+      "slug": "google-gemini-pro-18-months-brazil",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini.svg"
+      ],
+      "description": "Google AI Gemini Pro — 18 Months — Brazil. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 80,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "18 شهر",
+          "activationMethod": "Invitation Link",
+          "region": "BRAZIL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Google AI Gemini Pro — 18 Months — Brazil | Switches Store",
+      "metaDescription": "Google AI Gemini Pro — 18 Months — Brazil لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Gemini Pro 18 Months + Canva Pro",
+      "slug": "gemini-pro-18-months-canva-pro",
+      "category": "AI",
+      "brand": "Google AI / Gemini",
+      "images": [
+        "/assets/subscriptions/gemini-canva.svg"
+      ],
+      "description": "Gemini Pro 18 Months + Canva Pro. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 90,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "BUNDLE",
+          "family": "gemini",
+          "catalogCategory": "AI",
+          "platform": "Google AI / Gemini",
+          "duration": "18 شهر لـ Gemini",
+          "activationMethod": "Activation Link",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": [
+            {
+              "name": "Gemini Pro",
+              "duration": "18 شهر"
+            },
+            {
+              "name": "Canva Pro",
+              "duration": ""
+            }
+          ]
+        }
+      },
+      "seoTitle": "Gemini Pro 18 Months + Canva Pro | Switches Store",
+      "metaDescription": "Gemini Pro 18 Months + Canva Pro لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Canva Pro — 1 Year",
+      "slug": "canva-pro-1-year-invitation",
+      "category": "تصميم",
+      "brand": "Canva",
+      "images": [
+        "/assets/subscriptions/canva.svg"
+      ],
+      "description": "Canva Pro — 1 Year. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 100,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "canva",
+          "catalogCategory": "تصميم",
+          "platform": "Canva",
+          "duration": "سنة",
+          "activationMethod": "Invitation Link",
+          "region": "GLOBAL",
+          "featured": true,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Canva Pro — 1 Year | Switches Store",
+      "metaDescription": "Canva Pro — 1 Year لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Canva Pro — 1 Year",
+      "slug": "canva-pro-1-year-activation",
+      "category": "تصميم",
+      "brand": "Canva",
+      "images": [
+        "/assets/subscriptions/canva.svg"
+      ],
+      "description": "Canva Pro — 1 Year. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 110,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "canva",
+          "catalogCategory": "تصميم",
+          "platform": "Canva",
+          "duration": "سنة",
+          "activationMethod": "Activation Link",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Canva Pro — 1 Year | Switches Store",
+      "metaDescription": "Canva Pro — 1 Year لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Canva Pro — 18 Months",
+      "slug": "canva-pro-18-months",
+      "category": "تصميم",
+      "brand": "Canva",
+      "images": [
+        "/assets/subscriptions/canva.svg"
+      ],
+      "description": "Canva Pro — 18 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 120,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "ACCOUNT",
+          "family": "canva",
+          "catalogCategory": "تصميم",
+          "platform": "Canva",
+          "duration": "18 شهر",
+          "activationMethod": "",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Canva Pro — 18 Months | Switches Store",
+      "metaDescription": "Canva Pro — 18 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Canva Education — 2 Years",
+      "slug": "canva-education-2-years",
+      "category": "تصميم",
+      "brand": "Canva",
+      "images": [
+        "/assets/subscriptions/canva.svg"
+      ],
+      "description": "Canva Education — 2 Years. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "availability": "unavailable",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 130,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "canva",
+          "catalogCategory": "تصميم",
+          "platform": "Canva",
+          "duration": "سنتان",
+          "activationMethod": "",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Canva Education — 2 Years | Switches Store",
+      "metaDescription": "Canva Education — 2 Years لدى سويتشز ستور. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "CapCut Pro — 1 Month",
+      "slug": "capcut-pro-1-month",
+      "category": "مونتاج",
+      "brand": "CapCut",
+      "images": [
+        "/assets/subscriptions/capcut.svg"
+      ],
+      "description": "CapCut Pro — 1 Month. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 140,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "ACCOUNT",
+          "family": "capcut",
+          "catalogCategory": "مونتاج",
+          "platform": "CapCut",
+          "duration": "شهر",
+          "activationMethod": "",
+          "region": "GLOBAL",
+          "featured": true,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "CapCut Pro — 1 Month | Switches Store",
+      "metaDescription": "CapCut Pro — 1 Month لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "CapCut Pro — 6 Months",
+      "slug": "capcut-pro-6-months",
+      "category": "مونتاج",
+      "brand": "CapCut",
+      "images": [
+        "/assets/subscriptions/capcut.svg"
+      ],
+      "description": "CapCut Pro — 6 Months. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "availability": "available",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 150,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "ACCOUNT",
+          "family": "capcut",
+          "catalogCategory": "مونتاج",
+          "platform": "CapCut",
+          "duration": "6 أشهر",
+          "activationMethod": "",
+          "region": "GLOBAL",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "CapCut Pro — 6 Months | Switches Store",
+      "metaDescription": "CapCut Pro — 6 Months لدى سويتشز ستور. اطلب السعر الحالي وتفاصيل التفعيل من فريق سويتشز ستور قبل إتمام الشراء.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "ChatGPT Plus — 1 Month",
+      "slug": "chatgpt-plus-1-month",
+      "category": "AI",
+      "brand": "ChatGPT",
+      "images": [
+        "/assets/subscriptions/chatgpt.svg"
+      ],
+      "description": "ChatGPT Plus — 1 Month. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "availability": "unavailable",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 160,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SUBSCRIPTION",
+          "family": "chatgpt",
+          "catalogCategory": "AI",
+          "platform": "ChatGPT",
+          "duration": "شهر",
+          "activationMethod": "",
+          "region": "",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "ChatGPT Plus — 1 Month | Switches Store",
+      "metaDescription": "ChatGPT Plus — 1 Month لدى سويتشز ستور. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Claude — خدمة رقمية (الخيار الأول)",
+      "slug": "claude-service-reference-100",
+      "category": "AI",
+      "brand": "Claude",
+      "images": [
+        "/assets/subscriptions/claude.svg"
+      ],
+      "description": "Claude — خدمة رقمية (الخيار الأول). غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "availability": "unavailable",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 170,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SERVICE",
+          "family": "claude",
+          "catalogCategory": "AI",
+          "platform": "Claude",
+          "duration": "",
+          "activationMethod": "",
+          "region": "",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Claude — خدمة رقمية (الخيار الأول) | Switches Store",
+      "metaDescription": "Claude — خدمة رقمية (الخيار الأول) لدى سويتشز ستور. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": "Claude API Key — 100 USD"
+    },
+    {
+      "name": "Claude — خدمة رقمية (الخيار الثاني)",
+      "slug": "claude-service-reference-250",
+      "category": "AI",
+      "brand": "Claude",
+      "images": [
+        "/assets/subscriptions/claude.svg"
+      ],
+      "description": "Claude — خدمة رقمية (الخيار الثاني). غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "availability": "unavailable",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 180,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "SERVICE",
+          "family": "claude",
+          "catalogCategory": "AI",
+          "platform": "Claude",
+          "duration": "",
+          "activationMethod": "",
+          "region": "",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Claude — خدمة رقمية (الخيار الثاني) | Switches Store",
+      "metaDescription": "Claude — خدمة رقمية (الخيار الثاني) لدى سويتشز ستور. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": "Claude API Key — 250 USD"
+    },
+    {
+      "name": "Microsoft Windows 11 Pro — PC",
+      "slug": "windows-11-pro-pc",
+      "category": "برامج",
+      "brand": "Microsoft",
+      "images": [
+        "/assets/subscriptions/windows.svg"
+      ],
+      "description": "Microsoft Windows 11 Pro — PC. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "availability": "unavailable",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 190,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "KEY",
+          "family": "microsoft",
+          "catalogCategory": "برامج",
+          "platform": "Microsoft",
+          "duration": "",
+          "activationMethod": "Microsoft Key",
+          "region": "",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Microsoft Windows 11 Pro — PC | Switches Store",
+      "metaDescription": "Microsoft Windows 11 Pro — PC لدى سويتشز ستور. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    },
+    {
+      "name": "Microsoft Office 2024 LTSC Professional Plus — PC",
+      "slug": "office-2024-ltsc-professional-plus",
+      "category": "برامج",
+      "brand": "Microsoft",
+      "images": [
+        "/assets/subscriptions/office.svg"
+      ],
+      "description": "Microsoft Office 2024 LTSC Professional Plus — PC. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "availability": "unavailable",
+      "status": "published",
+      "isActive": true,
+      "sortOrder": 200,
+      "specs": {
+        "_switchesDigital": {
+          "categoryType": "SUBSCRIPTION",
+          "productType": "KEY",
+          "family": "microsoft",
+          "catalogCategory": "برامج",
+          "platform": "Microsoft",
+          "duration": "",
+          "activationMethod": "",
+          "region": "",
+          "featured": false,
+          "features": [],
+          "bundleServices": []
+        }
+      },
+      "seoTitle": "Microsoft Office 2024 LTSC Professional Plus — PC | Switches Store",
+      "metaDescription": "Microsoft Office 2024 LTSC Professional Plus — PC لدى سويتشز ستور. غير متوفر حاليًا إلى حين مراجعة طريقة توفير الخدمة وتفاصيل التفعيل.",
+      "internalCost": null,
+      "internalReferencePrice": null,
+      "internalNote": "",
+      "referenceName": ""
+    }
+  ]
+}

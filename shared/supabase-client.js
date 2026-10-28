@@ -6,6 +6,7 @@
   let cachedProfile = null;
 
   function configured() {
+    if(window.SwitchesPublicCatalog)return false;
     return Boolean(
       config.url &&
       config.publishableKey &&
@@ -1024,6 +1025,8 @@
       "status",
       "is_active",
       "is_deleted",
+      "seo_title",
+      "meta_description",
     ].join(",");
     const { data, error } = await supabaseClient().from("products").select(fields).eq("is_active", true).eq("is_deleted", false).eq("status", "published").order("sort_order").order("id", { ascending: false });
     throwIf(error, "تعذر تحميل المنتجات.");

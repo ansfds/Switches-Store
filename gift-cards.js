@@ -1,6 +1,8 @@
 ﻿(function () {
   let GIFT_CARD_PLATFORMS = [];
   let STORE_VISUALS = {};
+  let giftFilters;
+  let currentGiftDetail;
   const GIFT_CATALOG_URL = "/data/gift-cards.json";
   const STORE_VISUALS_URL = "/data/store-visuals.json";
   let catalogLoadError = false;
@@ -9,12 +11,7 @@
   const PAYMENT_METHODS = [
     { id: "bank-card", name: "البطاقة المصرفية", status: "available" },
   ];
-  const LIVE_GIFT_PLATFORMS = new Set(["playstation", "xbox"]);
   const GIFT_STATIC_REGION = { id: "us", name: "United States", label: "أمريكي", flag: "🇺🇸", currency: "USD", available: true };
-  const GIFT_DENOMINATION_VALUES = {
-    playstation: [25, 30, 40, 50, 60, 70, 75, 80, 90, 100, 125, 150, 175, 200, 225, 250],
-    xbox: [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100],
-  };
   const DEFAULT_HIGHLIGHT_VALUE = "50";
   const WHATSAPP_PURCHASE_PHONE = "218931853169";
 
@@ -127,11 +124,11 @@
   }
 
   function platformFallbackImageSource(platform) {
-    return validFallbackImageUrl(platform.imageUrl) || visualValue("giftCards", platform.id, "imageUrl");
+    return validFallbackImageUrl(platform.image || platform.imageUrl) || visualValue("giftCards", platform.id, "imageUrl");
   }
 
   function platformImageSource(platform) {
-    if (platform?.managedGiftCard) return validFallbackImageUrl(platform.imageUrl) || platformFallbackImageSource(platform);
+    if (platform?.managedGiftCard) return validFallbackImageUrl(platform.image || platform.imageUrl) || platformFallbackImageSource(platform);
     const settings = publicSettings();
     const nested = settings.gift_card_images && typeof settings.gift_card_images === "object" ? settings.gift_card_images[platform.id] : "";
     const camelNested = settings.giftCardImages && typeof settings.giftCardImages === "object" ? settings.giftCardImages[platform.id] : "";
@@ -153,32 +150,8 @@
   }
 
   async function loadGiftCatalog() {
-    if (window.SwitchesSupabaseStore?.configured?.() && typeof window.SwitchesSupabaseStore.loadGiftCards === "function") {
-      try {
-        const platforms = await window.SwitchesSupabaseStore.loadGiftCards();
-        if (Array.isArray(platforms) && platforms.length) {
-          GIFT_CARD_PLATFORMS = platforms;
-          catalogLoadError = false;
-          giftCatalogSource = "supabase";
-          return;
-        }
-      } catch (error) {
-        console.warn("Switches Store: Supabase Gift Cards unavailable; using fallback catalog.", error);
-      }
-    }
-
-    try {
-      const response = await fetch(GIFT_CATALOG_URL, { cache: "no-store" });
-      if (!response.ok) throw new Error("catalog_load_failed");
-      const catalog = await response.json();
-      GIFT_CARD_PLATFORMS = Array.isArray(catalog.platforms) ? catalog.platforms : [];
-      catalogLoadError = !GIFT_CARD_PLATFORMS.length;
-      giftCatalogSource = "fallback";
-    } catch {
-      GIFT_CARD_PLATFORMS = [];
-      catalogLoadError = true;
-      giftCatalogSource = "fallback";
-    }
+    try {GIFT_CARD_PLATFORMS=await window.SwitchesPublicCatalog.loadGiftCards();giftCatalogSource='database';catalogLoadError=false;}
+    catch(error){GIFT_CARD_PLATFORMS=[];catalogLoadError=true;console.error('Shared gift catalog failed:',error);}
   }
 
   async function loadStoreVisuals() {
@@ -267,36 +240,13 @@
   }
 
   function isLiveGiftPlatform(platformOrId) {
-    const id = typeof platformOrId === "string" ? platformOrId : platformOrId?.id;
-    const platform = typeof platformOrId === "string" ? findPlatform(platformOrId) : platformOrId;
-    if (platform?.managedGiftCard) return platform.status === "AVAILABLE";
-    return LIVE_GIFT_PLATFORMS.has(id);
+    const platform=typeof platformOrId==='object'?platformOrId:findPlatform(platformOrId);
+    return platform?.isActive!==false && platform?.status==='AVAILABLE';
   }
 
-  function giftPriceLYD(value) {
-    const amount = Number(value || 0);
-    if (!Number.isFinite(amount) || amount <= 0) return 0;
-    if (amount <= 15) return amount * 10.8;
-    if (amount <= 25) return amount * 10.7;
-    if (amount <= 50) return amount * 10.5;
-    if (amount <= 100) return amount * 10.3;
-    return amount * 10.25;
-  }
-
-  function liveDenominations(platformId) {
-    const platform = typeof platformId === "string" ? findPlatform(platformId) : platformId;
-    if (platform?.managedGiftCard) {
-      return (platform.regions?.[0]?.denominations || []).map((item) => ({
-        ...item,
-        available: item.available !== false && item.isAvailable !== false,
-      }));
-    }
-    const id = typeof platformId === "string" ? platformId : platformId?.id;
-    return (GIFT_DENOMINATION_VALUES[id] || []).map((value) => ({
-      value,
-      sellingPriceLYD: giftPriceLYD(value),
-      available: true,
-    }));
+  function liveDenominations(platformOrId) {
+    const platform=typeof platformOrId==='object'?platformOrId:findPlatform(platformOrId);
+    return (platform?.regions || []).flatMap(region=>(region.denominations || []).map(item=>({...item,currency:region.currency})));
   }
 
   function giftHighlightSettings() {
@@ -333,6 +283,7 @@
   }
 
   function formatDenomination(denomination, currency) {
+    if(denomination.displayText)return String(denomination.displayText);
     const symbol = currencyLabel(currency);
     if (symbol === "$" || symbol === "£") return `${symbol}${denomination.value}`;
     return `${denomination.value} ${symbol}`;
@@ -607,22 +558,14 @@
   };
 
   function switchHtml() {
-    const active = activeModeFromRoute();
-    return `
-      <div class="store-mode-switch" role="tablist" aria-label="التنقل بين أقسام المتجر">
-        <button type="button" class="store-mode-card store-mode-gift ${active === "gift-cards" ? "active" : ""}" data-store-mode="gift-cards" role="tab" aria-selected="${active === "gift-cards"}"${modeButtonStyle("gift-cards")}>
-          <span class="store-mode-icon"><i class="fa-brands fa-playstation" aria-hidden="true"></i></span>
-          <span class="store-mode-label">Gift Card</span>
-        </button>
-        <button type="button" class="store-mode-card store-mode-products ${active === "products" ? "active" : ""}" data-store-mode="products" role="tab" aria-selected="${active === "products"}"${modeButtonStyle("products")}>
-          <span class="store-mode-icon"><i class="fas fa-microchip" aria-hidden="true"></i></span>
-          <span class="store-mode-label">PC PARTS</span>
-        </button>
-      </div>
-    `;
+    return window.SwitchesSectionNavigation.render(STORE_VISUALS, {
+      products: modeButtonImage("products"),
+      "gift-cards": modeButtonImage("gift-cards"),
+    });
   }
 
   function syncSwitchActive() {
+    window.SwitchesSectionNavigation.sync();
     const active = activeModeFromRoute();
     document.querySelectorAll(".store-mode-switch").forEach((switcher) => {
       switcher.querySelectorAll("[data-store-mode]").forEach((button) => {
@@ -675,6 +618,7 @@
     page = document.createElement("div");
     page.id = "giftCardsPage";
     page.className = "gift-cards-page";
+    new MutationObserver(() => { if (!page.classList.contains('active')) giftFilters?.close(); }).observe(page,{attributes:true,attributeFilter:['class']});
     page.innerHTML = `
       <div class="container">
         <div id="giftCardsTopSwitch">${switchHtml()}</div>
@@ -689,6 +633,7 @@
   }
 
   function hideGiftCardsPage() {
+    giftFilters?.close();
     document.getElementById("giftCardsPage")?.classList.remove("active");
   }
 
@@ -738,27 +683,8 @@
     return `${symbol}${min} - ${symbol}${max}`;
   }
 
-  function platformCardTitle(platform) {
-    return ({
-      playstation: "PSN Gift Cards",
-      steam: "Steam Gift Cards",
-      apple: "Apple Gift Cards",
-      "google-play": "Google Play Gift Cards",
-      xbox: "Xbox Gift Cards",
-      amazon: "Amazon Gift Cards",
-    }[platform.id] || `${platform.shortName || platform.name} Gift Cards`);
-  }
-
-  function giftPlatformsForDisplay() {
-    const preferredOrder = ["steam", "playstation", "xbox", "apple", "amazon", "google-play"];
-    return [...GIFT_CARD_PLATFORMS].filter((platform) => platform.status !== "HIDDEN").sort((a, b) => {
-      const order = Number(a.sortOrder || 0) - Number(b.sortOrder || 0);
-      if (order) return order;
-      const aIndex = preferredOrder.indexOf(a.id);
-      const bIndex = preferredOrder.indexOf(b.id);
-      return (aIndex === -1 ? preferredOrder.length : aIndex) - (bIndex === -1 ? preferredOrder.length : bIndex);
-    });
-  }
+  function platformCardTitle(platform) {return platform.name || '';}
+  function giftPlatformsForDisplay() {return [...GIFT_CARD_PLATFORMS].sort((a,b)=>a.sortOrder-b.sortOrder);}
 
   function giftPlatformStatus(platform) {
     if (!platform?.managedGiftCard) return isLiveGiftPlatform(platform) ? "AVAILABLE" : "COMING_SOON";
@@ -799,12 +725,13 @@
     const disabled = !live;
     const title = live ? `عرض تفاصيل ${platform.name}` : `${platform.name} ${giftPlatformStatusLabel(platform)}`;
     return `
-      <article class="gift-platform-card gift-wave-item ${disabled ? "coming-soon" : ""} ${status === "UNAVAILABLE" ? "unavailable" : ""}" ${live ? `role="button" tabindex="0" data-gift-action="open-platform" data-platform="${safe(platform.id)}"` : `aria-disabled="true"`} aria-label="${safe(title)}" title="${live ? "" : giftPlatformStatusLabel(platform)}" style="--gift-accent:${safe(platform.accent)};--wave-delay:${delay}ms">
+      <article class="gift-platform-card ${disabled ? "coming-soon" : ""} ${status === "UNAVAILABLE" ? "unavailable" : ""}" ${live ? `role="button" tabindex="0" data-gift-action="open-platform" data-platform="${safe(platform.id)}"` : `aria-disabled="true"`} aria-label="${safe(title)}" title="${live ? "" : giftPlatformStatusLabel(platform)}" style="--gift-accent:${safe(platform.accent)}">
         ${live ? "" : `<span class="gift-coming-soon-badge">${safe(giftPlatformStatusLabel(platform))}</span>`}
         ${renderCardArt(platform)}
         <div class="gift-card-copy">
-          <h3>${safe(platformCardTitle(platform))}</h3>
-          <p class="gift-card-range">${live ? safe(platformPriceRange(platform)) : safe(giftPlatformStatusLabel(platform))}</p>
+          ${platform.topSellingRank?`<span class="store-product-rank">#${Number(platform.topSellingRank)} الأكثر مبيعًا</span>`:''}<h3>${safe(platformCardTitle(platform))}</h3>
+          <p class="gift-card-range">${live ? `الفئات: <bdi>${safe(platformPriceRange(platform))}</bdi>` : safe(giftPlatformStatusLabel(platform))}</p>
+          ${window.SwitchesDynamicPricing.html()}
         </div>
       </article>
     `;
@@ -828,8 +755,8 @@
     const stored = detailState[platform.id] || {};
     if (isLiveGiftPlatform(platform)) {
       let value = stored.value || params.get("value") || "";
-      const liveRegion = primaryGiftRegion(platform);
-      const denominations = liveDenominations(platform);
+      const liveRegion = platform.regions?.find(region => region.id === (stored.regionId || params.get('region'))) || primaryGiftRegion(platform);
+      const denominations = (liveRegion.denominations || liveDenominations(platform)).map(item => ({...item,available:item.available !== false && item.isAvailable !== false}));
       const denomination = denominations.find((item) => denominationKey(item) === String(value) && item.available) || null;
       value = denomination ? denominationKey(denomination) : "";
       return {
@@ -892,20 +819,7 @@
   }
 
   function renderCurrentGiftPrice(selection) {
-    if (!selection.denomination) {
-      return `
-        <div class="gift-current-price pending" aria-live="polite">
-          <span>السعر الحالي</span>
-          <strong>اختر الفئة</strong>
-        </div>
-      `;
-    }
-    return `
-      <div class="gift-current-price" aria-live="polite">
-        <span>السعر الحالي</span>
-        <strong>${formatLYD(selection.denomination.sellingPriceLYD)}</strong>
-      </div>
-    `;
+    return window.SwitchesDynamicPricing.html('gift-price-notice');
   }
 
   function whatsappRegionLabel(region) {
@@ -916,7 +830,6 @@
 
   function giftWhatsappMessage(platform, selection) {
     const denominationText = selection.denomination ? formatDenomination(selection.denomination, selection.region.currency) : "";
-    const priceText = selection.denomination ? formatLYD(selection.denomination.sellingPriceLYD) : "";
     const regionText = whatsappRegionLabel(selection.region);
     const cardName = platform.name || platform.shortName || "";
     return [
@@ -924,9 +837,9 @@
       "",
       `🌎 *الريجن:* ${regionText}`,
       `💳 *الفئة:* ${denominationText}`,
-      `💵 *السعر الحالي:* ${priceText}`,
+      `🔢 *الكمية:* ${detailState[platform.id]?.quantity || 1}`,
       "",
-      "✅ أريد إتمام الطلب.",
+      "✅ نبي نعرف السعر الحالي ونكمل الطلب.",
     ].join("\n");
   }
 
@@ -950,53 +863,39 @@
   function renderGiftNotes() {
     return `
       <div class="gift-direct-notes">
-        <p><i class="fas fa-circle-info" aria-hidden="true"></i> السعر يتغير كل لحظة ويتم احتساب السعر النهائي وقت الشراء فقط</p>
         <p><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> إتمام عملية الشراء تتم داخل واتساب المتجر فقط حسب طريقة الدفع ( حوالة - كاش )</p>
       </div>
     `;
   }
 
-  function renderGiftDetail(platform) {
-    const selection = selectionFor(platform);
-    const canBuy = Boolean(isLiveGiftPlatform(platform) && platform.available !== false && selection.region && selection.denomination);
-    const background = validFallbackImageUrl(platform.backgroundUrl);
-    const detailStyle = `--gift-accent:${safe(platform.accent)}${background ? `;--gift-detail-bg:${safe(cssUrlValue(background))}` : ""}`;
-    return `
-      <section class="gift-detail-view" style="${detailStyle}">
-        <nav class="gift-breadcrumb" aria-label="مسار التنقل">
-          <button type="button" data-gift-action="back-to-gift-cards"><i class="fas fa-arrow-right"></i> العودة للكروت الدولية</button>
-          <span>الكروت الدولية</span>
-          <span>${safe(platform.shortName || platform.name)}</span>
-        </nav>
-
-        <div class="gift-detail-layout">
-          <div class="gift-detail-visual gift-detail-motion">
-            ${renderCardArt(platform, "large")}
-            <div class="gift-fixed-region">${safe(selection.region?.label || GIFT_STATIC_REGION.label)}</div>
-            ${renderCurrentGiftPrice(selection)}
-            ${renderGiftNotes()}
-            <button class="gift-buy-btn gift-whatsapp-buy ${canBuy ? "" : "pending"}" type="button" data-gift-action="open-whatsapp-purchase" data-platform="${safe(platform.id)}">
-              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-              الشراء
-            </button>
-          </div>
-
-          <article class="gift-detail-panel gift-detail-motion">
-            <span class="gift-status ${canBuy ? "available" : "unavailable"}">${safe(giftPlatformStatusLabel(platform))}</span>
-            <h1>${safe(platform.name)}</h1>
-
-            <section class="gift-choice-block">
-              <div class="gift-choice-head">
-                <h2>الفئات المتوفرة</h2>
-              </div>
-              <div class="gift-denomination-grid">${renderDenominationButtons(platform, selection)}</div>
-            </section>
-          </article>
-        </div>
-      </section>
-    `;
+  function giftDetailData(platform) {
+    const regions = platform.regions || [];
+    const variants = regions.flatMap(region => (region.denominations || []).map(denomination => ({
+      id:`${region.id}::${denomination.value}`, options:{region:region.label || region.name || region.id,denomination:formatDenomination(denomination,region.currency)},
+      available:region.available !== false && denomination.available !== false && denomination.isAvailable !== false,
+      regionId:region.id, value:String(denomination.value), stockQty:denomination.stockQty, images:denomination.image?[denomination.image]:[], mostPopular:denomination.isMostPopular, highlightEffect:denomination.highlightEffect,
+    })));
+    return {id:`gift-${platform.id}`,name:platform.name,description:platform.description || '',category:'Gift Cards',topSellingRank:platform.topSellingRank,availability:isLiveGiftPlatform(platform) && platform.available !== false ? 'available' : 'unavailable',variants,images:[platform.image || platform.imageUrl].filter(Boolean),specs:{}};
   }
-
+  function giftDetailOptions(platform, product) {
+    const params = new URLSearchParams(location.search);
+    const stored = detailState[platform.id] || {};
+    const initial = product.variants.find(row => row.value === String(stored.value || params.get('value')) && (!params.get('region') || row.regionId === params.get('region')));
+    function select(variant) {
+      if (!variant) { detailState[platform.id] = {}; return; }
+      detailState[platform.id] = {regionId:variant.regionId,value:variant.value};
+      updateDetailRoute(platform,detailState[platform.id]);
+    }
+    return {digital:true,quote:true,favorite:false,category:'Gift Cards',initialVariant:initial?.id,priceClass:'gift-price-notice',actionClass:'gift-whatsapp-buy',galleryHtml:renderCardArt(platform,'large'),
+      onVariant:select,
+      onOrder:({quantity,variant}) => { select(variant); detailState[platform.id].quantity = quantity; openWhatsappPurchase(platform.id); },
+    };
+  }
+  function renderGiftDetail(platform) {
+    const product = giftDetailData(platform), options = giftDetailOptions(platform,product);
+    currentGiftDetail = {product,options};
+    return `<section class="gift-detail-view" style="--gift-accent:${safe(platform.accent)}"><nav class="gift-breadcrumb" aria-label="مسار المنتج"><button type="button" data-gift-action="back-to-gift-cards"><i class="fas fa-arrow-right" aria-hidden="true"></i> العودة إلى Gift Cards</button></nav>${SwitchesProductDetail.html(product,options)}${renderGiftNotes()}</section>`;
+  }
   function renderPlatformComingSoon(platform) {
     const statusLabel = giftPlatformStatusLabel(platform);
     const message = giftPlatformStatus(platform) === "UNAVAILABLE"
@@ -1211,7 +1110,7 @@
           <div><span>المنتج</span><strong>${safe(selection.platform.name)}</strong></div>
           <div><span>المنطقة</span><strong>${safe(selection.region.label)}</strong></div>
           <div><span>الفئة</span><strong>${safe(formatDenomination(selection.denomination, selection.region.currency))}</strong></div>
-          <div class="gift-checkout-total"><span>إجمالي السعر</span><strong>${formatLYD(totals.finalTotal)}</strong></div>
+          ${window.SwitchesDynamicPricing.html()}
         </div>
         <button class="gift-edit-selection" type="button" data-gift-action="checkout-back-to-product">
           <i class="fas fa-arrow-right"></i>
@@ -1438,7 +1337,7 @@
             <div><span>الكرت</span><strong>${safe(order.product_name_snapshot)}</strong></div>
             <div><span>المنطقة</span><strong>${safe(order.region_name_snapshot)}</strong></div>
             <div><span>الفئة</span><strong>${safe(order.denomination_value)} ${safe(order.denomination_currency)}</strong></div>
-            <div><span>المبلغ</span><strong>${formatLYD(order.selling_price_lyd)}</strong></div>
+            ${window.SwitchesDynamicPricing.html()}
             <div><span>وسيلة الدفع</span><strong>${safe(findPaymentMethod("bank-card")?.name || order.payment_method)}</strong></div>
             <div><span>الحالة</span><strong>${safe(orderStatusLabel(order.order_status))}</strong></div>
           </div>
@@ -1454,6 +1353,8 @@
   function renderGiftCardsPage() {
     const root = document.getElementById("giftCardsContent");
     if (!root) return;
+    giftFilters?.destroy(); giftFilters = null;
+    currentGiftDetail = null;
     if (catalogLoadError) {
       root.innerHTML = renderCatalogError();
       return;
@@ -1463,19 +1364,45 @@
 
     if (platformId) {
       root.innerHTML = platform ? (isLiveGiftPlatform(platform) ? renderGiftDetail(platform) : renderPlatformComingSoon(platform)) : renderNotFound(platformId);
+      if (currentGiftDetail) {
+        const detail=root.querySelector('[data-product-detail]');
+        SwitchesProductDetail.mount(detail,currentGiftDetail.product,currentGiftDetail.options);
+        const decorate=()=>detail.querySelectorAll('[data-detail-option="denomination"]').forEach(button=>{
+          const selectedRegion=detail.querySelector('[data-detail-option="region"][aria-pressed="true"]')?.dataset.value;
+          const variants=currentGiftDetail.product.variants.filter(row=>row.options.denomination===button.dataset.value&&(!selectedRegion||row.options.region===selectedRegion));
+          button.classList.toggle('flame-highlight',variants.some(row=>row.highlightEffect==='flame'));
+          button.classList.toggle('highlighted',variants.some(row=>row.highlightEffect==='flame'));
+          const popular=variants.some(row=>row.mostPopular);
+          let label=button.querySelector('.gift-hot-label');
+          if(popular&&!label){label=document.createElement('span');label.className='gift-hot-label';label.textContent='الأكثر طلبًا';button.append(label);}
+          if(!popular&&label)label.remove();
+        });
+        decorate();detail.addEventListener('click',()=>queueMicrotask(decorate));
+      }
       return;
     }
 
-    root.innerHTML = `
-      ${renderGiftHeader()}
-      <section class="gift-grid" aria-label="منصات الكروت الدولية">
-        ${giftPlatformsForDisplay().map(renderGiftCard).join("")}
-      </section>
-    `;
-    observeWaveItems(root);
+    root.innerHTML = `${renderGiftHeader()}<label class="digital-search gift-catalog-search"><i class="fas fa-magnifying-glass" aria-hidden="true"></i><input type="search" aria-label="البحث في Gift Cards" placeholder="ابحث عن كرت..."></label><div class="gift-catalog"></div>`;
+    const statusLabels = {AVAILABLE:'المتوفر فقط',COMING_SOON:'قريبًا',UNAVAILABLE:'غير متوفر'};
+    giftFilters = SwitchesDigitalFilters.create(root.querySelector('.gift-catalog'),{
+      id:'gift',products:giftPlatformsForDisplay(),
+      facets:[
+        {key:'availability',label:'التوفر',value:giftPlatformStatus,optionLabel:value => statusLabels[value] || value},
+        {key:'platform',label:'المنصة',search:true,value:platform => platform.shortName || platform.name},
+        {key:'region',label:'المنطقة',value:platform => (platform.regions || []).map(region => region.label || region.name || region.id)},
+        {key:'currency',label:'العملة',value:platform => (platform.regions || []).map(region => region.currency)},
+      ],
+      searchText:platform => [platform.name,platform.shortName,platform.description].join(' '),
+      render:products => products.length ? `<section class="gift-grid" aria-label="الكروت الدولية">${products.map(renderGiftCard).join('')}</section>` : '<div class="digital-empty"><h2>لا توجد كروت مطابقة</h2><p>جرّب تغيير الفلاتر أو البحث.</p></div>',
+      afterRender:() => observeWaveItems(root),
+    });
+    const search = root.querySelector('.gift-catalog-search input'); search.value = giftFilters.search;
+    search.addEventListener('input',() => giftFilters?.setSearch(search.value));
+    root.querySelector('.gift-catalog').addEventListener('digital:search-reset',() => {search.value='';});
   }
 
   function showGiftCards(options = {}) {
+    window.SwitchesDigitalStore?.hide();
     ensureModeSwitches();
     const page = ensureGiftCardsPage();
     const main = document.querySelector(".main-content");
@@ -1516,6 +1443,15 @@
   }
 
   function showCheckout(options = {}) {
+    const quoteSelection = checkoutParams();
+    const quotePlatform = quoteSelection.platformId || '';
+    const quoteQuery = new URLSearchParams();
+    if (quoteSelection.regionId) quoteQuery.set('region', quoteSelection.regionId);
+    if (quoteSelection.value) quoteQuery.set('value', quoteSelection.value);
+    history.replaceState({ page: 'gift-cards' }, '', `/gift-cards${quotePlatform ? '/' + encodeURIComponent(quotePlatform) : ''}${quoteQuery.size ? '?' + quoteQuery : ''}`);
+    showGiftCards({ platformId: quotePlatform, push: false, scroll: false });
+    return;
+    window.SwitchesDigitalStore?.hide();
     ensureModeSwitches();
     const page = ensureGiftCardsPage();
     const main = document.querySelector(".main-content");
@@ -1905,7 +1841,7 @@
       const allProducts = document.getElementById("allProductsPage");
       const favorites = document.getElementById("favoritesPage");
       const main = document.querySelector(".main-content");
-      if (main && !allProducts?.classList.contains("active") && !favorites?.classList.contains("active") && !["/favorites", "/account/favorites"].includes(normalizedPath())) main.style.display = "block";
+      if (main && !window.SwitchesDigitalStore?.isRoute() && !allProducts?.classList.contains("active") && !favorites?.classList.contains("active") && !["/favorites", "/account/favorites"].includes(normalizedPath())) main.style.display = "block";
     });
 
     window.addEventListener("switches:auth-changed", () => {

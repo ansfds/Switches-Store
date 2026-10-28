@@ -1,0 +1,20 @@
+{
+  "name": "switches-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Switches Store local storefront and admin",
+  "scripts": {
+    "dev": "python local-server.py 8000",
+    "check": "node scripts/check.cjs",
+    "test": "node tests/digital-products.test.cjs && node tests/product-options.test.cjs && python tests/test_store_catalog.py",
+    "test:experience": "node tests/product-experience.browser.cjs",
+    "test:browser": "node tests/subscriptions.browser.cjs",
+    "test:existing": "node tests/product-cards.cjs",
+    "test:production": "node tests/production-smoke.cjs",
+    "build": "node scripts/build.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  },
+  "engines": { "node": ">=20" }
+}

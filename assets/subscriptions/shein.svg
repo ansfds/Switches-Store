@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">SHEIN</title>
+  <desc id="desc">Original monochrome typographic cover with abstract paper artwork.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="540" x2="960" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#080808"/><stop offset=".6" stop-color="#171717"/><stop offset="1" stop-color="#303030"/></linearGradient>
+    <linearGradient id="paper" x1="589" y1="121" x2="833" y2="439" gradientUnits="userSpaceOnUse"><stop stop-color="#F6F6F6"/><stop offset="1" stop-color="#ADADAD"/></linearGradient>
+    <linearGradient id="fold" x1="713" y1="193" x2="791" y2="387" gradientUnits="userSpaceOnUse"><stop stop-color="#DDDDDD"/><stop offset="1" stop-color="#777777"/></linearGradient>
+    <filter id="shadow" x="-50%" y="-45%" width="200%" height="210%"><feDropShadow dx="0" dy="21" stdDeviation="23" flood-color="#000000" flood-opacity=".4"/></filter>
+  </defs>
+  <path fill="url(#background)" d="M0 0h960v540H0z"/>
+  <path d="m486 0 474 474M584 0l376 376M388 0l540 540" stroke="#FFFFFF" stroke-opacity=".025"/>
+  <g filter="url(#shadow)">
+    <rect x="615" y="124" width="222" height="280" rx="4" transform="rotate(15 615 124)" fill="#424242" stroke="#FFFFFF" stroke-opacity=".15"/>
+    <rect x="562" y="130" width="222" height="280" rx="4" transform="rotate(-12 562 130)" fill="url(#paper)"/>
+    <path d="m692 131 134 284-96 20-133-284 95-20Z" fill="#F1F1F1" fill-opacity=".56"/>
+    <path d="m713 193 78 165-57 29-79-164 58-30Z" fill="url(#fold)"/>
+    <path d="m655 223 58-30-17 55-41-25Z" fill="#FBFBFB"/>
+    <path d="m734 387 57-29-29 51-28-22Z" fill="#646464"/>
+  </g>
+  <path d="M64 73h28" stroke="#D8D8D8" stroke-width="4" stroke-linecap="round"/>
+  <text x="59" y="271" font-family="Arial,Helvetica,sans-serif" font-size="99" font-weight="700" letter-spacing="2" fill="#FFFFFF">SHEIN</text>
+  <path d="M64 435h74" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2"/>
+  <path d="M64 451h40" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+  <path d="M1 539.5h958" stroke="#FFFFFF" stroke-opacity=".05"/>
+</svg>

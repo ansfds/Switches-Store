@@ -20,6 +20,7 @@ function settingHas(settings,...keys){const s=settings&&typeof settings==='objec
 function settingValue(settings,...keys){const s=settings&&typeof settings==='object'?settings:{};for(const k of keys){if(Object.prototype.hasOwnProperty.call(s,k))return s[k]}return undefined}
 
 async function api(path, options={}) {
+  if (window.SwitchesLocalAdmin?.handles(path,options)) return window.SwitchesLocalAdmin.request(path,options);
   if (!window.SwitchesSupabaseAdmin) throw new Error('ملفات Supabase غير محملة.');
   try {
     return await window.SwitchesSupabaseAdmin.request(path, options);
@@ -47,10 +48,13 @@ function toast(message, error=false){
 }
 function showAuth(){ $('#authShell').classList.remove('hidden'); $('#appShell').classList.add('hidden'); }
 function showApp(){ $('#authShell').classList.add('hidden'); $('#appShell').classList.remove('hidden'); $('#loggedUserLabel').textContent=`${state.me.username} · ${state.me.role}`; applyRoleUI(); }
-function logout(show=true){ state.token=''; state.me=null; localStorage.removeItem('switches_admin_token'); window.SwitchesSupabaseAdmin?.signOut?.(); showAuth(); if(show)toast('تم تسجيل الخروج'); }
+function logout(show=true){ state.token=''; state.me=null; localStorage.removeItem('switches_admin_token'); if(!window.localCatalogMode)window.SwitchesSupabaseAdmin?.signOut?.(); window.localCatalogMode=false; showAuth(); if(show)toast('تم تسجيل الخروج'); }
 function applyRoleUI(){
+  $$('.nav-btn').forEach(button=>button.classList.remove('hidden'));
+  $('.global-search').classList.toggle('hidden',!!window.localCatalogMode);
   $$('.owner-only').forEach(x=>x.classList.toggle('hidden',state.me?.role!=='owner'));
   $$('.admin-only').forEach(x=>x.classList.toggle('hidden',!['owner','admin'].includes(state.me?.role)));
+  if(window.localCatalogMode){$$('.nav-btn').forEach(button=>button.classList.toggle('hidden',!['subscriptions','gift-cards'].includes(button.dataset.section)));$('#exportBtn').classList.add('hidden');$('.global-search').classList.add('hidden');}
 }
 function openModal(title, html, onSubmit){ $('#modalTitle').textContent=title; const form=$('#modalForm'); form.innerHTML=html; form.onsubmit=onSubmit||null; $('#modal').classList.remove('hidden'); }
 function closeModal(){ $('#modal').classList.add('hidden'); $('#modalForm').innerHTML=''; }
@@ -78,6 +82,7 @@ async function boot(){
   }catch(err){toast(err.message,true)}
 }
 async function loadAll(){
+  if(window.localCatalogMode)return window.SwitchesLocalAdmin.load();
   const tasks=[
     ['overview','/api/admin/overview'],['products','/api/admin/products'],['orders','/api/admin/orders'],['customers','/api/admin/customers'],
     ['categories','/api/admin/categories'],['brands','/api/admin/brands'],['coupons','/api/admin/coupons'],['homepage','/api/admin/homepage'],
@@ -120,7 +125,7 @@ function productStatusLabel(s){return ({published:'منشور',draft:'مسودة
 function stockBadge(p){ if(!p.trackStock)return badge('غير متتبع'); if(p.stockQty<=0)return badge('نفد','bad'); if(p.stockQty<=p.lowStockThreshold)return badge(`منخفض ${p.stockQty}`,'warn'); return badge(`متوفر ${p.stockQty}`,'good'); }
 function productImage(p){return p.images?.[0]?`<img class="thumb" src="${esc(p.images[0])}" onerror="this.style.display='none'">`:`<div class="thumb placeholder"><i class="fa-solid fa-image"></i></div>`}
 
-function fillFilters(){ $('#productCategoryFilter').innerHTML='<option value="">كل التصنيفات</option>'+state.categories.map(c=>`<option>${esc(c.name)}</option>`).join(''); }
+function fillFilters(){ const filter=$('#productCategoryFilter'), selected=filter.value; filter.innerHTML='<option value="">كل التصنيفات</option>'+[...new Set([...state.categories.map(c=>c.name),'Minecraft','الاشتراكات'])].map(name=>`<option>${esc(name)}</option>`).join(''); filter.value=selected; }
 function renderProducts(){
   const q=($('#productSearch')?.value||'').toLowerCase(), cat=$('#productCategoryFilter')?.value||'', st=$('#productStatusFilter')?.value||'';
   const rows=state.products.filter(p=>(!q||[p.name,p.sku,p.brand,p.category].join(' ').toLowerCase().includes(q))&&(!cat||p.category===cat)&&(!st||p.status===st));
@@ -133,16 +138,20 @@ window.openProductEditor=function(id){
   const x=p||{name:'',shortDescription:'',description:'',category:'',brand:'',sku:'',price:0,oldPrice:null,condition:'جديد',images:[],specs:{},tags:[],stockQty:0,lowStockThreshold:3,trackStock:true,availability:'available',status:'published',seoTitle:'',metaDescription:'',slug:'',isActive:true,sortOrder:0};
   const cats=state.categories.map(c=>`<option ${x.category===c.name?'selected':''}>${esc(c.name)}</option>`).join('');
   const brands=state.brands.map(c=>`<option ${x.brand===c.name?'selected':''}>${esc(c.name)}</option>`).join('');
+  const conditionValues=[...new Set(['جديد','مستعمل','مجدد','علبة مفتوحة',x.condition].filter(Boolean))];
+  const conditionOptions=conditionValues.map(value=>`<option value="${esc(value)}" ${x.condition===value?'selected':''}>${esc(SwitchesProductCardData.conditionLabel(value))}</option>`).join('');
   openModal(id?'تعديل المنتج':'إضافة منتج جديد',`<div class="form-grid three">
+    ${SwitchesDigitalAdmin.fields(x)}
     <label><span>اسم المنتج</span><input name="name" value="${esc(x.name)}" required></label><label><span>SKU</span><input name="sku" value="${esc(x.sku)}"></label><label><span>الحالة</span><select name="status"><option value="published" ${x.status==='published'?'selected':''}>منشور</option><option value="draft" ${x.status==='draft'?'selected':''}>مسودة</option><option value="hidden" ${x.status==='hidden'?'selected':''}>مخفي</option></select></label>
     <label><span>التصنيف</span><select name="category"><option value="">بدون</option>${cats}</select></label><label><span>الماركة</span><select name="brand"><option value="">بدون</option>${brands}</select></label><label><span>حالة المنتج</span><select name="availability"><option value="available" ${x.availability==='available'?'selected':''}>متوفر</option><option value="unavailable" ${x.availability==='unavailable'?'selected':''}>غير متوفر</option><option value="outOfStock" ${x.availability==='outOfStock'?'selected':''}>نفذت الكمية</option><option value="comingSoon" ${x.availability==='comingSoon'?'selected':''}>قريبًا</option></select></label>
-    <label><span>حالة القطعة</span><select name="condition"><option value="جديد" ${x.condition==='جديد'?'selected':''}>جديد</option><option value="مستعمل" ${x.condition==='مستعمل'?'selected':''}>مستعمل</option><option value="علبة مفتوحة" ${x.condition==='علبة مفتوحة'?'selected':''}>علبة مفتوحة</option></select></label>
+    <label><span>حالة القطعة</span><select name="condition">${conditionOptions}</select></label>
+    <div class="check-grid"><label><input name="freeShipping" type="checkbox" ${SwitchesProductCardData.hasFreeShipping(x)?'checked':''}><span>شحن مجاني</span></label></div>
     <label><span>السعر الحالي</span><input name="price" type="number" step="0.01" value="${x.price}"></label><label><span>السعر القديم</span><input name="oldPrice" type="number" step="0.01" value="${x.oldPrice??''}"></label><label><span>الترتيب</span><input name="sortOrder" type="number" value="${x.sortOrder||0}"></label>
     <label><span>المخزون</span><input name="stockQty" type="number" value="${x.stockQty||0}"></label><label><span>حد التنبيه</span><input name="lowStockThreshold" type="number" value="${x.lowStockThreshold||3}"></label><label><span>تتبع المخزون</span><select name="trackStock"><option value="1" ${x.trackStock?'selected':''}>نعم</option><option value="0" ${!x.trackStock?'selected':''}>لا</option></select></label>
     <label class="full"><span>وصف مختصر</span><input name="shortDescription" value="${esc(x.shortDescription)}"></label><label class="full"><span>الوصف الكامل</span><textarea name="description" rows="5">${esc(x.description)}</textarea></label>
     <div class="full upload-box"><label><span>صور المنتج (روابط - كل سطر صورة)</span><textarea name="images" rows="4">${esc((x.images||[]).join('\n'))}</textarea></label><label><span>أو ارفع صورة من جهازك</span><input id="productImageUpload" type="file" accept="image/*" multiple></label><div id="uploadHint" class="hint"></div></div>
-    <label class="full"><span>المواصفات (كل سطر: المفتاح = القيمة)</span><textarea name="specs" rows="5">${esc(Object.entries(x.specs||{}).map(([k,v])=>`${k} = ${v}`).join('\n'))}</textarea></label>
-    <label class="full"><span>Tags مفصولة بفواصل</span><input name="tags" value="${esc((x.tags||[]).join(', '))}"></label>
+    <label class="full"><span>المواصفات (كل سطر: المفتاح = القيمة)</span><textarea name="specs" rows="5">${esc(Object.entries(SwitchesProductSections.specsWithoutMetadata(x)).map(([k,v])=>`${k} = ${v}`).join('\n'))}</textarea></label>
+    <label class="full"><span>Tags مفصولة بفواصل</span><input name="tags" value="${esc((x.tags||[]).filter(tag=>tag!=='freeShipping').join(', '))}"></label>
     <label><span>SEO Title</span><input name="seoTitle" value="${esc(x.seoTitle)}"></label><label><span>URL Slug</span><input name="slug" value="${esc(x.slug)}"></label><label><span>مفعل</span><select name="isActive"><option value="1" ${x.isActive?'selected':''}>نعم</option><option value="0" ${!x.isActive?'selected':''}>لا</option></select></label>
     <label class="full"><span>Meta Description</span><textarea name="metaDescription" rows="3">${esc(x.metaDescription)}</textarea></label>
     <div class="full row-actions"><button class="btn primary" type="submit">${id?'حفظ التعديلات':'إضافة المنتج'}</button>${id?`<button class="btn ghost" type="button" onclick="window.open('/?product=${id}','_blank')"><i class="fa-solid fa-eye"></i> معاينة المنتج</button>`:''}</div></div>`,async e=>{
@@ -150,8 +159,10 @@ window.openProductEditor=function(id){
       const files=$('#productImageUpload').files; if(files.length){$('#uploadHint').textContent='جارٍ رفع الصور...';for(const file of files){const fd=new FormData();fd.append('file',file);const up=await api('/api/admin/uploads',{method:'POST',body:fd});images.push(up.url)}}
       const specs={};f.specs.value.split('\n').forEach(line=>{const i=line.indexOf('=');if(i>0)specs[line.slice(0,i).trim()]=line.slice(i+1).trim()});
       const payload={name:f.name.value.trim(),shortDescription:f.shortDescription.value.trim(),description:f.description.value.trim(),category:f.category.value,brand:f.brand.value,sku:f.sku.value.trim(),price:+f.price.value||0,oldPrice:f.oldPrice.value?+f.oldPrice.value:null,condition:f.condition.value,images,specs,tags:f.tags.value.split(',').map(s=>s.trim()).filter(Boolean),stockQty:+f.stockQty.value||0,lowStockThreshold:+f.lowStockThreshold.value||3,trackStock:f.trackStock.value==='1',availability:f.availability.value,status:f.status.value,seoTitle:f.seoTitle.value.trim(),metaDescription:f.metaDescription.value.trim(),slug:f.slug.value.trim(),isActive:f.isActive.value==='1',sortOrder:+f.sortOrder.value||0};
-      try{await api(id?`/api/admin/products/${id}`:'/api/admin/products',{method:id?'PUT':'POST',body:JSON.stringify(payload)});closeModal();await refreshCore();toast(id?'تم تحديث المنتج':'تمت إضافة المنتج')}catch(err){toast(err.message,true)}
+      payload.tags=SwitchesProductCardData.withFreeShipping(payload.tags,f.freeShipping.checked);
+      try{SwitchesDigitalAdmin.apply(f,payload);await api(id?`/api/admin/products/${id}`:'/api/admin/products',{method:id?'PUT':'POST',body:JSON.stringify(payload)});closeModal();await refreshCore();toast(id?'تم تحديث المنتج':'تمت إضافة المنتج')}catch(err){toast(err.message,true)}
   });
+  SwitchesDigitalAdmin.mount($('#modalForm'));
 };
 window.duplicateProduct=async id=>{try{await api(`/api/admin/products/${id}/duplicate`,{method:'POST'});await refreshCore();toast('تم نسخ المنتج')}catch(e){toast(e.message,true)}};
 window.deleteProduct=async id=>{if(!confirm('هل أنت متأكد من حذف هذا المنتج؟ سيتم استخدام Soft Delete.'))return;try{await api(`/api/admin/products/${id}`,{method:'DELETE'});await refreshCore();toast('تم حذف المنتج')}catch(e){toast(e.message,true)}};

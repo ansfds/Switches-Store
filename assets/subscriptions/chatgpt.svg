@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">ChatGPT</title><desc id="desc">Original typographic cover with abstract artwork for ChatGPT. No official logo is used.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="540" x2="960" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#0B0F18"/><stop offset=".54" stop-color="#111623"/><stop offset="1" stop-color="#153D38"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#83DBC0" stop-opacity=".45"/><stop offset="1" stop-color="#83DBC0" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x1="560" y1="80" x2="870" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".035"/></linearGradient>
+<linearGradient id="accent" x1="520" y1="110" x2="900" y2="440" gradientUnits="userSpaceOnUse"><stop stop-color="#83DBC0"/><stop offset="1" stop-color="#153D38"/></linearGradient>
+<filter id="shadow" x="-45%" y="-45%" width="190%" height="210%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity=".3"/></filter>
+<pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" stroke="#FFFFFF" stroke-opacity=".022"/></pattern>
+</defs>
+<path fill="url(#bg)" d="M0 0h960v540H0z"/><path fill="url(#grid)" d="M0 0h960v540H0z"/>
+<ellipse cx="786" cy="255" rx="380" ry="340" fill="url(#glow)"/>
+<g filter="url(#shadow)"><rect x="579" y="144" width="292" height="216" rx="23" transform="rotate(7 579 144)" fill="#356C5F" stroke="#B4E9D4" stroke-opacity=".3"/><rect x="553" y="133" width="294" height="223" rx="23" fill="#1B3734" stroke="#ADE7D1" stroke-opacity=".45"/><circle cx="582" cy="163" r="5" fill="#A9D6C9" fill-opacity=".5"/><circle cx="599" cy="163" r="5" fill="#A9D6C9" fill-opacity=".3"/><circle cx="616" cy="163" r="5" fill="#A9D6C9" fill-opacity=".15"/><rect x="580" y="194" width="208" height="43" rx="12" fill="#94D9C1" fill-opacity=".15"/><path d="M597 215h126" stroke="#D5F3E4" stroke-opacity=".7" stroke-width="6" stroke-linecap="round"/><path d="M583 265h226m-226 19h187m-187 19h209" stroke="#D5F3E4" stroke-opacity=".35" stroke-width="6" stroke-linecap="round"/><path d="M788 294v16" stroke="#A4E8CC" stroke-width="3"/><rect x="624" y="372" width="219" height="56" rx="17" fill="#C6EADD"/><path d="M645 400h100" stroke="#325C50" stroke-width="6" stroke-linecap="round"/><path d="m801 408 10-10-10-10m-13 10h23" stroke="#325C50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+<path d="M64 73h28" stroke="#83DBC0" stroke-width="4" stroke-linecap="round"/>
+<text x="64" y="131" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600" letter-spacing="4.5" fill="#FFFFFF" fill-opacity=".63">AI ASSISTANT</text>
+<text x="60" y="260" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="700" letter-spacing="-3" fill="#FFFFFF">ChatGPT</text>
+<path d="M64 435h74" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2"/>
+<path d="M64 451h40" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+<path d="M1 539.5h958" stroke="#FFFFFF" stroke-opacity=".05"/>
+</svg>

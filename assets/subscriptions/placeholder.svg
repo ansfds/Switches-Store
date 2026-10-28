@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Digital product</title><desc id="desc">Original typographic cover with abstract artwork for Digital product. No official logo is used.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="540" x2="960" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#0B0F18"/><stop offset=".54" stop-color="#111623"/><stop offset="1" stop-color="#26313E"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#8899AA" stop-opacity=".45"/><stop offset="1" stop-color="#8899AA" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x1="560" y1="80" x2="870" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".035"/></linearGradient>
+<linearGradient id="accent" x1="520" y1="110" x2="900" y2="440" gradientUnits="userSpaceOnUse"><stop stop-color="#8899AA"/><stop offset="1" stop-color="#26313E"/></linearGradient>
+<filter id="shadow" x="-45%" y="-45%" width="190%" height="210%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity=".3"/></filter>
+<pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" stroke="#FFFFFF" stroke-opacity=".022"/></pattern>
+</defs>
+<path fill="url(#bg)" d="M0 0h960v540H0z"/><path fill="url(#grid)" d="M0 0h960v540H0z"/>
+<ellipse cx="786" cy="255" rx="380" ry="340" fill="url(#glow)"/>
+<g filter="url(#shadow)"><rect x="578" y="137" width="269" height="279" rx="25" fill="url(#glass)" stroke="#B0C4D7" stroke-opacity=".3"/><rect x="617" y="184" width="190" height="126" rx="13" stroke="#BDD0E1" stroke-opacity=".4" stroke-width="3"/><path d="m646 279 35-41 33 30 30-20 34 40H640l6-9Z" fill="#BDD0E1" fill-opacity=".25"/><circle cx="762" cy="220" r="12" fill="#BDD0E1" fill-opacity=".45"/><path d="M619 346h142m-142 20h101" stroke="#C0CFDB" stroke-opacity=".35" stroke-width="7" stroke-linecap="round"/></g>
+<path d="M64 73h28" stroke="#8899AA" stroke-width="4" stroke-linecap="round"/>
+<text x="64" y="131" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600" letter-spacing="4.5" fill="#FFFFFF" fill-opacity=".63">SUBSCRIPTIONS</text>
+<text x="60" y="260" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="700" letter-spacing="-3" fill="#FFFFFF">Digital</text>
+<path d="M64 435h74" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2"/>
+<path d="M64 451h40" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+<path d="M1 539.5h958" stroke="#FFFFFF" stroke-opacity=".05"/>
+</svg>

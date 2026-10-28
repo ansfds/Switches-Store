@@ -1,4 +1,16 @@
 {
+  "sections": {
+    "pcParts": "/assets/ui/pc-parts-mode.webp",
+    "giftCards": "/assets/ui/gift-card-mode.jpg",
+    "minecraft": "/assets/sections/minecraft-java-bedrock.webp",
+    "subscriptions": "/assets/sections/digital-subscriptions.svg"
+  },
+  "minecraft": {
+    "heroBackground": "/assets/sections/minecraft-banner.webp"
+  },
+  "subscriptions": {
+    "heroBackground": "/assets/sections/digital-subscriptions.svg"
+  },
   "modeButtons": {
     "products": {
       "backgroundUrl": "/assets/ui/pc-parts-mode.webp"

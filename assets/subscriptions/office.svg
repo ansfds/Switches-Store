@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Microsoft Office</title><desc id="desc">Original typographic cover with abstract artwork for Microsoft Office. No official logo is used.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="540" x2="960" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#0B0F18"/><stop offset=".54" stop-color="#111623"/><stop offset="1" stop-color="#67231E"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#FC9A6B" stop-opacity=".45"/><stop offset="1" stop-color="#FC9A6B" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x1="560" y1="80" x2="870" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".035"/></linearGradient>
+<linearGradient id="accent" x1="520" y1="110" x2="900" y2="440" gradientUnits="userSpaceOnUse"><stop stop-color="#FC9A6B"/><stop offset="1" stop-color="#67231E"/></linearGradient>
+<filter id="shadow" x="-45%" y="-45%" width="190%" height="210%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity=".3"/></filter>
+<pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" stroke="#FFFFFF" stroke-opacity=".022"/></pattern>
+</defs>
+<path fill="url(#bg)" d="M0 0h960v540H0z"/><path fill="url(#grid)" d="M0 0h960v540H0z"/>
+<ellipse cx="786" cy="255" rx="380" ry="340" fill="url(#glow)"/>
+<g filter="url(#shadow)"><rect x="584" y="128" width="219" height="289" rx="17" transform="rotate(-11 584 128)" fill="#A13935" stroke="#F2B19A" stroke-opacity=".4"/><rect x="627" y="135" width="217" height="288" rx="17" transform="rotate(12 627 135)" fill="#C56641" stroke="#FFD0A5" stroke-opacity=".4"/><rect x="596" y="134" width="230" height="292" rx="17" fill="#FFF2E6"/><rect x="596" y="134" width="230" height="50" rx="17" fill="#E86F46"/><path fill="#E86F46" d="M596 161h230v23H596z"/><rect x="617" y="154" width="65" height="7" rx="3.5" fill="#FFFFFF" fill-opacity=".75"/><rect x="619" y="211" width="128" height="9" rx="4.5" fill="#915D48"/><path d="M619 239h181m-181 18h165" stroke="#A58873" stroke-opacity=".35" stroke-width="6" stroke-linecap="round"/><rect x="619" y="287" width="180" height="108" rx="7" fill="#ECD9C8"/><path d="M632 374h153m-153-31h153m-153-31h153M681 301v81m48-81v81" stroke="#AE8871" stroke-opacity=".45" stroke-width="2"/><path d="M642 359v-27m48 27v-11m47 11v-39" stroke="#E3794C" stroke-width="9" stroke-linecap="round"/></g>
+<path d="M64 73h28" stroke="#FC9A6B" stroke-width="4" stroke-linecap="round"/>
+<text x="64" y="131" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600" letter-spacing="4.5" fill="#FFFFFF" fill-opacity=".63">MICROSOFT</text>
+<text x="60" y="260" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="700" letter-spacing="-3" fill="#FFFFFF">Office</text>
+<path d="M64 435h74" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2"/>
+<path d="M64 451h40" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+<path d="M1 539.5h958" stroke="#FFFFFF" stroke-opacity=".05"/>
+</svg>

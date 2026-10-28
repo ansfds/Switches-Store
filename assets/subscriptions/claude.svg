@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Claude</title><desc id="desc">Original typographic cover with abstract artwork for Claude. No official logo is used.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="540" x2="960" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#0B0F18"/><stop offset=".54" stop-color="#111623"/><stop offset="1" stop-color="#51362D"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#DAAA87" stop-opacity=".45"/><stop offset="1" stop-color="#DAAA87" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x1="560" y1="80" x2="870" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".035"/></linearGradient>
+<linearGradient id="accent" x1="520" y1="110" x2="900" y2="440" gradientUnits="userSpaceOnUse"><stop stop-color="#DAAA87"/><stop offset="1" stop-color="#51362D"/></linearGradient>
+<filter id="shadow" x="-45%" y="-45%" width="190%" height="210%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity=".3"/></filter>
+<pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" stroke="#FFFFFF" stroke-opacity=".022"/></pattern>
+</defs>
+<path fill="url(#bg)" d="M0 0h960v540H0z"/><path fill="url(#grid)" d="M0 0h960v540H0z"/>
+<ellipse cx="786" cy="255" rx="380" ry="340" fill="url(#glow)"/>
+<g filter="url(#shadow)" transform="rotate(10 736 279)"><rect x="594" y="113" width="250" height="319" rx="19" fill="#D5B9A2" fill-opacity=".24" stroke="#E6CDB8" stroke-opacity=".28"/><path d="M582 137h180l70 70v225a15 15 0 0 1-15 15H582a15 15 0 0 1-15-15V152a15 15 0 0 1 15-15Z" fill="#EFE7D8"/><path d="M762 137v55a15 15 0 0 0 15 15h55l-70-70Z" fill="#CDBBA9"/><rect x="594" y="218" width="118" height="9" rx="4.5" fill="#694E3D" fill-opacity=".75"/><path d="M594 249h193m-193 20h167m-167 20h185" stroke="#8A7564" stroke-opacity=".35" stroke-width="6" stroke-linecap="round"/><rect x="592" y="324" width="188" height="84" rx="11" fill="#D6A47F" fill-opacity=".4"/><path d="m615 350-10 13 10 13m38-26 10 13-10 13m-24 4 10-35" stroke="#845F46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g><circle cx="866" cy="357" r="10" fill="#D4A582"/><path d="M556 96h21" stroke="#F0D2B6" stroke-width="2" stroke-linecap="round"/>
+<path d="M64 73h28" stroke="#DAAA87" stroke-width="4" stroke-linecap="round"/>
+<text x="64" y="131" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600" letter-spacing="4.5" fill="#FFFFFF" fill-opacity=".63">AI ASSISTANT</text>
+<text x="60" y="260" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="700" letter-spacing="-3" fill="#FFFFFF">Claude</text>
+<path d="M64 435h74" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2"/>
+<path d="M64 451h40" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2"/>
+<path d="M1 539.5h958" stroke="#FFFFFF" stroke-opacity=".05"/>
+</svg>
